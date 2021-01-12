@@ -4,91 +4,89 @@
 
 **1. 基本选择器语法**
 
-| 选择器 | 类型 | 功能描述 |
-| :-: | :-: | :-: |
-| `*` | 通配选择器 | 选择文档中所有HTML元素 |
-| `E` | 元素选择器 | 选择指定类型的HTML元素 |
-| `#id` | ID选择器 | 选择指定ID属性值为“id”的任意类型元素 |
-| `.class` | 类选择器 | 选择指定class属性值为“class”的任意类型的任意多个元素 |
-| `selector1,selectorN` | 群组选择器 | 将每一个选择器匹配的元素集合并 |
+|        选择器         |    类型    |                        功能描述                        |
+| :-------------------: | :--------: | :----------------------------------------------------: |
+|          `*`          | 通配选择器 |                选择文档中所有 HTML 元素                |
+|          `E`          | 元素选择器 |                选择指定类型的 HTML 元素                |
+|         `#id`         | ID 选择器  |         选择指定 ID 属性值为“id”的任意类型元素         |
+|       `.class`        |  类选择器  | 选择指定 class 属性值为“class”的任意类型的任意多个元素 |
+| `selector1,selectorN` | 群组选择器 |             将每一个选择器匹配的元素集合并             |
 
 **2. 层次选择器语法**
 
-| 选择器 | 类型 | 功能描述 |
-| :-: | :-: | :-: |
-| `E  F` | 后代选择器（包含选择器） | 选择匹配的F元素，且匹配的F元素被包含在匹配的E元素内 |
-| `E>F` | 子选择器 | 选择匹配的F元素，且匹配的F元素所匹配的E元素的子元素 |
-| `E+F` | 相邻兄弟选择器 | 选择匹配的F元素，且匹配的F元素紧位于匹配的E元素的后面 |
-| `E~F` | 通用选择器 | 选择匹配的F元素，且位于匹配的E元素后的所有匹配的F元素 |
+| 选择器 |           类型           |                          功能描述                           |
+| :----: | :----------------------: | :---------------------------------------------------------: |
+| `E F`  | 后代选择器（包含选择器） |  选择匹配的 F 元素，且匹配的 F 元素被包含在匹配的 E 元素内  |
+| `E>F`  |         子选择器         |  选择匹配的 F 元素，且匹配的 F 元素所匹配的 E 元素的子元素  |
+| `E+F`  |      相邻兄弟选择器      | 选择匹配的 F 元素，且匹配的 F 元素紧位于匹配的 E 元素的后面 |
+| `E~F`  |        通用选择器        | 选择匹配的 F 元素，且位于匹配的 E 元素后的所有匹配的 F 元素 |
 
 **3. 动态伪类选择器语法**
 
-| 选择器 | 类型 | 功能描述 |
-| :-: | :-: |  :-: |
-| `E:link` | 链接伪类选择器 | 选择匹配的E元素，而且匹配元素被定义了超链接并未被访问过。常用于链接描点上 |
-| `E:visited` | 链接伪类选择器 | 选择匹配的E元素，而且匹配元素被定义了超链接并已被访问过。常用于链接描点上 |
-| `E:active` | 用户行为选择器 | 选择匹配的E元素，且匹配元素被激活。常用于链接描点和按钮上 |
-| `E:hover` | 用户行为选择器 | 选择匹配的E元素，且用户鼠标停留在元素E上。IE6及以下浏览器仅支持a:hover |
-| `E:focus` | 用户行为选择器 | 选择匹配的E元素，而且匹配元素获取焦点 |
+|   选择器    |      类型      |                                   功能描述                                   |
+| :---------: | :------------: | :--------------------------------------------------------------------------: |
+|  `E:link`   | 链接伪类选择器 | 选择匹配的 E 元素，而且匹配元素被定义了超链接并未被访问过。常用于链接描点上  |
+| `E:visited` | 链接伪类选择器 | 选择匹配的 E 元素，而且匹配元素被定义了超链接并已被访问过。常用于链接描点上  |
+| `E:active`  | 用户行为选择器 |         选择匹配的 E 元素，且匹配元素被激活。常用于链接描点和按钮上          |
+|  `E:hover`  | 用户行为选择器 | 选择匹配的 E 元素，且用户鼠标停留在元素 E 上。IE6 及以下浏览器仅支持 a:hover |
+|  `E:focus`  | 用户行为选择器 |                   选择匹配的 E 元素，而且匹配元素获取焦点                    |
 
 **4. 目标伪类选择器**
 
-| 选择器 | 功能描述 |
-| :-: | :-: |
-| `E:target` | 选择匹配E的所有元素，且匹配元素被相关URL指向 |
+|   选择器   |                     功能描述                     |
+| :--------: | :----------------------------------------------: |
+| `E:target` | 选择匹配 E 的所有元素，且匹配元素被相关 URL 指向 |
 
-**5. UI元素状态伪类选择器语法**
+**5. UI 元素状态伪类选择器语法**
 
-| 选择器 | 类型 | 功能描述 |
-| :-: | :-: | :-: |
-| `E:checked` | 选中状态伪类选择器 | 匹配选中的复选按钮或者单选按钮表单元素 |
-| `E:enabled` | 启用状态伪类选择器 | 匹配所有启用的表单元素 |
-| `E:disabled` | 不可用状态伪类选择器 | 匹配所有禁用的表单元素 |
+|    选择器    |         类型         |                功能描述                |
+| :----------: | :------------------: | :------------------------------------: |
+| `E:checked`  |  选中状态伪类选择器  | 匹配选中的复选按钮或者单选按钮表单元素 |
+| `E:enabled`  |  启用状态伪类选择器  |         匹配所有启用的表单元素         |
+| `E:disabled` | 不可用状态伪类选择器 |         匹配所有禁用的表单元素         |
 
 **6. 结构伪类选择器使用语法**
 
-| 选择器 | 功能描述 |
-| :-: | :-: |
-| `E:first-child` | 作为父元素的第一个子元素的元素E。与E:nth-child(1)等同 |
-| `E:last-child` | 作为父元素的最后一个子元素的元素E。与E:nth-last-child(1)等同 |
-| `E:root` | 选择匹配元素E所在文档的根元素。在HTML文档中，根元素始终是html，此时该选择器与html类型选择器匹配的内容相同 |
-| `E F:nth-child(n)` | 选择父元素E的第n个子元素F。其中n可以是整数（1，2，3）、关键字（even，odd）、可以是公式（2n+1）,而且n值起始值为1，而不是0. |
-| `E F:nth-last-child(n)` | 选择父元素E的倒数第n个子元素F。此选择器与E:nth-child(n)选择器计算顺序刚好相反，但使用方法都是一样的，其中：nth-last-child(1)始终匹配最后一个元素，与last-child等同 |
-| `E:nth-of-type(n)` | 选择父元素内具有指定类型的第n个E元素 |
-| `E:nth-last-of-type(n)` | 选择父元素内具有指定类型的倒数第n个E元素 |
-| `E:first-of-type` | 选择父元素内具有指定类型的第一个E元素，与E:nth-of-type(1)等同 |
-| `E:last-of-type` | 选择父元素内具有指定类型的最后一个E元素，与E:nth-last-of-type(1)等同 |
-| `E:only-child` | 选择父元素只包含一个子元素，且该子元素匹配E元素 |
-| `E:only-of-type` | 选择父元素只包含一个同类型子元素，且该子元素匹配E元素 |
-| `E:empty` | 选择没有子元素的元素，而且该元素也不包含任何文本节点 |
+|         选择器          |                                                                                  功能描述                                                                                  |
+| :---------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|     `E:first-child`     |                                                          作为父元素的第一个子元素的元素 E。与 E:nth-child(1)等同                                                           |
+|     `E:last-child`      |                                                       作为父元素的最后一个子元素的元素 E。与 E:nth-last-child(1)等同                                                       |
+|        `E:root`         |                              选择匹配元素 E 所在文档的根元素。在 HTML 文档中，根元素始终是 html，此时该选择器与 html 类型选择器匹配的内容相同                              |
+|   `E F:nth-child(n)`    |                    选择父元素 E 的第 n 个子元素 F。其中 n 可以是整数（1，2，3）、关键字（even，odd）、可以是公式（2n+1）,而且 n 值起始值为 1，而不是 0.                    |
+| `E F:nth-last-child(n)` | 选择父元素 E 的倒数第 n 个子元素 F。此选择器与 E:nth-child(n)选择器计算顺序刚好相反，但使用方法都是一样的，其中：nth-last-child(1)始终匹配最后一个元素，与 last-child 等同 |
+|   `E:nth-of-type(n)`    |                                                                  选择父元素内具有指定类型的第 n 个 E 元素                                                                  |
+| `E:nth-last-of-type(n)` |                                                                选择父元素内具有指定类型的倒数第 n 个 E 元素                                                                |
+|    `E:first-of-type`    |                                                      选择父元素内具有指定类型的第一个 E 元素，与 E:nth-of-type(1)等同                                                      |
+|    `E:last-of-type`     |                                                  选择父元素内具有指定类型的最后一个 E 元素，与 E:nth-last-of-type(1)等同                                                   |
+|     `E:only-child`      |                                                             选择父元素只包含一个子元素，且该子元素匹配 E 元素                                                              |
+|    `E:only-of-type`     |                                                          选择父元素只包含一个同类型子元素，且该子元素匹配 E 元素                                                           |
+|        `E:empty`        |                                                            选择没有子元素的元素，而且该元素也不包含任何文本节点                                                            |
 
-注：（1）.  “ul>li:nth-child(3)”表达的并不是一定选择列表ul元素中的第3个子元素li，仅有列表ul中第3个li元素前不存在其他的元素，命题才有意义，否则不会改变列表第3个li元素的样式。
+注：（1）. “ul>li:nth-child(3)”表达的并不是一定选择列表 ul 元素中的第 3 个子元素 li，仅有列表 ul 中第 3 个 li 元素前不存在其他的元素，命题才有意义，否则不会改变列表第 3 个 li 元素的样式。
 
-（2）. :nth-child(n)  中参数只能是n，不可以用其他字母代替。
+（2）. :nth-child(n) 中参数只能是 n，不可以用其他字母代替。
 
 （3）. :nth-child(odd) 选择的是奇数项，而使用:nth-last-child(odd) 选择的却是偶数项。
 
 **7. 否定伪类选择器**
 
-| 选择器 | 功能描述 |
-| :-: | :-: |
-| `E:not(F)` | 匹配所有除元素F外的E元素 |
+|   选择器   |           功能描述           |
+| :--------: | :--------------------------: |
+| `E:not(F)` | 匹配所有除元素 F 外的 E 元素 |
 
 **8. 属性选择器语法**
 
-| 选择器 | 功能描述 |
-| :-: | :-: |
-| `[attribute]` | 用于选取带有指定属性的元素。 |
-| `[attribute="value"]` | 用于选取带有指定属性和值的元素。 |
-| `[attribute~="value"]` | 用于选取属性值中包含指定词汇的元素。 |
+|         选择器          |                           功能描述                           |
+| :---------------------: | :----------------------------------------------------------: |
+|      `[attribute]`      |                 用于选取带有指定属性的元素。                 |
+|  `[attribute="value"]`  |               用于选取带有指定属性和值的元素。               |
+| `[attribute~="value"]`  |             用于选取属性值中包含指定词汇的元素。             |
 | `[attribute\|="value"]` | 用于选取带有以指定值开头的属性值的元素，该值必须是整个单词。 |
-| `[attribute^="value"]` | 匹配属性值以指定值开头的每个元素。 |
-| `[attribute$="value"]` | 匹配属性值以指定值结尾的每个元素。 |
-| `[attribute*="value"]` | 匹配属性值中包含指定值的每个元素。 |
+| `[attribute^="value"]`  |              匹配属性值以指定值开头的每个元素。              |
+| `[attribute$="value"]`  |              匹配属性值以指定值结尾的每个元素。              |
+| `[attribute*="value"]`  |              匹配属性值中包含指定值的每个元素。              |
 
-注：例`<div class="links item"></div>`其中a[class="links"]{……} 是找不到匹配元素，只有a[class="links item"]{……}才匹配。
-
-
+注：例`<div class="links item"></div>`其中 a[class="links"]{……} 是找不到匹配元素，只有 a[class="links item"]{……}才匹配。
 
 ## 组合选择器
 
@@ -99,7 +97,7 @@
 - 相邻兄弟元素选择器。例如 `A+B`。
 - 一般兄弟元素选择器。例如 `A~B`。
 
- `A+B` ，他会选择紧跟 A 的 B 元素。但是一般兄弟元素选择器 `A~B` 呢？ 他将选择跟随 A 的所有兄弟 B 元素
+`A+B` ，他会选择紧跟 A 的 B 元素。但是一般兄弟元素选择器 `A~B` 呢？ 他将选择跟随 A 的所有兄弟 B 元素
 
 以下是实例：
 
@@ -133,7 +131,7 @@ CSS 代码:
 button[icon]
 ```
 
-这匹配包含 `icon` 属性的 `<button>` 元素。它将匹配 `icon` 属性，无论 `icon` 属性是空值还是设置为特定值。 
+这匹配包含 `icon` 属性的 `<button>` 元素。它将匹配 `icon` 属性，无论 `icon` 属性是空值还是设置为特定值。
 
 <p class="codepen" data-height="411" data-theme-id="default" data-default-tab="css,result" data-user="lbjhui" data-slug-hash="KKVWzBj" style="height: 411px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="属性选择器2">
   <span>See the Pen <a href="https://codepen.io/lbjhui/pen/KKVWzBj">
@@ -144,7 +142,7 @@ button[icon]
 
 第一个链接没有 `target` 属性，因此不匹配。 接下来的两个链接是匹配的，因为它们的 `target` 属性具有空值或特定值的属性。 最后，最后一个链接设置为粉红色，因为它 `fluffy` 属性匹配。 它的值无关紧要，只需要与 `a[fluffy]` 选择器相匹配即可。
 
-一个实际的例子可能是突出显示没有alt属性的图像。 此属性对于网页的可访问性来说是所必需的，因此对于SEO而言，确保所有图像元素都包含此属性非常重要。
+一个实际的例子可能是突出显示没有 alt 属性的图像。 此属性对于网页的可访问性来说是所必需的，因此对于 SEO 而言，确保所有图像元素都包含此属性非常重要。
 
 我们可以使用以下规则来实现此目的：
 
@@ -152,7 +150,7 @@ CSS 代码:
 
 ```css
 img:not([alt]) {
- border: 2px red dashed;
+  border: 2px red dashed;
 }
 ```
 
@@ -270,7 +268,7 @@ img:not([alt]) {
 
 ## 结构选择器
 
-结构选择器非常强大，基于它们在DOM中的位置匹配元素。 它们使您可以灵活地将元素与CSS完全匹配，否则需要 JavaScript 执行相同的操作。
+结构选择器非常强大，基于它们在 DOM 中的位置匹配元素。 它们使您可以灵活地将元素与 CSS 完全匹配，否则需要 JavaScript 执行相同的操作。
 
 这种类型的选择器与显示的选择器不同，因为其中一些选择器允许您传入参数来修改选择器的工作方式。
 
@@ -281,7 +279,7 @@ img:not([alt]) {
 CSS 代码:
 
 ```css
-ul:nth-child(3)
+ul: nth-child(3);
 ```
 
 但是，参数不是必须是简单的数字，它可以是一个简单的表达式，而使伪类更强大。
@@ -291,7 +289,7 @@ ul:nth-child(3)
 - `ul:nth-child(2)` – 匹配第 2 个子元素
 - `ul:nth-child(4n)` – 匹配每 4th 个子元素（4,8,12，…）
 - `ul:nth-child(2n + 1)` – 匹配每 2n + 1 个子元素偏移一个（1,3,5，…）
-- `ul:nth-child(3n - 1)` – 匹配每 3n – 1 个子元素偏移负数1（2,5,8，…）
+- `ul:nth-child(3n - 1)` – 匹配每 3n – 1 个子元素偏移负数 1（2,5,8，…）
 - `ul:nth-child(odd)` – 匹配奇数元素（1,3,5，…）
 - `ul:nth-child(even)` – 匹配偶数元素（2,4,6，…）
 
@@ -334,7 +332,7 @@ CSS 代码:
 
 ```css
 ul:last-of-type li:nth-last-of-type(2)::after {
-  content: "(2nd from end)";
+  content: '(2nd from end)';
   /* Other styles… */
 }
 ```
@@ -369,13 +367,13 @@ ul:last-of-type li:nth-last-of-type(2)::after {
 
 ```css
 #sidebar .box:empty {
-	display: none;
+  display: none;
 }
 ```
 
-注意，就算”box”div里面只有一个空格，它也不会被css当作空标签的，这样就不能匹配该选择器了。
+注意，就算”box”div 里面只有一个空格，它也不会被 css 当作空标签的，这样就不能匹配该选择器了。
 
-Internet Explorer (直到8.0版本)都不支持结构伪类。Firefox、Safari 和Opera 在其最新版本的浏览器中指出这些选择器。这意味着，使用这些选择器对**网站的可用性和可访问性**是很有用的，或者如果网站的用户中的大部分是使用IE而且你不想在某些细节上无视他们，最好还是保持使用通用的class和简单的选择器来迎合这些选择器。否则你会被搞疯的！
+Internet Explorer (直到 8.0 版本)都不支持结构伪类。Firefox、Safari 和 Opera 在其最新版本的浏览器中指出这些选择器。这意味着，使用这些选择器对**网站的可用性和可访问性**是很有用的，或者如果网站的用户中的大部分是使用 IE 而且你不想在某些细节上无视他们，最好还是保持使用通用的 class 和简单的选择器来迎合这些选择器。否则你会被搞疯的！
 
 ## 否定、排除选择器
 
@@ -421,7 +419,7 @@ CSS 否定伪类选择器 `:not(X)`，是以一个简单的以选择器 `X` 为�
 
 **::selection** 伪类选择器用于突出显示的页面用户选择的任何部分，包括可编辑文本字段中的文本。
 
-此伪元素可应用于 color ， background-color ，background（background-color 部分） 和text-shadow（注：到目前位置IE下该属性无效）属性。设置其他属性是没有任何效果的。
+此伪元素可应用于 color ， background-color ，background（background-color 部分） 和 text-shadow（注：到目前位置 IE 下该属性无效）属性。设置其他属性是没有任何效果的。
 
 火狐下需要加-moz-属性前缀；
 
@@ -433,12 +431,24 @@ css 代码:
 
 ```css
 /* draw any selected text yellow on red background */
-::-moz-selection { color: gold;  background: red; }
-::selection      { color: gold;  background: red; } 
- 
+::-moz-selection {
+  color: gold;
+  background: red;
+}
+::selection {
+  color: gold;
+  background: red;
+}
+
 /* draw selected text in a paragraph white on black */
-p::-moz-selection { color: white;  background: black; }
-p::selection      { color: white;  background: black; }
+p::-moz-selection {
+  color: white;
+  background: black;
+}
+p::selection {
+  color: white;
+  background: black;
+}
 ```
 
 一个完整的例子：
@@ -448,20 +458,32 @@ html 代码:
 ```html
 <!DOCTYPE html>
 <html lang="zh-cn">
-<head>
-<meta charset="utf-8" />
-<title>CSS ::Selection 伪类选择器-WEB前端开发</title>
-<meta name="author" content=",www.css88.com" />
-<style>
-p{text-shadow:2px 2px 5px #333333;}
-p::-moz-selection{background:#000;color:#f00;text-shadow:2px 2px 5px #FFFF2E;}
-p::selection{background:#000;color:#f00;text-shadow:2px 2px 5px #FFFF2E;}
-</style>
-</head>
-<body>
-<h1>选中下面的文字，看看它的颜色</h1>
-<p>你选中这段文字后，看看它们的文本颜色和背景色，就能明白::selection的作用。</p>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <title>CSS ::Selection 伪类选择器-WEB前端开发</title>
+    <meta name="author" content=",www.css88.com" />
+    <style>
+      p {
+        text-shadow: 2px 2px 5px #333333;
+      }
+      p::-moz-selection {
+        background: #000;
+        color: #f00;
+        text-shadow: 2px 2px 5px #ffff2e;
+      }
+      p::selection {
+        background: #000;
+        color: #f00;
+        text-shadow: 2px 2px 5px #ffff2e;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>选中下面的文字，看看它的颜色</h1>
+    <p>
+      你选中这段文字后，看看它们的文本颜色和背景色，就能明白::selection的作用。
+    </p>
+  </body>
 </html>
 ```
 
@@ -496,7 +518,7 @@ placeholder（占位符）在实际的应用中非常常见，主要用作提示
 html 代码:
 
 ```html
-<input placeholder="搜索" type="text">
+<input placeholder="搜索" type="text" />
 ```
 
 placeholder 样式
@@ -507,23 +529,53 @@ css 代码:
 
 ```css
 /* all */
-::-webkit-input-placeholder { color:#f00; }
-::-moz-placeholder { color:#f00; } /* firefox 19+ */
-:-ms-input-placeholder { color:#f00; } /* Internet Explorer 10+ */
-:-moz-placeholder { color:#f00; } /* firefox 14-18 */
- 
+::-webkit-input-placeholder {
+  color: #f00;
+}
+::-moz-placeholder {
+  color: #f00;
+} /* firefox 19+ */
+:-ms-input-placeholder {
+  color: #f00;
+} /* Internet Explorer 10+ */
+:-moz-placeholder {
+  color: #f00;
+} /* firefox 14-18 */
+
 /*  webkit 私有 */
-#field2::-webkit-input-placeholder { color:#00f; }
-#field3::-webkit-input-placeholder { color:#090; background:lightgreen; text-transform:uppercase; }
-#field4::-webkit-input-placeholder { font-style:italic; text-decoration:overline; letter-spacing:3px; color:#999; }
- 
+#field2::-webkit-input-placeholder {
+  color: #00f;
+}
+#field3::-webkit-input-placeholder {
+  color: #090;
+  background: lightgreen;
+  text-transform: uppercase;
+}
+#field4::-webkit-input-placeholder {
+  font-style: italic;
+  text-decoration: overline;
+  letter-spacing: 3px;
+  color: #999;
+}
+
 /* mozilla 私有 */
-#field2::-moz-placeholder { color:#00f; }
-#field3::-moz-placeholder { color:#090; background:lightgreen; text-transform:uppercase; }
-#field4::-moz-placeholder { font-style:italic; text-decoration:overline; letter-spacing:3px; color:#999; }
+#field2::-moz-placeholder {
+  color: #00f;
+}
+#field3::-moz-placeholder {
+  color: #090;
+  background: lightgreen;
+  text-transform: uppercase;
+}
+#field4::-moz-placeholder {
+  font-style: italic;
+  text-decoration: overline;
+  letter-spacing: 3px;
+  color: #999;
+}
 ```
 
-可以看出placeholder 伪类样式还是相对丰富的。
+可以看出 placeholder 伪类样式还是相对丰富的。
 
 ---
 
@@ -531,7 +583,7 @@ css 代码:
 
 我们接下来提到其他几个选择器不适合不适合归类到上面任何类别。 别担心我们差不多完成了！ 不幸的是，其中大部分是实验性的，所以你必须等待一段时间才能在生产中使用它们。
 
-`:target` 选择器的目标是一个 `id` 与当前 `URL` 的一部分匹配的元素。 比如下面 `URL` 匹配该URL页面中 `id` 为 `part1` 的元素：
+`:target` 选择器的目标是一个 `id` 与当前 `URL` 的一部分匹配的元素。 比如下面 `URL` 匹配该 URL 页面中 `id` 为 `part1` 的元素：
 
 CSS 代码:
 
@@ -576,7 +628,7 @@ CSS 代码:
 :any-link {
   color: red;
 }
- 
+
 :link, :visited {
   color: red;
 }
@@ -591,7 +643,7 @@ CSS 代码:
 
 所以：`:dir(rtl)` 会匹配所有具有 RTL 方向内容的元素。
 
-HTML文档中的每个元素都可以使用 `lang` 属性设置自己的单独语言。
+HTML 文档中的每个元素都可以使用 `lang` 属性设置自己的单独语言。
 
 html 代码:
 
@@ -624,66 +676,68 @@ CSS 代码:
 
 ## 伪元素
 
-伪元素允许你操作**HTML中不是真实存在的元素**，比如一个文本块的第一行或者第一个字母。
+伪元素允许你操作**HTML 中不是真实存在的元素**，比如一个文本块的第一行或者第一个字母。
 
-伪元素在CSS 2.1中就已经存在，但是CSS 3说明书表示他们应该使用双冒号“::”，以与伪类区分开来。在CSS 2.1中，他们也是使用单个冒号“:”的。浏览器会将能够接受两种格式，除非这些伪元素只存在于CSS3中。
+伪元素在 CSS 2.1 中就已经存在，但是 CSS 3 说明书表示他们应该使用双冒号“::”，以与伪类区分开来。在 CSS 2.1 中，他们也是使用单个冒号“:”的。浏览器会将能够接受两种格式，除非这些伪元素只存在于 CSS3 中。
 
 **::first-line**
 
-::first-line伪元素将匹配block、inline-block、table-caption、table-cell等等级别元素的**第一行**
+::first-line 伪元素将匹配 block、inline-block、table-caption、table-cell 等等级别元素的**第一行**
 
 这对在你的文字块上添加**一些微妙的排版细节**相当有用，比如，将一片文章的第一行文字改成小写字母：
 
 ```css
 h1 + p::first-line {
-	font-variant: small-caps;
- }
-```
-
-如果你专心的阅读了我们前面的内容，你将会了解到上面的语法意味着，紧紧的跟在h1标签之后(+)的段落会将其第一行文字显示为小写字母。
-
-你也可以针对相关的div的第一行，而不用针对实际的段落标签(p):
-
-```css
-div.post p::first-line { font-variant: small-caps; }
-```
-
-或者更进一步，定位某个特低的div的第一个段落的第一行：
-
-```css
-div.post > p:first-child::first-line {
-	font-variant: small-caps;
+  font-variant: small-caps;
 }
 ```
 
-这里，“>”符号表示你指定的是post div的直接子级元素，这样如果段落被包括在第二级div中，它就不会匹配这个选择器。
+如果你专心的阅读了我们前面的内容，你将会了解到上面的语法意味着，紧紧的跟在 h1 标签之后(+)的段落会将其第一行文字显示为小写字母。
+
+你也可以针对相关的 div 的第一行，而不用针对实际的段落标签(p):
+
+```css
+div.post p::first-line {
+  font-variant: small-caps;
+}
+```
+
+或者更进一步，定位某个特低的 div 的第一个段落的第一行：
+
+```css
+div.post > p:first-child::first-line {
+  font-variant: small-caps;
+}
+```
+
+这里，“>”符号表示你指定的是 post div 的直接子级元素，这样如果段落被包括在第二级 div 中，它就不会匹配这个选择器。
 
 **::first-letter**
 
-::first-letter伪元素将会匹配一个文本块的**第一个字母**，除非在同一行里面包含一些其它元素，比如图片。
+::first-letter 伪元素将会匹配一个文本块的**第一个字母**，除非在同一行里面包含一些其它元素，比如图片。
 
-和::first-line伪类一样，::first-letter通常用于给文本元素**添加排版细节**，比如下沉字母或首字母。
+和::first-line 伪类一样，::first-letter 通常用于给文本元素**添加排版细节**，比如下沉字母或首字母。
 
-这里是如何使用::first-letter伪元素创建**首字下沉**的例子:
+这里是如何使用::first-letter 伪元素创建**首字下沉**的例子:
 
 ```css
 p {
-	font-size: 12px;
-	}
+  font-size: 12px;
+}
 
 p::first-letter {
-	font-size: 24px;
-	float: left;
-	}
+  font-size: 24px;
+  float: left;
+}
 ```
 
-注意如果你在某些元素中同时使用::first-line 和::first-letter ，::first-letter 属性将覆盖从::first-line中继承下来的某些属性。
+注意如果你在某些元素中同时使用::first-line 和::first-letter ，::first-letter 属性将覆盖从::first-line 中继承下来的某些属性。
 
-如果你不知道W3C规则的话，这个元素有时会产生意想不到的结果：它事实上是使用最长的规则的选择器！所以如果你计划使用它的话最好仔细的阅读一下 (其它选择器也一样)。
+如果你不知道 W3C 规则的话，这个元素有时会产生意想不到的结果：它事实上是使用最长的规则的选择器！所以如果你计划使用它的话最好仔细的阅读一下 (其它选择器也一样)。
 
 **::before 和 ::after**
 
-::before和::after 伪元素用于在一个元素的前面或后面**插入内容**，纯CSS方法。
+::before 和::after 伪元素用于在一个元素的前面或后面**插入内容**，纯 CSS 方法。
 
 这些元素将继承它们将附加的元素的大部分属性。
 
@@ -691,49 +745,49 @@ p::first-letter {
 
 ```css
 .post {
-	counter-reset: image;
-	}
+  counter-reset: image;
+}
 
 p.description::before {
-	content: "Figure number " counter(image) ": ";
-	counter-increment: image;
-	}
+  content: 'Figure number ' counter(image) ': ';
+  counter-increment: image;
+}
 ```
 
 那么这会产生什么？
 
-首先，我们告诉HTML来**创建“image”计数器**。比如我们可以添加该属性到页面的body。同样我们也可以给该计数器起任何一个名字，只要你想，只要我们常常使用同样的名字引用它：自己试试吧！
+首先，我们告诉 HTML 来**创建“image”计数器**。比如我们可以添加该属性到页面的 body。同样我们也可以给该计数器起任何一个名字，只要你想，只要我们常常使用同样的名字引用它：自己试试吧！
 
-那么我们想在class为”description”的每一个段落之前添加这一块内容: “Figure number ” — 注意只有我们在引号里面写的内容才会被创建到页面中，所以我们也要添加一个空格！
+那么我们想在 class 为”description”的每一个段落之前添加这一块内容: “Figure number ” — 注意只有我们在引号里面写的内容才会被创建到页面中，所以我们也要添加一个空格！
 
-然后，我们就有了counter(image):这将用到我们之前在.post选择器中定义的属性。它默认会从数字1开始。
+然后，我们就有了 counter(image):这将用到我们之前在.post 选择器中定义的属性。它默认会从数字 1 开始。
 
-下一个属性在那里表示计数器知道对于每一个p.description，它需要将image计数器增加1 (counter-increment: image)。
+下一个属性在那里表示计数器知道对于每一个 p.description，它需要将 image 计数器增加 1 (counter-increment: image)。
 
 它并不像看起来的那么复杂，而且还会灰常的有用。
 
-::before和::after伪元素常常只**使用content属性**，来添加一些短语或排版元素，但是这里我们展示了我们如果以一种更加强大的结合counter-reset和counter-increment属性的方式来使用它们。
+::before 和::after 伪元素常常只**使用 content 属性**，来添加一些短语或排版元素，但是这里我们展示了我们如果以一种更加强大的结合 counter-reset 和 counter-increment 属性的方式来使用它们。
 
-**有趣的是**: ::first-line 和::first-letter 伪元素可以匹配使用::before伪元素生成的内容，如果存在的话。
+**有趣的是**: ::first-line 和::first-letter 伪元素可以匹配使用::before 伪元素生成的内容，如果存在的话。
 
 浏览器支持
-如果使用单个冒号的话(比如, :first-letter, 而不是::first-letter)，这些伪元素被IE8支持(但是不被IE7或6支持)。但是左右其他的主流浏览器都支持这些选择器。
+如果使用单个冒号的话(比如, :first-letter, 而不是::first-letter)，这些伪元素被 IE8 支持(但是不被 IE7 或 6 支持)。但是左右其他的主流浏览器都支持这些选择器。
 
-## CSS选择器优先级
+## CSS 选择器优先级
 
-当两个规则都作用到了同一个html元素上时，如果定义的属性有冲突，那么应该用谁的值的，CSS有一套优先级的定义
+当两个规则都作用到了同一个 html 元素上时，如果定义的属性有冲突，那么应该用谁的值的，CSS 有一套优先级的定义
 
 **不同级别**
 
 1. 在属性后面使用`!important`会覆盖页面内任何位置定义的元素样式。
-2. 作为style属性写在元素内的样式
-3. id选择器
+2. 作为 style 属性写在元素内的样式
+3. id 选择器
 4. 类选择器
 5. 标签选择器
 6. 通配符选择器
 7. 浏览器自定义或继承
 
-**总结排序：`！important` > 行内样式 > ID选择器 > 类选择器 > 标签 > 通配符 > 继承 > 浏览器默认属性**
+**总结排序：`！important` > 行内样式 > ID 选择器 > 类选择器 > 标签 > 通配符 > 继承 > 浏览器默认属性**
 
 **同一级别**
 
@@ -741,9 +795,9 @@ p.description::before {
 
 上上面的级别还是很容易看懂的，但是有时候有些规则是多个级别的组合
 
-CSS优先级：是由四个级别和各个级别的出现次数决定的。
+CSS 优先级：是由四个级别和各个级别的出现次数决定的。
 
-四个级别分别为：行内选择符、ID选择符、类别选择符、元素选择符。
+四个级别分别为：行内选择符、ID 选择符、类别选择符、元素选择符。
 
 **优先级的算法**
 
@@ -763,4 +817,3 @@ CSS优先级：是由四个级别和各个级别的出现次数决定的。
 1. `！important`的优先级是最高的，但出现冲突时则需比较“四位数”；
 2. 优先级相同时，则采用就近原则，选择最后出现的样式；
 3. 继承得来的属性，其优先级最低
-

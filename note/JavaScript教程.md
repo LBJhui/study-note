@@ -16,7 +16,7 @@ JavaScript 的核心语法部分相当精简，只包括两个部分：基本的
 - DOM 类：操作网页的各种元素
 - Web 类：实现互联网的各种功能
 
-如果宿主环境是服务器，则会提供各种操作系统的 API，比如文件操作 API、网络通信 API等等。这些你都可以在 Node 环境中找到。
+如果宿主环境是服务器，则会提供各种操作系统的 API，比如文件操作 API、网络通信 API 等等。这些你都可以在 Node 环境中找到。
 
 本书主要介绍 JavaScript 核心语法和浏览器网页开发的基本知识，不涉及 Node。全书可以分成以下四大部分。
 
@@ -25,7 +25,7 @@ JavaScript 的核心语法部分相当精简，只包括两个部分：基本的
 - 浏览器 API
 - DOM
 
-JavaScript 语言有多个版本。本书的内容主要基于 ECMAScript 5.1 版本，这是学习 JavaScript 语法的基础。ES6 和更新的语法请参考[《ECMAScript 6入门》](https://es6.ruanyifeng.com/)。
+JavaScript 语言有多个版本。本书的内容主要基于 ECMAScript 5.1 版本，这是学习 JavaScript 语法的基础。ES6 和更新的语法请参考[《ECMAScript 6 入门》](https://es6.ruanyifeng.com/)。
 
 ## 为什么学习 JavaScript？
 
@@ -73,7 +73,7 @@ Chromium OS、Windows 8 等操作系统直接支持 JavaScript 编写应用程�
 
 **（7）小结**
 
-可以预期，JavaScript 最终将能让你只用一种语言，就开发出适应不同平台（包括桌面端、服务器端、手机端）的程序。早在2013年9月的[统计](http://adambard.com/blog/top-github-languages-for-2013-so-far/)之中，JavaScript 就是当年 GitHub 上使用量排名第一的语言。
+可以预期，JavaScript 最终将能让你只用一种语言，就开发出适应不同平台（包括桌面端、服务器端、手机端）的程序。早在 2013 年 9 月的[统计](http://adambard.com/blog/top-github-languages-for-2013-so-far/)之中，JavaScript 就是当年 GitHub 上使用量排名第一的语言。
 
 著名程序员 Jeff Atwood 甚至提出了一条 [“Atwood 定律”](http://www.codinghorror.com/blog/2007/07/the-principle-of-least-power.html)：
 
@@ -156,34 +156,34 @@ JavaScript 是一种开放的语言。它的标准 ECMA-262 是 ISO 国际标准
 
 ```javascript
 function greetMe(yourName) {
-  console.log('Hello ' + yourName);
+  console.log('Hello ' + yourName)
 }
 
 greetMe('World')
 // Hello World
 ```
 
-# 02-JavaScript语言的历史
+# 02-JavaScript 语言的历史
 
 ## 诞生
 
 JavaScript 因为互联网而生，紧跟着浏览器的出现而问世。回顾它的历史，就要从浏览器的历史讲起。
 
-1990年底，欧洲核能研究组织（CERN）科学家 Tim Berners-Lee，在全世界最大的电脑网络——互联网的基础上，发明了万维网（World Wide Web），从此可以在网上浏览网页文件。最早的网页只能在操作系统的终端里浏览，也就是说只能使用命令行操作，网页都是在字符窗口中显示，这当然非常不方便。
+1990 年底，欧洲核能研究组织（CERN）科学家 Tim Berners-Lee，在全世界最大的电脑网络——互联网的基础上，发明了万维网（World Wide Web），从此可以在网上浏览网页文件。最早的网页只能在操作系统的终端里浏览，也就是说只能使用命令行操作，网页都是在字符窗口中显示，这当然非常不方便。
 
-1992年底，美国国家超级电脑应用中心（NCSA）开始开发一个独立的浏览器，叫做 Mosaic。这是人类历史上第一个浏览器，从此网页可以在图形界面的窗口浏览。
+1992 年底，美国国家超级电脑应用中心（NCSA）开始开发一个独立的浏览器，叫做 Mosaic。这是人类历史上第一个浏览器，从此网页可以在图形界面的窗口浏览。
 
-1994年10月，NCSA 的一个主要程序员 Marc Andreessen 联合风险投资家 Jim Clark，成立了 Mosaic 通信公司（Mosaic Communications），不久后改名为 Netscape。这家公司的方向，就是在 Mosaic 的基础上，开发面向普通用户的新一代的浏览器 Netscape Navigator。
+1994 年 10 月，NCSA 的一个主要程序员 Marc Andreessen 联合风险投资家 Jim Clark，成立了 Mosaic 通信公司（Mosaic Communications），不久后改名为 Netscape。这家公司的方向，就是在 Mosaic 的基础上，开发面向普通用户的新一代的浏览器 Netscape Navigator。
 
-1994年12月，Navigator 发布了1.0版，市场份额一举超过90%。
+1994 年 12 月，Navigator 发布了 1.0 版，市场份额一举超过 90%。
 
 Netscape 公司很快发现，Navigator 浏览器需要一种可以嵌入网页的脚本语言，用来控制浏览器行为。当时，网速很慢而且上网费很贵，有些操作不宜在服务器端完成。比如，如果用户忘记填写“用户名”，就点了“发送”按钮，到服务器再发现这一点就有点太晚了，最好能在用户发出数据之前，就告诉用户“请填写用户名”。这就需要在网页中嵌入小程序，让浏览器检查每一栏是否都填写了。
 
 管理层对这种浏览器脚本语言的设想是：功能不需要太强，语法较为简单，容易学习和部署。那一年，正逢 Sun 公司的 Java 语言问世，市场推广活动非常成功。Netscape 公司决定与 Sun 公司合作，浏览器支持嵌入 Java 小程序（后来称为 Java applet）。但是，浏览器脚本语言是否就选用 Java，则存在争论。后来，还是决定不使用 Java，因为网页小程序不需要 Java 这么“重”的语法。但是，同时也决定脚本语言的语法要接近 Java，并且可以支持 Java 程序。这些设想直接排除了使用现存语言，比如 Perl、Python 和 TCL。
 
-1995年，Netscape 公司雇佣了程序员 Brendan Eich 开发这种网页脚本语言。Brendan Eich 有很强的函数式编程背景，希望以 Scheme 语言（函数式语言鼻祖 LISP 语言的一种方言）为蓝本，实现这种新语言。
+1995 年，Netscape 公司雇佣了程序员 Brendan Eich 开发这种网页脚本语言。Brendan Eich 有很强的函数式编程背景，希望以 Scheme 语言（函数式语言鼻祖 LISP 语言的一种方言）为蓝本，实现这种新语言。
 
-1995年5月，Brendan Eich 只用了10天，就设计完成了这种语言的第一版。它是一个大杂烩，语法有多个来源。
+1995 年 5 月，Brendan Eich 只用了 10 天，就设计完成了这种语言的第一版。它是一个大杂烩，语法有多个来源。
 
 - 基本语法：借鉴 C 语言和 Java 语言。
 - 数据结构：借鉴 Java 语言，包括将值分成原始值和对象两大类。
@@ -194,19 +194,19 @@ Netscape 公司很快发现，Navigator 浏览器需要一种可以嵌入网页�
 
 为了保持简单，这种脚本语言缺少一些关键的功能，比如块级作用域、模块、子类型（subtyping）等等，但是可以利用现有功能找出解决办法。这种功能的不足，直接导致了后来 JavaScript 的一个显著特点：对于其他语言，你需要学习语言的各种功能，而对于 JavaScript，你常常需要学习各种解决问题的模式。而且由于来源多样，从一开始就注定，JavaScript 的编程风格是函数式编程和面向对象编程的一种混合体。
 
-Netscape 公司的这种浏览器脚本语言，最初名字叫做 Mocha，1995年9月改为 LiveScript。12月，Netscape 公司与 Sun 公司（Java 语言的发明者和所有者）达成协议，后者允许将这种语言叫做 JavaScript。这样一来，Netscape 公司可以借助 Java 语言的声势，而 Sun 公司则将自己的影响力扩展到了浏览器。
+Netscape 公司的这种浏览器脚本语言，最初名字叫做 Mocha，1995 年 9 月改为 LiveScript。12 月，Netscape 公司与 Sun 公司（Java 语言的发明者和所有者）达成协议，后者允许将这种语言叫做 JavaScript。这样一来，Netscape 公司可以借助 Java 语言的声势，而 Sun 公司则将自己的影响力扩展到了浏览器。
 
 之所以起这个名字，并不是因为 JavaScript 本身与 Java 语言有多么深的关系（事实上，两者关系并不深，详见下节），而是因为 Netscape 公司已经决定，使用 Java 语言开发网络应用程序，JavaScript 可以像胶水一样，将各个部分连接起来。当然，后来的历史是 Java 语言的浏览器插件失败了，JavaScript 反而发扬光大。
 
-1995年12月4日，Netscape 公司与 Sun 公司联合发布了 JavaScript 语言，对外宣传 JavaScript 是 Java 的补充，属于轻量级的 Java，专门用来操作网页。
+1995 年 12 月 4 日，Netscape 公司与 Sun 公司联合发布了 JavaScript 语言，对外宣传 JavaScript 是 Java 的补充，属于轻量级的 Java，专门用来操作网页。
 
-1996年3月，Navigator 2.0 浏览器正式内置了 JavaScript 脚本语言。
+1996 年 3 月，Navigator 2.0 浏览器正式内置了 JavaScript 脚本语言。
 
 ## JavaScript 与 Java 的关系
 
 这里专门说一下 JavaScript 和 Java 的关系。它们是两种不一样的语言，但是彼此存在联系。
 
-JavaScript 的基本语法和对象体系，是模仿 Java 而设计的。但是，JavaScript 没有采用 Java 的静态类型。正是因为 JavaScript 与 Java 有很大的相似性，所以这门语言才从一开始的 LiveScript 改名为 JavaScript。基本上，JavaScript 这个名字的原意是“很像Java的脚本语言”。
+JavaScript 的基本语法和对象体系，是模仿 Java 而设计的。但是，JavaScript 没有采用 Java 的静态类型。正是因为 JavaScript 与 Java 有很大的相似性，所以这门语言才从一开始的 LiveScript 改名为 JavaScript。基本上，JavaScript 这个名字的原意是“很像 Java 的脚本语言”。
 
 JavaScript 语言的函数是一种独立的数据类型，以及采用基于原型对象（prototype）的继承链。这是它与 Java 语法最大的两点区别。JavaScript 语法要比 Java 自由得多。
 
@@ -216,133 +216,133 @@ JavaScript 语言的函数是一种独立的数据类型，以及采用基于原
 
 ## JavaScript 与 ECMAScript 的关系
 
-1996年8月，微软模仿 JavaScript 开发了一种相近的语言，取名为JScript（JavaScript 是 Netscape 的注册商标，微软不能用），首先内置于IE 3.0。Netscape 公司面临丧失浏览器脚本语言的主导权的局面。
+1996 年 8 月，微软模仿 JavaScript 开发了一种相近的语言，取名为 JScript（JavaScript 是 Netscape 的注册商标，微软不能用），首先内置于 IE 3.0。Netscape 公司面临丧失浏览器脚本语言的主导权的局面。
 
-1996年11月，Netscape 公司决定将 JavaScript 提交给国际标准化组织 ECMA（European Computer Manufacturers Association），希望 JavaScript 能够成为国际标准，以此抵抗微软。ECMA 的39号技术委员会（Technical Committee 39）负责制定和审核这个标准，成员由业内的大公司派出的工程师组成，目前共25个人。该委员会定期开会，所有的邮件讨论和会议记录，都是公开的。
+1996 年 11 月，Netscape 公司决定将 JavaScript 提交给国际标准化组织 ECMA（European Computer Manufacturers Association），希望 JavaScript 能够成为国际标准，以此抵抗微软。ECMA 的 39 号技术委员会（Technical Committee 39）负责制定和审核这个标准，成员由业内的大公司派出的工程师组成，目前共 25 个人。该委员会定期开会，所有的邮件讨论和会议记录，都是公开的。
 
-1997年7月，ECMA 组织发布262号标准文件（ECMA-262）的第一版，规定了浏览器脚本语言的标准，并将这种语言称为 ECMAScript。这个版本就是 ECMAScript 1.0 版。之所以不叫 JavaScript，一方面是由于商标的关系，Java 是 Sun 公司的商标，根据一份授权协议，只有 Netscape 公司可以合法地使用 JavaScript 这个名字，且 JavaScript 已经被 Netscape 公司注册为商标，另一方面也是想体现这门语言的制定者是 ECMA，不是 Netscape，这样有利于保证这门语言的开放性和中立性。因此，ECMAScript 和 JavaScript 的关系是，前者是后者的规格，后者是前者的一种实现。在日常场合，这两个词是可以互换的。
+1997 年 7 月，ECMA 组织发布 262 号标准文件（ECMA-262）的第一版，规定了浏览器脚本语言的标准，并将这种语言称为 ECMAScript。这个版本就是 ECMAScript 1.0 版。之所以不叫 JavaScript，一方面是由于商标的关系，Java 是 Sun 公司的商标，根据一份授权协议，只有 Netscape 公司可以合法地使用 JavaScript 这个名字，且 JavaScript 已经被 Netscape 公司注册为商标，另一方面也是想体现这门语言的制定者是 ECMA，不是 Netscape，这样有利于保证这门语言的开放性和中立性。因此，ECMAScript 和 JavaScript 的关系是，前者是后者的规格，后者是前者的一种实现。在日常场合，这两个词是可以互换的。
 
-ECMAScript 只用来标准化 JavaScript 这种语言的基本语法结构，与部署环境相关的标准都由其他标准规定，比如 DOM 的标准就是由 W3C组织（World Wide Web Consortium）制定的。
+ECMAScript 只用来标准化 JavaScript 这种语言的基本语法结构，与部署环境相关的标准都由其他标准规定，比如 DOM 的标准就是由 W3C 组织（World Wide Web Consortium）制定的。
 
 ECMA-262 标准后来也被另一个国际标准化组织 ISO（International Organization for Standardization）批准，标准号是 ISO-16262。
 
 ## JavaScript 的版本
 
-1997年7月，ECMAScript 1.0发布。
+1997 年 7 月，ECMAScript 1.0 发布。
 
-1998年6月，ECMAScript 2.0版发布。
+1998 年 6 月，ECMAScript 2.0 版发布。
 
-1999年12月，ECMAScript 3.0版发布，成为 JavaScript 的通行标准，得到了广泛支持。
+1999 年 12 月，ECMAScript 3.0 版发布，成为 JavaScript 的通行标准，得到了广泛支持。
 
-2007年10月，ECMAScript 4.0版草案发布，对3.0版做了大幅升级，预计次年8月发布正式版本。草案发布后，由于4.0版的目标过于激进，各方对于是否通过这个标准，发生了严重分歧。以 Yahoo、Microsoft、Google 为首的大公司，反对 JavaScript 的大幅升级，主张小幅改动；以 JavaScript 创造者 Brendan Eich 为首的 Mozilla 公司，则坚持当前的草案。
+2007 年 10 月，ECMAScript 4.0 版草案发布，对 3.0 版做了大幅升级，预计次年 8 月发布正式版本。草案发布后，由于 4.0 版的目标过于激进，各方对于是否通过这个标准，发生了严重分歧。以 Yahoo、Microsoft、Google 为首的大公司，反对 JavaScript 的大幅升级，主张小幅改动；以 JavaScript 创造者 Brendan Eich 为首的 Mozilla 公司，则坚持当前的草案。
 
-2008年7月，由于对于下一个版本应该包括哪些功能，各方分歧太大，争论过于激进，ECMA 开会决定，中止 ECMAScript 4.0 的开发（即废除了这个版本），将其中涉及现有功能改善的一小部分，发布为 ECMAScript 3.1，而将其他激进的设想扩大范围，放入以后的版本，由于会议的气氛，该版本的项目代号起名为 Harmony（和谐）。会后不久，ECMAScript 3.1 就改名为 ECMAScript 5。
+2008 年 7 月，由于对于下一个版本应该包括哪些功能，各方分歧太大，争论过于激进，ECMA 开会决定，中止 ECMAScript 4.0 的开发（即废除了这个版本），将其中涉及现有功能改善的一小部分，发布为 ECMAScript 3.1，而将其他激进的设想扩大范围，放入以后的版本，由于会议的气氛，该版本的项目代号起名为 Harmony（和谐）。会后不久，ECMAScript 3.1 就改名为 ECMAScript 5。
 
-2009年12月，ECMAScript 5.0版 正式发布。Harmony 项目则一分为二，一些较为可行的设想定名为 JavaScript.next 继续开发，后来演变成 ECMAScript 6；一些不是很成熟的设想，则被视为 JavaScript.next.next，在更远的将来再考虑推出。TC39 的总体考虑是，ECMAScript 5 与 ECMAScript 3 基本保持兼容，较大的语法修正和新功能加入，将由 JavaScript.next 完成。当时，JavaScript.next 指的是ECMAScript 6。第六版发布以后，将指 ECMAScript 7。TC39 预计，ECMAScript 5 会在2013年的年中成为 JavaScript 开发的主流标准，并在此后五年中一直保持这个位置。
+2009 年 12 月，ECMAScript 5.0 版 正式发布。Harmony 项目则一分为二，一些较为可行的设想定名为 JavaScript.next 继续开发，后来演变成 ECMAScript 6；一些不是很成熟的设想，则被视为 JavaScript.next.next，在更远的将来再考虑推出。TC39 的总体考虑是，ECMAScript 5 与 ECMAScript 3 基本保持兼容，较大的语法修正和新功能加入，将由 JavaScript.next 完成。当时，JavaScript.next 指的是 ECMAScript 6。第六版发布以后，将指 ECMAScript 7。TC39 预计，ECMAScript 5 会在 2013 年的年中成为 JavaScript 开发的主流标准，并在此后五年中一直保持这个位置。
 
-2011年6月，ECMAScript 5.1版发布，并且成为 ISO 国际标准（ISO/IEC 16262:2011）。到了2012年底，所有主要浏览器都支持 ECMAScript 5.1版的全部功能。
+2011 年 6 月，ECMAScript 5.1 版发布，并且成为 ISO 国际标准（ISO/IEC 16262:2011）。到了 2012 年底，所有主要浏览器都支持 ECMAScript 5.1 版的全部功能。
 
-2013年3月，ECMAScript 6 草案冻结，不再添加新功能。新的功能设想将被放到 ECMAScript 7。
+2013 年 3 月，ECMAScript 6 草案冻结，不再添加新功能。新的功能设想将被放到 ECMAScript 7。
 
-2013年12月，ECMAScript 6 草案发布。然后是12个月的讨论期，听取各方反馈。
+2013 年 12 月，ECMAScript 6 草案发布。然后是 12 个月的讨论期，听取各方反馈。
 
-2015年6月，ECMAScript 6 正式发布，并且更名为“ECMAScript 2015”。这是因为 TC39 委员会计划，以后每年发布一个 ECMAScript 的版本，下一个版本在2016年发布，称为“ECMAScript 2016”，2017年发布“ECMAScript 2017”，以此类推。
+2015 年 6 月，ECMAScript 6 正式发布，并且更名为“ECMAScript 2015”。这是因为 TC39 委员会计划，以后每年发布一个 ECMAScript 的版本，下一个版本在 2016 年发布，称为“ECMAScript 2016”，2017 年发布“ECMAScript 2017”，以此类推。
 
 ## 周边大事记
 
 JavaScript 伴随着互联网的发展一起发展。互联网周边技术的快速发展，刺激和推动了 JavaScript 语言的发展。下面，回顾一下 JavaScript 的周边应用发展。
 
-1996年，样式表标准 CSS 第一版发布。
+1996 年，样式表标准 CSS 第一版发布。
 
-1997年，DHTML（Dynamic HTML，动态 HTML）发布，允许动态改变网页内容。这标志着 DOM 模式（Document Object Model，文档对象模型）正式应用。
+1997 年，DHTML（Dynamic HTML，动态 HTML）发布，允许动态改变网页内容。这标志着 DOM 模式（Document Object Model，文档对象模型）正式应用。
 
-1998年，Netscape 公司开源了浏览器，这导致了 Mozilla 项目的诞生。几个月后，美国在线（AOL）宣布并购 Netscape。
+1998 年，Netscape 公司开源了浏览器，这导致了 Mozilla 项目的诞生。几个月后，美国在线（AOL）宣布并购 Netscape。
 
-1999年，IE 5部署了 XMLHttpRequest 接口，允许 JavaScript 发出 HTTP 请求，为后来大行其道的 Ajax 应用创造了条件。
+1999 年，IE 5 部署了 XMLHttpRequest 接口，允许 JavaScript 发出 HTTP 请求，为后来大行其道的 Ajax 应用创造了条件。
 
-2000年，KDE 项目重写了浏览器引擎 KHTML，为后来的 WebKit 和 Blink 引擎打下基础。这一年的10月23日，KDE 2.0发布，第一次将 KHTML 浏览器包括其中。
+2000 年，KDE 项目重写了浏览器引擎 KHTML，为后来的 WebKit 和 Blink 引擎打下基础。这一年的 10 月 23 日，KDE 2.0 发布，第一次将 KHTML 浏览器包括其中。
 
-2001年，微软公司时隔5年之后，发布了 IE 浏览器的下一个版本 Internet Explorer 6。这是当时最先进的浏览器，它后来统治了浏览器市场多年。
+2001 年，微软公司时隔 5 年之后，发布了 IE 浏览器的下一个版本 Internet Explorer 6。这是当时最先进的浏览器，它后来统治了浏览器市场多年。
 
-2001年，Douglas Crockford 提出了 JSON 格式，用于取代 XML 格式，进行服务器和网页之间的数据交换。JavaScript 可以原生支持这种格式，不需要额外部署代码。
+2001 年，Douglas Crockford 提出了 JSON 格式，用于取代 XML 格式，进行服务器和网页之间的数据交换。JavaScript 可以原生支持这种格式，不需要额外部署代码。
 
-2002年，Mozilla 项目发布了它的浏览器的第一版，后来起名为 Firefox。
+2002 年，Mozilla 项目发布了它的浏览器的第一版，后来起名为 Firefox。
 
-2003年，苹果公司发布了 Safari 浏览器的第一版。
+2003 年，苹果公司发布了 Safari 浏览器的第一版。
 
-2004年，Google 公司发布了 Gmail，促成了互联网应用程序（Web Application）这个概念的诞生。由于 Gmail 是在4月1日发布的，很多人起初以为这只是一个玩笑。
+2004 年，Google 公司发布了 Gmail，促成了互联网应用程序（Web Application）这个概念的诞生。由于 Gmail 是在 4 月 1 日发布的，很多人起初以为这只是一个玩笑。
 
-2004年，Dojo 框架诞生，为不同浏览器提供了同一接口，并为主要功能提供了便利的调用方法。这标志着 JavaScript 编程框架的时代开始来临。
+2004 年，Dojo 框架诞生，为不同浏览器提供了同一接口，并为主要功能提供了便利的调用方法。这标志着 JavaScript 编程框架的时代开始来临。
 
-2004年，WHATWG 组织成立，致力于加速 HTML 语言的标准化进程。
+2004 年，WHATWG 组织成立，致力于加速 HTML 语言的标准化进程。
 
-2005年，苹果公司在 KHTML 引擎基础上，建立了 WebKit 引擎。
+2005 年，苹果公司在 KHTML 引擎基础上，建立了 WebKit 引擎。
 
-2005年，Ajax 方法（Asynchronous JavaScript and XML）正式诞生，Jesse James Garrett 发明了这个词汇。它开始流行的标志是，2月份发布的 Google Maps 项目大量采用该方法。它几乎成了新一代网站的标准做法，促成了 Web 2.0时代的来临。
+2005 年，Ajax 方法（Asynchronous JavaScript and XML）正式诞生，Jesse James Garrett 发明了这个词汇。它开始流行的标志是，2 月份发布的 Google Maps 项目大量采用该方法。它几乎成了新一代网站的标准做法，促成了 Web 2.0 时代的来临。
 
-2005年，Apache 基金会发布了 CouchDB 数据库。这是一个基于 JSON 格式的数据库，可以用 JavaScript 函数定义视图和索引。它在本质上有别于传统的关系型数据库，标识着 NoSQL 类型的数据库诞生。
+2005 年，Apache 基金会发布了 CouchDB 数据库。这是一个基于 JSON 格式的数据库，可以用 JavaScript 函数定义视图和索引。它在本质上有别于传统的关系型数据库，标识着 NoSQL 类型的数据库诞生。
 
-2006年，jQuery 函数库诞生，作者为John Resig。jQuery 为操作网页 DOM 结构提供了非常强大易用的接口，成为了使用最广泛的函数库，并且让 JavaScript 语言的应用难度大大降低，推动了这种语言的流行。
+2006 年，jQuery 函数库诞生，作者为 John Resig。jQuery 为操作网页 DOM 结构提供了非常强大易用的接口，成为了使用最广泛的函数库，并且让 JavaScript 语言的应用难度大大降低，推动了这种语言的流行。
 
-2006年，微软公司发布 IE 7，标志重新开始启动浏览器的开发。
+2006 年，微软公司发布 IE 7，标志重新开始启动浏览器的开发。
 
-2006年，Google推出 Google Web Toolkit 项目（缩写为 GWT），提供 Java 编译成 JavaScript 的功能，开创了将其他语言转为 JavaScript 的先河。
+2006 年，Google 推出 Google Web Toolkit 项目（缩写为 GWT），提供 Java 编译成 JavaScript 的功能，开创了将其他语言转为 JavaScript 的先河。
 
-2007年，Webkit 引擎在 iPhone 手机中得到部署。它最初基于 KDE 项目，2003年苹果公司首先采用，2005年开源。这标志着 JavaScript 语言开始能在手机中使用了，意味着有可能写出在桌面电脑和手机中都能使用的程序。
+2007 年，Webkit 引擎在 iPhone 手机中得到部署。它最初基于 KDE 项目，2003 年苹果公司首先采用，2005 年开源。这标志着 JavaScript 语言开始能在手机中使用了，意味着有可能写出在桌面电脑和手机中都能使用的程序。
 
-2007年，Douglas Crockford 发表了名为《JavaScript: The good parts》的演讲，次年由 O'Reilly 出版社出版。这标志着软件行业开始严肃对待 JavaScript 语言，对它的语法开始重新认识，
+2007 年，Douglas Crockford 发表了名为《JavaScript: The good parts》的演讲，次年由 O'Reilly 出版社出版。这标志着软件行业开始严肃对待 JavaScript 语言，对它的语法开始重新认识，
 
-2008年，V8 编译器诞生。这是 Google 公司为 Chrome 浏览器而开发的，它的特点是让 JavaScript 的运行变得非常快。它提高了 JavaScript 的性能，推动了语法的改进和标准化，改变外界对 JavaScript 的不佳印象。同时，V8 是开源的，任何人想要一种快速的嵌入式脚本语言，都可以采用 V8，这拓展了 JavaScript 的应用领域。
+2008 年，V8 编译器诞生。这是 Google 公司为 Chrome 浏览器而开发的，它的特点是让 JavaScript 的运行变得非常快。它提高了 JavaScript 的性能，推动了语法的改进和标准化，改变外界对 JavaScript 的不佳印象。同时，V8 是开源的，任何人想要一种快速的嵌入式脚本语言，都可以采用 V8，这拓展了 JavaScript 的应用领域。
 
-2009年，Node.js 项目诞生，创始人为 Ryan Dahl，它标志着 JavaScript 可以用于服务器端编程，从此网站的前端和后端可以使用同一种语言开发。并且，Node.js 可以承受很大的并发流量，使得开发某些互联网大规模的实时应用变得容易。
+2009 年，Node.js 项目诞生，创始人为 Ryan Dahl，它标志着 JavaScript 可以用于服务器端编程，从此网站的前端和后端可以使用同一种语言开发。并且，Node.js 可以承受很大的并发流量，使得开发某些互联网大规模的实时应用变得容易。
 
-2009年，Jeremy Ashkenas 发布了 CoffeeScript 的最初版本。CoffeeScript 可以被转换为 JavaScript 运行，但是语法要比 JavaScript 简洁。这开启了其他语言转为 JavaScript 的风潮。
+2009 年，Jeremy Ashkenas 发布了 CoffeeScript 的最初版本。CoffeeScript 可以被转换为 JavaScript 运行，但是语法要比 JavaScript 简洁。这开启了其他语言转为 JavaScript 的风潮。
 
-2009年，PhoneGap 项目诞生，它将 HTML5 和 JavaScript 引入移动设备的应用程序开发，主要针对 iOS 和 Android 平台，使得 JavaScript 可以用于跨平台的应用程序开发。
+2009 年，PhoneGap 项目诞生，它将 HTML5 和 JavaScript 引入移动设备的应用程序开发，主要针对 iOS 和 Android 平台，使得 JavaScript 可以用于跨平台的应用程序开发。
 
 2009，Google 发布 Chrome OS，号称是以浏览器为基础发展成的操作系统，允许直接使用 JavaScript 编写应用程序。类似的项目还有 Mozilla 的 Firefox OS。
 
-2010年，三个重要的项目诞生，分别是 NPM、BackboneJS 和 RequireJS，标志着 JavaScript 进入模块化开发的时代。
+2010 年，三个重要的项目诞生，分别是 NPM、BackboneJS 和 RequireJS，标志着 JavaScript 进入模块化开发的时代。
 
-2011年，微软公司发布 Windows 8操作系统，将 JavaScript 作为应用程序的开发语言之一，直接提供系统支持。
+2011 年，微软公司发布 Windows 8 操作系统，将 JavaScript 作为应用程序的开发语言之一，直接提供系统支持。
 
-2011年，Google 发布了 Dart 语言，目的是为了结束 JavaScript 语言在浏览器中的垄断，提供更合理、更强大的语法和功能。Chromium浏览器有内置的 Dart 虚拟机，可以运行 Dart 程序，但 Dart 程序也可以被编译成 JavaScript 程序运行。
+2011 年，Google 发布了 Dart 语言，目的是为了结束 JavaScript 语言在浏览器中的垄断，提供更合理、更强大的语法和功能。Chromium 浏览器有内置的 Dart 虚拟机，可以运行 Dart 程序，但 Dart 程序也可以被编译成 JavaScript 程序运行。
 
-2011年，微软工程师[Scott Hanselman](https://www.hanselman.com/blog/JavaScriptIsAssemblyLanguageForTheWebSematicMarkupIsDeadCleanVsMachinecodedHTML.aspx)提出，JavaScript 将是互联网的汇编语言。因为它无所不在，而且正在变得越来越快。其他语言的程序可以被转成 JavaScript 语言，然后在浏览器中运行。
+2011 年，微软工程师[Scott Hanselman](https://www.hanselman.com/blog/JavaScriptIsAssemblyLanguageForTheWebSematicMarkupIsDeadCleanVsMachinecodedHTML.aspx)提出，JavaScript 将是互联网的汇编语言。因为它无所不在，而且正在变得越来越快。其他语言的程序可以被转成 JavaScript 语言，然后在浏览器中运行。
 
-2012年，单页面应用程序框架（single-page app framework）开始崛起，AngularJS 项目和 Ember 项目都发布了1.0版本。
+2012 年，单页面应用程序框架（single-page app framework）开始崛起，AngularJS 项目和 Ember 项目都发布了 1.0 版本。
 
-2012年，微软发布 TypeScript 语言。该语言被设计成 JavaScript 的超集，这意味着所有 JavaScript 程序，都可以不经修改地在 TypeScript 中运行。同时，TypeScript 添加了很多新的语法特性，主要目的是为了开发大型程序，然后还可以被编译成 JavaScript 运行。
+2012 年，微软发布 TypeScript 语言。该语言被设计成 JavaScript 的超集，这意味着所有 JavaScript 程序，都可以不经修改地在 TypeScript 中运行。同时，TypeScript 添加了很多新的语法特性，主要目的是为了开发大型程序，然后还可以被编译成 JavaScript 运行。
 
-2012年，Mozilla 基金会提出 [asm.js](http://asmjs.org/) 规格。asm.js 是 JavaScript 的一个子集，所有符合 asm.js 的程序都可以在浏览器中运行，它的特殊之处在于语法有严格限定，可以被快速编译成性能良好的机器码。这样做的目的，是为了给其他语言提供一个编译规范，使其可以被编译成高效的 JavaScript 代码。同时，Mozilla 基金会还发起了 [Emscripten](https://github.com/kripken/emscripten/wiki) 项目，目标就是提供一个跨语言的编译器，能够将 LLVM 的位代码（bitcode）转为 JavaScript 代码，在浏览器中运行。因为大部分 LLVM 位代码都是从 C / C++ 语言生成的，这意味着 C / C++ 将可以在浏览器中运行。此外，Mozilla 旗下还有 [LLJS](https://mbebenita.github.io/LLJS/) （将 JavaScript 转为 C 代码）项目和 [River Trail](https://github.com/RiverTrail/RiverTrail/wiki) （一个用于多核心处理器的 ECMAScript 扩展）项目。目前，可以被编译成 JavaScript 的[语言列表](https://github.com/jashkenas/coffee-script/wiki/List-of-languages-that-compile-to-JS)，共有将近40种语言。
+2012 年，Mozilla 基金会提出 [asm.js](http://asmjs.org/) 规格。asm.js 是 JavaScript 的一个子集，所有符合 asm.js 的程序都可以在浏览器中运行，它的特殊之处在于语法有严格限定，可以被快速编译成性能良好的机器码。这样做的目的，是为了给其他语言提供一个编译规范，使其可以被编译成高效的 JavaScript 代码。同时，Mozilla 基金会还发起了 [Emscripten](https://github.com/kripken/emscripten/wiki) 项目，目标就是提供一个跨语言的编译器，能够将 LLVM 的位代码（bitcode）转为 JavaScript 代码，在浏览器中运行。因为大部分 LLVM 位代码都是从 C / C++ 语言生成的，这意味着 C / C++ 将可以在浏览器中运行。此外，Mozilla 旗下还有 [LLJS](https://mbebenita.github.io/LLJS/) （将 JavaScript 转为 C 代码）项目和 [River Trail](https://github.com/RiverTrail/RiverTrail/wiki) （一个用于多核心处理器的 ECMAScript 扩展）项目。目前，可以被编译成 JavaScript 的[语言列表](https://github.com/jashkenas/coffee-script/wiki/List-of-languages-that-compile-to-JS)，共有将近 40 种语言。
 
-2013年，Mozilla 基金会发布手机操作系统 Firefox OS，该操作系统的整个用户界面都使用 JavaScript。
+2013 年，Mozilla 基金会发布手机操作系统 Firefox OS，该操作系统的整个用户界面都使用 JavaScript。
 
-2013年，ECMA 正式推出 JSON 的[国际标准](https://www.ecma-international.org/publications/standards/Ecma-404.htm)，这意味着 JSON 格式已经变得与 XML 格式一样重要和正式了。
+2013 年，ECMA 正式推出 JSON 的[国际标准](https://www.ecma-international.org/publications/standards/Ecma-404.htm)，这意味着 JSON 格式已经变得与 XML 格式一样重要和正式了。
 
-2013年5月，Facebook 发布 UI 框架库 React，引入了新的 JSX 语法，使得 UI 层可以用组件开发，同时引入了网页应用是状态机的概念。
+2013 年 5 月，Facebook 发布 UI 框架库 React，引入了新的 JSX 语法，使得 UI 层可以用组件开发，同时引入了网页应用是状态机的概念。
 
-2014年，微软推出 JavaScript 的 Windows 库 WinJS，标志微软公司全面支持 JavaScript 与 Windows 操作系统的融合。
+2014 年，微软推出 JavaScript 的 Windows 库 WinJS，标志微软公司全面支持 JavaScript 与 Windows 操作系统的融合。
 
-2014年11月，由于对 Joyent 公司垄断 Node 项目、以及该项目进展缓慢的不满，一部分核心开发者离开了 Node.js，创造了 io.js 项目，这是一个更开放、更新更频繁的 Node.js 版本，很短时间内就发布到了2.0版。三个月后，Joyent 公司宣布放弃对 Node 项目的控制，将其转交给新成立的开放性质的 Node 基金会。随后，io.js 项目宣布回归 Node，两个版本将合并。
+2014 年 11 月，由于对 Joyent 公司垄断 Node 项目、以及该项目进展缓慢的不满，一部分核心开发者离开了 Node.js，创造了 io.js 项目，这是一个更开放、更新更频繁的 Node.js 版本，很短时间内就发布到了 2.0 版。三个月后，Joyent 公司宣布放弃对 Node 项目的控制，将其转交给新成立的开放性质的 Node 基金会。随后，io.js 项目宣布回归 Node，两个版本将合并。
 
-2015年3月，Facebook 公司发布了 React Native 项目，将 React 框架移植到了手机端，可以用来开发手机 App。它会将 JavaScript 代码转为 iOS 平台的 Objective-C 代码，或者 Android 平台的 Java 代码，从而为 JavaScript 语言开发高性能的原生 App 打开了一条道路。
+2015 年 3 月，Facebook 公司发布了 React Native 项目，将 React 框架移植到了手机端，可以用来开发手机 App。它会将 JavaScript 代码转为 iOS 平台的 Objective-C 代码，或者 Android 平台的 Java 代码，从而为 JavaScript 语言开发高性能的原生 App 打开了一条道路。
 
-2015年4月，Angular 框架宣布，2.0 版将基于微软公司的TypeScript语言开发，这等于为 JavaScript 语言引入了强类型。
+2015 年 4 月，Angular 框架宣布，2.0 版将基于微软公司的 TypeScript 语言开发，这等于为 JavaScript 语言引入了强类型。
 
-2015年5月，Node 模块管理器 NPM 超越 CPAN，标志着 JavaScript 成为世界上软件模块最多的语言。
+2015 年 5 月，Node 模块管理器 NPM 超越 CPAN，标志着 JavaScript 成为世界上软件模块最多的语言。
 
-2015年5月，Google 公司的 Polymer 框架发布1.0版。该项目的目标是生产环境可以使用 WebComponent 组件，如果能够达到目标，Web 开发将进入一个全新的以组件为开发基础的阶段。
+2015 年 5 月，Google 公司的 Polymer 框架发布 1.0 版。该项目的目标是生产环境可以使用 WebComponent 组件，如果能够达到目标，Web 开发将进入一个全新的以组件为开发基础的阶段。
 
-2015年6月，ECMA 标准化组织正式批准了 ECMAScript 6 语言标准，定名为《ECMAScript 2015 标准》。JavaScript 语言正式进入了下一个阶段，成为一种企业级的、开发大规模应用的语言。这个标准从提出到批准，历时10年，而 JavaScript 语言从诞生至今也已经20年了。
+2015 年 6 月，ECMA 标准化组织正式批准了 ECMAScript 6 语言标准，定名为《ECMAScript 2015 标准》。JavaScript 语言正式进入了下一个阶段，成为一种企业级的、开发大规模应用的语言。这个标准从提出到批准，历时 10 年，而 JavaScript 语言从诞生至今也已经 20 年了。
 
-2015年6月，Mozilla 在 asm.js 的基础上发布 WebAssembly 项目。这是一种 JavaScript 引擎的中间码格式，全部都是二进制，类似于 Java 的字节码，有利于移动设备加载 JavaScript 脚本，执行速度提高了 20+ 倍。这意味着将来的软件，会发布 JavaScript 二进制包。
+2015 年 6 月，Mozilla 在 asm.js 的基础上发布 WebAssembly 项目。这是一种 JavaScript 引擎的中间码格式，全部都是二进制，类似于 Java 的字节码，有利于移动设备加载 JavaScript 脚本，执行速度提高了 20+ 倍。这意味着将来的软件，会发布 JavaScript 二进制包。
 
-2016年6月，《ECMAScript 2016 标准》发布。与前一年发布的版本相比，它只增加了两个较小的特性。
+2016 年 6 月，《ECMAScript 2016 标准》发布。与前一年发布的版本相比，它只增加了两个较小的特性。
 
-2017年6月，《ECMAScript 2017 标准》发布，正式引入了 async 函数，使得异步操作的写法出现了根本的变化。
+2017 年 6 月，《ECMAScript 2017 标准》发布，正式引入了 async 函数，使得异步操作的写法出现了根本的变化。
 
-2017年11月，所有主流浏览器全部支持 WebAssembly，这意味着任何语言都可以编译成 JavaScript，在浏览器运行。
+2017 年 11 月，所有主流浏览器全部支持 WebAssembly，这意味着任何语言都可以编译成 JavaScript，在浏览器运行。
 
 # 03-JavaScript 的基本语法
 
@@ -353,7 +353,7 @@ JavaScript 程序的执行单位为行（line），也就是一行一行地执�
 语句（statement）是为了完成某种任务而进行的操作，比如下面就是一行赋值语句。
 
 ```javascript
-var a = 1 + 3;
+var a = 1 + 3
 ```
 
 这条语句先用`var`命令，声明了变量`a`，然后将`1 + 3`的运算结果赋值给变量`a`。
@@ -363,22 +363,23 @@ var a = 1 + 3;
 语句以分号结尾，一个分号就表示一个语句结束。多个语句可以写在一行内。
 
 ```javascript
-var a = 1 + 3 ; var b = 'abc';
+var a = 1 + 3
+var b = 'abc'
 ```
 
 分号前面可以没有任何内容，JavaScript 引擎将其视为空语句。
 
 ```javascript
-;;;
+
 ```
 
-上面的代码就表示3个空语句。
+上面的代码就表示 3 个空语句。
 
 表达式不需要分号结尾。一旦在表达式后面添加分号，则 JavaScript 引擎就将表达式视为语句，这样会产生一些没有任何意义的语句。
 
 ```javascript
-1 + 3;
-'abc';
+1 + 3
+;('abc')
 ```
 
 上面两行语句只是单纯地产生一个值，并没有任何实际的意义。
@@ -390,33 +391,33 @@ var a = 1 + 3 ; var b = 'abc';
 变量是对“值”的具名引用。变量就是为“值”起名，然后引用这个名字，就等同于引用这个值。变量的名字就是变量名。
 
 ```javascript
-var a = 1;
+var a = 1
 ```
 
-上面的代码先声明变量`a`，然后在变量`a`与数值1之间建立引用关系，称为将数值1“赋值”给变量`a`。以后，引用变量名`a`就会得到数值1。最前面的`var`，是变量声明命令。它表示通知解释引擎，要创建一个变量`a`。
+上面的代码先声明变量`a`，然后在变量`a`与数值 1 之间建立引用关系，称为将数值 1“赋值”给变量`a`。以后，引用变量名`a`就会得到数值 1。最前面的`var`，是变量声明命令。它表示通知解释引擎，要创建一个变量`a`。
 
 注意，JavaScript 的变量名区分大小写，`A`和`a`是两个不同的变量。
 
 变量的声明和赋值，是分开的两个步骤，上面的代码将它们合在了一起，实际的步骤是下面这样。
 
 ```javascript
-var a;
-a = 1;
+var a
+a = 1
 ```
 
 如果只是声明变量而没有赋值，则该变量的值是`undefined`。`undefined`是一个特殊的值，表示“无定义”。
 
 ```javascript
-var a;
+var a
 a // undefined
 ```
 
 如果变量赋值的时候，忘了写`var`命令，这条语句也是有效的。
 
 ```javascript
-var a = 1;
+var a = 1
 // 基本等同
-a = 1;
+a = 1
 ```
 
 但是，不写`var`的做法，不利于表达意图，而且容易不知不觉地创建全局变量，所以建议总是使用`var`命令声明变量。
@@ -433,14 +434,14 @@ x
 可以在同一条`var`命令中声明多个变量。
 
 ```javascript
-var a, b;
+var a, b
 ```
 
 JavaScript 是一种动态类型语言，也就是说，变量的类型没有限制，变量可以随时更改类型。
 
 ```javascript
-var a = 1;
-a = 'hello';
+var a = 1
+a = 'hello'
 ```
 
 上面代码中，变量`a`起先被赋值为一个数值，后来又被重新赋值为一个字符串。第二次赋值的时候，因为变量`a`已经存在，所以不需要使用`var`命令。
@@ -448,8 +449,8 @@ a = 'hello';
 如果使用`var`重新声明一个已经存在的变量，是无效的。
 
 ```javascript
-var x = 1;
-var x;
+var x = 1
+var x
 x // 1
 ```
 
@@ -458,14 +459,14 @@ x // 1
 但是，如果第二次声明的时候还进行了赋值，则会覆盖掉前面的值。
 
 ```javascript
-var x = 1;
-var x = 2;
+var x = 1
+var x = 2
 
 // 等同于
 
-var x = 1;
-var x;
-x = 2;
+var x = 1
+var x
+x = 2
 ```
 
 ### 变量提升
@@ -473,16 +474,16 @@ x = 2;
 JavaScript 引擎的工作方式是，先解析代码，获取所有被声明的变量，然后再一行一行地运行。这造成的结果，就是所有的变量的声明语句，都会被提升到代码的头部，这就叫做变量提升（hoisting）。
 
 ```javascript
-console.log(a);
-var a = 1;
+console.log(a)
+var a = 1
 ```
 
 上面代码首先使用`console.log`方法，在控制台（console）显示变量`a`的值。这时变量`a`还没有声明和赋值，所以这是一种错误的做法，但是实际上不会报错。因为存在变量提升，真正运行的是下面的代码。
 
 ```javascript
-var a;
-console.log(a);
-a = 1;
+var a
+console.log(a)
+a = 1
 ```
 
 最后的结果是显示`undefined`，表示变量`a`已声明，但还未赋值。
@@ -520,7 +521,7 @@ a+b  // 标识符不能包含加号
 中文是合法的标识符，可以用作变量名。
 
 ```javascript
-var 临时变量 = 1;
+var 临时变量 = 1
 ```
 
 > JavaScript 有一些保留字，不能用作标识符：arguments、break、case、catch、class、const、continue、debugger、default、delete、do、else、enum、eval、export、extends、false、finally、for、function、if、implements、import、in、instanceof、interface、let、new、null、package、private、protected、public、return、static、super、switch、this、throw、true、try、typeof、var、void、while、with、yield。
@@ -552,7 +553,7 @@ x = 1; <!-- x = 2;
 
 ```javascript
 function countdown(n) {
-  while (n --> 0) console.log(n);
+  while (n-- > 0) console.log(n)
 }
 countdown(3)
 // 2
@@ -560,7 +561,7 @@ countdown(3)
 // 0
 ```
 
-上面代码中，`n --> 0`实际上会当作`n-- > 0`，因此输出2、1、0。
+上面代码中，`n --> 0`实际上会当作`n-- > 0`，因此输出 2、1、0。
 
 ## 区块
 
@@ -570,7 +571,7 @@ JavaScript 使用大括号，将多个相关的语句组合在一起，称为“
 
 ```javascript
 {
-  var a = 1;
+  var a = 1
 }
 
 a // 1
@@ -587,27 +588,25 @@ JavaScript 提供`if`结构和`switch`结构，完成条件判断，即只有满
 `if`结构先判断一个表达式的布尔值，然后根据布尔值的真伪，执行不同的语句。所谓布尔值，指的是 JavaScript 的两个特殊值，`true`表示真，`false`表示`伪`。
 
 ```javascript
-if (布尔值)
-  语句;
+if (布尔值) 语句
 
 // 或者
-if (布尔值) 语句;
+if (布尔值) 语句
 ```
 
 上面是`if`结构的基本形式。需要注意的是，“布尔值”往往由一个条件表达式产生的，必须放在圆括号中，表示对表达式求值。如果表达式的求值结果为`true`，就执行紧跟在后面的语句；如果结果为`false`，则跳过紧跟在后面的语句。
 
 ```javascript
-if (m === 3)
-  m = m + 1;
+if (m === 3) m = m + 1
 ```
 
-上面代码表示，只有在`m`等于3时，才会将其值加上1。
+上面代码表示，只有在`m`等于 3 时，才会将其值加上 1。
 
 这种写法要求条件表达式后面只能有一个语句。如果想执行多个语句，必须在`if`的条件判断之后，加上大括号，表示代码块（多个语句合并成一个语句）。
 
 ```javascript
 if (m === 3) {
-  m += 1;
+  m += 1
 }
 ```
 
@@ -616,15 +615,15 @@ if (m === 3) {
 注意，`if`后面的表达式之中，不要混淆赋值表达式（`=`）、严格相等运算符（`===`）和相等运算符（`==`）。尤其是赋值表达式不具有比较作用。
 
 ```javascript
-var x = 1;
-var y = 2;
-if (x = y) {
-  console.log(x);
+var x = 1
+var y = 2
+if ((x = y)) {
+  console.log(x)
 }
 // "2"
 ```
 
-上面代码的原意是，当`x`等于`y`的时候，才执行相关语句。但是，不小心将严格相等运算符写成赋值表达式，结果变成了将`y`赋值给变量`x`，再判断变量`x`的值（等于2）的布尔值（结果为`true`）。
+上面代码的原意是，当`x`等于`y`的时候，才执行相关语句。但是，不小心将严格相等运算符写成赋值表达式，结果变成了将`y`赋值给变量`x`，再判断变量`x`的值（等于 2）的布尔值（结果为`true`）。
 
 这种错误可以正常生成一个布尔值，因而不会报错。为了避免这种情况，有些开发者习惯将常量写在运算符的左边，这样的话，一旦不小心将相等运算符写成赋值运算符，就会报错，因为常量不能被赋值。
 
@@ -647,7 +646,7 @@ if (m === 3) {
 }
 ```
 
-上面代码判断变量`m`是否等于3，如果等于就执行`if`代码块，否则执行`else`代码块。
+上面代码判断变量`m`是否等于 3，如果等于就执行`if`代码块，否则执行`else`代码块。
 
 对同一个变量进行多次判断时，多个`if...else`语句可以连写在一起。
 
@@ -666,12 +665,12 @@ if (m === 0) {
 `else`代码块总是与离自己最近的那个`if`语句配对。
 
 ```javascript
-var m = 1;
-var n = 2;
+var m = 1
+var n = 2
 
 if (m !== 1)
-if (n === 2) console.log('hello');
-else console.log('world');
+  if (n === 2) console.log('hello')
+  else console.log('world')
 ```
 
 上面代码不会有任何输出，`else`代码块不会得到执行，因为它跟着的是最近的那个`if`语句，相当于下面这样。
@@ -679,9 +678,9 @@ else console.log('world');
 ```javascript
 if (m !== 1) {
   if (n === 2) {
-    console.log('hello');
+    console.log('hello')
   } else {
-    console.log('world');
+    console.log('world')
   }
 }
 ```
@@ -691,10 +690,10 @@ if (m !== 1) {
 ```javascript
 if (m !== 1) {
   if (n === 2) {
-    console.log('hello');
+    console.log('hello')
   }
 } else {
-  console.log('world');
+  console.log('world')
 }
 // world
 ```
@@ -705,29 +704,29 @@ if (m !== 1) {
 
 ```javascript
 switch (fruit) {
-  case "banana":
+  case 'banana':
     // ...
-    break;
-  case "apple":
+    break
+  case 'apple':
     // ...
-    break;
+    break
   default:
-    // ...
+  // ...
 }
 ```
 
 上面代码根据变量`fruit`的值，选择执行相应的`case`。如果所有`case`都不符合，则执行最后的`default`部分。需要注意的是，每个`case`代码块内部的`break`语句不能少，否则会接下去执行下一个`case`代码块，而不是跳出`switch`结构。
 
 ```javascript
-var x = 1;
+var x = 1
 
 switch (x) {
   case 1:
-    console.log('x 等于1');
+    console.log('x 等于1')
   case 2:
-    console.log('x 等于2');
+    console.log('x 等于2')
   default:
-    console.log('x 等于其他值');
+    console.log('x 等于其他值')
 }
 // x等于1
 // x等于2
@@ -739,13 +738,13 @@ switch (x) {
 ```javascript
 switch (x) {
   case 1:
-    console.log('x 等于1');
-    break;
+    console.log('x 等于1')
+    break
   case 2:
-    console.log('x 等于2');
-    break;
+    console.log('x 等于2')
+    break
   default:
-    console.log('x 等于其他值');
+    console.log('x 等于其他值')
 }
 ```
 
@@ -754,10 +753,10 @@ switch (x) {
 ```javascript
 switch (1 + 3) {
   case 2 + 2:
-    f();
-    break;
+    f()
+    break
   default:
-    neverHappens();
+    neverHappens()
 }
 ```
 
@@ -766,14 +765,14 @@ switch (1 + 3) {
 需要注意的是，`switch`语句后面的表达式，与`case`语句后面的表示式比较运行结果时，采用的是严格相等运算符（`===`），而不是相等运算符（`==`），这意味着比较时不会发生类型转换。
 
 ```javascript
-var x = 1;
+var x = 1
 
 switch (x) {
   case true:
-    console.log('x 发生类型转换');
-    break;
+    console.log('x 发生类型转换')
+    break
   default:
-    console.log('x 没有发生类型转换');
+    console.log('x 没有发生类型转换')
 }
 // x 没有发生类型转换
 ```
@@ -785,42 +784,38 @@ switch (x) {
 JavaScript 还有一个三元运算符（即该运算符需要三个运算子）`?:`，也可以用于逻辑判断。
 
 ```javascript
-(条件) ? 表达式1 : 表达式2
+条件 ? 表达式1 : 表达式2
 ```
 
-上面代码中，如果“条件”为`true`，则返回“表达式1”的值，否则返回“表达式2”的值。
+上面代码中，如果“条件”为`true`，则返回“表达式 1”的值，否则返回“表达式 2”的值。
 
 ```javascript
-var even = (n % 2 === 0) ? true : false;
+var even = n % 2 === 0 ? true : false
 ```
 
-上面代码中，如果`n`可以被2整除，则`even`等于`true`，否则等于`false`。它等同于下面的形式。
+上面代码中，如果`n`可以被 2 整除，则`even`等于`true`，否则等于`false`。它等同于下面的形式。
 
 ```javascript
-var even;
+var even
 if (n % 2 === 0) {
-  even = true;
+  even = true
 } else {
-  even = false;
+  even = false
 }
 ```
 
 这个三元运算符可以被视为`if...else...`的简写形式，因此可以用于多种场合。
 
 ```javascript
-var myVar;
-console.log(
-  myVar ?
-  'myVar has a value' :
-  'myVar does not have a value'
-)
+var myVar
+console.log(myVar ? 'myVar has a value' : 'myVar does not have a value')
 // myVar does not have a value
 ```
 
 上面代码利用三元运算符，输出相应的提示。
 
 ```javascript
-var msg = '数字' + n + '是' + (n % 2 === 0 ? '偶数' : '奇数');
+var msg = '数字' + n + '是' + (n % 2 === 0 ? '偶数' : '奇数')
 ```
 
 上面代码利用三元运算符，在字符串之中插入不同的值。
@@ -834,39 +829,38 @@ var msg = '数字' + n + '是' + (n % 2 === 0 ? '偶数' : '奇数');
 `While`语句包括一个循环条件和一段代码块，只要条件为真，就不断循环执行代码块。
 
 ```javascript
-while (条件)
-  语句;
+while (条件) 语句
 
 // 或者
-while (条件) 语句;
+while (条件) 语句
 ```
 
 `while`语句的循环条件是一个表达式，必须放在圆括号中。代码块部分，如果只有一条语句，可以省略大括号，否则就必须加上大括号。
 
 ```javascript
 while (条件) {
-  语句;
+  语句
 }
 ```
 
 下面是`while`语句的一个例子。
 
 ```javascript
-var i = 0;
+var i = 0
 
 while (i < 100) {
-  console.log('i 当前为：' + i);
-  i = i + 1;
+  console.log('i 当前为：' + i)
+  i = i + 1
 }
 ```
 
-上面的代码将循环100次，直到`i`等于100为止。
+上面的代码将循环 100 次，直到`i`等于 100 为止。
 
 下面的例子是一个无限循环，因为循环条件总是为真。
 
 ```javascript
 while (true) {
-  console.log('Hello, world');
+  console.log('Hello, world')
 }
 ```
 
@@ -875,8 +869,7 @@ while (true) {
 `for`语句是循环命令的另一种形式，可以指定循环的起点、终点和终止条件。它的格式如下。
 
 ```javascript
-for (初始化表达式; 条件; 递增表达式)
-  语句
+for (初始化表达式; 条件; 递增表达式) 语句
 
 // 或者
 
@@ -894,34 +887,34 @@ for (初始化表达式; 条件; 递增表达式) {
 下面是一个例子。
 
 ```javascript
-var x = 3;
+var x = 3
 for (var i = 0; i < x; i++) {
-  console.log(i);
+  console.log(i)
 }
 // 0
 // 1
 // 2
 ```
 
-上面代码中，初始化表达式是`var i = 0`，即初始化一个变量`i`；测试表达式是`i < x`，即只要`i`小于`x`，就会执行循环；递增表达式是`i++`，即每次循环结束后，`i`增大1。
+上面代码中，初始化表达式是`var i = 0`，即初始化一个变量`i`；测试表达式是`i < x`，即只要`i`小于`x`，就会执行循环；递增表达式是`i++`，即每次循环结束后，`i`增大 1。
 
 所有`for`循环，都可以改写成`while`循环。上面的例子改为`while`循环，代码如下。
 
 ```javascript
-var x = 3;
-var i = 0;
+var x = 3
+var i = 0
 
 while (i < x) {
-  console.log(i);
-  i++;
+  console.log(i)
+  i++
 }
 ```
 
 `for`语句的三个部分（initialize、test、increment），可以省略任何一个，也可以全部省略。
 
 ```javascript
-for ( ; ; ){
-  console.log('Hello World');
+for (;;) {
+  console.log('Hello World')
 }
 ```
 
@@ -932,14 +925,13 @@ for ( ; ; ){
 `do...while`循环与`while`循环类似，唯一的区别就是先运行一次循环体，然后判断循环条件。
 
 ```javascript
-do
-  语句
-while (条件);
+do 语句
+while (条件)
 
 // 或者
 do {
   语句
-} while (条件);
+} while (条件)
 ```
 
 不管条件是否为真，`do...while`循环至少运行一次，这是这种结构最大的特点。另外，`while`语句后面的分号注意不要省略。
@@ -947,13 +939,13 @@ do {
 下面是一个例子。
 
 ```javascript
-var x = 3;
-var i = 0;
+var x = 3
+var i = 0
 
 do {
-  console.log(i);
-  i++;
-} while(i < x);
+  console.log(i)
+  i++
+} while (i < x)
 ```
 
 ### break 语句和 continue 语句
@@ -963,24 +955,23 @@ do {
 `break`语句用于跳出代码块或循环。
 
 ```javascript
-var i = 0;
+var i = 0
 
-while(i < 100) {
-  console.log('i 当前为：' + i);
-  i++;
-  if (i === 10) break;
+while (i < 100) {
+  console.log('i 当前为：' + i)
+  i++
+  if (i === 10) break
 }
 ```
 
-上面代码只会执行10次循环，一旦`i`等于10，就会跳出循环。
+上面代码只会执行 10 次循环，一旦`i`等于 10，就会跳出循环。
 
 `for`循环也可以使用`break`语句跳出循环。
 
 ```javascript
 for (var i = 0; i < 5; i++) {
-  console.log(i);
-  if (i === 3)
-    break;
+  console.log(i)
+  if (i === 3) break
 }
 // 0
 // 1
@@ -988,17 +979,17 @@ for (var i = 0; i < 5; i++) {
 // 3
 ```
 
-上面代码执行到`i`等于3，就会跳出循环。
+上面代码执行到`i`等于 3，就会跳出循环。
 
 `continue`语句用于立即终止本轮循环，返回循环结构的头部，开始下一轮循环。
 
 ```javascript
-var i = 0;
+var i = 0
 
-while (i < 100){
-  i++;
-  if (i % 2 === 0) continue;
-  console.log('i 当前为：' + i);
+while (i < 100) {
+  i++
+  if (i % 2 === 0) continue
+  console.log('i 当前为：' + i)
 }
 ```
 
@@ -1011,8 +1002,7 @@ while (i < 100){
 JavaScript 语言允许，语句的前面有标签（label），相当于定位符，用于跳转到程序的任意位置，标签的格式如下。
 
 ```javascript
-label:
-  语句
+label: 语句
 ```
 
 标签可以是任意的标识符，但不能是保留字，语句部分可以是任意语句。
@@ -1020,13 +1010,12 @@ label:
 标签通常与`break`语句和`continue`语句配合使用，跳出特定的循环。
 
 ```javascript
-top:
-  for (var i = 0; i < 3; i++){
-    for (var j = 0; j < 3; j++){
-      if (i === 1 && j === 1) break top;
-      console.log('i=' + i + ', j=' + j);
-    }
+top: for (var i = 0; i < 3; i++) {
+  for (var j = 0; j < 3; j++) {
+    if (i === 1 && j === 1) break top
+    console.log('i=' + i + ', j=' + j)
   }
+}
 // i=0, j=0
 // i=0, j=1
 // i=0, j=2
@@ -1039,11 +1028,11 @@ top:
 
 ```javascript
 foo: {
-  console.log(1);
-  break foo;
-  console.log('本行不会输出');
+  console.log(1)
+  break foo
+  console.log('本行不会输出')
 }
-console.log(2);
+console.log(2)
 // 1
 // 2
 ```
@@ -1053,13 +1042,12 @@ console.log(2);
 `continue`语句也可以与标签配合使用。
 
 ```javascript
-top:
-  for (var i = 0; i < 3; i++){
-    for (var j = 0; j < 3; j++){
-      if (i === 1 && j === 1) continue top;
-      console.log('i=' + i + ', j=' + j);
-    }
+top: for (var i = 0; i < 3; i++) {
+  for (var j = 0; j < 3; j++) {
+    if (i === 1 && j === 1) continue top
+    console.log('i=' + i + ', j=' + j)
   }
+}
 // i=0, j=0
 // i=0, j=1
 // i=0, j=2
@@ -1151,7 +1139,7 @@ if (v) {
 // ReferenceError: v is not defined
 
 // 正确的写法
-if (typeof v === "undefined") {
+if (typeof v === 'undefined') {
   // ...
 }
 ```
@@ -1167,8 +1155,8 @@ typeof [] // "object"
 上面代码中，空数组（`[]`）的类型也是`object`，这表示在 JavaScript 内部，数组本质上只是一种特殊的对象。这里顺便提一下，`instanceof`运算符可以区分数组和对象。`instanceof`运算符的详细解释，请见《面向对象编程》一章。
 
 ```javascript
-var o = {};
-var a = [];
+var o = {}
+var a = []
 
 o instanceof Array // false
 a instanceof Array // true
@@ -1180,7 +1168,7 @@ a instanceof Array // true
 typeof null // "object"
 ```
 
-`null`的类型是`object`，这是由于历史原因造成的。1995年的 JavaScript 语言第一版，只设计了五种数据类型（对象、整数、浮点数、字符串和布尔值），没考虑`null`，只把它当作`object`的一种特殊值。后来`null`独立出来，作为一种单独的数据类型，为了兼容以前的代码，`typeof null`返回`object`就没法改变了。
+`null`的类型是`object`，这是由于历史原因造成的。1995 年的 JavaScript 语言第一版，只设计了五种数据类型（对象、整数、浮点数、字符串和布尔值），没考虑`null`，只把它当作`object`的一种特殊值。后来`null`独立出来，作为一种单独的数据类型，为了兼容以前的代码，`typeof null`返回`object`就没法改变了。
 
 # 05-null, undefined 和布尔值
 
@@ -1191,9 +1179,9 @@ typeof null // "object"
 `null`与`undefined`都可以表示“没有”，含义非常相似。将一个变量赋值为`undefined`或`null`，老实说，语法效果几乎没区别。
 
 ```javascript
-var a = undefined;
+var a = undefined
 // 或者
-var a = null;
+var a = null
 ```
 
 上面代码中，变量`a`分别被赋值为`undefined`和`null`，这两种写法的效果几乎等价。
@@ -1202,12 +1190,12 @@ var a = null;
 
 ```javascript
 if (!undefined) {
-  console.log('undefined is false');
+  console.log('undefined is false')
 }
 // undefined is false
 
 if (!null) {
-  console.log('null is false');
+  console.log('null is false')
 }
 // null is false
 
@@ -1219,16 +1207,16 @@ undefined == null
 
 既然含义与用法都差不多，为什么要同时设置两个这样的值，这不是无端增加复杂度，令初学者困扰吗？这与历史原因有关。
 
-1995年 JavaScript 诞生时，最初像 Java 一样，只设置了`null`表示"无"。根据 C 语言的传统，`null`可以自动转为`0`。
+1995 年 JavaScript 诞生时，最初像 Java 一样，只设置了`null`表示"无"。根据 C 语言的传统，`null`可以自动转为`0`。
 
 ```javascript
 Number(null) // 0
 5 + null // 5
 ```
 
-上面代码中，`null`转为数字时，自动变成0。
+上面代码中，`null`转为数字时，自动变成 0。
 
-但是，JavaScript 的设计者 Brendan Eich，觉得这样做还不够。首先，第一版的 JavaScript 里面，`null`就像在 Java 里一样，被当成一个对象，Brendan Eich 觉得表示“无”的值最好不是对象。其次，那时的 JavaScript 不包括错误处理机制，Brendan Eich 觉得，如果`null`自动转为0，很不容易发现错误。
+但是，JavaScript 的设计者 Brendan Eich，觉得这样做还不够。首先，第一版的 JavaScript 里面，`null`就像在 Java 里一样，被当成一个对象，Brendan Eich 觉得表示“无”的值最好不是对象。其次，那时的 JavaScript 不包括错误处理机制，Brendan Eich 觉得，如果`null`自动转为 0，很不容易发现错误。
 
 因此，他又设计了一个`undefined`。区别是这样的：`null`是一个表示“空”的对象，转为数值时为`0`；`undefined`是一个表示"此处无定义"的原始值，转为数值时为`NaN`。
 
@@ -1247,17 +1235,17 @@ Number(undefined) // NaN
 
 ```javascript
 // 变量声明了，但没有赋值
-var i;
+var i
 i // undefined
 
 // 调用函数时，应该提供的参数没有提供，该参数等于 undefined
 function f(x) {
-  return x;
+  return x
 }
 f() // undefined
 
 // 对象没有赋值的属性
-var  o = new Object();
+var o = new Object()
 o.p // undefined
 
 // 函数没有返回值时，默认返回 undefined
@@ -1288,7 +1276,7 @@ f() // undefined
 
 ```javascript
 if ('') {
-  console.log('true');
+  console.log('true')
 }
 // 没有任何输出
 ```
@@ -1299,12 +1287,12 @@ if ('') {
 
 ```javascript
 if ([]) {
-  console.log('true');
+  console.log('true')
 }
 // true
 
 if ({}) {
-  console.log('true');
+  console.log('true')
 }
 // true
 ```
@@ -1317,13 +1305,13 @@ if ({}) {
 
 ### 整数和浮点数
 
-JavaScript 内部，所有数字都是以64位浮点数形式储存，即使整数也是如此。所以，`1`与`1.0`是相同的，是同一个数。
+JavaScript 内部，所有数字都是以 64 位浮点数形式储存，即使整数也是如此。所以，`1`与`1.0`是相同的，是同一个数。
 
 ```javascript
 1 === 1.0 // true
 ```
 
-这就是说，JavaScript 语言的底层根本没有整数，所有数字都是小数（64位浮点数）。容易造成混淆的是，某些运算只有整数才能完成，此时 JavaScript 会自动把64位浮点数，转成32位整数，然后再进行运算，参见《运算符》一章的“位运算”部分。
+这就是说，JavaScript 语言的底层根本没有整数，所有数字都是小数（64 位浮点数）。容易造成混淆的是，某些运算只有整数才能完成，此时 JavaScript 会自动把 64 位浮点数，转成 32 位整数，然后再进行运算，参见《运算符》一章的“位运算”部分。
 
 由于浮点数不是精确的值，所以涉及小数的比较和运算要特别小心。
 
@@ -1331,32 +1319,35 @@ JavaScript 内部，所有数字都是以64位浮点数形式储存，即使整�
 0.1 + 0.2 === 0.3
 // false
 
-0.3 / 0.1
-// 2.9999999999999996
+0.3 /
+  0.1(
+    // 2.9999999999999996
 
-(0.3 - 0.2) === (0.2 - 0.1)
+    0.3 - 0.2
+  ) ===
+  0.2 - 0.1
 // false
 ```
 
 ### 数值精度
 
-根据国际标准 IEEE 754，JavaScript 浮点数的64个二进制位，从最左边开始，是这样组成的。
+根据国际标准 IEEE 754，JavaScript 浮点数的 64 个二进制位，从最左边开始，是这样组成的。
 
-- 第1位：符号位，`0`表示正数，`1`表示负数
-- 第2位到第12位（共11位）：指数部分
-- 第13位到第64位（共52位）：小数部分（即有效数字）
+- 第 1 位：符号位，`0`表示正数，`1`表示负数
+- 第 2 位到第 12 位（共 11 位）：指数部分
+- 第 13 位到第 64 位（共 52 位）：小数部分（即有效数字）
 
 符号位决定了一个数的正负，指数部分决定了数值的大小，小数部分决定了数值的精度。
 
-指数部分一共有11个二进制位，因此大小范围就是0到2047。IEEE 754 规定，如果指数部分的值在0到2047之间（不含两个端点），那么有效数字的第一位默认总是1，不保存在64位浮点数之中。也就是说，有效数字这时总是`1.xx...xx`的形式，其中`xx..xx`的部分保存在64位浮点数之中，最长可能为52位。因此，JavaScript 提供的有效数字最长为53个二进制位。
+指数部分一共有 11 个二进制位，因此大小范围就是 0 到 2047。IEEE 754 规定，如果指数部分的值在 0 到 2047 之间（不含两个端点），那么有效数字的第一位默认总是 1，不保存在 64 位浮点数之中。也就是说，有效数字这时总是`1.xx...xx`的形式，其中`xx..xx`的部分保存在 64 位浮点数之中，最长可能为 52 位。因此，JavaScript 提供的有效数字最长为 53 个二进制位。
 
 ```javascript
 (-1)^符号位 * 1.xx...xx * 2^指数部分
 ```
 
-上面公式是正常情况下（指数部分在0到2047之间），一个数在 JavaScript 内部实际的表示形式。
+上面公式是正常情况下（指数部分在 0 到 2047 之间），一个数在 JavaScript 内部实际的表示形式。
 
-精度最多只能到53个二进制位，这意味着，绝对值小于2的53次方的整数，即-253到253，都可以精确表示。
+精度最多只能到 53 个二进制位，这意味着，绝对值小于 2 的 53 次方的整数，即-253 到 253，都可以精确表示。
 
 ```javascript
 Math.pow(2, 53)
@@ -1375,7 +1366,7 @@ Math.pow(2, 53) + 4
 // 9007199254740996
 ```
 
-上面代码中，大于2的53次方以后，整数运算的结果开始出现错误。所以，大于2的53次方的数值，都无法保持精度。由于2的53次方是一个16位的十进制数值，所以简单的法则就是，JavaScript 对15位的十进制数都可以精确处理。
+上面代码中，大于 2 的 53 次方以后，整数运算的结果开始出现错误。所以，大于 2 的 53 次方的数值，都无法保持精度。由于 2 的 53 次方是一个 16 位的十进制数值，所以简单的法则就是，JavaScript 对 15 位的十进制数都可以精确处理。
 
 ```javascript
 Math.pow(2, 53)
@@ -1386,19 +1377,19 @@ Math.pow(2, 53)
 // 9007199254740992000
 ```
 
-上面示例表明，大于2的53次方以后，多出来的有效数字（最后三位的`111`）都会无法保存，变成0。
+上面示例表明，大于 2 的 53 次方以后，多出来的有效数字（最后三位的`111`）都会无法保存，变成 0。
 
 ### 数值范围
 
-根据标准，64位浮点数的指数部分的长度是11个二进制位，意味着指数部分的最大值是2047（2的11次方减1）。也就是说，64位浮点数的指数部分的值最大为2047，分出一半表示负数，则 JavaScript 能够表示的数值范围为21024到2-1023（开区间），超出这个范围的数无法表示。
+根据标准，64 位浮点数的指数部分的长度是 11 个二进制位，意味着指数部分的最大值是 2047（2 的 11 次方减 1）。也就是说，64 位浮点数的指数部分的值最大为 2047，分出一半表示负数，则 JavaScript 能够表示的数值范围为 21024 到 2-1023（开区间），超出这个范围的数无法表示。
 
-如果一个数大于等于2的1024次方，那么就会发生“正向溢出”，即 JavaScript 无法表示这么大的数，这时就会返回`Infinity`。
+如果一个数大于等于 2 的 1024 次方，那么就会发生“正向溢出”，即 JavaScript 无法表示这么大的数，这时就会返回`Infinity`。
 
 ```javascript
 Math.pow(2, 1024) // Infinity
 ```
 
-如果一个数小于等于2的-1075次方（指数部分最小值-1023，再加上小数部分的52位），那么就会发生为“负向溢出”，即 JavaScript 无法表示这么小的数，这时会直接返回0。
+如果一个数小于等于 2 的-1075 次方（指数部分最小值-1023，再加上小数部分的 52 位），那么就会发生为“负向溢出”，即 JavaScript 无法表示这么小的数，这时会直接返回 0。
 
 ```javascript
 Math.pow(2, -1075) // 0
@@ -1407,16 +1398,16 @@ Math.pow(2, -1075) // 0
 下面是一个实际的例子。
 
 ```javascript
-var x = 0.5;
+var x = 0.5
 
-for(var i = 0; i < 25; i++) {
-  x = x * x;
+for (var i = 0; i < 25; i++) {
+  x = x * x
 }
 
 x // 0
 ```
 
-上面代码中，对`0.5`连续做25次平方，由于最后结果太接近0，超出了可表示的范围，JavaScript 就直接将其转为0。
+上面代码中，对`0.5`连续做 25 次平方，由于最后结果太接近 0，超出了可表示的范围，JavaScript 就直接将其转为 0。
 
 JavaScript 提供`Number`对象的`MAX_VALUE`和`MIN_VALUE`属性，返回可以表示的具体的最大值和最小值。
 
@@ -1433,16 +1424,16 @@ JavaScript 的数值有多种表示方法，可以用字面形式直接表示，
 
 ```javascript
 123e3 // 123000
-123e-3 // 0.123
--3.1E+12
-.1e-23
+123e-3 - // 0.123
+  3.1e12
+0.1e-23
 ```
 
 科学计数法允许字母`e`或`E`的后面，跟着一个整数，表示这个数值的指数部分。
 
 以下两种情况，JavaScript 会自动将数值转为科学计数法表示，其他情况都采用字面形式直接表示。
 
-**（1）小数点前的数字多于21位。**
+**（1）小数点前的数字多于 21 位。**
 
 ```javascript
 1234567890123456789012
@@ -1452,7 +1443,7 @@ JavaScript 的数值有多种表示方法，可以用字面形式直接表示，
 // 123456789012345680000
 ```
 
-**（2）小数点后的零多于5个。**
+**（2）小数点后的零多于 5 个。**
 
 ```javascript
 // 小数点后紧跟5个以上的零，
@@ -1467,8 +1458,8 @@ JavaScript 的数值有多种表示方法，可以用字面形式直接表示，
 
 使用字面量（literal）直接表示一个数值时，JavaScript 对整数提供四种进制的表示方法：十进制、十六进制、八进制、二进制。
 
-- 十进制：没有前导0的数值。
-- 八进制：有前缀`0o`或`0O`的数值，或者有前导0、且只用到0-7的八个阿拉伯数字的数值。
+- 十进制：没有前导 0 的数值。
+- 八进制：有前缀`0o`或`0O`的数值，或者有前导 0、且只用到 0-7 的八个阿拉伯数字的数值。
 - 十六进制：有前缀`0x`或`0X`的数值。
 - 二进制：有前缀`0b`或`0B`的数值。
 
@@ -1490,14 +1481,14 @@ JavaScript 的数值有多种表示方法，可以用字面形式直接表示，
 
 上面代码中，十六进制出现了字母`z`、八进制出现数字`8`、二进制出现数字`2`，因此报错。
 
-通常来说，有前导0的数值会被视为八进制，但是如果前导0后面有数字`8`和`9`，则该数值被视为十进制。
+通常来说，有前导 0 的数值会被视为八进制，但是如果前导 0 后面有数字`8`和`9`，则该数值被视为十进制。
 
 ```javascript
 0888 // 888
 0777 // 511
 ```
 
-前导0表示八进制，处理时很容易造成混乱。ES5 的严格模式和 ES6，已经废除了这种表示法，但是浏览器为了兼容以前的代码，目前还继续支持这种表示法。
+前导 0 表示八进制，处理时很容易造成混乱。ES5 的严格模式和 ES6，已经废除了这种表示法，但是浏览器为了兼容以前的代码，目前还继续支持这种表示法。
 
 ## 特殊数值
 
@@ -1505,12 +1496,12 @@ JavaScript 提供了几个特殊的数值。
 
 ### 正零和负零
 
-前面说过，JavaScript 的64位浮点数之中，有一个二进制位是符号位。这意味着，任何一个数都有一个对应的负值，就连`0`也不例外。
+前面说过，JavaScript 的 64 位浮点数之中，有一个二进制位是符号位。这意味着，任何一个数都有一个对应的负值，就连`0`也不例外。
 
-JavaScript 内部实际上存在2个`0`：一个是`+0`，一个是`-0`，区别就是64位浮点数表示法的符号位不同。它们是等价的。
+JavaScript 内部实际上存在 2 个`0`：一个是`+0`，一个是`-0`，区别就是 64 位浮点数表示法的符号位不同。它们是等价的。
 
 ```javascript
--0 === +0 // true
+;-0 === +0 // true
 0 === -0 // true
 0 === +0 // true
 ```
@@ -1518,16 +1509,22 @@ JavaScript 内部实际上存在2个`0`：一个是`+0`，一个是`-0`，区别
 几乎所有场合，正零和负零都会被当作正常的`0`。
 
 ```javascript
-+0 // 0
--0 // 0
-(-0).toString() // '0'
-(+0).toString() // '0'
+;+0 - // 0
+  0(
+    // 0
+    -0
+  )
+    .toString()(
+      // '0'
+      +0
+    )
+    .toString() // '0'
 ```
 
 唯一有区别的场合是，`+0`或`-0`当作分母，返回的值是不相等的。
 
 ```javascript
-(1 / +0) === (1 / -0) // false
+1 / +0 === 1 / -0 // false
 ```
 
 上面的代码之所以出现这样结果，是因为除以正零得到`+Infinity`，除以负零得到`-Infinity`，这两者是不相等的（关于`Infinity`详见下文）。
@@ -1575,7 +1572,7 @@ NaN === NaN // false
 数组的`indexOf`方法内部使用的是严格相等运算符，所以该方法对`NaN`不成立。
 
 ```javascript
-[NaN].indexOf(NaN) // -1
+;[NaN].indexOf(NaN) // -1
 ```
 
 `NaN`在布尔运算时被当作`false`。
@@ -1597,7 +1594,7 @@ NaN / 32 // NaN
 
 **（1）含义**
 
-`Infinity`表示“无穷”，用来表示两种场景。一种是一个正的数值太大，或一个负的数值太小，无法表示；另一种是非0数值除以0，得到`Infinity`。
+`Infinity`表示“无穷”，用来表示两种场景。一种是一个正的数值太大，或一个负的数值太小，无法表示；另一种是非 0 数值除以 0，得到`Infinity`。
 
 ```javascript
 // 场景一
@@ -1609,15 +1606,15 @@ Math.pow(2, 1024)
 1 / 0 // Infinity
 ```
 
-上面代码中，第一个场景是一个表达式的计算结果太大，超出了能够表示的范围，因此返回`Infinity`。第二个场景是`0`除以`0`会得到`NaN`，而非0数值除以`0`，会返回`Infinity`。
+上面代码中，第一个场景是一个表达式的计算结果太大，超出了能够表示的范围，因此返回`Infinity`。第二个场景是`0`除以`0`会得到`NaN`，而非 0 数值除以`0`，会返回`Infinity`。
 
 `Infinity`有正负之分，`Infinity`表示正的无穷，`-Infinity`表示负的无穷。
 
 ```javascript
 Infinity === -Infinity // false
 
-1 / -0 // -Infinity
--1 / -0 // Infinity
+1 / -0 - // -Infinity
+  1 / -0 // Infinity
 ```
 
 上面代码中，非零正数除以`-0`，会得到`-Infinity`，负数除以`-0`，会得到`Infinity`。
@@ -1627,18 +1624,24 @@ Infinity === -Infinity // false
 `Infinity`大于一切数值（除了`NaN`），`-Infinity`小于一切数值（除了`NaN`）。
 
 ```javascript
-Infinity > 1000 // true
--Infinity < -1000 // true
+Infinity >
+  1000 - // true
+    Infinity <
+  -1000 // true
 ```
 
 `Infinity`与`NaN`比较，总是返回`false`。
 
 ```javascript
-Infinity > NaN // false
--Infinity > NaN // false
+Infinity >
+  NaN - // false
+    Infinity >
+  NaN // false
 
-Infinity < NaN // false
--Infinity < NaN // false
+Infinity <
+  NaN - // false
+    Infinity <
+  NaN // false
 ```
 
 **（2）运算规则**
@@ -1652,7 +1655,7 @@ Infinity / 5 // Infinity
 5 / Infinity // 0
 ```
 
-0乘以`Infinity`，返回`NaN`；0除以`Infinity`，返回`0`；`Infinity`除以0，返回`Infinity`。
+0 乘以`Infinity`，返回`NaN`；0 除以`Infinity`，返回`0`；`Infinity`除以 0，返回`Infinity`。
 
 ```javascript
 0 * Infinity // NaN
@@ -1674,7 +1677,7 @@ Infinity - Infinity // NaN
 Infinity / Infinity // NaN
 ```
 
-`Infinity`与`null`计算时，`null`会转成0，等同于与`0`的计算。
+`Infinity`与`null`计算时，`null`会转成 0，等同于与`0`的计算。
 
 ```javascript
 null * Infinity // NaN
@@ -1748,7 +1751,7 @@ parseInt('+1') // 1
 parseInt('0x10') // 16
 ```
 
-如果字符串以`0`开头，将其按照10进制解析。
+如果字符串以`0`开头，将其按照 10 进制解析。
 
 ```javascript
 parseInt('011') // 11
@@ -1768,7 +1771,7 @@ parseInt('8e-7') // 8
 
 **（2）进制转换**
 
-`parseInt`方法还可以接受第二个参数（2到36之间），表示被解析的值的进制，返回该值对应的十进制数。默认情况下，`parseInt`的第二个参数为10，即默认是十进制转十进制。
+`parseInt`方法还可以接受第二个参数（2 到 36 之间），表示被解析的值的进制，返回该值对应的十进制数。默认情况下，`parseInt`的第二个参数为 10，即默认是十进制转十进制。
 
 ```javascript
 parseInt('1000') // 1000
@@ -1784,9 +1787,9 @@ parseInt('1000', 6) // 216
 parseInt('1000', 8) // 512
 ```
 
-上面代码中，二进制、六进制、八进制的`1000`，分别等于十进制的8、216和512。这意味着，可以用`parseInt`方法进行进制的转换。
+上面代码中，二进制、六进制、八进制的`1000`，分别等于十进制的 8、216 和 512。这意味着，可以用`parseInt`方法进行进制的转换。
 
-如果第二个参数不是数值，会被自动转为一个整数。这个整数只有在2到36之间，才能得到有意义的结果，超出这个范围，则返回`NaN`。如果第二个参数是`0`、`undefined`和`null`，则直接忽略。
+如果第二个参数不是数值，会被自动转为一个整数。这个整数只有在 2 到 36 之间，才能得到有意义的结果，超出这个范围，则返回`NaN`。如果第二个参数是`0`、`undefined`和`null`，则直接忽略。
 
 ```javascript
 parseInt('10', 37) // NaN
@@ -1803,7 +1806,7 @@ parseInt('1546', 2) // 1
 parseInt('546', 2) // NaN
 ```
 
-上面代码中，对于二进制来说，`1`是有意义的字符，`5`、`4`、`6`都是无意义的字符，所以第一行返回1，第二行返回`NaN`。
+上面代码中，对于二进制来说，`1`是有意义的字符，`5`、`4`、`6`都是无意义的字符，所以第一行返回 1，第二行返回`NaN`。
 
 前面说过，如果`parseInt`的第一个参数不是字符串，会被先转为字符串。这会导致一些令人意外的结果。
 
@@ -1820,9 +1823,9 @@ parseInt('17', 36)
 parseInt('17', 2)
 ```
 
-上面代码中，十六进制的`0x11`会被先转为十进制的17，再转为字符串。然后，再用36进制或二进制解读字符串`17`，最后返回结果`43`和`1`。
+上面代码中，十六进制的`0x11`会被先转为十进制的 17，再转为字符串。然后，再用 36 进制或二进制解读字符串`17`，最后返回结果`43`和`1`。
 
-这种处理方式，对于八进制的前缀0，尤其需要注意。
+这种处理方式，对于八进制的前缀 0，尤其需要注意。
 
 ```javascript
 parseInt(011, 2) // NaN
@@ -1834,9 +1837,9 @@ parseInt(String(011), 2)
 parseInt(String(9), 2)
 ```
 
-上面代码中，第一行的`011`会被先转为字符串`9`，因为`9`不是二进制的有效字符，所以返回`NaN`。如果直接计算`parseInt('011', 2)`，`011`则是会被当作二进制处理，返回3。
+上面代码中，第一行的`011`会被先转为字符串`9`，因为`9`不是二进制的有效字符，所以返回`NaN`。如果直接计算`parseInt('011', 2)`，`011`则是会被当作二进制处理，返回 3。
 
-JavaScript 不再允许将带有前缀0的数字视为八进制数，而是要求忽略这个`0`。但是，为了保证兼容性，大部分浏览器并没有部署这一条规定。
+JavaScript 不再允许将带有前缀 0 的数字视为八进制数，而是要求忽略这个`0`。但是，为了保证兼容性，大部分浏览器并没有部署这一条规定。
 
 ### parseFloat()
 
@@ -1878,7 +1881,7 @@ parseFloat('') // NaN
 这些特点使得`parseFloat`的转换结果不同于`Number`函数。
 
 ```javascript
-parseFloat(true)  // NaN
+parseFloat(true) // NaN
 Number(true) // 1
 
 parseFloat(null) // NaN
@@ -1934,7 +1937,7 @@ isNaN(['123']) // false
 
 ```javascript
 function myIsNaN(value) {
-  return typeof value === 'number' && isNaN(value);
+  return typeof value === 'number' && isNaN(value)
 }
 ```
 
@@ -1942,7 +1945,7 @@ function myIsNaN(value) {
 
 ```javascript
 function myIsNaN(value) {
-  return value !== value;
+  return value !== value
 }
 ```
 
@@ -1971,7 +1974,8 @@ isFinite(-1) // true
 
 ```javascript
 'abc'
-"abc"
+'abc'
+
 ```
 
 单引号字符串的内部，可以使用双引号。双引号字符串的内部，可以使用单引号。
@@ -1979,6 +1983,7 @@ isFinite(-1) // true
 ```javascript
 'key = "value"'
 "It's a long journey"
+
 ```
 
 上面两个都是合法的字符串。
@@ -1991,6 +1996,7 @@ isFinite(-1) // true
 
 "Did she say \"Hello\"?"
 // "Did she say "Hello"?"
+
 ```
 
 由于 HTML 语言的属性值使用双引号，所以很多项目约定 JavaScript 语言的字符串只使用单引号，本教程遵守这个约定。当然，只使用双引号也完全可以。重要的是坚持使用一种风格，不要一会使用单引号表示字符串，一会又使用双引号表示。
@@ -2009,10 +2015,11 @@ c'
 如果长字符串必须分成多行，可以在每一行的尾部使用反斜杠。
 
 ```javascript
-var longString = 'Long \
+var longString =
+  'Long \
 long \
 long \
-string';
+string'
 
 longString
 // "Long long long string"
@@ -2023,20 +2030,23 @@ longString
 连接运算符（`+`）可以连接多个单行字符串，将长字符串拆成多行书写，输出的时候也是单行。
 
 ```javascript
-var longString = 'Long '
-  + 'long '
-  + 'long '
-  + 'string';
+var longString = 'Long ' + 'long ' + 'long ' + 'string'
 ```
 
 如果想输出多行字符串，有一种利用多行注释的变通方法。
 
 ```javascript
-(function () { /*
+;(function () {
+  /*
 line 1
 line 2
 line 3
-*/}).toString().split('\n').slice(1, -1).join('\n')
+*/
+}
+  .toString()
+  .split('\n')
+  .slice(1, -1)
+  .join('\n'))
 // "line 1
 // line 2
 // line 3"
@@ -2075,11 +2085,11 @@ console.log('1\n2')
 
 （1）`\HHH`
 
-反斜杠后面紧跟三个八进制数（`000`到`377`），代表一个字符。`HHH`对应该字符的 Unicode 码点，比如`\251`表示版权符号。显然，这种方法只能输出256种字符。
+反斜杠后面紧跟三个八进制数（`000`到`377`），代表一个字符。`HHH`对应该字符的 Unicode 码点，比如`\251`表示版权符号。显然，这种方法只能输出 256 种字符。
 
 （2）`\xHH`
 
-`\x`后面紧跟两个十六进制数（`00`到`FF`），代表一个字符。`HH`对应该字符的 Unicode 码点，比如`\xA9`表示版权符号。这种方法也只能输出256种字符。
+`\x`后面紧跟两个十六进制数（`00`到`FF`），代表一个字符。`HH`对应该字符的 Unicode 码点，比如`\xA9`表示版权符号。这种方法也只能输出 256 种字符。
 
 （3）`\uXXXX`
 
@@ -2102,6 +2112,7 @@ console.log('1\n2')
 ```javascript
 '\a'
 // "a"
+
 ```
 
 上面代码中，`a`是一个正常字符，前面加反斜杠没有特殊含义，反斜杠会被自动省略。
@@ -2109,16 +2120,17 @@ console.log('1\n2')
 如果字符串的正常内容之中，需要包含反斜杠，则反斜杠前面需要再加一个反斜杠，用来对自身转义。
 
 ```javascript
-"Prev \\ Next"
+'Prev \\ Next'
 // "Prev \ Next"
+
 ```
 
 ### 字符串与数组
 
-字符串可以被视为字符数组，因此可以使用数组的方括号运算符，用来返回某个位置的字符（位置编号从0开始）。
+字符串可以被视为字符数组，因此可以使用数组的方括号运算符，用来返回某个位置的字符（位置编号从 0 开始）。
 
 ```javascript
-var s = 'hello';
+var s = 'hello'
 s[0] // "h"
 s[1] // "e"
 s[4] // "o"
@@ -2138,15 +2150,15 @@ s[4] // "o"
 但是，字符串与数组的相似性仅此而已。实际上，无法改变字符串之中的单个字符。
 
 ```javascript
-var s = 'hello';
+var s = 'hello'
 
-delete s[0];
+delete s[0]
 s // "hello"
 
-s[1] = 'a';
+s[1] = 'a'
 s // "hello"
 
-s[5] = '!';
+s[5] = '!'
 s // "hello"
 ```
 
@@ -2157,13 +2169,13 @@ s // "hello"
 `length`属性返回字符串的长度，该属性也是无法改变的。
 
 ```javascript
-var s = 'hello';
+var s = 'hello'
 s.length // 5
 
-s.length = 3;
+s.length = 3
 s.length // 5
 
-s.length = 7;
+s.length = 7
 s.length // 5
 ```
 
@@ -2176,22 +2188,22 @@ JavaScript 使用 Unicode 字符集。JavaScript 引擎内部，所有字符都�
 JavaScript 不仅以 Unicode 储存字符，还允许直接在程序中使用 Unicode 码点表示字符，即将字符写成`\uxxxx`的形式，其中`xxxx`代表该字符的 Unicode 码点。比如，`\u00A9`代表版权符号。
 
 ```javascript
-var s = '\u00A9';
+var s = '\u00A9'
 s // "©"
 ```
 
 解析代码的时候，JavaScript 会自动识别一个字符是字面形式表示，还是 Unicode 形式表示。输出给用户的时候，所有字符都会转成字面形式。
 
 ```javascript
-var f\u006F\u006F = 'abc';
+var foo = 'abc'
 foo // "abc"
 ```
 
 上面代码中，第一行的变量名`foo`是 Unicode 形式表示，第二行是字面形式表示。JavaScript 会自动识别。
 
-我们还需要知道，每个字符在 JavaScript 内部都是以16位（即2个字节）的 UTF-16 格式储存。也就是说，JavaScript 的单位字符长度固定为16位长度，即2个字节。
+我们还需要知道，每个字符在 JavaScript 内部都是以 16 位（即 2 个字节）的 UTF-16 格式储存。也就是说，JavaScript 的单位字符长度固定为 16 位长度，即 2 个字节。
 
-但是，UTF-16 有两种长度：对于码点在`U+0000`到`U+FFFF`之间的字符，长度为16位（即2个字节）；对于码点在`U+10000`到`U+10FFFF`之间的字符，长度为32位（即4个字节），而且前两个字节在`0xD800`到`0xDBFF`之间，后两个字节在`0xDC00`到`0xDFFF`之间。
+但是，UTF-16 有两种长度：对于码点在`U+0000`到`U+FFFF`之间的字符，长度为 16 位（即 2 个字节）；对于码点在`U+10000`到`U+10FFFF`之间的字符，长度为 32 位（即 4 个字节），而且前两个字节在`0xD800`到`0xDBFF`之间，后两个字节在`0xDC00`到`0xDFFF`之间。
 
 # 08-对象
 
@@ -2206,8 +2218,8 @@ foo // "abc"
 ```javascript
 var obj = {
   foo: 'Hello',
-  bar: 'World'
-};
+  bar: 'World',
+}
 ```
 
 上面代码中，大括号就定义了一个对象，它被赋值给变量`obj`，所以变量`obj`就指向一个对象。该对象内部包含两个键值对（又称为两个“成员”），第一个键值对是`foo: 'Hello'`，其中`foo`是“键名”（成员的名称），字符串`Hello`是“键值”（成员的值）。键名与键值之间用冒号分隔。第二个键值对是`bar: 'World'`，`bar`是键名，`World`是键值。两个键值对之间用逗号分隔。
@@ -2218,9 +2230,9 @@ var obj = {
 
 ```javascript
 var obj = {
-  'foo': 'Hello',
-  'bar': 'World'
-};
+  foo: 'Hello',
+  bar: 'World',
+}
 ```
 
 如果键名是数值，会被自动转为字符串。
@@ -2231,9 +2243,9 @@ var obj = {
   3.2: 'b',
   1e2: true,
   1e-2: true,
-  .234: true,
-  0xFF: true
-};
+  0.234: true,
+  0xff: true,
+}
 
 obj
 // Object {
@@ -2273,9 +2285,9 @@ var obj = {
 ```javascript
 var obj = {
   p: function (x) {
-    return 2 * x;
-  }
-};
+    return 2 * x
+  },
+}
 
 obj.p(1) // 2
 ```
@@ -2285,10 +2297,10 @@ obj.p(1) // 2
 如果属性的值还是一个对象，就形成了链式引用。
 
 ```javascript
-var o1 = {};
-var o2 = { bar: 'hello' };
+var o1 = {}
+var o2 = { bar: 'hello' }
 
-o1.foo = o2;
+o1.foo = o2
 o1.foo.bar // "hello"
 ```
 
@@ -2308,8 +2320,8 @@ var obj = {
 属性可以动态创建，不必在对象声明时就指定。
 
 ```javascript
-var obj = {};
-obj.foo = 123;
+var obj = {}
+obj.foo = 123
 obj.foo // 123
 ```
 
@@ -2320,13 +2332,13 @@ obj.foo // 123
 如果不同的变量名指向同一个对象，那么它们都是这个对象的引用，也就是说指向同一个内存地址。修改其中一个变量，会影响到其他所有变量。
 
 ```javascript
-var o1 = {};
-var o2 = o1;
+var o1 = {}
+var o2 = o1
 
-o1.a = 1;
+o1.a = 1
 o2.a // 1
 
-o2.b = 2;
+o2.b = 2
 o1.b // 2
 ```
 
@@ -2335,22 +2347,22 @@ o1.b // 2
 此时，如果取消某一个变量对于原对象的引用，不会影响到另一个变量。
 
 ```javascript
-var o1 = {};
-var o2 = o1;
+var o1 = {}
+var o2 = o1
 
-o1 = 1;
+o1 = 1
 o2 // {}
 ```
 
-上面代码中，`o1`和`o2`指向同一个对象，然后`o1`的值变为1，这时不会对`o2`产生影响，`o2`还是指向原来的那个对象。
+上面代码中，`o1`和`o2`指向同一个对象，然后`o1`的值变为 1，这时不会对`o2`产生影响，`o2`还是指向原来的那个对象。
 
 但是，这种引用只局限于对象，如果两个变量指向同一个原始类型的值。那么，变量这时都是值的拷贝。
 
 ```javascript
-var x = 1;
-var y = x;
+var x = 1
+var y = x
 
-x = 2;
+x = 2
 y // 1
 ```
 
@@ -2361,7 +2373,9 @@ y // 1
 对象采用大括号表示，这导致了一个问题：如果行首是一个大括号，它到底是表达式还是语句？
 
 ```javascript
-{ foo: 123 }
+{
+  foo: 123
+}
 ```
 
 JavaScript 引擎读到上面这行代码，会发现可能有两种含义。第一种可能是，这是一个表达式，表示一个包含`foo`属性的对象；第二种可能是，这是一个语句，表示一个代码区块，里面有一个标签`foo`，指向表达式`123`。
@@ -2369,7 +2383,9 @@ JavaScript 引擎读到上面这行代码，会发现可能有两种含义。第
 为了避免这种歧义，JavaScript 引擎的做法是，如果遇到这种情况，无法确定是对象还是代码块，一律解释为代码块。
 
 ```javascript
-{ console.log(123) } // 123
+{
+  console.log(123)
+} // 123
 ```
 
 上面的语句是一个代码块，而且只有解释为代码块，才能执行。
@@ -2398,8 +2414,8 @@ eval('({foo: 123})') // {foo: 123}
 
 ```javascript
 var obj = {
-  p: 'Hello World'
-};
+  p: 'Hello World',
+}
 
 obj.p // "Hello World"
 obj['p'] // "Hello World"
@@ -2410,15 +2426,15 @@ obj['p'] // "Hello World"
 请注意，如果使用方括号运算符，键名必须放在引号里面，否则会被当作变量处理。
 
 ```javascript
-var foo = 'bar';
+var foo = 'bar'
 
 var obj = {
   foo: 1,
-  bar: 2
-};
+  bar: 2,
+}
 
-obj.foo  // 1
-obj[foo]  // 2
+obj.foo // 1
+obj[foo] // 2
 ```
 
 上面代码中，引用对象`obj`的`foo`属性时，如果使用点运算符，`foo`就是字符串；如果使用方括号运算符，但是不使用引号，那么`foo`就是一个变量，指向字符串`bar`。
@@ -2434,8 +2450,8 @@ obj[3 + 3]
 
 ```javascript
 var obj = {
-  0.7: 'Hello World'
-};
+  0.7: 'Hello World',
+}
 
 obj['0.7'] // "Hello World"
 obj[0.7] // "Hello World"
@@ -2461,10 +2477,10 @@ obj[123] // "hello world"
 点运算符和方括号运算符，不仅可以用来读取值，还可以用来赋值。
 
 ```javascript
-var obj = {};
+var obj = {}
 
-obj.foo = 'Hello';
-obj['bar'] = 'World';
+obj.foo = 'Hello'
+obj['bar'] = 'World'
 ```
 
 上面代码中，分别使用点运算符和方括号运算符，对属性赋值。
@@ -2472,12 +2488,12 @@ obj['bar'] = 'World';
 JavaScript 允许属性的“后绑定”，也就是说，你可以在任意时刻新增属性，没必要在定义对象的时候，就定义好属性。
 
 ```javascript
-var obj = { p: 1 };
+var obj = { p: 1 }
 
 // 等价于
 
-var obj = {};
-obj.p = 1;
+var obj = {}
+obj.p = 1
 ```
 
 ### 属性的查看
@@ -2487,10 +2503,10 @@ obj.p = 1;
 ```javascript
 var obj = {
   key1: 1,
-  key2: 2
-};
+  key2: 2,
+}
 
-Object.keys(obj);
+Object.keys(obj)
 // ['key1', 'key2']
 ```
 
@@ -2499,7 +2515,7 @@ Object.keys(obj);
 `delete`命令用于删除对象的属性，删除成功后返回`true`。
 
 ```javascript
-var obj = { p: 1 };
+var obj = { p: 1 }
 Object.keys(obj) // ["p"]
 
 delete obj.p // true
@@ -2512,7 +2528,7 @@ Object.keys(obj) // []
 注意，删除一个不存在的属性，`delete`不报错，而且返回`true`。
 
 ```javascript
-var obj = {};
+var obj = {}
 delete obj.p // true
 ```
 
@@ -2523,8 +2539,8 @@ delete obj.p // true
 ```javascript
 var obj = Object.defineProperty({}, 'p', {
   value: 123,
-  configurable: false
-});
+  configurable: false,
+})
 
 obj.p // 123
 delete obj.p // false
@@ -2535,7 +2551,7 @@ delete obj.p // false
 另外，需要注意的是，`delete`命令只能删除对象本身的属性，无法删除继承的属性（关于继承参见《面向对象编程》章节）。
 
 ```javascript
-var obj = {};
+var obj = {}
 delete obj.toString // true
 obj.toString // function toString() { [native code] }
 ```
@@ -2547,7 +2563,7 @@ obj.toString // function toString() { [native code] }
 `in`运算符用于检查对象是否包含某个属性（注意，检查的是键名，不是键值），如果包含就返回`true`，否则返回`false`。它的左边是一个字符串，表示属性名，右边是一个对象。
 
 ```javascript
-var obj = { p: 1 };
+var obj = { p: 1 }
 'p' in obj // true
 'toString' in obj // true
 ```
@@ -2557,7 +2573,7 @@ var obj = { p: 1 };
 这时，可以使用对象的`hasOwnProperty`方法判断一下，是否为对象自身的属性。
 
 ```javascript
-var obj = {};
+var obj = {}
 if ('toString' in obj) {
   console.log(obj.hasOwnProperty('toString')) // false
 }
@@ -2568,11 +2584,11 @@ if ('toString' in obj) {
 `for...in`循环用来遍历一个对象的全部属性。
 
 ```javascript
-var obj = {a: 1, b: 2, c: 3};
+var obj = { a: 1, b: 2, c: 3 }
 
 for (var i in obj) {
-  console.log('键名：', i);
-  console.log('键值：', obj[i]);
+  console.log('键名：', i)
+  console.log('键值：', obj[i])
 }
 // 键名： a
 // 键值： 1
@@ -2590,13 +2606,13 @@ for (var i in obj) {
 举例来说，对象都继承了`toString`属性，但是`for...in`循环不会遍历到这个属性。
 
 ```javascript
-var obj = {};
+var obj = {}
 
 // toString 属性是存在的
 obj.toString // toString() { [native code] }
 
 for (var p in obj) {
-  console.log(p);
+  console.log(p)
 } // 没有任何输出
 ```
 
@@ -2605,11 +2621,11 @@ for (var p in obj) {
 如果继承的属性是可遍历的，那么就会被`for...in`循环遍历到。但是，一般情况下，都是只想遍历对象自身的属性，所以使用`for...in`的时候，应该结合使用`hasOwnProperty`方法，在循环内部判断一下，某个属性是否为对象自身的属性。
 
 ```javascript
-var person = { name: '老张' };
+var person = { name: '老张' }
 
 for (var key in person) {
   if (person.hasOwnProperty(key)) {
-    console.log(key);
+    console.log(key)
   }
 }
 // name
@@ -2621,7 +2637,7 @@ for (var key in person) {
 
 ```javascript
 with (对象) {
-  语句;
+  语句
 }
 ```
 
@@ -2632,34 +2648,34 @@ with (对象) {
 var obj = {
   p1: 1,
   p2: 2,
-};
+}
 with (obj) {
-  p1 = 4;
-  p2 = 5;
+  p1 = 4
+  p2 = 5
 }
 // 等同于
-obj.p1 = 4;
-obj.p2 = 5;
+obj.p1 = 4
+obj.p2 = 5
 
 // 例二
-with (document.links[0]){
-  console.log(href);
-  console.log(title);
-  console.log(style);
+with (document.links[0]) {
+  console.log(href)
+  console.log(title)
+  console.log(style)
 }
 // 等同于
-console.log(document.links[0].href);
-console.log(document.links[0].title);
-console.log(document.links[0].style);
+console.log(document.links[0].href)
+console.log(document.links[0].title)
+console.log(document.links[0].style)
 ```
 
 注意，如果`with`区块内部有变量的赋值操作，必须是当前对象已经存在的属性，否则会创造一个当前作用域的全局变量。
 
 ```javascript
-var obj = {};
+var obj = {}
 with (obj) {
-  p1 = 4;
-  p2 = 5;
+  p1 = 4
+  p2 = 5
 }
 
 obj.p1 // undefined
@@ -2672,20 +2688,20 @@ p1 // 4
 
 ```javascript
 with (obj) {
-  console.log(x);
+  console.log(x)
 }
 ```
 
 单纯从上面的代码块，根本无法判断`x`到底是全局变量，还是对象`obj`的一个属性。这非常不利于代码的除错和模块化，编译器也无法对这段代码进行优化，只能留到运行时判断，这就拖慢了运行速度。因此，建议不要使用`with`语句，可以考虑用一个临时变量代替`with`。
 
 ```javascript
-with(obj1.obj2.obj3) {
-  console.log(p1 + p2);
+with (obj1.obj2.obj3) {
+  console.log(p1 + p2)
 }
 
 // 可以写成
-var temp = obj1.obj2.obj3;
-console.log(temp.p1 + temp.p2);
+var temp = obj1.obj2.obj3
+console.log(temp.p1 + temp.p2)
 ```
 
 # 09-函数
@@ -2824,7 +2840,7 @@ function fib(num) {
 fib(6) // 8
 ```
 
-上面代码中，`fib`函数内部又调用了`fib`，计算得到斐波那契数列的第6个元素是8。
+上面代码中，`fib`函数内部又调用了`fib`，计算得到斐波那契数列的第 6 个元素是 8。
 
 ### 第一等公民
 
@@ -2938,7 +2954,7 @@ function f(a, b) {}
 f.length // 2
 ```
 
-上面代码定义了空函数`f`，它的`length`属性就是定义时的参数个数。不管调用时输入了多少个参数，`length`属性始终等于2。
+上面代码定义了空函数`f`，它的`length`属性就是定义时的参数个数。不管调用时输入了多少个参数，`length`属性始终等于 2。
 
 `length`属性提供了一种机制，判断定义时和调用时参数的差异，以便实现面向对象编程的“方法重载”（overload）。
 
@@ -3664,44 +3680,49 @@ window.eval('...')
 
 ## 定义
 
-数组（array）是按次序排列的一组值。每个值的位置都有编号（从0开始），整个数组用方括号表示。
+数组（array）是按次序排列的一组值。每个值的位置都有编号（从 0 开始），整个数组用方括号表示。
 
 ```javascript
-var arr = ['a', 'b', 'c'];
+var arr = ['a', 'b', 'c']
 ```
 
-上面代码中的`a`、`b`、`c`就构成一个数组，两端的方括号是数组的标志。`a`是0号位置，`b`是1号位置，`c`是2号位置。
+上面代码中的`a`、`b`、`c`就构成一个数组，两端的方括号是数组的标志。`a`是 0 号位置，`b`是 1 号位置，`c`是 2 号位置。
 
 除了在定义时赋值，数组也可以先定义后赋值。
 
 ```javascript
-var arr = [];
+var arr = []
 
-arr[0] = 'a';
-arr[1] = 'b';
-arr[2] = 'c';
+arr[0] = 'a'
+arr[1] = 'b'
+arr[2] = 'c'
 ```
 
 任何类型的数据，都可以放入数组。
 
 ```javascript
 var arr = [
-  {a: 1},
+  { a: 1 },
   [1, 2, 3],
-  function() {return true;}
-];
+  function () {
+    return true
+  },
+]
 
 arr[0] // Object {a: 1}
 arr[1] // [1, 2, 3]
 arr[2] // function (){return true;}
 ```
 
-上面数组`arr`的3个成员依次是对象、数组、函数。
+上面数组`arr`的 3 个成员依次是对象、数组、函数。
 
 如果数组的元素还是数组，就形成了多维数组。
 
 ```javascript
-var a = [[1, 2], [3, 4]];
+var a = [
+  [1, 2],
+  [3, 4],
+]
 a[0][1] // 2
 a[1][1] // 4
 ```
@@ -3719,18 +3740,18 @@ typeof [1, 2, 3] // "object"
 数组的特殊性体现在，它的键名是按次序排列的一组整数（0，1，2...）。
 
 ```javascript
-var arr = ['a', 'b', 'c'];
+var arr = ['a', 'b', 'c']
 
 Object.keys(arr)
 // ["0", "1", "2"]
 ```
 
-上面代码中，`Object.keys`方法返回数组的所有键名。可以看到数组的键名就是整数0、1、2。
+上面代码中，`Object.keys`方法返回数组的所有键名。可以看到数组的键名就是整数 0、1、2。
 
-由于数组成员的键名是固定的（默认总是0、1、2...），因此数组不用为每个元素指定键名，而对象的每个成员都必须指定键名。JavaScript 语言规定，对象的键名一律为字符串，所以，数组的键名其实也是字符串。之所以可以用数值读取，是因为非字符串的键名会被转为字符串。
+由于数组成员的键名是固定的（默认总是 0、1、2...），因此数组不用为每个元素指定键名，而对象的每个成员都必须指定键名。JavaScript 语言规定，对象的键名一律为字符串，所以，数组的键名其实也是字符串。之所以可以用数值读取，是因为非字符串的键名会被转为字符串。
 
 ```javascript
-var arr = ['a', 'b', 'c'];
+var arr = ['a', 'b', 'c']
 
 arr['0'] // 'a'
 arr[0] // 'a'
@@ -3741,9 +3762,9 @@ arr[0] // 'a'
 注意，这点在赋值时也成立。一个值总是先转成字符串，再作为键名进行赋值。
 
 ```javascript
-var a = [];
+var a = []
 
-a[1.00] = 6;
+a[1.0] = 6
 a[1] // 6
 ```
 
@@ -3763,24 +3784,24 @@ arr.0 // SyntaxError
 数组的`length`属性，返回数组的成员数量。
 
 ```javascript
-['a', 'b', 'c'].length // 3
+;['a', 'b', 'c'].length // 3
 ```
 
-JavaScript 使用一个32位整数，保存数组的元素个数。这意味着，数组成员最多只有 4294967295 个（232 - 1）个，也就是说`length`属性的最大值就是 4294967295。
+JavaScript 使用一个 32 位整数，保存数组的元素个数。这意味着，数组成员最多只有 4294967295 个（232 - 1）个，也就是说`length`属性的最大值就是 4294967295。
 
 只要是数组，就一定有`length`属性。该属性是一个动态的值，等于键名中的最大整数加上`1`。
 
 ```javascript
-var arr = ['a', 'b'];
+var arr = ['a', 'b']
 arr.length // 2
 
-arr[2] = 'c';
+arr[2] = 'c'
 arr.length // 3
 
-arr[9] = 'd';
+arr[9] = 'd'
 arr.length // 10
 
-arr[1000] = 'e';
+arr[1000] = 'e'
 arr.length // 1001
 ```
 
@@ -3789,30 +3810,30 @@ arr.length // 1001
 `length`属性是可写的。如果人为设置一个小于当前成员个数的值，该数组的成员会自动减少到`length`设置的值。
 
 ```javascript
-var arr = [ 'a', 'b', 'c' ];
+var arr = ['a', 'b', 'c']
 arr.length // 3
 
-arr.length = 2;
+arr.length = 2
 arr // ["a", "b"]
 ```
 
-上面代码表示，当数组的`length`属性设为2（即最大的整数键只能是1）那么整数键2（值为`c`）就已经不在数组中了，被自动删除了。
+上面代码表示，当数组的`length`属性设为 2（即最大的整数键只能是 1）那么整数键 2（值为`c`）就已经不在数组中了，被自动删除了。
 
-清空数组的一个有效方法，就是将`length`属性设为0。
+清空数组的一个有效方法，就是将`length`属性设为 0。
 
 ```javascript
-var arr = [ 'a', 'b', 'c' ];
+var arr = ['a', 'b', 'c']
 
-arr.length = 0;
+arr.length = 0
 arr // []
 ```
 
 如果人为设置`length`大于当前元素个数，则数组的成员数量会增加到这个值，新增的位置都是空位。
 
 ```javascript
-var a = ['a'];
+var a = ['a']
 
-a.length = 3;
+a.length = 3
 a[1] // undefined
 ```
 
@@ -3837,23 +3858,23 @@ a[1] // undefined
 值得注意的是，由于数组本质上是一种对象，所以可以为数组添加属性，但是这不影响`length`属性的值。
 
 ```javascript
-var a = [];
+var a = []
 
-a['p'] = 'abc';
+a['p'] = 'abc'
 a.length // 0
 
-a[2.1] = 'abc';
+a[2.1] = 'abc'
 a.length // 0
 ```
 
-上面代码将数组的键分别设为字符串和小数，结果都不影响`length`属性。因为，`length`属性的值就是等于最大的数字键加1，而这个数组没有整数键，所以`length`属性保持为`0`。
+上面代码将数组的键分别设为字符串和小数，结果都不影响`length`属性。因为，`length`属性的值就是等于最大的数字键加 1，而这个数组没有整数键，所以`length`属性保持为`0`。
 
 如果数组的键名是添加超出范围的数值，该键名会自动转为字符串。
 
 ```javascript
-var arr = [];
-arr[-1] = 'a';
-arr[Math.pow(2, 32)] = 'b';
+var arr = []
+arr[-1] = 'a'
+arr[Math.pow(2, 32)] = 'b'
 
 arr.length // 0
 arr[-1] // "a"
@@ -3867,8 +3888,8 @@ arr[4294967296] // "b"
 检查某个键名是否存在的运算符`in`，适用于对象，也适用于数组。
 
 ```javascript
-var arr = [ 'a', 'b', 'c' ];
-2 in arr  // true
+var arr = ['a', 'b', 'c']
+2 in arr // true
 '2' in arr // true
 4 in arr // false
 ```
@@ -3878,8 +3899,8 @@ var arr = [ 'a', 'b', 'c' ];
 注意，如果数组的某个位置是空位，`in`运算符返回`false`。
 
 ```javascript
-var arr = [];
-arr[100] = 'a';
+var arr = []
+arr[100] = 'a'
 
 100 in arr // true
 1 in arr // false
@@ -3892,10 +3913,10 @@ arr[100] = 'a';
 `for...in`循环不仅可以遍历对象，也可以遍历数组，毕竟数组只是一种特殊对象。
 
 ```javascript
-var a = [1, 2, 3];
+var a = [1, 2, 3]
 
 for (var i in a) {
-  console.log(a[i]);
+  console.log(a[i])
 }
 // 1
 // 2
@@ -3905,11 +3926,11 @@ for (var i in a) {
 但是，`for...in`不仅会遍历数组所有的数字键，还会遍历非数字键。
 
 ```javascript
-var a = [1, 2, 3];
-a.foo = true;
+var a = [1, 2, 3]
+a.foo = true
 
 for (var key in a) {
-  console.log(key);
+  console.log(key)
 }
 // 0
 // 1
@@ -3922,23 +3943,23 @@ for (var key in a) {
 数组的遍历可以考虑使用`for`循环或`while`循环。
 
 ```javascript
-var a = [1, 2, 3];
+var a = [1, 2, 3]
 
 // for循环
-for(var i = 0; i < a.length; i++) {
-  console.log(a[i]);
+for (var i = 0; i < a.length; i++) {
+  console.log(a[i])
 }
 
 // while循环
-var i = 0;
+var i = 0
 while (i < a.length) {
-  console.log(a[i]);
-  i++;
+  console.log(a[i])
+  i++
 }
 
-var l = a.length;
+var l = a.length
 while (l--) {
-  console.log(a[l]);
+  console.log(a[l])
 }
 ```
 
@@ -3947,10 +3968,10 @@ while (l--) {
 数组的`forEach`方法，也可以用来遍历数组，详见《标准库》的 Array 对象一章。
 
 ```javascript
-var colors = ['red', 'green', 'blue'];
+var colors = ['red', 'green', 'blue']
 colors.forEach(function (color) {
-  console.log(color);
-});
+  console.log(color)
+})
 // red
 // green
 // blue
@@ -3961,7 +3982,7 @@ colors.forEach(function (color) {
 当数组的某个位置是空元素，即两个逗号之间没有任何值，我们称该数组存在空位（hole）。
 
 ```javascript
-var a = [1, , 1];
+var a = [1, , 1]
 a.length // 3
 ```
 
@@ -3970,7 +3991,7 @@ a.length // 3
 需要注意的是，如果最后一个元素后面有逗号，并不会产生空位。也就是说，有没有这个逗号，结果都是一样的。
 
 ```javascript
-var a = [1, 2, 3,];
+var a = [1, 2, 3]
 
 a.length // 3
 a // [1, 2, 3]
@@ -3981,15 +4002,15 @@ a // [1, 2, 3]
 数组的空位是可以读取的，返回`undefined`。
 
 ```javascript
-var a = [, , ,];
+var a = [, , ,]
 a[1] // undefined
 ```
 
 使用`delete`命令删除一个数组成员，会形成空位，并且不会影响`length`属性。
 
 ```javascript
-var a = [1, 2, 3];
-delete a[1];
+var a = [1, 2, 3]
+delete a[1]
 
 a[1] // undefined
 a.length // 3
@@ -4000,15 +4021,15 @@ a.length // 3
 数组的某个位置是空位，与某个位置是`undefined`，是不一样的。如果是空位，使用数组的`forEach`方法、`for...in`结构、以及`Object.keys`方法进行遍历，空位都会被跳过。
 
 ```javascript
-var a = [, , ,];
+var a = [, , ,]
 
 a.forEach(function (x, i) {
-  console.log(i + '. ' + x);
+  console.log(i + '. ' + x)
 })
 // 不产生任何输出
 
 for (var i in a) {
-  console.log(i);
+  console.log(i)
 }
 // 不产生任何输出
 
@@ -4019,17 +4040,17 @@ Object.keys(a)
 如果某个位置是`undefined`，遍历的时候就不会被跳过。
 
 ```javascript
-var a = [undefined, undefined, undefined];
+var a = [undefined, undefined, undefined]
 
 a.forEach(function (x, i) {
-  console.log(i + '. ' + x);
-});
+  console.log(i + '. ' + x)
+})
 // 0. undefined
 // 1. undefined
 // 2. undefined
 
 for (var i in a) {
-  console.log(i);
+  console.log(i)
 }
 // 0
 // 1
@@ -4050,8 +4071,8 @@ var obj = {
   0: 'a',
   1: 'b',
   2: 'c',
-  length: 3
-};
+  length: 3,
+}
 
 obj[0] // 'a'
 obj[1] // 'b'
@@ -4065,9 +4086,9 @@ obj.push('d') // TypeError: obj.push is not a function
 
 ```javascript
 var obj = {
-  length: 0
-};
-obj[3] = 'd';
+  length: 0,
+}
+obj[3] = 'd'
 obj.length // 0
 ```
 
@@ -4077,15 +4098,17 @@ obj.length // 0
 
 ```javascript
 // arguments对象
-function args() { return arguments }
-var arrayLike = args('a', 'b');
+function args() {
+  return arguments
+}
+var arrayLike = args('a', 'b')
 
 arrayLike[0] // 'a'
 arrayLike.length // 2
 arrayLike instanceof Array // false
 
 // DOM元素集
-var elts = document.getElementsByTagName('h3');
+var elts = document.getElementsByTagName('h3')
 elts.length // 3
 elts instanceof Array // false
 
@@ -4100,17 +4123,17 @@ elts instanceof Array // false
 数组的`slice`方法可以将“类似数组的对象”变成真正的数组。
 
 ```javascript
-var arr = Array.prototype.slice.call(arrayLike);
+var arr = Array.prototype.slice.call(arrayLike)
 ```
 
 除了转为真正的数组，“类似数组的对象”还有一个办法可以使用数组的方法，就是通过`call()`把数组的方法放到对象上面。
 
 ```javascript
 function print(value, index) {
-  console.log(index + ' : ' + value);
+  console.log(index + ' : ' + value)
 }
 
-Array.prototype.forEach.call(arrayLike, print);
+Array.prototype.forEach.call(arrayLike, print)
 ```
 
 上面代码中，`arrayLike`代表一个类似数组的对象，本来是不可以使用数组的`forEach()`方法的，但是通过`call()`，可以把`forEach()`嫁接到`arrayLike`上面调用。
@@ -4121,14 +4144,14 @@ Array.prototype.forEach.call(arrayLike, print);
 // forEach 方法
 function logArgs() {
   Array.prototype.forEach.call(arguments, function (elem, i) {
-    console.log(i + '. ' + elem);
-  });
+    console.log(i + '. ' + elem)
+  })
 }
 
 // 等同于 for 循环
 function logArgs() {
   for (var i = 0; i < arguments.length; i++) {
-    console.log(i + '. ' + arguments[i]);
+    console.log(i + '. ' + arguments[i])
   }
 }
 ```
@@ -4137,8 +4160,8 @@ function logArgs() {
 
 ```javascript
 Array.prototype.forEach.call('abc', function (chr) {
-  console.log(chr);
-});
+  console.log(chr)
+})
 // a
 // b
 // c
@@ -4147,10 +4170,10 @@ Array.prototype.forEach.call('abc', function (chr) {
 注意，这种方法比直接使用数组原生的`forEach`要慢，所以最好还是先将“类似数组的对象”转为真正的数组，然后再直接调用数组的`forEach`方法。
 
 ```javascript
-var arr = Array.prototype.slice.call('abc');
+var arr = Array.prototype.slice.call('abc')
 arr.forEach(function (chr) {
-  console.log(chr);
-});
+  console.log(chr)
+})
 // a
 // b
 // c
@@ -4160,7 +4183,7 @@ arr.forEach(function (chr) {
 
 ## 概述
 
-JavaScript 共提供10个算术运算符，用来完成基本的算术运算。
+JavaScript 共提供 10 个算术运算符，用来完成基本的算术运算。
 
 - **加法运算符**：`x + y`
 - **减法运算符**： `x - y`
@@ -4231,7 +4254,7 @@ false + 'a' // "falsea"
 如果运算子是对象，必须先转成原始类型的值，然后再相加。
 
 ```javascript
-var obj = { p: 1 };
+var obj = { p: 1 }
 obj + 2 // "[object Object]2"
 ```
 
@@ -4242,14 +4265,14 @@ obj + 2 // "[object Object]2"
 首先，自动调用对象的`valueOf`方法。
 
 ```javascript
-var obj = { p: 1 };
+var obj = { p: 1 }
 obj.valueOf() // { p: 1 }
 ```
 
 一般来说，对象的`valueOf`方法总是返回对象自身，这时再自动调用对象的`toString`方法，将其转为字符串。
 
 ```javascript
-var obj = { p: 1 };
+var obj = { p: 1 }
 obj.valueOf().toString() // "[object Object]"
 ```
 
@@ -4260,9 +4283,9 @@ obj.valueOf().toString() // "[object Object]"
 ```javascript
 var obj = {
   valueOf: function () {
-    return 1;
-  }
-};
+    return 1
+  },
+}
 
 obj + 2 // 3
 ```
@@ -4274,9 +4297,9 @@ obj + 2 // 3
 ```javascript
 var obj = {
   toString: function () {
-    return 'hello';
-  }
-};
+    return 'hello'
+  },
+}
 
 obj + 2 // "hello2"
 ```
@@ -4286,9 +4309,13 @@ obj + 2 // "hello2"
 这里有一个特例，如果运算子是一个`Date`对象的实例，那么会优先执行`toString`方法。
 
 ```javascript
-var obj = new Date();
-obj.valueOf = function () { return 1 };
-obj.toString = function () { return 'hello' };
+var obj = new Date()
+obj.valueOf = function () {
+  return 1
+}
+obj.toString = function () {
+  return 'hello'
+}
 
 obj + 2 // "hello2"
 ```
@@ -4306,7 +4333,7 @@ obj + 2 // "hello2"
 需要注意的是，运算结果的正负号由第一个运算子的正负号决定。
 
 ```javascript
--1 % 2 // -1
+;-1 % 2 // -1
 1 % -2 // 1
 ```
 
@@ -4315,14 +4342,14 @@ obj + 2 // "hello2"
 ```javascript
 // 错误的写法
 function isOdd(n) {
-  return n % 2 === 1;
+  return n % 2 === 1
 }
 isOdd(-5) // false
 isOdd(-4) // false
 
 // 正确的写法
 function isOdd(n) {
-  return Math.abs(n % 2) === 1;
+  return Math.abs(n % 2) === 1
 }
 isOdd(-5) // true
 isOdd(-4) // false
@@ -4337,10 +4364,10 @@ isOdd(-4) // false
 
 ## 自增和自减运算符
 
-自增和自减运算符，是一元运算符，只需要一个运算子。它们的作用是将运算子首先转为数值，然后加上1或者减去1。它们会修改原始变量。
+自增和自减运算符，是一元运算符，只需要一个运算子。它们的作用是将运算子首先转为数值，然后加上 1 或者减去 1。它们会修改原始变量。
 
 ```javascript
-var x = 1;
+var x = 1
 ++x // 2
 x // 2
 
@@ -4355,8 +4382,8 @@ x // 1
 自增和自减运算符有一个需要注意的地方，就是放在变量之后，会先返回变量操作前的值，再进行自增/自减操作；放在变量之前，会先进行自增/自减操作，再返回变量操作后的值。
 
 ```javascript
-var x = 1;
-var y = 1;
+var x = 1
+var y = 1
 
 x++ // 1
 ++y // 2
@@ -4371,9 +4398,9 @@ x++ // 1
 数值运算符的作用在于可以将任何值转为数值（与`Number`函数的作用相同）。
 
 ```javascript
-+true // 1
-+[] // 0
-+{} // NaN
+;+true + // 1
+  [] + // 0
+  {} // NaN
 ```
 
 上面代码表示，非数值经过数值运算符以后，都变成了数值（最后一行`NaN`也是数值）。具体的类型转换规则，参见《数据类型转换》一章。
@@ -4381,9 +4408,9 @@ x++ // 1
 负数值运算符（`-`），也同样具有将一个值转为数值的功能，只不过得到的值正负相反。连用两个负数值运算符，等同于数值运算符。
 
 ```javascript
-var x = 1;
--x // -1
--(-x) // 1
+var x = 1
+;-x - // -1
+  -x // 1
 ```
 
 上面代码最后一行的圆括号不可少，否则会变成自减运算符。
@@ -4402,7 +4429,7 @@ var x = 1;
 
 ```javascript
 // 相当于 2 ** (3 ** 2)
-2 ** 3 ** 2
+2 ** (3 ** 2)
 // 512
 ```
 
@@ -4416,10 +4443,10 @@ var x = 1;
 
 ```javascript
 // 将 1 赋值给变量 x
-var x = 1;
+var x = 1
 
 // 将变量 y 的值赋值给变量 x
-var x = y;
+var x = y
 ```
 
 赋值运算符还可以与其他运算符结合，形成变体。下面是与算术运算符的结合。
@@ -4482,7 +4509,7 @@ x ^= y
 
 > 注意，比较运算符可以比较各种类型的值，不仅仅是数值。
 
-JavaScript 一共提供了8个比较运算符。
+JavaScript 一共提供了 8 个比较运算符。
 
 - `>` 大于运算符
 - `<` 小于运算符
@@ -4518,7 +4545,7 @@ JavaScript 引擎内部首先比较首字符的 Unicode 码点。如果相等，
 '大' > '小' // false
 ```
 
-上面代码中，“大”的 Unicode 码点是22823，“小”是23567，因此返回`false`。
+上面代码中，“大”的 Unicode 码点是 22823，“小”是 23567，因此返回`false`。
 
 ## 非相等运算符：非字符串的比较
 
@@ -4562,12 +4589,14 @@ NaN <= NaN // false
 对象转换成原始类型的值，算法是先调用`valueOf`方法；如果返回的还是对象，再接着调用`toString`方法，详细解释参见《数据类型的转换》一章。
 
 ```javascript
-var x = [2];
+var x = [2]
 x > '11' // true
 // 等同于 [2].valueOf().toString() > '11'
 // 即 '2' > '11'
 
-x.valueOf = function () { return '1' };
+x.valueOf = function () {
+  return '1'
+}
 x > '11' // false
 // 等同于 [2].valueOf() > '11'
 // 即 '1' > '11'
@@ -4602,8 +4631,8 @@ JavaScript 提供两种相等运算符：`==`和`===`。
 如果两个值的类型不同，直接返回`false`。
 
 ```javascript
-1 === "1" // false
-true === "true" // false
+1 === '1' // false
+true === 'true' // false
 ```
 
 上面代码比较数值的`1`与字符串的“1”、布尔值的`true`与字符串`"true"`，因为类型不同，结果都是`false`。
@@ -4621,8 +4650,10 @@ true === "true" // false
 需要注意的是，`NaN`与任何值都不相等（包括自身）。另外，正`0`等于负`0`。
 
 ```javascript
-NaN === NaN  // false
-+0 === -0 // true
+;(NaN ===
+  NaN + // false
+    0) ===
+  -0 // true
 ```
 
 **（3）复合类型值**
@@ -4640,16 +4671,16 @@ NaN === NaN  // false
 如果两个变量引用同一个对象，则它们相等。
 
 ```javascript
-var v1 = {};
-var v2 = v1;
+var v1 = {}
+var v2 = v1
 v1 === v2 // true
 ```
 
 注意，对于两个对象的比较，严格相等运算符比较的是地址，而大于或小于运算符比较的是值。
 
 ```javascript
-var obj1 = {};
-var obj2 = {};
+var obj1 = {}
+var obj2 = {}
 
 obj1 > obj2 // false
 obj1 < obj2 // false
@@ -4670,8 +4701,8 @@ null === null // true
 由于变量声明后默认值是`undefined`，因此两个只声明未赋值的变量是相等的。
 
 ```javascript
-var v1;
-var v2;
+var v1
+var v2
 v1 === v2 // true
 ```
 
@@ -4724,11 +4755,11 @@ v1 === v2 // true
 // 等同于 Number('') === 0
 // 等同于 0 === 0
 
-'' == false  // true
+'' == false // true
 // 等同于 Number('') === Number(false)
 // 等同于 0 === 0
 
-'1' == true  // true
+'1' == true // true
 // 等同于 Number('1') === Number(true)
 // 等同于 1 === 1
 
@@ -4744,19 +4775,22 @@ v1 === v2 // true
 
 ```javascript
 // 对象与数值比较时，对象转为数值
-[1] == 1 // true
-// 等同于 Number([1]) == 1
+;(((([1] ==
+  (1)[// 等同于 Number([1]) == 1 // true
 
-// 对象与字符串比较时，对象转为字符串
-[1] == '1' // true
-// 等同于 String([1]) == '1'
-[1, 2] == '1,2' // true
-// 等同于 String([1, 2]) == '1,2'
+  // 对象与字符串比较时，对象转为字符串
+  1]) ==
+  '1'[ // true
+    // 等同于 String([1]) == '1'
+    (1, 2)
+  ]) ==
+  '1,2'[// 等同于 String([1, 2]) == '1,2' // true
 
-// 对象与布尔值比较时，两边都转为数值
-[1] == true // true
-// 等同于 Number([1]) == Number(true)
-[2] == true // false
+  // 对象与布尔值比较时，两边都转为数值
+  1]) ==
+  true[// 等同于 Number([1]) == Number(true) // true
+  2]) ==
+  true // false
 // 等同于 Number([2]) == Number(true)
 ```
 
@@ -4781,20 +4815,20 @@ undefined == null // true
 相等运算符隐藏的类型转换，会带来一些违反直觉的结果。
 
 ```javascript
-0 == ''             // true
-0 == '0'            // true
+0 == '' // true
+0 == '0' // true
 
-2 == true           // false
-2 == false          // false
+2 == true // false
+2 == false // false
 
-false == 'false'    // false
-false == '0'        // true
+false == 'false' // false
+false == '0' // true
 
-false == undefined  // false
-false == null       // false
-null == undefined   // true
+false == undefined // false
+false == null // false
+null == undefined // true
 
-' \t\r\n ' == 0     // true
+' \t\r\n ' == 0 // true
 ```
 
 上面这些表达式都不同于直觉，很容易出错。因此建议不要使用相等运算符（`==`），最好只使用严格相等运算符（`===`）。
@@ -4844,7 +4878,7 @@ null == undefined   // true
 !null // true
 !0 // true
 !NaN // true
-!"" // true
+!'' // true
 
 !54 // false
 !'hello' // false
@@ -4873,12 +4907,12 @@ Boolean(x)
 ```javascript
 't' && '' // ""
 't' && 'f' // "f"
-'t' && (1 + 2) // 3
+'t' && 1 + 2 // 3
 '' && 'f' // ""
 '' && '' // ""
 
-var x = 1;
-(1 - 1) && ( x += 1) // 0
+var x = 1
+1 - 1 && (x += 1) // 0
 x // 1
 ```
 
@@ -4888,12 +4922,12 @@ x // 1
 
 ```javascript
 if (i) {
-  doSomething();
+  doSomething()
 }
 
 // 等价于
 
-i && doSomething();
+i && doSomething()
 ```
 
 上面代码的两种写法是等价的，但是后一种不容易看出目的，也不容易除错，建议谨慎使用。
@@ -4924,7 +4958,7 @@ true && 'foo' && '' && 4 && 'foo' && true
 短路规则对这个运算符也适用。
 
 ```javascript
-var x = 1;
+var x = 1
 true || (x = 2) // true
 x // 1
 ```
@@ -4941,13 +4975,13 @@ false || 0 || ''
 // ''
 ```
 
-上面代码中，例一里面，第一个布尔值为`true`的表达式是第四个表达式，所以得到数值4。例二里面，所有表达式的布尔值都为`false`，所以返回最后一个表达式的值。
+上面代码中，例一里面，第一个布尔值为`true`的表达式是第四个表达式，所以得到数值 4。例二里面，所有表达式的布尔值都为`false`，所以返回最后一个表达式的值。
 
 或运算符常用于为一个变量设置默认值。
 
 ```javascript
 function saveText(text) {
-  text = text || '';
+  text = text || ''
   // ...
 }
 
@@ -4971,7 +5005,7 @@ saveText(this.text || '')
 通常来说，三元条件表达式与`if...else`语句具有同样表达效果，前者可以表达的，后者也能表达。但是两者具有一个重大差别，`if...else`是语句，没有返回值；三元条件表达式是表达式，具有返回值。所以，在需要返回值的场合，只能使用三元条件表达式，而不能使用`if..else`。
 
 ```javascript
-console.log(true ? 'T' : 'F');
+console.log(true ? 'T' : 'F')
 ```
 
 上面代码中，`console.log`方法的参数必须是一个表达式，这时就只能使用三元条件表达式。如果要用`if...else`语句，就必须改变整个代码写法了。
@@ -4980,35 +5014,35 @@ console.log(true ? 'T' : 'F');
 
 ## 概述
 
-二进制位运算符用于直接对二进制位进行计算，一共有7个。
+二进制位运算符用于直接对二进制位进行计算，一共有 7 个。
 
 - **二进制或运算符**（or）：符号为`|`，表示若两个二进制位都为`0`，则结果为`0`，否则为`1`。
-- **二进制与运算符**（and）：符号为`&`，表示若两个二进制位都为1，则结果为1，否则为0。
+- **二进制与运算符**（and）：符号为`&`，表示若两个二进制位都为 1，则结果为 1，否则为 0。
 - **二进制否运算符**（not）：符号为`~`，表示对一个二进制位取反。
-- **异或运算符**（xor）：符号为`^`，表示若两个二进制位不相同，则结果为1，否则为0。
+- **异或运算符**（xor）：符号为`^`，表示若两个二进制位不相同，则结果为 1，否则为 0。
 - **左移运算符**（left shift）：符号为`<<`，详见下文解释。
 - **右移运算符**（right shift）：符号为`>>`，详见下文解释。
 - **头部补零的右移运算符**（zero filled right shift）：符号为`>>>`，详见下文解释。
 
 这些位运算符直接处理每一个比特位（bit），所以是非常底层的运算，好处是速度极快，缺点是很不直观，许多场合不能使用它们，否则会使代码难以理解和查错。
 
-有一点需要特别注意，位运算符只对整数起作用，如果一个运算子不是整数，会自动转为整数后再执行。另外，虽然在 JavaScript 内部，数值都是以64位浮点数的形式储存，但是做位运算的时候，是以32位带符号的整数进行运算的，并且返回值也是一个32位带符号的整数。
+有一点需要特别注意，位运算符只对整数起作用，如果一个运算子不是整数，会自动转为整数后再执行。另外，虽然在 JavaScript 内部，数值都是以 64 位浮点数的形式储存，但是做位运算的时候，是以 32 位带符号的整数进行运算的，并且返回值也是一个 32 位带符号的整数。
 
 ```javascript
-i = i | 0;
+i = i | 0
 ```
 
-上面这行代码的意思，就是将`i`（不管是整数或小数）转为32位整数。
+上面这行代码的意思，就是将`i`（不管是整数或小数）转为 32 位整数。
 
-利用这个特性，可以写出一个函数，将任意数值转为32位整数。
+利用这个特性，可以写出一个函数，将任意数值转为 32 位整数。
 
 ```javascript
 function toInt32(x) {
-  return x | 0;
+  return x | 0
 }
 ```
 
-上面这个函数将任意值与`0`进行一次或运算，这个位运算会自动将一个值转为32位整数。下面是这个函数的用法。
+上面这个函数将任意值与`0`进行一次或运算，这个位运算会自动将一个值转为 32 位整数。下面是这个函数的用法。
 
 ```javascript
 toInt32(1.001) // 1
@@ -5019,7 +5053,7 @@ toInt32(Math.pow(2, 32) + 1) // 1
 toInt32(Math.pow(2, 32) - 1) // -1
 ```
 
-上面代码中，`toInt32`可以将小数转为整数。对于一般的整数，返回值不会有任何变化。对于大于或等于2的32次方的整数，大于32位的数位都会被舍去。
+上面代码中，`toInt32`可以将小数转为整数。对于一般的整数，返回值不会有任何变化。对于大于或等于 2 的 32 次方的整数，大于 32 位的数位都会被舍去。
 
 ## 二进制或运算符
 
@@ -5034,14 +5068,16 @@ toInt32(Math.pow(2, 32) - 1) // -1
 位运算只对整数有效，遇到小数时，会将小数部分舍去，只保留整数部分。所以，将一个小数与`0`进行二进制或运算，等同于对该数去除小数部分，即取整数位。
 
 ```javascript
-2.9 | 0 // 2
--2.9 | 0 // -2
+;2.9 |
+  (0 - // 2
+    2.9) |
+  0 // -2
 ```
 
-需要注意的是，这种取整方法不适用超过32位整数最大值`2147483647`的数。
+需要注意的是，这种取整方法不适用超过 32 位整数最大值`2147483647`的数。
 
 ```javascript
-2147483649.4 | 0;
+2147483649.4 | 0
 // -2147483647
 ```
 
@@ -5053,22 +5089,22 @@ toInt32(Math.pow(2, 32) - 1) // -1
 0 & 3 // 0
 ```
 
-上面代码中，0（二进制`00`）和3（二进制`11`）进行二进制与运算会得到`00`（即`0`）。
+上面代码中，0（二进制`00`）和 3（二进制`11`）进行二进制与运算会得到`00`（即`0`）。
 
 ## 二进制否运算符
 
 二进制否运算符（`~`）将每个二进制位都变为相反值（`0`变为`1`，`1`变为`0`）。它的返回结果有时比较难理解，因为涉及到计算机内部的数值表示机制。
 
 ```javascript
-~ 3 // -4
+~3 // -4
 ```
 
-上面表达式对`3`进行二进制否运算，得到`-4`。之所以会有这样的结果，是因为位运算时，JavaScript 内部将所有的运算子都转为32位的二进制整数再进行运算。
+上面表达式对`3`进行二进制否运算，得到`-4`。之所以会有这样的结果，是因为位运算时，JavaScript 内部将所有的运算子都转为 32 位的二进制整数再进行运算。
 
-`3`的32位整数形式是`00000000000000000000000000000011`，二进制否运算以后得到`11111111111111111111111111111100`。由于第一位（符号位）是1，所以这个数是一个负数。JavaScript 内部采用补码形式表示负数，即需要将这个数减去1，再取一次反，然后加上负号，才能得到这个负数对应的10进制值。这个数减去1等于`11111111111111111111111111111011`，再取一次反得到`00000000000000000000000000000100`，再加上负号就是`-4`。考虑到这样的过程比较麻烦，可以简单记忆成，一个数与自身的取反值相加，等于-1。
+`3`的 32 位整数形式是`00000000000000000000000000000011`，二进制否运算以后得到`11111111111111111111111111111100`。由于第一位（符号位）是 1，所以这个数是一个负数。JavaScript 内部采用补码形式表示负数，即需要将这个数减去 1，再取一次反，然后加上负号，才能得到这个负数对应的 10 进制值。这个数减去 1 等于`11111111111111111111111111111011`，再取一次反得到`00000000000000000000000000000100`，再加上负号就是`-4`。考虑到这样的过程比较麻烦，可以简单记忆成，一个数与自身的取反值相加，等于-1。
 
 ```javascript
-~ -3 // 2
+~-3 // 2
 ```
 
 上面表达式可以这样算，`-3`的取反值等于`-1`减去`-3`，结果为`2`。
@@ -5094,7 +5130,7 @@ toInt32(Math.pow(2, 32) - 1) // -1
 
 ```javascript
 // 相当于~Number('011')
-~'011'  // -12
+~'011' // -12
 
 // 相当于~Number('42 cats')
 ~'42 cats' // -1
@@ -5134,10 +5170,10 @@ toInt32(Math.pow(2, 32) - 1) // -1
 “异或运算”有一个特殊运用，连续对两个数`a`和`b`进行三次异或运算，`a^=b; b^=a; a^=b;`，可以[互换](https://en.wikipedia.org/wiki/XOR_swap_algorithm)它们的值。这意味着，使用“异或运算”可以在不引入临时变量的前提下，互换两个变量的值。
 
 ```javascript
-var a = 10;
-var b = 99;
+var a = 10
+var b = 99
 
-a ^= b, b ^= a, a ^= b;
+;(a ^= b), (b ^= a), (a ^= b)
 
 a // 99
 b // 10
@@ -5159,36 +5195,43 @@ b // 10
 // 4 的二进制形式为100，
 // 左移一位为1000（即十进制的8）
 // 相当于乘以2的1次方
-4 << 1
-// 8
+;(4 <<
+  (1 -
+    // 8
 
--4 << 1
+    4)) <<
+  1
 // -8
 ```
 
-上面代码中，`-4`左移一位得到`-8`，是因为`-4`的二进制形式是`11111111111111111111111111111100`，左移一位后得到`11111111111111111111111111111000`，该数转为十进制（减去1后取反，再加上负号）即为`-8`。
+上面代码中，`-4`左移一位得到`-8`，是因为`-4`的二进制形式是`11111111111111111111111111111100`，左移一位后得到`11111111111111111111111111111000`，该数转为十进制（减去 1 后取反，再加上负号）即为`-8`。
 
-如果左移0位，就相当于将该数值转为32位整数，等同于取整，对于正数和负数都有效。
+如果左移 0 位，就相当于将该数值转为 32 位整数，等同于取整，对于正数和负数都有效。
 
 ```javascript
-13.5 << 0
-// 13
+;(13.5 <<
+  (0 -
+    // 13
 
--13.5 << 0
+    13.5)) <<
+  0
 // -13
 ```
 
 左移运算符用于二进制数值非常方便。
 
 ```javascript
-var color = {r: 186, g: 218, b: 85};
+var color = { r: 186, g: 218, b: 85 }
 
 // RGB to HEX
 // (1 << 24)的作用为保证结果是6位数
-var rgb2hex = function(r, g, b) {
-  return '#' + ((1 << 24) + (r << 16) + (g << 8) + b)
-    .toString(16) // 先转成十六进制，然后返回字符串
-    .substr(1);   // 去除字符串的最高位，返回后面六个字符串
+var rgb2hex = function (r, g, b) {
+  return (
+    '#' +
+    ((1 << 24) + (r << 16) + (g << 8) + b)
+      .toString(16) // 先转成十六进制，然后返回字符串
+      .substr(1)
+  ) // 去除字符串的最高位，返回后面六个字符串
 }
 
 rgb2hex(color.r, color.g, color.b)
@@ -5202,15 +5245,17 @@ rgb2hex(color.r, color.g, color.b)
 右移运算符（`>>`）表示将一个数的二进制值向右移动指定的位数。如果是正数，头部全部补`0`；如果是负数，头部全部补`1`。右移运算符基本上相当于除以`2`的指定次方（最高位即符号位参与移动）。
 
 ```javascript
-4 >> 1
-// 2
-/*
+;(4 >>
+  (1 -
+    // 2
+    /*
 // 因为4的二进制形式为 00000000000000000000000000000100，
 // 右移一位得到 00000000000000000000000000000010，
 // 即为十进制的2
 */
 
--4 >> 1
+    4)) >>
+  1
 // -2
 /*
 // 因为-4的二进制形式为 11111111111111111111111111111100，
@@ -5244,10 +5289,12 @@ rgb2hex(color.r, color.g, color.b)
 头部补零的右移运算符（`>>>`）与右移运算符（`>>`）只有一个差别，就是一个数的二进制形式向右移动时，头部一律补零，而不考虑符号位。所以，该运算总是得到正值。对于正数，该运算的结果与右移运算符（`>>`）完全一致，区别主要在于负数。
 
 ```javascript
-4 >>> 1
-// 2
+;(4 >>>
+  (1 -
+    // 2
 
--4 >>> 1
+    4)) >>>
+  1
 // 2147483646
 /*
 // 因为-4的二进制形式为11111111111111111111111111111100，
@@ -5256,15 +5303,15 @@ rgb2hex(color.r, color.g, color.b)
 */
 ```
 
-这个运算实际上将一个值转为32位无符号整数。
+这个运算实际上将一个值转为 32 位无符号整数。
 
 查看一个负整数在计算机内部的储存形式，最快的方法就是使用这个运算符。
 
 ```javascript
--1 >>> 0 // 4294967295
+;-1 >>> 0 // 4294967295
 ```
 
-上面代码表示，`-1`作为32位整数时，内部的储存形式使用无符号整数格式解读，值为 4294967295（即`(2^32)-1`，等于`11111111111111111111111111111111`）。
+上面代码表示，`-1`作为 32 位整数时，内部的储存形式使用无符号整数格式解读，值为 4294967295（即`(2^32)-1`，等于`11111111111111111111111111111111`）。
 
 ## 开关作用
 
@@ -5273,10 +5320,10 @@ rgb2hex(color.r, color.g, color.b)
 假定某个对象有四个开关，每个开关都是一个变量。那么，可以设置一个四位的二进制数，它的每个位对应一个开关。
 
 ```javascript
-var FLAG_A = 1; // 0001
-var FLAG_B = 2; // 0010
-var FLAG_C = 4; // 0100
-var FLAG_D = 8; // 1000
+var FLAG_A = 1 // 0001
+var FLAG_B = 2 // 0010
+var FLAG_C = 4 // 0100
+var FLAG_D = 8 // 1000
 ```
 
 上面代码设置 A、B、C、D 四个开关，每个开关分别占有一个二进制位。
@@ -5284,7 +5331,7 @@ var FLAG_D = 8; // 1000
 然后，就可以用二进制与运算检验，当前设置是否打开了指定开关。
 
 ```javascript
-var flags = 5; // 二进制的0101
+var flags = 5 // 二进制的0101
 
 if (flags & FLAG_C) {
   // ...
@@ -5297,7 +5344,7 @@ if (flags & FLAG_C) {
 现在假设需要打开`A`、`B`、`D`三个开关，我们可以构造一个掩码变量。
 
 ```javascript
-var mask = FLAG_A | FLAG_B | FLAG_D;
+var mask = FLAG_A | FLAG_B | FLAG_D
 // 0001 | 0010 | 1000 => 1011
 ```
 
@@ -5306,23 +5353,23 @@ var mask = FLAG_A | FLAG_B | FLAG_D;
 有了掩码，二进制或运算可以确保打开指定的开关。
 
 ```javascript
-flags = flags | mask;
+flags = flags | mask
 ```
 
 二进制与运算可以将当前设置中凡是与开关设置不一样的项，全部关闭。
 
 ```javascript
-flags = flags & mask;
+flags = flags & mask
 ```
 
 异或运算可以切换（toggle）当前设置，即第一次执行可以得到当前设置的相反值，再执行一次又得到原来的值。
 
 ```javascript
-flags = flags ^ mask;
+flags = flags ^ mask
 ```
 
 二进制否运算可以翻转当前设置，即原设置为`0`，运算后变为`1`；原设置为`1`，运算后变为`0`。
 
 ```javascript
-flags = ~flags;
+flags = ~flags
 ```
