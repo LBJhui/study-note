@@ -354,6 +354,8 @@ function updateChildren(
 
 # 你怎么理解 vue 中的 diff 算法
 
+
+
 # Vue 中 props 的实现原理
 
 `<componment></componment> => ast语法树 => vnode`
