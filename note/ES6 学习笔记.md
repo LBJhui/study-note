@@ -26,7 +26,7 @@ ES6 允许按照一定模式从数组和对象中提取值，对变量进行赋�
 
 # 模版字符串
 
-ES6引入新的声明字符串的方式` [``]`
+ES6 引入新的声明字符串的方式` [``]`
 
 1. 声明
 2. 内容中可以直接出现换行符
@@ -34,7 +34,7 @@ ES6引入新的声明字符串的方式` [``]`
 
 # 对象的简化写法
 
-ES6允许在大括号里面，直接写入变量和函数，作为对象的属性和方法
+ES6 允许在大括号里面，直接写入变量和函数，作为对象的属性和方法
 
 ```javascript
 let name = 'LBJhui'
@@ -45,9 +45,9 @@ let change = () => {
 const NBA = {
   name,
   change,
-  improve(){
+  improve() {
     console.log('湖人总冠军')
-  }
+  },
 }
 ```
 
@@ -84,7 +84,7 @@ ES6 允许给函数参数赋值初始值
 
 # rest 参数
 
-ES6引入 rest 参数，用于获取函数的实参，用来代替 arguments
+ES6 引入 rest 参数，用于获取函数的实参，用来代替 arguments
 
 # 扩展运算符
 
@@ -110,10 +110,80 @@ const newName = [...name]
 
 # Symbol
 
-ES6引入一种新的原始数据类型Symbol，表示独一无二的值。它是JavaScript语言的第七种数据类型，是一种类似于字符串的数据类型
+ES6 引入一种新的原始数据类型 Symbol，表示独一无二的值。它是 JavaScript 语言的第七种数据类型，是一种类似于字符串的数据类型
 
 Symbol 特点
 
 1. Symbol 的值是唯一的，用来解决命名冲突的问题
 2. Symbol 值不能与其他数据进行运算
 3. Symbol 定义的对象属性不能使用`for...in`循环遍历，但是可以使用`Reflect.ownKeys` 来获取对象的所有键名
+
+```javascript
+// 创建Symbol
+let s = Symbol()
+console.log(s, typeof s)
+let s2 = Symbol('LBJhui')
+let s3 = Symbol('LBJhui')
+console.log(s2 === s3) // false
+let s4 = Symbol.for('LBJhui')
+let s5 = Symbol.for('LBJhui')
+console.log(s4 === s5) // true
+```
+
+不能与其他数据进行运算
+
+## Symbol 的内置值
+
+|    Symbol.hasInstance     | 当其他对象使用 instance 运算符，判断是否为该对象的实例时，会调用这个方法                                     |
+| :-----------------------: | ------------------------------------------------------------------------------------------------------------ |
+| Symbol.isConcatSpreadable | 对象的 Symbol.isConcatSpreadable 属性等于是一个布尔值，表示该对象用于 Array.prototype.concat()，是否可以展开 |
+|    Symbol.unscopables     | 该对象指定了使用 with 关键字时，哪些属性会被 with 环境排除                                                   |
+|       Symbol.match        | 当执行 str.match(myObject) 时，如果该属性存在，会调用它，返回该方法的返回值                                  |
+|      Symbol.replace       | 当该对象被 str.replace(myObject) 方法调用时，会返回该方法的返回值                                            |
+|       Symbol.search       | 当该对象被 str.search(myObject) 方法调用时，会返回该方法的返回值                                             |
+|       Symbol.split        | 当该对象被 str.split(myObject) 方法调用时，会返回该对象的返回值                                              |
+|      Symbol.iterator      | 对象进行 for...of 循环时，会调用 Symbol.iterator 方法，返回该对象的默认遍历器                                |
+|    Symbol.toPrimitive     | 该对象被转为原始类型的值时，会调用这个方法，返回该对象对应的原始类型值                                       |
+|    Symbol.toStringTag     | 在该对象上面调用 toString 方法时，返回该方法的返回值                                                         |
+|      Symbol.species       | 创建衍生对象时，会使用该属性                                                                                 |
+
+# 迭代器（iterator）
+
+遍历器（iterator）就是一种机制。它是一种接口，为各种不同的数据结构提供统一的访问机制。任何数据结构只要部署 iterator 接口，就可以完成遍历操作。
+
+1. ES6 创造了一种新的遍历命令 for...of 循环，Iterator 接口主要供 for...of 循环
+
+2. 原生具备 iterator 接口的数据（可用 for of 遍历）
+
+   a. Array
+
+   b. Arguments
+
+   c. Set
+
+   d. Map
+
+   e. String
+
+   f. TypedArray
+
+   g. NodeList
+
+3. 工作原理
+
+   1. 创建一个指针对象，指向当前数据结构的起始位置
+   2. 第一次调用对象的 next 方法，指针自动指向数据结构的第一个成员
+   3. 接下来不断调用 next 方法，指针一直往后移动，直到指向最后一个成员
+   4. 每调用 next 方法返回一个包含 value 和 done 属性的对象
+
+**注：需要自定义遍历数据的时候，要想到迭代器**
+
+# 生成器
+
+# Promise
+
+# Set
+
+# Map
+
+# class
