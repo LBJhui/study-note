@@ -354,7 +354,861 @@ function updateChildren(
 
 # 你怎么理解 vue 中的 diff 算法
 
+源码分析1:必要性，`lifecycle.js-mmoountComponent()`
 
+​	组件中，可能存在很多个 data 中的 key 使用
+
+源码分析2:执行方式，`patch.js-patchVnode()`
+
+​	patchVnode 是diff 发生的地方，整体策略：深度优先，同层比较
+
+源码分析3:高效性，`patch.js-updateChildren()`
+
+```javascript
+let updateComponent
+/* istanbul ignore if */
+if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
+  // 用户 $mount() 时，定义updateComponent
+  updateComponent = () => {
+    const name = vm._name
+    const id = vm._uid
+    const startTag = `vue-perf-start:${id}`
+    const endTag = `vue-perf-end:${id}`
+
+    mark(startTag)
+    const vnode = vm._render()
+    mark(endTag)
+    measure(`vue ${name} render`, startTag, endTag)
+
+    mark(startTag)
+    vm._update(vnode, hydrating)
+    mark(endTag)
+    measure(`vue ${name} patch`, startTag, endTag)
+  }
+} else {
+  updateComponent = () => {
+    vm._update(vm._render(), hydrating)
+  }
+}
+```
+
+```javascript
+function patchVnode (
+oldVnode,
+ vnode,
+ insertedVnodeQueue,
+ ownerArray,
+ index,
+ removeOnly
+) {
+  if (oldVnode === vnode) {
+    return
+  }
+
+  if (isDef(vnode.elm) && isDef(ownerArray)) {
+    // clone reused vnode
+    vnode = ownerArray[index] = cloneVNode(vnode)
+  }
+
+  const elm = vnode.elm = oldVnode.elm
+
+  if (isTrue(oldVnode.isAsyncPlaceholder)) {
+    if (isDef(vnode.asyncFactory.resolved)) {
+      hydrate(oldVnode.elm, vnode, insertedVnodeQueue)
+    } else {
+      vnode.isAsyncPlaceholder = true
+    }
+    return
+  }
+
+  // reuse element for static trees.
+  // note we only do this if the vnode is cloned -
+  // if the new node is not cloned it means the render functions have been
+  // reset by the hot-reload-api and we need to do a proper re-render.
+  if (isTrue(vnode.isStatic) &&
+      isTrue(oldVnode.isStatic) &&
+      vnode.key === oldVnode.key &&
+      (isTrue(vnode.isCloned) || isTrue(vnode.isOnce))
+     ) {
+    vnode.componentInstance = oldVnode.componentInstance
+    return
+  }
+	// 执行一些组件钩子
+  let i
+  const data = vnode.data
+  if (isDef(data) && isDef(i = data.hook) && isDef(i = i.prepatch)) {
+    i(oldVnode, vnode)
+  }
+
+  // 查找新旧节点是否存在孩子
+  const oldCh = oldVnode.children
+  const ch = vnode.children
+  
+  // 属性更新 
+  if (isDef(data) && isPatchable(vnode)) {
+    for (i = 0; i < cbs.update.length; ++i) cbs.update[i](oldVnode, vnode)
+    if (isDef(i = data.hook) && isDef(i = i.update)) i(oldVnode, vnode)
+  }
+  // 判断是否元素
+  if (isUndef(vnode.text)) {
+    // 双方都有孩子
+    if (isDef(oldCh) && isDef(ch)) {
+      // 比孩子，reorder
+      // 递归
+      if (oldCh !== ch) updateChildren(elm, oldCh, ch, insertedVnodeQueue, removeOnly)
+    } else if (isDef(ch)) {
+      // 新节点有孩子
+      if (process.env.NODE_ENV !== 'production') {
+        checkDuplicateKeys(ch)
+      }
+      // 清空老节点文本
+      if (isDef(oldVnode.text)) nodeOps.setTextContent(elm, '')
+      // 创建孩子并追加
+      addVnodes(elm, null, ch, 0, ch.length - 1, insertedVnodeQueue)
+    } else if (isDef(oldCh)) {
+      // 老节点有孩子，删除即可
+      removeVnodes(oldCh, 0, oldCh.length - 1)
+    } else if (isDef(oldVnode.text)) {
+      // 老节点存在文本，清空
+      nodeOps.setTextContent(elm, '')
+    }
+  } else if (oldVnode.text !== vnode.text) {
+    // 双方都是文本节点，更新文本
+    nodeOps.setTextContent(elm, vnode.text)
+  }
+  if (isDef(data)) {
+    if (isDef(i = data.hook) && isDef(i = i.postpatch)) i(oldVnode, vnode)
+  }
+}
+```
+
+```javascript
+function updateChildren (parentElm, oldCh, newCh, insertedVnodeQueue, removeOnly) {
+  let oldStartIdx = 0
+  let newStartIdx = 0
+  let oldEndIdx = oldCh.length - 1
+  let oldStartVnode = oldCh[0]
+  let oldEndVnode = oldCh[oldEndIdx]
+  let newEndIdx = newCh.length - 1
+  let newStartVnode = newCh[0]
+  let newEndVnode = newCh[newEndIdx]
+  let oldKeyToIdx, idxInOld, vnodeToMove, refElm
+
+  // removeOnly is a special flag used only by <transition-group>
+  // to ensure removed elements stay in correct relative positions
+  // during leaving transitions
+  const canMove = !removeOnly
+
+  if (process.env.NODE_ENV !== 'production') {
+    checkDuplicateKeys(newCh)
+  }
+
+  // 循环条件：开始索引不能大于结束索引
+  while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
+    // 头尾指针调整
+    if (isUndef(oldStartVnode)) {
+      oldStartVnode = oldCh[++oldStartIdx] // Vnode has been moved left
+    } else if (isUndef(oldEndVnode)) {
+      oldEndVnode = oldCh[--oldEndIdx]
+      // 接下来是头尾比较4种情况
+    } else if (sameVnode(oldStartVnode, newStartVnode)) {
+      // 两个开头相同
+      patchVnode(oldStartVnode, newStartVnode, insertedVnodeQueue, newCh, newStartIdx)
+      //索引向后移动一位
+      oldStartVnode = oldCh[++oldStartIdx]
+      newStartVnode = newCh[++newStartIdx]
+    } else if (sameVnode(oldEndVnode, newEndVnode)) {
+      patchVnode(oldEndVnode, newEndVnode, insertedVnodeQueue, newCh, newEndIdx)
+      oldEndVnode = oldCh[--oldEndIdx]
+      newEndVnode = newCh[--newEndIdx]
+    } else if (sameVnode(oldStartVnode, newEndVnode)) { // Vnode moved right
+      // 老的开始和新的结束相同，除了打补丁之外还要移动到队尾
+      patchVnode(oldStartVnode, newEndVnode, insertedVnodeQueue, newCh, newEndIdx)
+      canMove && nodeOps.insertBefore(parentElm, oldStartVnode.elm, nodeOps.nextSibling(oldEndVnode.elm))
+      oldStartVnode = oldCh[++oldStartIdx]
+      newEndVnode = newCh[--newEndIdx]
+    } else if (sameVnode(oldEndVnode, newStartVnode)) { // Vnode moved left
+      patchVnode(oldEndVnode, newStartVnode, insertedVnodeQueue, newCh, newStartIdx)
+      canMove && nodeOps.insertBefore(parentElm, oldEndVnode.elm, oldStartVnode.elm)
+      oldEndVnode = oldCh[--oldEndIdx]
+      newStartVnode = newCh[++newStartIdx]
+    } else {
+      
+      // 4种猜想之后没有找到相同的，不得不开始循环查找
+      if (isUndef(oldKeyToIdx)) oldKeyToIdx = createKeyToOldIdx(oldCh, oldStartIdx, oldEndIdx)
+      // 查找在老的孩子数组中的索引
+      idxInOld = isDef(newStartVnode.key)
+        ? oldKeyToIdx[newStartVnode.key]
+      : findIdxInOld(newStartVnode, oldCh, oldStartIdx, oldEndIdx)
+      if (isUndef(idxInOld)) { // New element
+        // 没找到则创建新元素
+        createElm(newStartVnode, insertedVnodeQueue, parentElm, oldStartVnode.elm, false, newCh, newStartIdx)
+      } else {
+        // 找到除了打补丁，还要移动到队尾
+        vnodeToMove = oldCh[idxInOld]
+        if (sameVnode(vnodeToMove, newStartVnode)) {
+          patchVnode(vnodeToMove, newStartVnode, insertedVnodeQueue, newCh, newStartIdx)
+          oldCh[idxInOld] = undefined
+          canMove && nodeOps.insertBefore(parentElm, vnodeToMove.elm, oldStartVnode.elm)
+        } else {
+          // same key but different element. treat as new element
+          createElm(newStartVnode, insertedVnodeQueue, parentElm, oldStartVnode.elm, false, newCh, newStartIdx)
+        }
+      }
+      newStartVnode = newCh[++newStartIdx]
+    }
+  }
+  
+  // 整理工作：必定有数组还剩下的元素未处理
+  if (oldStartIdx > oldEndIdx) {
+    // 老的结束了，这种情况说明新的数组里还剩下的节点
+    refElm = isUndef(newCh[newEndIdx + 1]) ? null : newCh[newEndIdx + 1].elm
+    addVnodes(parentElm, refElm, newCh, newStartIdx, newEndIdx, insertedVnodeQueue)
+  } else if (newStartIdx > newEndIdx) {
+    // 新的结束了，此时删除老数组中剩下的即可
+    removeVnodes(oldCh, oldStartIdx, oldEndIdx)
+  }
+}
+```
+
+**总结**
+
+1. diff 算法是虚拟 DOM 技术的必要产物：通过新旧虚拟 DOM 做对比（即 diff ），将变化的地方更新在真实 DOM 上；另外，也需要 diff 高效的执行对比过程，从而降低时间复杂度为 O(n)。
+2. vue 2.x 中为了降低 watcher 粒度，每个组件只有一个 watcher 与之对应，只有引入 diff 才能精确找到发生变化的地方。
+3. vue 中 diff 执行的时刻是组件实例执行其更新函数时，它会比对上一次渲染结果 oldVnode 和新的渲染结果 newVnode，此过程称为 patch。
+4. diff 过程整体遵循深度优先、同层比较的策略；两个节点之间比较会根据它们是否拥有子节点或者文本节点做不同的操作；比较两组子节点是算法的重点，首先假设头尾节点可能相同做4次比对尝试，如果没有找到相同节点才按照通用方式遍历查找，查找结束再按情况处理剩下的节点；借助key通常可以非常精确找到相同节点，因此整个 patch 过程非常高效。
+
+# 谈一谈对 vue 组件化的理解
+
+回答总体思路：
+
+​	组件化定义、优点、使用场景和注意事项等方面展开陈述，同时要强调 vue 中组件化的一些特点。
+
+- 源码分析1: 组件定义
+
+```vue
+// 组件定义
+Vue.comoinent('comp', {
+template: '<div>this is a component</div>'
+})
+```
+
+> 组件定义，src/core/global-api/assets.js
+
+```vue
+<template>
+	<div>
+    this is a component
+  </div>
+</template>
+```
+
+> Vue-loader 会编译 template 为 render 函数，最终导出的依然是组件配置对象
+
+**src/core/global-api/assets.js**
+
+```javascript
+/* @flow */
+
+import { ASSET_TYPES } from 'shared/constants'
+import { isPlainObject, validateComponentName } from '../util/index'
+
+export function initAssetRegisters (Vue: GlobalAPI) {
+  /**
+   * Create asset registration methods.
+   */
+  ASSET_TYPES.forEach(type => {
+    Vue[type] = function (
+      id: string,
+      definition: Function | Object
+    ): Function | Object | void {
+      if (!definition) {
+        return this.options[type + 's'][id]
+      } else {
+        /* istanbul ignore if */
+        if (process.env.NODE_ENV !== 'production' && type === 'component') {
+          validateComponentName(id)
+        }
+    
+    		// def 是对象
+        if (type === 'component' && isPlainObject(definition)) {
+          // 定义 name
+          definition.name = definition.name || id
+          // extend 创建组件构造函数，def变成了构造函数
+          definition = this.options._base.extend(definition)
+        }
+        if (type === 'directive' && typeof definition === 'function') {
+          definition = { bind: definition, update: definition }
+        }
+    
+    		// 注册 this.options[components][comp] = Ctor
+        this.options[type + 's'][id] = definition
+        return definition
+      }
+    }
+  })
+}
+
+```
+
+**src/core/global-api/extend.js**
+
+```javascript
+/* @flow */
+
+import { ASSET_TYPES } from 'shared/constants'
+import { defineComputed, proxy } from '../instance/state'
+import { extend, mergeOptions, validateComponentName } from '../util/index'
+
+export function initExtend (Vue: GlobalAPI) {
+  /**
+   * Each instance constructor, including Vue, has a unique
+   * cid. This enables us to create wrapped "child
+   * constructors" for prototypal inheritance and cache them.
+   */
+  Vue.cid = 0
+  let cid = 1
+
+  /**
+   * Class inheritance
+   */
+  Vue.extend = function (extendOptions: Object): Function {
+    extendOptions = extendOptions || {}
+    const Super = this
+    const SuperId = Super.cid
+    const cachedCtors = extendOptions._Ctor || (extendOptions._Ctor = {})
+    if (cachedCtors[SuperId]) {
+      return cachedCtors[SuperId]
+    }
+
+    const name = extendOptions.name || Super.options.name
+    if (process.env.NODE_ENV !== 'production' && name) {
+      validateComponentName(name)
+    }
+		
+    // 创建一个 VueComponent 类
+    const Sub = function VueComponent (options) {
+      this._init(options)
+    }
+    // 继承于 Vue
+    Sub.prototype = Object.create(Super.prototype)
+    Sub.prototype.constructor = Sub
+    Sub.cid = cid++
+    
+    // 选项合并
+    Sub.options = mergeOptions(
+      Super.options,
+      extendOptions
+    )
+    Sub['super'] = Super
+
+    // For props and computed properties, we define the proxy getters on
+    // the Vue instances at extension time, on the extended prototype. This
+    // avoids Object.defineProperty calls for each instance created.
+    if (Sub.options.props) {
+      initProps(Sub)
+    }
+    if (Sub.options.computed) {
+      initComputed(Sub)
+    }
+
+    // allow further extension/mixin/plugin usage
+    Sub.extend = Super.extend
+    Sub.mixin = Super.mixin
+    Sub.use = Super.use
+
+    // create asset registers, so extended classes
+    // can have their private assets too.
+    ASSET_TYPES.forEach(function (type) {
+      Sub[type] = Super[type]
+    })
+    // enable recursive self-lookup
+    if (name) {
+      Sub.options.components[name] = Sub
+    }
+
+    // keep a reference to the super options at extension time.
+    // later at instantiation we can check if Super's options have
+    // been updated.
+    Sub.superOptions = Super.options
+    Sub.extendOptions = extendOptions
+    Sub.sealedOptions = extend({}, Sub.options)
+
+    // cache constructor
+    cachedCtors[SuperId] = Sub
+    return Sub
+  }
+}
+
+function initProps (Comp) {
+  const props = Comp.options.props
+  for (const key in props) {
+    proxy(Comp.prototype, `_props`, key)
+  }
+}
+
+function initComputed (Comp) {
+  const computed = Comp.options.computed
+  for (const key in computed) {
+    defineComputed(Comp.prototype, key, computed[key])
+  }
+}
+```
+
+- 源码分析2: 组件化优点
+
+Lifecycle.js - mountComponent()
+
+> 组件、Watcher、渲染函数和更新函数之间的关系
+
+```javascript
+export function mountComponent (
+  vm: Component,
+  el: ?Element,
+  hydrating?: boolean
+): Component {
+  vm.$el = el
+  if (!vm.$options.render) {
+    vm.$options.render = createEmptyVNode
+    if (process.env.NODE_ENV !== 'production') {
+      /* istanbul ignore if */
+      if ((vm.$options.template && vm.$options.template.charAt(0) !== '#') ||
+        vm.$options.el || el) {
+        warn(
+          'You are using the runtime-only build of Vue where the template ' +
+          'compiler is not available. Either pre-compile the templates into ' +
+          'render functions, or use the compiler-included build.',
+          vm
+        )
+      } else {
+        warn(
+          'Failed to mount component: template or render function not defined.',
+          vm
+        )
+      }
+    }
+  }
+  callHook(vm, 'beforeMount')
+
+  let updateComponent
+  /* istanbul ignore if */
+  if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
+    updateComponent = () => {
+      const name = vm._name
+      const id = vm._uid
+      const startTag = `vue-perf-start:${id}`
+      const endTag = `vue-perf-end:${id}`
+
+      mark(startTag)
+      const vnode = vm._render()
+      mark(endTag)
+      measure(`vue ${name} render`, startTag, endTag)
+
+      mark(startTag)
+      vm._update(vnode, hydrating)
+      mark(endTag)
+      measure(`vue ${name} patch`, startTag, endTag)
+    }
+  } else {
+    
+    // 用户 $mount() 时，定义 updateComponent
+    updateComponent = () => {
+      vm._update(vm._render(), hydrating)
+    }
+  }
+
+  // we set this to vm._watcher inside the watcher's constructor
+  // since the watcher's initial patch may call $forceUpdate (e.g. inside child
+  // component's mounted hook), which relies on vm._watcher being already defined
+  new Watcher(vm, updateComponent, noop, {
+    before () {
+      if (vm._isMounted && !vm._isDestroyed) {
+        callHook(vm, 'beforeUpdate')
+      }
+    }
+  }, true /* isRenderWatcher */)
+  hydrating = false
+
+  // manually mounted instance, call mounted on self
+  // mounted is called for render-created child components in its inserted hook
+  if (vm.$vnode == null) {
+    vm._isMounted = true
+    callHook(vm, 'mounted')
+  }
+  return vm
+}
+```
+
+- 源码分析3: 组件化实现
+
+构造函数，src/core/global-api/extend.js
+
+实例化及挂载，src/core/vdom/patch.js - createElm()
+
+```javascript
+function createElm (
+vnode,
+ insertedVnodeQueue,
+ parentElm,
+ refElm,
+ nested,
+ ownerArray,
+ index
+) {
+  if (isDef(vnode.elm) && isDef(ownerArray)) {
+    // This vnode was used in a previous render!
+    // now it's used as a new node, overwriting its elm would cause
+    // potential patch errors down the road when it's used as an insertion
+    // reference node. Instead, we clone the node on-demand before creating
+    // associated DOM element for it.
+    vnode = ownerArray[index] = cloneVNode(vnode)
+  }
+
+  vnode.isRootInsert = !nested // for transition enter check
+  // 如果要创建的是组件，走下面的流程
+  if (createComponent(vnode, insertedVnodeQueue, parentElm, refElm)) {
+    return
+  }
+
+  // 原生标签创建
+  const data = vnode.data
+  const children = vnode.children
+  const tag = vnode.tag
+  if (isDef(tag)) {
+    if (process.env.NODE_ENV !== 'production') {
+      if (data && data.pre) {
+        creatingElmInVPre++
+      }
+      if (isUnknownElement(vnode, creatingElmInVPre)) {
+        warn(
+          'Unknown custom element: <' + tag + '> - did you ' +
+          'register the component correctly? For recursive components, ' +
+          'make sure to provide the "name" option.',
+          vnode.context
+        )
+      }
+    }
+
+    vnode.elm = vnode.ns
+      ? nodeOps.createElementNS(vnode.ns, tag)
+    : nodeOps.createElement(tag, vnode)
+    setScope(vnode)
+
+    /* istanbul ignore if */
+    if (__WEEX__) {
+      // in Weex, the default insertion order is parent-first.
+      // List items can be optimized to use children-first insertion
+      // with append="tree".
+      const appendAsTree = isDef(data) && isTrue(data.appendAsTree)
+      if (!appendAsTree) {
+        if (isDef(data)) {
+          invokeCreateHooks(vnode, insertedVnodeQueue)
+        }
+        insert(parentElm, vnode.elm, refElm)
+      }
+      createChildren(vnode, children, insertedVnodeQueue)
+      if (appendAsTree) {
+        if (isDef(data)) {
+          invokeCreateHooks(vnode, insertedVnodeQueue)
+        }
+        insert(parentElm, vnode.elm, refElm)
+      }
+    } else {
+      createChildren(vnode, children, insertedVnodeQueue)
+      if (isDef(data)) {
+        invokeCreateHooks(vnode, insertedVnodeQueue)
+      }
+      insert(parentElm, vnode.elm, refElm)
+    }
+
+    if (process.env.NODE_ENV !== 'production' && data && data.pre) {
+      creatingElmInVPre--
+    }
+  } else if (isTrue(vnode.isComment)) {
+    vnode.elm = nodeOps.createComment(vnode.text)
+    insert(parentElm, vnode.elm, refElm)
+  } else {
+    vnode.elm = nodeOps.createTextNode(vnode.text)
+    insert(parentElm, vnode.elm, refElm)
+  }
+}
+
+// 这里 createComponent 是把前面的那个执行的结果 vnode 转换为真实 dom
+function createComponent (vnode, insertedVnodeQueue, parentElm, refElm) {
+  // 获取管理钩子函数
+  let i = vnode.data
+  if (isDef(i)) {
+    const isReactivated = isDef(vnode.componentInstance) && i.keepAlive
+    // 存在 init 钩子，则执行之创建实例并挂载
+    if (isDef(i = i.hook) && isDef(i = i.init)) {
+      i(vnode, false /* hydrating */)
+    }
+    // after calling the init hook, if the vnode is a child component
+    // it should've created a child instance and mounted it. the child
+    // component also has set the placeholder vnode's elm.
+    // in that case we can just return the element and be done.
+    // 如果组件实例存在
+    if (isDef(vnode.componentInstance)) {
+      // 属性初始化
+      initComponent(vnode, insertedVnodeQueue)
+      // dom 插入操作
+      insert(parentElm, vnode.elm, refElm)
+      if (isTrue(isReactivated)) {
+        reactivateComponent(vnode, insertedVnodeQueue, parentElm, refElm)
+      }
+      return true
+    }
+  }
+}
+```
+
+**总结**
+
+1、组件是独立和可复用的代码组织单元。组件系统是 Vue 核心特性之一，它使开发者使用小型、独立和通常可复用的组件构建大型应用；
+
+2、组件化开发能大幅提高应用开发效率、测试性、复用性等；
+
+3、组件使用按分类有：页面组件、业务组件、通用组件；
+
+4、vue的组件是基于配置的，我们通常编写的组件是组件配置而非组件，框架后续会生成其构造函数，它们基于VueComponent，扩展于Vue；
+
+5、vue中常见组件化技术有：属性prop，自定义事件，插槽等，它们主要用于组件通信、扩展等；
+
+6、合理的划分组件，有助于提升应用性能；
+
+7、组件应该是高内聚、低耦合的；
+
+8、遵循单向数据流的原则。
+
+# 谈一谈对 vue 设计原则的理解
+
+在vue的官网上，就写着大大的定义和特点：
+
+渐进式JavaScript框架
+
+易用、灵活和高效
+
+所以阐述此题的整体思路按照这个展开即可。
+
+**总结**
+
+- 首先就是渐进式JavaScript框架：
+
+与其它大型框架不同的是，Vue 被设计为可以自底向上逐层应用。Vue 的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。另一方面，当与现代化的工具链以及各种支持类库结合使用时，Vue 也完全能够为复杂的单页应用提供驱动。
+
+![渐进式](https://cdn.jsdelivr.net/gh/LBJhui/image-host/images/Vue/vue%E9%9D%A2%E8%AF%95/1.webp)
+
+
+
+- **易用性**
+
+vue提供数据响应式、声明式模板语法和基于配置的组件系统等核心特性。
+
+这些使我们只需要关注应用的核心业务即可，只要会写js、html和css就能轻松编写vue应用。
+
+- **灵活性**
+
+渐进式框架的最大优点就是灵活性，如果应用足够小，我们可能仅需要vue核心特性即可完成功能；
+
+随着应用规模不断扩大，我们才可能逐渐引入路由、状态管理、vue-cli等库和工具；
+
+不管是应用体积还是学习难度都是一个逐渐增加的平和曲线。
+
+- **高效性**
+
+超快的虚拟 DOM 和 diff 算法使我们的应用拥有最佳的性能表现。
+
+追求高效的过程还在继续，vue3中引入Proxy对数据响应式改进以及编译器中对于静态内容编译的改进都会让vue更加高效。
+
+# vue 为什么要求组件模版只能有一个根元素
+
+从三方面考虑
+
+1. new Vue({el:'#app'})
+2. 单文件组件中，template 下的元素 div 。其实就是“树”状数据结构中的“根”。
+3. diff 算法要求的，源码中，patch.js 里 patchVnode() 。
+
+> 一
+
+实例化 Vue 时：
+
+```vue
+<body>
+  <div id='app'></div>
+</body>
+
+<script>
+ var vm = new Vue({
+   el: '#app'
+ })
+</script>
+```
+
+如果我在 body 下这样：
+
+```vue
+<body>
+  <div id='app1'></div>
+  <div id='app2'></div>
+</body>
+```
+
+Vue 其实并不知道哪一个才是我们的入口。如果同时设置了多个入口，那么 vue 就不知道哪一个才是这“类”。
+
+> 二
+
+在 webpack 搭建的 vue 开发环境下，使用单文件组件时：
+
+```vue
+<template>
+	<div>
+    
+  </div>
+</template>
+```
+
+Template 这个标签，它有三个特性：
+
+1. 隐藏性：该标签不会显示在页面的任何地方，即便里面有多少内容，它永远都是隐藏的状态，设置了display：none；
+2. 任意性：该标签可以写在任何地方，甚至是 head、 body、 script 标签内
+3. 无效性：该标签里的任何 HTML 内容都是无效的，不会起任何作用；只能 innerHTML 来获取到里面的内容。
+
+一个 vue 单文件组件就是一个 vue 实例，如果 template 下有多个 div 那么如何指定 vue 实例的根入口呢，为了让组件可以正常生成一个 vue 实例，这个 div 会自然的处理成程序的入口，通过这个根节点，来递归遍历整个 vue 树下的所有节点，并处理为 vdom，最后再渲染真正的 HTML，插入在正确的位置。
+
+> 三
+
+diff 中 patchVnode 方法，用来比较新旧节点
+
+```JavaScript
+/*
+	比较新旧 vnode 节点，根据不同的状态对 dom 做合理的更新草哦做（添加、移动、删除）
+	整个过程还会依次调用 prepatch, update, postpatch 等钩子函数，在编译阶段生成的一些静态子树
+	在这个过程中由于不会改变而直接跳过比对
+	动态子树在比较过程中比较核心的部分就是当新旧 vnode 同时存在 children，通过 updataChildren 方法对字节点做更新，
+	
+	@param oldVnode 旧node
+	@param vnode    新node
+	@param insertedVnodeQueuue	空数组，用于生命周期 inserted 阶段，记录下所有新插入的节点以备调用
+	@param removeOnly 是一个只用于 <transition-group> 的特殊标签，确保移除元素过程中保持一个正确的相对位置
+*/
+function patchVnode (
+oldVnode,
+ vnode,
+ insertedVnodeQueue,
+ ownerArray,
+ index,
+ removeOnly
+) {
+  if (oldVnode === vnode) {
+    return
+  }
+
+  if (isDef(vnode.elm) && isDef(ownerArray)) {
+    // clone reused vnode
+    vnode = ownerArray[index] = cloneVNode(vnode)
+  }
+
+  const elm = vnode.elm = oldVnode.elm
+
+  if (isTrue(oldVnode.isAsyncPlaceholder)) {
+    if (isDef(vnode.asyncFactory.resolved)) {
+      hydrate(oldVnode.elm, vnode, insertedVnodeQueue)
+    } else {
+      vnode.isAsyncPlaceholder = true
+    }
+    return
+  }
+
+  // reuse element for static trees.
+  // note we only do this if the vnode is cloned -
+  // if the new node is not cloned it means the render functions have been
+  // reset by the hot-reload-api and we need to do a proper re-render.
+  if (isTrue(vnode.isStatic) &&
+      isTrue(oldVnode.isStatic) &&
+      vnode.key === oldVnode.key &&
+      (isTrue(vnode.isCloned) || isTrue(vnode.isOnce))
+     ) {
+    vnode.componentInstance = oldVnode.componentInstance
+    return
+  }
+
+  let i
+  const data = vnode.data
+  if (isDef(data) && isDef(i = data.hook) && isDef(i = i.prepatch)) {
+    i(oldVnode, vnode)
+  }
+
+  const oldCh = oldVnode.children
+  const ch = vnode.children
+  if (isDef(data) && isPatchable(vnode)) {
+    for (i = 0; i < cbs.update.length; ++i) cbs.update[i](oldVnode, vnode)
+    if (isDef(i = data.hook) && isDef(i = i.update)) i(oldVnode, vnode)
+  }
+  if (isUndef(vnode.text)) {
+    if (isDef(oldCh) && isDef(ch)) {
+      if (oldCh !== ch) updateChildren(elm, oldCh, ch, insertedVnodeQueue, removeOnly)
+    } else if (isDef(ch)) {
+      if (process.env.NODE_ENV !== 'production') {
+        checkDuplicateKeys(ch)
+      }
+      if (isDef(oldVnode.text)) nodeOps.setTextContent(elm, '')
+      addVnodes(elm, null, ch, 0, ch.length - 1, insertedVnodeQueue)
+    } else if (isDef(oldCh)) {
+      removeVnodes(oldCh, 0, oldCh.length - 1)
+    } else if (isDef(oldVnode.text)) {
+      nodeOps.setTextContent(elm, '')
+    }
+  } else if (oldVnode.text !== vnode.text) {
+    nodeOps.setTextContent(elm, vnode.text)
+  }
+  if (isDef(data)) {
+    if (isDef(i = data.hook) && isDef(i = i.postpatch)) i(oldVnode, vnode)
+  }
+}
+
+function sameVnode (a, b) {
+  return (
+    a.key === b.key && (  // key值
+      (
+        a.tag === b.tag && // 标签名
+        a.isComment === b.isComment && // 是否为注释节点
+        isDef(a.data) === isDef(b.data) && // 是否定义了data，data包含一些具体信息
+        sameInputType(a, b) // 当标签是 <input> 的时候，type 必须相同
+      ) || (
+        isTrue(a.isAsyncPlaceholder) &&
+        a.asyncFactory === b.asyncFactory &&
+        isUndef(b.asyncFactory.error)
+      )
+    )
+  )
+}
+```
+
+# 谈谈你对 MVC、MVP 和 MVVM 的理解
+
+答题思路：此题涉及知识点很多，很难说清、说透，因为 MVC、MVP 这些我们前端程序员自己甚至都没用过。但是恰恰反映了前端这些年从无到有，从有到优的变迁过程，因此沿此思路回答将十分清楚。
+
+
+
+**web 1.0 时代**
+
+在 web 1.0 时代，并没有前端的概念。开发一个 web 应用多数采用 ASP.NET / JAVA / PHP编写，项目通常由多个aspx / jsp / php 文件构成，每个文件中同时包含了 HTML、CSS、JavaScript、C# / JAVA / PHP 代码，系统整体架构可能是这个样子的：
+
+![ web 1.0 时代](https://cdn.jsdelivr.net/gh/LBJhui/image-host/images/Vue/vue%E9%9D%A2%E8%AF%95/2.webp)
+
+这种架构的好处是简单快捷，但是，缺点也非常明显：JSP代码难以维护为了让开发更加便捷，代码更易维护，前后端职责更清晰。便衍生出MVC开发模式和框架，前端展示以模板的形式出现。典型的框架就是：**Spring、Structs、Hibernate。**
+
+整体框架如图所示☟：
+
+![整体框架](https://cdn.jsdelivr.net/gh/LBJhui/image-host/images/Vue/vue%E9%9D%A2%E8%AF%95/3.webp)
+
+使用这种分层架构，职责清晰，代码易维护。但这里的MVC仅限于后端，前后端形成了一定的分离，前端只完成了后端开发中的view层。
+
+但是，同样的这种模式存在着一些问题：
+
+1、前端页面开发效率不高
+
+2、前后端职责不清
 
 # Vue 中 props 的实现原理
 
