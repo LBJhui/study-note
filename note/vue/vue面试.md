@@ -1210,6 +1210,954 @@ function sameVnode (a, b) {
 
 2、前后端职责不清
 
+
+
+**web 2.0时代**
+
+自从Gmail的出现，ajax技术开始风靡全球。有了ajax之后，前后端的职责就更加清晰了。
+
+因为前端可以通过Ajax与后端进行数据交互，因此，整体的架构图也变化成了下面这幅图☟：
+
+![整体框架](https://cdn.jsdelivr.net/gh/LBJhui/image-host/images/Vue/vue%E9%9D%A2%E8%AF%95/4.webp)
+
+通过ajax与后台服务器进行数据交换，前端开发人员，只需要开发页面这部分内容，数据可由后台进行提供。
+
+而且ajax可以使得页面实现部分刷新，减少了服务端负载和流量消耗，用户体验也更佳。
+
+这时，才开始有专职的前端工程师。同时前端的类库也慢慢的开始发展，最著名的就是jQuery了。
+
+当然，此架构也存在问题：缺乏可行的开发模式承载更复杂的业务需求，页面内容都杂糅在一起，一旦应用规模增大，就会导致难以维护了。
+
+因此，前端的MVC也随之而来。
+
+
+
+**前后端分离后的架构演变——MVC、MVP和MVVM**
+
+
+
+**MVC**
+
+前端的MVC与后端类似，具备着View、Controller和Model。
+
+- Model：负责保存应用数据，与后端数据进行同步
+
+- Controller：负责业务逻辑，根据用户行为对Model数据进行修改
+
+- View：负责视图展示，将model中的数据可视化出来。
+
+三者形成了一个如图所示的模型：
+
+![MVC](https://cdn.jsdelivr.net/gh/LBJhui/image-host/images/Vue/vue%E9%9D%A2%E8%AF%95/5.webp)
+
+这样的模型，在理论上是可行的。但往往在实际开发中，并不会这样操作。因为开发过程并不灵活。
+
+例如，一个小小的事件操作，都必须经过这样的一个流程，那么开发就不再便捷了。
+
+在实际场景中，我们往往会看到另一种模式，
+
+如图所示☟：
+
+![MVC](https://cdn.jsdelivr.net/gh/LBJhui/image-host/images/Vue/vue%E9%9D%A2%E8%AF%95/6.webp)
+
+这种模式在开发中更加的灵活，backbone.js框架就是这种的模式。
+
+但是，这种灵活可能导致严重的问题：
+
+1、数据流混乱：如下图☟
+
+![MVC](https://cdn.jsdelivr.net/gh/LBJhui/image-host/images/Vue/vue%E9%9D%A2%E8%AF%95/7.webp)
+
+2、View比较庞大，而Controller比较单薄：
+
+由于很多的开发者都会在view中写一些逻辑代码，逐渐的就导致view中的内容越来越庞大，而controller变得越来越单薄。
+
+既然有缺陷，就会有变革。
+
+前端的变化中，似乎少了MVP的这种模式，是因为AngularJS早早地将MVVM框架模式带入了前端。
+
+MVP模式虽然前端开发并不常见，但是在安卓等原生开发中，开发者还是会考虑到它。
+
+
+
+**MVP**
+
+MVP与MVC很接近，P指的是Presenter，presenter可以理解为一个中间人。
+
+它负责着View和Model之间的数据流动，防止View和Model之间直接交流。
+
+我们可以看一下图示☟
+
+![MVP](https://cdn.jsdelivr.net/gh/LBJhui/image-host/images/Vue/vue%E9%9D%A2%E8%AF%95/8.webp)
+
+我们可以通过看到，presenter负责和Model进行双向交互，还和View进行双向交互。
+
+这种交互方式，相对于MVC来说少了一些灵活，VIew变成了被动视图，并且本身变得很小。虽然它分离了View和Model。
+
+但是应用逐渐变大之后，导致presenter的体积增大，难以维护。
+
+要解决这个问题，或许可以从MVVM的思想中找到答案。
+
+
+
+**MVVM**
+
+首先，何为MVVM呢？MVVM可以分解成(Model-View-VIewModel)。
+
+ViewModel可以理解为在presenter基础上的进阶版。如图所示☟☟：
+
+![MVVM](https://cdn.jsdelivr.net/gh/LBJhui/image-host/images/Vue/vue%E9%9D%A2%E8%AF%95/9.png)
+
+ViewModel通过实现一套数据响应式机制自动响应Model中数据变化；
+
+同时Viewmodel会实现一套更新策略自动将数据变化转换为视图更新；
+
+通过事件监听响应View中用户交互修改Model中数据。
+
+这样在ViewModel中就减少了大量DOM操作代码。
+
+MVVM在保持View和Model松耦合的同时，还减少了维护它们关系的代码，使用户专注于业务逻辑，兼顾开发效率和可维护性。
+
+
+
+**总结：**
+
+这三者都是框架模式，它们设计的目标都是为了解决Model和View的耦合问题。
+
+MVC模式出现较早主要应用在后端，如Spring MVC、ASP.NET MVC等，在前端领域的早期也有应用，如Backbone.js。
+
+它的优点是分层清晰，缺点是数据流混乱，灵活性带来的维护性问题。
+
+MVP模式在是MVC的进化形式，Presenter作为中间层负责MV通信，解决了两者耦合问题，但P层过于臃肿会导致维护问题。
+
+MVVM模式在前端领域有广泛应用，它不仅解决MV耦合问题，还同时解决了维护两者映射关系的大量繁杂代码和DOM操作代码，在提高开发效率、可读性同时还保持了优越的性能表现。
+
+# Vue 中组件之间的通信
+
+1. props
+2. $emit / $on
+3. vuex
+4. $parent / $children
+5. $attrs / $ listeners
+6. Provide / inject
+
+常用使用场景可以分为三类：
+
+- 父子组件通信
+- 兄弟组件通信
+- 跨层组件通信
+
+# 你了解哪些Vue性能优化方法
+
+首先，我们要找到VUE性能的现存问题，大部分都是代码层面的，然后具体的提出代码层优化意见就可以了。
+
+
+
+目前我们所知的VUE代码层优化大致为一下11点，村长已经都帮大家整理好了，请大家随意消化一下：
+
+- 路由懒加载
+- keep-alive缓存页面
+- 使用v-show复用DOM
+- v-for 遍历避免同时使用 v-if
+- 长列表性能优化
+- 事件的销毁
+- 图片懒加载
+- 第三方插件按需引入
+- 无状态的组件标记为函数式组件
+- 子组件分割
+- 变量本地化
+- SSR
+
+
+
+- 路由懒加载☟
+
+```javascript
+const router = new VueRouter({
+  routes: [
+    { path: '/foo', component: () => import('./Foo.vue') }
+  ]
+})
+```
+
+- keep-alive缓存页面☟
+
+```vue
+<template>
+  <div id="app">
+    <keep-alive>
+      <router-view/>
+    </keep-alive>
+  </div>
+</template>
+```
+
+- 使用v-show复用DOM☟
+
+```vue
+<template>
+ <div class="cell">
+   <!-- 这种情况用 v-show 复用 DOM，比 v-if 效果好-->
+   <div v-show="value" class="on">
+     <Heavy :n="10000"/>
+   </div>
+   <div v-show="!value" class="off">
+     <Heavy :n="10000"/>
+   </div>
+  </div>
+</template>
+```
+
+- v-for 遍历避免同时使用 v-if☟
+- 长列表性能优化：
+
+  如果列表是纯粹的数据展示，不会有任何改变，就不需要做响应化☟
+
+```javascript
+export default {
+  data: () => ({
+    users: []
+  }),
+  async create() {
+    const users = await.get('/api/users')
+    this.users = Object.freze(users)
+  }
+}
+```
+
+​	如果是大数据长列表，可采用虚拟滚动，只渲染少部分区域的内容☟
+
+```vue
+<recycle-scroller class="items" :items="items" :item-size="24">
+	<template>
+  	<FetchItemView :item="item" @vote="voteItem(item)" />
+  </template>
+</recycle-scroller>
+```
+
+> 参考：[vue-virtual-scroller](https://github.com/Akryum/vue-virtual-scroller)、[vue-virtual-scroll-list](https://github.com/tangbc/vue-virtual-scroll-list)
+
+- 事件的销毁：
+
+Vue 组件销毁时，会自动解绑它的全部指令及事件监听器，但是仅限于组件本身的事件。
+
+```javascript
+created() {
+  this.timer = setInterval(this.refresh, 2000)
+},
+
+beforeDestroy() {
+  clearInterval(this.timer)
+}
+```
+
+- 图片懒加载：
+
+对于图片过多的页面，为了加速页面加载速度。
+
+所以很多时候我们需要将页面内未出现在可视区域内的图片先不做加载， 等到滚动到可视区域后再去加载。
+
+```vue
+<img v-lazy="/static/img/1.png">
+```
+
+> 参考项目：[vue-lazyload](https://github.com/hilongjw/vue-lazyload)
+
+- 第三方插件按需引入：
+
+像element-ui这样的第三方组件库可以按需引入，避免体积太大。
+
+```vue
+import Vue from 'vue';
+import { Button, Select } from 'element-ui';
+
+Vue.use(Button)
+Vue.use(Select)
+```
+
+- 无状态的组件标记为函数式组件☟
+
+```vue
+<template functional>
+	<div class="cell">
+    <div v-if="props.value" class="on"></div>
+    <section v-else class="off"></section>
+  </div>
+</template>
+
+<script>
+	export default {
+    props: ['value']
+  }
+</script>
+```
+
+- 子组件分割
+
+```vue
+<template>
+	<div>
+    <ChildrComp/>
+  </div>
+</template>
+
+<script>
+export default {
+  components: {
+    ChildrComp: {
+      methods: {
+        heavy () { /* 耗时任务 */}
+      }，
+      render (h) {
+    		return h('div', this.heavy())
+  		}
+    }
+  }
+}
+</script>
+```
+
+- 变量本地化
+
+```vue
+<template>
+	<div :style="{ opacity:start / 300 }">
+    {{ result }}
+  </div>
+</template>
+
+<script>
+import { heavy } from '@/utils'
+  
+export default {
+  props: ['start'],
+  computed: {
+    base () { return 42 },
+    result () {
+      const base = this.base()
+      let result = thiis.start
+      for(let i = 0; i < 1000; i++){
+        result += heay(base)
+      }
+      return result
+    }
+  }
+}
+</script>
+```
+
+- 服务端渲染 - SSR
+
+# 你对Vue3.0的新特性有没有了解
+
+Vue3.0改进方向，主要在以下几点：
+
+- 更快
+  - 虚拟DOM重写
+  - 优化slots的生成
+  - 静态树提升
+  - 静态属性提升
+  - 基于Proxy的响应式系统
+- 更小：
+  - 通过摇树优化核心库体积
+- 更容易维护：
+  - TypeScript + 模块化
+- 更加友好
+  - 跨平台：编译器核心和运行时核心与平台无关，使得Vue更容易与任何平台（Web、Android、iOS）一起使用
+- 更容易使用
+  - 改进的TypeScript支持，编辑器能提供强有力的类型检查和错误及警告
+- 更好的调试支持
+- 独立的响应化模块
+- Composition API
+
+
+
+**虚拟 DOM 重写**
+
+期待更多的编译时提示来减少运行时开销，使用更有效的代码来创建虚拟节点。
+
+组件快速路径+单个调用+子节点类型检测
+
+▷跳过不必要的条件分支
+
+▷JS引擎更容易优化
+
+详情见下图☟
+
+![虚拟 DOM 重写](https://cdn.jsdelivr.net/gh/LBJhui/image-host/images/Vue/vue%E9%9D%A2%E8%AF%95/10.jpeg)
+
+
+
+**优化slots生成**
+
+vue3中可以单独重新渲染父级和子级：
+
+▷确保实例正确的跟踪依赖关系
+
+▷避免不必要的父子组件重新渲染
+
+详情见下图☟
+
+![优化slots生成](https://cdn.jsdelivr.net/gh/LBJhui/image-host/images/Vue/vue%E9%9D%A2%E8%AF%95/11.jpeg)
+
+
+
+**静态树提升(Static Tree Hoisting)**
+
+使用静态树提升，这意味着 Vue 3 的编译器将能够检测到什么是静态的，然后将其提升，从而降低了渲染成本。
+
+▷跳过修补整棵树，从而降低渲染成本
+
+▷即使多次出现也能正常工作
+
+详情见下图☟
+
+![静态树提升(Static Tree Hoisting)](https://cdn.jsdelivr.net/gh/LBJhui/image-host/images/Vue/vue%E9%9D%A2%E8%AF%95/12.jpeg)
+
+
+
+**静态属性提升**
+
+使用静态属性提升，Vue 3打补丁时将跳过这些属性不会改变的节点。☟
+
+![静态属性提升](https://cdn.jsdelivr.net/gh/LBJhui/image-host/images/Vue/vue%E9%9D%A2%E8%AF%95/13.webp)
+
+
+
+**基于 Proxy 的数据响应式**
+
+Vue 2的响应式系统使用：
+
+- Object.defineProperty 的getter 和 setter。
+
+Vue 3 将使用 ES2015 Proxy 作为其观察机制，这将会带来如下变化：
+
+- 组件实例初始化的速度提高100％
+- 使用Proxy节省以前一半的内存开销，加快速度，但是存在低浏览器版本的不兼容
+- 为了继续支持 IE11，Vue 3 将发布一个支持旧观察者机制和新 Proxy 版本的构建
+
+![基于 Proxy 的数据响应式](https://cdn.jsdelivr.net/gh/LBJhui/image-host/images/Vue/vue%E9%9D%A2%E8%AF%95/14.webp)
+
+
+
+**高可维护性**
+
+Vue 3 将带来更可维护的源代码。它不仅会使用 TypeScript，而且许多包被解耦，更加模块化。
+
+![高可维护性](https://cdn.jsdelivr.net/gh/LBJhui/image-host/images/Vue/vue%E9%9D%A2%E8%AF%95/15.png)
+
+# vue扩展现有组件
+
+1. 使用 Vue.mixin 全局混入
+
+混入(mixin)是一种分发 vue 组件中可复用功能的非常灵活的方式。混入对象可以包含任意组件选项。当组件使用混入对象时，所有混入对象的选项将被混入该组件本身的选项。mixin选项接受一个混合对象的数组。
+
+**mixin**的调用顺序：
+
+从执行先后顺序来说，混入对象的钩子将在组件自身钩子之前调用，如果遇到全局混入(Vue.mixin)，全局混入的执行顺序要前于混入和组件里的方法。
+
+2. 加 slot 扩展
+
+- 默认插槽和匿名插槽
+
+  slot 用来获取组件中的原内容
+
+- 具名插槽
+
+# watch 和 computed 的区别以及怎么选用
+
+**区别**
+
+1. 定义/语义区别
+
+> watch
+
+```vue
+<input type="text" v-model="foo" />
+```
+
+```javascript
+var = vm = new Vue({
+  el: '#demo',
+  data: {
+    foo: 1
+  },
+  watch: {
+    foo: function (newVal, oldVal) {
+      console.log(newVal + '' + oldVal)
+    }
+  }
+})
+vm.foo = 2 // 2 1 
+```
+
+> computed
+
+```javascript
+var vm = new Vue({
+  el: '#demo',
+  data: {
+    firstName: 'LBJ',
+    lastName: 'hui'
+  },
+  computed: {
+    fullName: function () {
+      return this.firstName + '' + this.lastName
+    }
+  }
+})
+vm.fullName //LBJ hui  computed 内部的函数调用的时候不需要加 ()
+```
+
+2. 功能区别
+
+watch 更通用，computed 派生功能都能实现，计算属性底层来自于 watch，但做了更多，例如缓存
+
+3. 用法区别
+
+conputed 更简单/更高效，优先使用
+
+有些必须 watch，比如值变化要和后端交互
+
+**使用场景**
+
+> watch
+
+watch 需要在数据变化时执行异步或开销较大的操作时使用，简单讲，当一条数据影响多条数据的时候，例如，搜索数据
+
+> computed
+
+对于任何复杂逻辑或一个数据属性在它所依赖的属性发生变化时，也要发生变化，简单讲，当一个属性受多个属性影响的时候，例如购物车商品结算时。
+
+# Vue 生命周期的理解
+
+![Vue 生命周期](https://cdn.jsdelivr.net/gh/LBJhui/image-host/images/Vue/vue生命周期.jpg)
+
+下面从源码方面详细解释一下这张图
+
+**实例化**
+
+> 显而易见，这个就是实例化。实例化之后，会执行一下操作。根据 vue 的源码，我们可以看到 vue 的本质就是一个 function， new Vue 的过程就是初始化 **参数、生命周期、事件**等一系列过程
+
+src/instance/index.js
+
+```javascript
+// vue 构造函数
+function Vue (options) {
+  if (process.env.NODE_ENV !== 'production' &&
+    !(this instanceof Vue)
+  ) {
+    warn('Vue is a constructor and should be called with the `new` keyword')
+  }
+  // 只有在 new Vue 时才会执行， _init 方法就是 initMixin 中的 _init 方法
+  this._init(options)
+}
+
+// 初始化 option 相关工作（<= 此处调用beforeCreate、create 钩子）
+initMixin(Vue)
+// 数据绑定核心方法
+stateMixin(Vue)
+// 事件绑定的核心方法
+eventsMixin(Vue)
+// 生命周期的核心方法
+lifecycleMixin(Vue)
+// 渲染核心方法， render / Vnode
+renderMixin(Vue)
+
+export default Vue
+```
+
+**初始化事件 生命周期函数**
+
+> 首先就是初始化事件和生命周期函数。这时候，这个对象身上只有默认一些生命周期函数和默认的事件，其他的东西都未创建
+
+**beforeCreate 创建前**
+
+> 接着就是`beforeCreate(创建前)`执行。但是这个时候拿不到 `data`里边的数据。data 和 ，methods 中的数据都还没初始化
+
+**注射相应**
+
+> `injections`(注射器) `reactivity`(响应) 给数据添加观察者
+
+**created 创建后**
+
+> `created 创建后`执行。因为上边给数据添加了观察者，所以现在就可以访问到`data`里的数据了。这个钩子也是常用的，可以请求数据了。如果要调用 methods 中的方法或者操作 data 中数据，要在 created 里操作。也因为请求数据是一步的，所以发送请求宜早不宜迟，通常在这个时候发送请求。
+
+src/instance/init.js
+
+```javascript
+export function initMixin (Vue: Class<Component>) {
+  // 此处的 _init 方法，与 Vue 构造函数中的 _init 是同一个方法
+  Vue.prototype._init = function (options?: Object) {
+    const vm: Component = this
+    // a uid
+    vm._uid = uid++
+
+    let startTag, endTag
+    /* istanbul ignore if */
+    if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
+      startTag = `vue-perf-start:${vm._uid}`
+      endTag = `vue-perf-end:${vm._uid}`
+      mark(startTag)
+    }
+
+    // a flag to avoid this being observed
+    vm._isVue = true
+    // merge options
+    if (options && options._isComponent) {
+      // optimize internal component instantiation
+      // since dynamic options merging is pretty slow, and none of the
+      // internal component options needs special treatment.
+      initInternalComponent(vm, options)
+    } else {
+      vm.$options = mergeOptions(
+        resolveConstructorOptions(vm.constructor),
+        options || {},
+        vm
+      )
+    }
+    /* istanbul ignore else */
+    if (process.env.NODE_ENV !== 'production') {
+      initProxy(vm)
+    } else {
+      vm._renderProxy = vm
+    }
+    // expose real self
+    vm._self = vm
+    initLifecycle(vm)
+    initEvents(vm)
+    initRender(vm)
+    callHook(vm, 'beforeCreate') // 执行 beforeCreate 生命周期函数
+    initInjections(vm) // resolve injections before data/props
+    initState(vm)
+    initProvide(vm) // resolve provide after data/props
+    callHook(vm, 'created') // 执行 create 生命周期函数
+
+    /* istanbul ignore if */
+    if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
+      vm._name = formatComponentName(vm, false)
+      mark(endTag)
+      measure(`vue ${vm._name} init`, startTag, endTag)
+    }
+
+    // 判断 el 元素
+    if (vm.$options.el) {
+      // 挂载该 el DOM 元素
+      vm.$mount(vm.$options.el)
+    }
+  }
+}
+```
+
+**是否存在 el**
+
+> `el` 指明挂载目标。这个步骤就是判断一下是否有写 `el` ,如果没有就判断有没有调用实例上的 `$mount('')` 方法调用。
+
+src/instance/init.js
+
+**判断是否有 template**
+
+> 判断是否有template
+
+- 如果有 `template` 则渲染 `template` 里的内容
+- 如果没有，则渲染 `el` 指明的挂载对象里的内容
+
+src/platforms/web/entry-runtime-with-compiler.js
+
+```javascript
+// 保存 mount
+const mount = Vue.prototype.$mount
+Vue.prototype.$mount = function (
+  el?: string | Element,
+  hydrating?: boolean
+): Component {
+  el = el && query(el)
+
+  /* istanbul ignore if */
+  if (el === document.body || el === document.documentElement) {
+    process.env.NODE_ENV !== 'production' && warn(
+      `Do not mount Vue to <html> or <body> - mount to normal elements instead.`
+    )
+    return this
+  }
+
+  const options = this.$options
+  // resolve template/el and convert to render function
+  if (!options.render) {
+    let template = options.template
+    // 判断是否存在 template
+    if (template) {
+      if (typeof template === 'string') {
+        if (template.charAt(0) === '#') {
+          // 通过 #id 获取 DOM
+          template = idToTemplate(template)
+          /* istanbul ignore if */
+          if (process.env.NODE_ENV !== 'production' && !template) {
+            warn(
+              `Template element not found or is empty: ${options.template}`,
+              this
+            )
+          }
+        }
+      } else if (template.nodeType) {
+        template = template.innerHTML
+      } else {
+        if (process.env.NODE_ENV !== 'production') {
+          warn('invalid template option:' + template, this)
+        }
+        return this
+      }
+    } else if (el) {
+      template = getOuterHTML(el)
+    }
+    if (template) {
+      /* istanbul ignore if */
+      if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
+        mark('compile')
+      }
+
+      const { render, staticRenderFns } = compileToFunctions(template, {
+        outputSourceRange: process.env.NODE_ENV !== 'production',
+        shouldDecodeNewlines,
+        shouldDecodeNewlinesForHref,
+        delimiters: options.delimiters,
+        comments: options.comments
+      }, this)
+      options.render = render
+      options.staticRenderFns = staticRenderFns
+
+      /* istanbul ignore if */
+      if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
+        mark('compile end')
+        measure(`vue ${this._name} compile`, 'compile', 'compile end')
+      }
+    }
+  }
+  return mount.call(this, el, hydrating)
+}
+```
+
+**beforeMount 挂载前**
+
+> beforeMount 挂载前执行
+
+**替换 el**
+
+> 这个时候会在实例上创建一个 `el` ,替换原来的 `el` 。也是真正的挂载
+
+**mounted 挂载后**
+
+> `mounted` 挂载后执行。这个时候 DOM 已经加载完成了，可以操作 DOM 了。只要执行完成了 mounted，就表示整个 vue 实例已经初始化完毕了。这个也是常用的钩子。一般操作 DOM 都在这里。
+
+src/platforms/web/runtime/index.js
+
+```javascript
+// public mount method
+Vue.prototype.$mount = function (
+  el?: string | Element,
+  hydrating?: boolean
+): Component {
+  // 判断是否存在 el 以及在浏览器环境
+  el = el && inBrowser ? query(el) : undefined
+  // 调用 mountComponent
+  return mountComponent(this, el, hydrating) // 看这里
+}
+```
+
+src/core/instance/lifecycle.js
+
+```javascript
+export function mountComponent (
+  vm: Component,
+  el: ?Element,
+  hydrating?: boolean
+): Component { // 挂载组件 vm： Vue实例 el：真实的 DOM 节点对象
+  vm.$el = el
+  if (!vm.$options.render) {
+    vm.$options.render = createEmptyVNode
+    if (process.env.NODE_ENV !== 'production') {
+      /* istanbul ignore if */
+      if ((vm.$options.template && vm.$options.template.charAt(0) !== '#') ||
+        vm.$options.el || el) {
+        warn(
+          'You are using the runtime-only build of Vue where the template ' +
+          'compiler is not available. Either pre-compile the templates into ' +
+          'render functions, or use the compiler-included build.',
+          vm
+        )
+      } else {
+        warn(
+          'Failed to mount component: template or render function not defined.',
+          vm
+        )
+      }
+    }
+  }
+  callHook(vm, 'beforeMount') // 挂载前 执行生命周期里的 beforeMount 事件
+
+  let updateComponent
+  /* istanbul ignore if */
+  if (process.env.NODE_ENV !== 'production' && config.performance && mark) { // 开启了性能追踪时的分支
+    updateComponent = () => {
+      const name = vm._name
+      const id = vm._uid
+      const startTag = `vue-perf-start:${id}`
+      const endTag = `vue-perf-end:${id}`
+
+      mark(startTag)
+      const vnode = vm._render()
+      mark(endTag)
+      measure(`vue ${name} render`, startTag, endTag)
+
+      mark(startTag)
+      vm._update(vnode, hydrating)
+      mark(endTag)
+      measure(`vue ${name} patch`, startTag, endTag)
+    }
+  } else {
+    updateComponent = () => {
+      // 更新视图，第一个参数返回 Vnode
+      // vm._render 会根据我们的 html 模板和 vm 上的数据生成一个新的 VNode
+      // vm._update 会将新的 VNode 与旧的 Vnode 进行对比，执行 __patch__ 方法打补丁，并更新真实 DOM
+      // 初始化时，肯定没有旧的 VNode 咯，这个时候就会全量更新 DOM
+      vm._update(vm._render(), hydrating)
+    }
+  }
+
+  // we set this to vm._watcher inside the watcher's constructor
+  // since the watcher's initial patch may call $forceUpdate (e.g. inside child
+  // component's mounted hook), which relies on vm._watcher being already 
+  // 当 new Watcher 时，会执行 updateComponent
+  // 执行 updateComponent 函数会访问 data 中的数据，相当于触发 data 中数据的 get 属性
+  // 触发 data 中数据的 get 属性，就相当于触发了 依赖收集
+  new Watcher(vm, updateComponent, noop, {
+    before () {
+      if (vm._isMounted && !vm._isDestroyed) {
+        callHook(vm, 'beforeUpdate')
+      }
+    }
+  }, true /* isRenderWatcher */)
+  hydrating = false
+
+  // manually mounted instance, call mounted on self
+  // mounted is called for render-created child components in its inserted hook
+  if (vm.$vnode == null) {
+    vm._isMounted = true // 修改当前 vm 的状态
+    callHook(vm, 'mounted') // mounted 钩子被调用
+  }
+  return vm
+}
+```
+
+**dataChange**
+
+> 当数据有变动时，会触发下面两个钩子
+
+- 在 `beforeUpdate` 更新前和 `updated` 更新后之间会进行 DOM 的重新渲染和补全。
+- 接着是 `updated` 更新后
+
+src/core/observer/scheduler.js
+
+```javascript
+function callUpdatedHooks (queue) {
+  let i = queue.length
+  while (i--) {
+    const watcher = queue[i]
+    const vm = watcher.vm
+    if (vm._watcher === watcher && vm._isMounted && !vm._isDestroyed) {
+      callHook(vm, 'updated') // 执行 updated
+    }
+  }
+}
+```
+
+**callDestroys**
+
+- `beforeDestroy`销毁前和`destroy`销毁后这两个钩子是需要我们手动调用实例上的 `$destroy` 方法才会触发
+- 当 `$destroy` 方法调用后
+- `beforeDestroy`销毁前触发
+- 移除数据劫持、事件监听、子组件属性所有的东西还保留只是不能修改
+- `desstroy`销毁后触发
+
+src/core/instance/lifecycle.js
+
+```javascript
+  Vue.prototype.$destroy = function () {
+    const vm: Component = this
+    if (vm._isBeingDestroyed) {
+      return
+    }
+    callHook(vm, 'beforeDestroy') // 调用 beforeDestroy
+    vm._isBeingDestroyed = true
+    // remove self from parent
+    const parent = vm.$parent
+    if (parent && !parent._isBeingDestroyed && !vm.$options.abstract) {
+      remove(parent.$children, vm)
+    }
+    // teardown watchers
+    // 清楚 watcher
+    if (vm._watcher) {
+      vm._watcher.teardown()
+    }
+    let i = vm._watchers.length
+    while (i--) {
+      vm._watchers[i].teardown()
+    }
+    // remove reference from data ob
+    // frozen object may not have observer.
+    if (vm._data.__ob__) {
+      vm._data.__ob__.vmCount--
+    }
+    // call the last hook...
+    // 修改 vm 状态
+    vm._isDestroyed = true
+    // invoke destroy hooks on current rendered tree
+    vm.__patch__(vm._vnode, null)
+    // fire destroyed hook
+    callHook(vm, 'destroyed') // 调用 destroyed
+    // turn off all instance listeners.
+    // 关闭 vm 实例的 listeners
+    vm.$off()
+    // remove __vue__ reference
+    if (vm.$el) {
+      vm.$el.__vue__ = null
+    }
+    // release circular reference (#6759)
+    if (vm.$vnode) {
+      vm.$vnode.parent = null
+    }
+  }
+```
+
+**新增钩子**
+
+- activated: keep-alive 组件激活时调用
+
+  类似 created 没有真正创建，只是激活
+
+- deactivated: keep-alive 组件停用时调用
+
+  类似 destroyed 没有真正移除，只是禁用
+
+- 在 2.2.0 及其更高版本中，activated 和 deactivated 将会在 `<keep-alive></keep-alive>` 树内的所有嵌套组件中触发。
+
+# vuex 使用及其理解
+
+1. vuex是什么
+2. 核心概念是什么
+   1. state
+   2. mutation
+   3. action
+   4. getter
+   5. model
+3. 怎么做数据存储
+4. 什么情况下应该使用vuex
+5. vuex理解  => 源码
+
+vuex 数据流程
+
+![vuex](https://cdn.jsdelivr.net/gh/LBJhui/image-host/images/Vue/vuex.jpg)
+
 # Vue 中 props 的实现原理
 
 `<componment></componment> => ast语法树 => vnode`
