@@ -2158,6 +2158,128 @@ vuex 数据流程
 
 ![vuex](https://cdn.jsdelivr.net/gh/LBJhui/image-host/images/Vue/vuex.jpg)
 
+# nextTick 的原理
+
+nextTick 官方文档的解释，它可以在 DOM 更新完毕之后执行一个回调
+
+```javascript
+// 修改数据
+vm.msg = 'Hello'
+// DOM 还没有更新
+Vue.nextTick(function () {
+	// DOM 更新了
+})
+```
+
+尽管 MVVM 框架并不推荐访问 DOM，但有时候确实会有这样的需求，尤其是和第三方插件进行配合的时候，免不了要进行 DOM 操作。而 nextTick 就提供了一个桥梁，确保我们操作的是更新后的 DOM。
+
+**Vue 如何检测到 DOM 更新完毕呢？**
+
+能监听到 DOM 改动的API：MutationObserver
+
+**理解 MutationObserver**
+
+MutationObserver 是 HTML5 新增的属性，用于监听 DOM 修改事件，能够监听到节点的属性、文本内容、字节点等的改动过，是一个功能强大的利器。
+
+```javascript
+// MutationObserver 基本用法
+var observer = new MutationObserver(() => {
+  console.log('DOM被修改了')
+})
+var article = document.querySelector('article')
+observer.observer(article)
+```
+
+vue是不是用 MutationObserver 来监听 DOM 更新完毕的呢？
+
+vue 的源码中实现 nextTick 的地方：
+
+```javascript
+// src/core/util/next-tick.js
+if (!isIE && typeof MutationObserver !== 'undefined' && (
+  isNative(MutationObserver) ||
+  // PhantomJS and iOS 7.x
+  MutationObserver.toString() === '[object MutationObserverConstructor]'
+)) {
+  // Use MutationObserver where native Promise is not available,
+  // e.g. PhantomJS, iOS7, Android 4.4
+  // (#6466 MutationObserver is unreliable in IE11)
+  let counter = 1
+  const observer = new MutationObserver(flushCallbacks)
+  const textNode = document.createTextNode(String(counter))
+  observer.observe(textNode, {
+    characterData: true
+  })
+  timerFunc = () => {
+    counter = (counter + 1) % 2
+    textNode.data = String(counter)
+  }
+  isUsingMicroTask = true
+}
+```
+
+**事件循环**
+
+在 js 的运行环境中，通常伴随着很多事件的发生，比如用户点击、页面渲染、脚本执行、网络请求，等等。为了协调这些事件等处理，浏览器使用事件循环机制。
+
+简要来说，事件循环会维护一个或多个任务队列(task queues)，以上提到的事件作为任务源往队列中加入任务。有一个持续执行的线程来处理这些任务，每执行完一个就从队列中移除它，这就是一次事件循环。
+
+```javascript
+for(let i = 0; i < 100; i++){
+  dom.style.left = i + 'px'
+}
+```
+
+事实上，这100次 for 循环同属于一个 task，浏览器只在该 task 执行完成后进行一次 DOM 更新。
+
+只要让 nextTick 里的代码放在 UI render 步骤后面执行，岂不就访问到更新后的 DOM 了？
+
+vue 就是这样的思路，并不是用 MutationObserver 进行 DOM 变动监听，而是用队列控制的方式达到目的。那么 vue 又是如何做到队列控制的呢？我们可以很自然的想到 setTimeout，把 nextTick 要执行的代码当作下一个 task 放入队列末尾。
+
+vue 的数据响应过程包含：数据更改 ➡️ 通知Watcher ➡️ 更新DOM。而数据对的更改不由我们控制，可能在任何时候发生。如果恰巧发生在重绘之前，就会发生多次渲染。这就意味着性能浪费，是 vue 不愿意看到的。
+
+所以，vue 的队列控制是经过了深思熟虑的。在这之前，我们还需了解 event loop 的另一个重要概念，microtask。
+
+**microtask**
+
+从名字看，我们可以把它称为微任务。
+
+每一次事件循环都包含一个 microtask 队列，在循环结束后依次执行队列中的 microtask 并移除，然后再开始下一次事件循环。
+
+在执行 microtask 的过程中后加入 mircotask 队列的微任务，也会在下一次事件循环之前被执行。也就是说，microtask 总要等到 mircotask 都执行完后才能执行，microtask 有着更高的优先级。
+
+microtask 的这一特性，是做队列控制的最佳选择。vue 进行 DOM 更新内部也是调用 nextTick 来做异步队列控制。而当我们自己调用 nextTick 的时候，它就在更新 DOM 的那个 microtask 后追加了我们自己的回调函数，从而确保我们的代码在 DOM 更新后执行，同时也避免了 setTimeout 可能存在多次执行问题。
+
+常见的 microtask 有：Promise、MutationObserver、Object.observe(废弃)，以及 nodejs 中的 process.nextTick。
+
+看到了 MutationObserver，vue 用 MutationObserver 是想利用它的 mircotask 特性，而不是想做 DOM 监听。核心是 mircotask，用不用 MutationObserver 都行的。事实上，vue 在 2.5 版本中已经删去了 MutationObserver 相关的代码，因为它是 HTML5 新增的特性，在 IOS 上尚有 bug。
+
+那么最有的 mircotask 策略就是 Promise 了，而令人尴尬的是，Promise 是 ES6 新增的东西，也存在兼容问题呀。所以 vue 就面临一个降级策略。
+
+**vue 的降级策略**
+
+上面我们讲到了，队列控制的最佳选择是 microtask，而 mircotask 的最佳选择是 Promise。但如果当前环境不支持 Promise， vue 就不得不降级为 macrotask 来做队列控制了。
+
+macrotask 有哪些可选的方案呢？前面提到了setTimeout 是一种，但它不是理想的方案。因为 setTimeout 执行的最小时间间隔是约4ms的样子，略微有点延迟。
+
+在 vue2.5 的源码中，microtask 的降级的方案依次是： setImmediate、MessageChannel、setTimeout。
+
+setImmediate 是最理想的方案了，可惜的是只有 IE 和 nodejs 支持
+
+MessageChannel 的 onmessage 回调也是 microtask，但也是个新的 API，面临兼容性的尴尬。
+
+所以最后的兜底方案就是 setTimeout 了，尽管它有执行延迟，可能造成多次渲染，算是没有办法的办法了。
+
+**总结**
+
+1. vue 是异步队列的方式来控制 DOM 更新和 nextTick 回调先后执行
+2. microtask 因为其高优先级特性，能确保队列中的微任务在一次事件循环前被执行完毕
+3. 因为兼容性问题，vue 不得不做了 microtask 向 macrotask 的降级方案
+
+# vue 双向数据绑定原理
+
+
+
 # Vue 中 props 的实现原理
 
 `<componment></componment> => ast语法树 => vnode`
