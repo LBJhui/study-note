@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <style type="text/css">
+      body,
+      div {
+        margin: 0;
+        padding: 0;
+        font-family: '微软雅黑';
+        -webkit-user-select: none;
+      }
+      #code {
+        width: 80px;
+        height: 40px;
+        margin: 50px auto;
+        font-size: 26px;
+        text-align: center;
+        line-height: 26px;
+        background: -webkit-linear-gradient(top left, pink, red, blue);
+        background: -moz-linear-gradient(top left, pink, red, blue);
+        background: -ms-linear-gradient(top left, pink, red, blue);
+        background: -o-linear-gradient(top left, pink, red, blue);
+        background: linear-gradient(top left, pink, red, blue);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="code"></div>
+    <script>
+      var str =
+        'abcdefghijklmnopqrstuvwxyz' +
+        'abcdefghijklmnopqrstuvwxyz'.toUpperCase() +
+        '0123456789'
+      var oDiv = document.getElementById('code')
+      //console.log(str);
+      function getCode() {
+        var code = ''
+        for (var i = 0; i < 4; i++) {
+          var index = Math.round(Math.random() * 61)
+          code += str[index]
+        }
+        oDiv.innerHTML = code
+      }
+      getCode()
+      oDiv.onclick = getCode
+    </script>
+  </body>
+</html>
