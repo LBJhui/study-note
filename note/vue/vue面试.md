@@ -1781,7 +1781,7 @@ export default Vue
 
 > `created 创建后`执行。因为上边给数据添加了观察者，所以现在就可以访问到`data`里的数据了。这个钩子也是常用的，可以请求数据了。如果要调用 methods 中的方法或者操作 data 中数据，要在 created 里操作。也因为请求数据是一步的，所以发送请求宜早不宜迟，通常在这个时候发送请求。
 
-src/instance/init.js
+src/core/instance/init.js
 
 ```javascript
 export function initMixin (Vue: Class<Component>) {
@@ -2550,7 +2550,519 @@ MessageChannel 的 onmessage 回调也是 microtask，但也是个新的 API，�
 
 # vue 双向数据绑定原理
 
+> 什么是双向数据绑定？
 
+数据变化更新视图，视图变化更新数据
+
+![双向数据绑定](https://cdn.jsdelivr.net/gh/LBJhui/image-host/images/Vue/vue%E9%9D%A2%E8%AF%95/16.jpg)
+
+输入框 内容变化时，data 中的数据同步变化 view => model
+
+data 中的数据变化时，文本节点的内容同步变化 model => view
+
+> 设计思想：观察者模式
+
+Vue 的双向数据绑定设计思想为观察者模式
+
+​    Dep对象：dependency 依赖的简写，包含有三个主要属性id，subs，target和四个主要函数 addSub，removeSub，depend，notify，是观察者的依赖集合，负责在数据发生变化时，使用 notify() 触发保存在 subs 下的订阅列表，依次更新数据和 DOM。
+
+Observe对象：即观察者，包含两个主要属性 value，dep。做法是使用 getter / setter 方法覆盖默认的取值和赋值操作，将对象封装为响应式对象，每一次调用时更新依赖列表，更新值时触发订阅者。绑定在对象的  `_ob_ `  原型链属性上。
+
+```javascript
+new Vue({
+  el: '#app',
+  data: {
+    count: 100
+  },
+  ...
+})
+```
+
+初始化函数 initMixin
+
+```javascript
+export function initMixin(Vue: Class<Component>) {
+  Vue.prototype._init = function (options?: Object) {
+    const vm: Component = this
+    // a uid
+    vm._uid = uid++
+
+    let startTag, endTag
+    /* istanbul ignore if */
+    if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
+      startTag = `vue-perf-start:${vm._uid}`
+      endTag = `vue-perf-end:${vm._uid}`
+      mark(startTag)
+    }
+
+    // a flag to avoid this being observed
+    vm._isVue = true
+
+    // 合并选项
+    // merge options
+    if (options && options._isComponent) {
+      // optimize internal component instantiation
+      // since dynamic options merging is pretty slow, and none of the
+      // internal component options needs special treatment.
+      initInternalComponent(vm, options)
+    } else {
+      vm.$options = mergeOptions(
+        resolveConstructorOptions(vm.constructor),
+        options || {},
+        vm
+      )
+    }
+    /* istanbul ignore else */
+    if (process.env.NODE_ENV !== 'production') {
+      initProxy(vm)
+    } else {
+      vm._renderProxy = vm
+    }
+    // expose real self
+    vm._self = vm
+    initLifecycle(vm)
+    initEvents(vm)
+    initRender(vm)
+    callHook(vm, 'beforeCreate')
+    initInjections(vm) // resolve injections before data/props
+    // 这里就是我们接下来奥跟进的初始化 Vue 
+    initState(vm)
+    initProvide(vm) // resolve provide after data/props
+    callHook(vm, 'created')
+
+    /* istanbul ignore if */
+    if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
+      vm._name = formatComponentName(vm, false)
+      mark(endTag)
+      measure(`vue ${vm._name} init`, startTag, endTag)
+    }
+
+    if (vm.$options.el) {
+      vm.$mount(vm.$options.el)
+    }
+  }
+}
+```
+
+初始化参数 initState
+
+```javascript
+export function initState (vm: Component) {
+  vm._watchers = []
+  const opts = vm.$options
+  if (opts.props) initProps(vm, opts.props)
+  if (opts.methods) initMethods(vm, opts.methods)
+  // 我们的 count 在这里初始化
+  if (opts.data) {
+    initData(vm)
+  } else {
+    observe(vm._data = {}, true /* asRootData */)
+  }
+  if (opts.computed) initComputed(vm, opts.computed)
+  if (opts.watch && opts.watch !== nativeWatch) {
+    initWatch(vm, opts.watch)
+  }
+}
+```
+
+initData
+
+```javascript
+function initData (vm: Component) {
+  let data = vm.$options.data
+  data = vm._data = typeof data === 'function'
+    ? getData(data, vm)
+    : data || {}
+  if (!isPlainObject(data)) {
+    data = {}
+    process.env.NODE_ENV !== 'production' && warn(
+      'data functions should return an object:\n' +
+      'https://vuejs.org/v2/guide/components.html#data-Must-Be-a-Function',
+      vm
+    )
+  }
+  // proxy data on instance
+  const keys = Object.keys(data)
+  const props = vm.$options.props
+  const methods = vm.$options.methods
+  let i = keys.length
+  while (i--) {
+    const key = keys[i]
+    if (process.env.NODE_ENV !== 'production') {
+      if (methods && hasOwn(methods, key)) {
+        warn(
+          `Method "${key}" has already been defined as a data property.`,
+          vm
+        )
+      }
+    }
+    if (props && hasOwn(props, key)) {
+      process.env.NODE_ENV !== 'production' && warn(
+        `The data property "${key}" is already declared as a prop. ` +
+        `Use prop default value instead.`,
+        vm
+      )
+    } else if (!isReserved(key)) {
+      proxy(vm, `_data`, key)
+    }
+  }
+  // observe data
+  observe(data, true /* asRootData */)
+}
+```
+
+将 data 参数 设置为响应式：
+
+```javascript
+/**
+ * Attempt to create an observer instance for a value,
+ * returns the new observer if successfully observed,
+ * or the existing observer if the value already has one.
+ */
+export function observe (value: any, asRootData: ?boolean): Observer | void {
+  if (!isObject(value) || value instanceof VNode) {
+    return
+  }
+  let ob: Observer | void
+  if (hasOwn(value, '__ob__') && value.__ob__ instanceof Observer) {
+    ob = value.__ob__
+  } else if (
+    // 为了防止 value 不是单纯的对象而是 Regexp 或者函数之类的，或者是 vm 实例再或者是不可扩展的
+    shouldObserve &&
+    !isServerRendering() &&
+    (Array.isArray(value) || isPlainObject(value)) &&
+    Object.isExtensible(value) &&
+    !value._isVue
+  ) {
+    ob = new Observer(value)
+  }
+  if (asRootData && ob) {
+    ob.vmCount++
+  }
+  return ob
+}
+```
+
+Observer 类
+
+```javascript
+/**
+ * Observer class that is attached to each observed
+ * object. Once attached, the observer converts the target
+ * object's property keys into getter/setters that
+ * collect dependencies and dispatch updates.
+ */
+export class Observer {
+  value: any;
+  dep: Dep;
+  vmCount: number; // number of vms that have this object as root $data
+
+  constructor (value: any) {
+    this.value = value
+    this.dep = new Dep()
+    this.vmCount = 0
+    def(value, '__ob__', this)
+    if (Array.isArray(value)) {
+      if (hasProto) {
+        protoAugment(value, arrayMethods)
+      } else {
+        copyAugment(value, arrayMethods, arrayKeys)
+      }
+      this.observeArray(value)
+    } else {
+      this.walk(value)
+    }
+  }
+
+  /**
+   * Walk through all properties and convert them into
+   * getter/setters. This method should only be called when
+   * value type is Object.
+   */
+  walk (obj: Object) {
+    const keys = Object.keys(obj)
+    for (let i = 0; i < keys.length; i++) {
+      defineReactive(obj, keys[i])
+    }
+  }
+
+  /**
+   * Observe a list of Array items.
+   */
+  observeArray (items: Array<any>) {
+    for (let i = 0, l = items.length; i < l; i++) {
+      observe(items[i])
+    }
+  }
+}
+```
+
+observeArray
+
+```javascript
+/**
+   * Observe a list of Array items.
+   */
+observeArray (items: Array<any>) {
+  for (let i = 0, l = items.length; i < l; i++) {
+    observe(items[i])
+  }
+}
+```
+
+Dep 类
+
+```javascript
+export default class Dep {
+  static target: ?Watcher;
+  id: number;
+  subs: Array<Watcher>;
+
+  constructor () {
+    this.id = uid++
+    this.subs = []
+  }
+
+  addSub (sub: Watcher) {
+    this.subs.push(sub)
+  }
+
+  removeSub (sub: Watcher) {
+    remove(this.subs, sub)
+  }
+
+  depend () {
+    if (Dep.target) {
+      Dep.target.addDep(this)
+    }
+  }
+
+  notify () {
+    // stabilize the subscriber list first
+    const subs = this.subs.slice()
+    if (process.env.NODE_ENV !== 'production' && !config.async) {
+      // subs aren't sorted in scheduler if not running async
+      // we need to sort them now to make sure they fire in correct
+      // order
+      subs.sort((a, b) => a.id - b.id)
+    }
+    for (let i = 0, l = subs.length; i < l; i++) {
+      subs[i].update()
+    }
+  }
+}
+```
+
+walk 函数
+
+```java
+/**
+   * Walk through all properties and convert them into
+   * getter/setters. This method should only be called when
+   * value type is Object.
+   */
+walk (obj: Object) {
+  const keys = Object.keys(obj)
+    for (let i = 0; i < keys.length; i++) {
+      defineReactive(obj, keys[i])
+    }
+}
+```
+
+defineReactive
+
+```javascript
+export function defineReactive (
+  obj: Object,
+  key: string,
+  val: any,
+  customSetter?: ?Function,
+  shallow?: boolean
+) {
+  const dep = new Dep()
+
+  const property = Object.getOwnPropertyDescriptor(obj, key)
+  if (property && property.configurable === false) {
+    return
+  }
+
+  // cater for pre-defined getter/setters
+  const getter = property && property.get
+  const setter = property && property.set
+  if ((!getter || setter) && arguments.length === 2) {
+    val = obj[key]
+  }
+
+  let childOb = !shallow && observe(val)
+  Object.defineProperty(obj, key, {
+    enumerable: true,
+    configurable: true,
+    get: function reactiveGetter () {
+      const value = getter ? getter.call(obj) : val
+      if (Dep.target) {
+        dep.depend()
+        if (childOb) {
+          childOb.dep.depend()
+          if (Array.isArray(value)) {
+            dependArray(value)
+          }
+        }
+      }
+      return value
+    },
+    set: function reactiveSetter (newVal) {
+      const value = getter ? getter.call(obj) : val
+      /* eslint-disable no-self-compare */
+      // 脏检查，排除了 NaN !== NaN 的影响
+      if (newVal === value || (newVal !== newVal && value !== value)) {
+        return
+      }
+      /* eslint-enable no-self-compare */
+      if (process.env.NODE_ENV !== 'production' && customSetter) {
+        customSetter()
+      }
+      // #7981: for accessor properties without setter
+      if (getter && !setter) return
+      if (setter) {
+        setter.call(obj, newVal)
+      } else {
+        val = newVal
+      }
+      childOb = !shallow && observe(newVal)
+      dep.notify()
+    }
+  })
+}
+```
+
+Dep.target & depend()
+
+```javascript
+// The current target watcher being evaluated.
+// This is globally unique because only one watcher
+// can be evaluated at a time.
+Dep.target = null
+
+depend () {
+  if (Dep.target) {
+    Dep.target.addDep(this)
+  }
+}
+
+notify () {
+  // stabilize the subscriber list first
+  const subs = this.subs.slice()
+  if (process.env.NODE_ENV !== 'production' && !config.async) {
+    // subs aren't sorted in scheduler if not running async
+    // we need to sort them now to make sure they fire in correct
+    // order
+    subs.sort((a, b) => a.id - b.id)
+  }
+  for (let i = 0, l = subs.length; i < l; i++) {
+    subs[i].update()
+  }
+}
+```
+
+addDep()
+
+```javascript
+/**
+   * Add a dependency to this directive.
+   */
+addDep (dep: Dep) {
+  const id = dep.id
+  if (!this.newDepIds.has(id)) {
+    this.newDepIds.add(id)
+    this.newDeps.push(dep)
+    if (!this.depIds.has(id)) {
+      dep.addSub(this)
+    }
+  }
+}
+```
+
+dependArray()
+
+```javascript
+/**
+ * Collect dependencies on array elements when the array is touched, since
+ * we cannot intercept array element access like property getters.
+ */
+function dependArray (value: Array<any>) {
+  for (let e, i = 0, l = value.length; i < l; i++) {
+    e = value[i]
+    e && e.__ob__ && e.__ob__.dep.depend()
+    if (Array.isArray(e)) {
+      dependArray(e)
+    }
+  }
+}
+```
+
+# vue-router 导航钩子
+
+- 有哪几种形式？
+- 能做什么？
+- 怎么用？
+
+三种形式：
+
+1. 全局导航钩子
+2. 路由配置中导航钩子
+3. 组件内部导航钩子
+
+
+
+1. **全局的钩子函数**
+
+- beforeEach(to, from, next) 路由改变前调用
+  - 常用验证用户权限
+  - beforeEach(to, from, next) 参数
+    - to：即将要进入大的目标路由对象
+    - from：当前正要离开的路由对象
+    - next：路由控制参数
+      - next()：如果一切正常，则调用这个方法进入下一个钩子
+      - next(false)：取消导航(路由不发生改变)
+      - next('/login')：当前导航被中断，然后进行一个新的导航
+      - next(erroor)：如果一个 Error 实例，则导航会被终止且该错误会被传递给 router.onError()
+- afterEach(to, from) 路由改变后的钩子
+  - 常用自动让页面返回顶端
+  - 用法相似，少了 next 参数
+
+
+
+2. **路由配置中的导航钩子**
+
+- beforeEnter(to, from, next)
+
+
+
+3. **组件内的钩子函数**
+
+- 钩子函数介绍
+
+1. beforeEach(to, from, next) 
+   - 该组件的对应路由被 confirm 前调用
+   - 此时实例还没被创建，所以不能获取实例 (this)
+2. beforeRouterUpdate(to, from, next)
+   - 当前路由改变，但改组件被复用时候调用
+   - 该函数内可以访问组件实例 (this)
+3. beforeRouterLeave(to, from, next)
+   - 当导航离开组件的对应路由时调用
+   - 该函数内可以访问获取组件实例 (this)
+
+
+
+4. **路由监测变化**
+
+- 监听到路由对象发生变化，从而对路由变化做出响应
+
+# 什么是递归组件
+
+概念：组件是可以在它们自己的模板中调用自身的。
+
+递归组件，一定要有一个结束时的条件，否则就会使组件循环引用，最终出现错误，我们可以使用 `v-if="false"` 作为递归组件的结束条件。当遇到 v-if 为 false 时，组件将不会再进行渲染。
 
 # Vue 中 props 的实现原理
 
