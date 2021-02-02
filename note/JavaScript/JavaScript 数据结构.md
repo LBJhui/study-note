@@ -180,7 +180,7 @@ class LinkedList {
     this.head = null // 链表中第一个节点
     this.tail = null // 链表中最后一个节点
   }
-  
+
   // append 追加节点（末尾添加）
   append (value) {
     const newNode = {value: value, next: null}
@@ -194,4 +194,3 @@ class LinkedList {
   }
 }
 ```
-
