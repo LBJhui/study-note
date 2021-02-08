@@ -45,19 +45,37 @@ block formatting context 块级格式化上下文
 
 内部元素的渲染不会影响外界
 
-
-
 形成 BFC 常见的条件
 
-- 浮动元素		float 不是 none
-- 绝对定位元素   position 是 absolute 或 fixed
-- 块级元素         overflow 不是 visible
+- 浮动元素 float 不是 none
+- 绝对定位元素 position 是 absolute 或 fixed
+- 块级元素 overflow 不是 visible
 - flex 元素
 - inline-block 元素
 
-
-
 应用场景：清除浮动
 
-## 
+## margin 负值
+
+- margin-top：负值，元素向上拖拽
+- margin-left：负值，元素向左拖拽
+- margin-bottom：负值，元素本身不变，下边元素上移
+- margin-right：负值，元素本身不变，右边元素左移
+
+## 圣杯布局、双飞翼布局
+
+圣杯布局（一般用于 PC 端网页布局）
+
+目的：
+
+1. 两侧内容宽度固定，中间内容宽度自适应
+2. 三栏布局，中间一栏最先加载，、渲染出来
+
+实现方法：
+
+float + margin
+
+
+
+
 
