@@ -75,7 +75,38 @@ block formatting context 块级格式化上下文
 
 float + margin
 
+## 水平居中
 
+- 行内 inline 元素 `text-align: center; `
+- 块级 block 元素 `margin: 0 auto;`
+- absolute 定位元素 `left: 50%; margin-left: 负值`
 
+## 多行文字垂直居中
 
+父元素 `dispaly: table;`
 
+子元素 `display: table-cell; vertical-align: center;`
+
+## relative 和 absolute 定位
+
+relative 定位 相对于 自身 定位
+
+absolute 定位 相对于 最近的一层父级元素 定位
+
+定位元素 relative absolute fixed 或 body
+
+## flex 布局
+
+**父级容器相关**
+
+`flex-direction`		主轴方向							水平方向和垂直方向
+
+`justify-content`	  主轴上的对齐方式			开始对齐、结束对齐、居中对齐、两端对齐
+
+`align-item`				交叉轴上的对齐方式		开始对齐、结束对齐、居中对齐
+
+`flex-wrap`	      		是否换行
+
+**子元素相关**
+
+`align-self`				子元素在交叉轴上的对齐方式	开始对齐、结束对齐、居中对齐，可以覆盖 `align-item`属性
