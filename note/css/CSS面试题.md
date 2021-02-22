@@ -99,14 +99,14 @@ absolute 定位 相对于 最近的一层父级元素 定位
 
 **父级容器相关**
 
-`flex-direction`		主轴方向							水平方向和垂直方向
+`flex-direction` 主轴方向 水平方向和垂直方向
 
-`justify-content`	  主轴上的对齐方式			开始对齐、结束对齐、居中对齐、两端对齐
+`justify-content` 主轴上的对齐方式 开始对齐、结束对齐、居中对齐、两端对齐
 
-`align-item`				交叉轴上的对齐方式		开始对齐、结束对齐、居中对齐
+`align-item` 交叉轴上的对齐方式 开始对齐、结束对齐、居中对齐
 
-`flex-wrap`	      		是否换行
+`flex-wrap` 是否换行
 
 **子元素相关**
 
-`align-self`				子元素在交叉轴上的对齐方式	开始对齐、结束对齐、居中对齐，可以覆盖 `align-item`属性
+`align-self` 子元素在交叉轴上的对齐方式 开始对齐、结束对齐、居中对齐，可以覆盖 `align-item`属性
