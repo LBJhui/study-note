@@ -1,4 +1,4 @@
-1. padding
+### padding
 
 ```html
 <div>
@@ -21,16 +21,19 @@ span {
 
 缺点：父元素不能设置固定高度
 
-2. line-height
+### line-height
 
 优点：可设置父元素固定高度
 
 缺点：不太适合多行文字
 
-3. display：flex；
-4. display：table-cell；
-5. display：grid；
-6. transform
+### display：flex；
+
+### display：table-cell；
+
+### display：grid；
+
+### transform
 
 ```html
 <div>
@@ -55,7 +58,7 @@ span {
 
 缺点：脱离文档流
 
-7. vertical-align： middle；
+### vertical-align： middle；
 
 ```html
 <div class="main">
@@ -83,5 +86,40 @@ div.main::after {
   height: 100%;
   width: 0;
   vertical-align: middle;
+}
+```
+
+### calc 动态计算
+
+```css
+.div0 {
+  width: 200px;
+  height: 150px;
+  border: 1px solid #000;
+}
+.redbox {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  background: #c00;
+  float: left;
+  top: calc(50% - 15px);
+  margin-left: calc(50% - 45px);
+}
+.greenbox {
+  position: relative;
+  width: 30px;
+  height: 80px;
+  background: #0c0;
+  float: left;
+  top: calc(50% - 40px);
+}
+.bluebox {
+  position: relative;
+  width: 30px;
+  height: 40px;
+  background: #00f;
+  float: left;
+  top: calc(50% - 20px);
 }
 ```
