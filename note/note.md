@@ -32,3 +32,13 @@
 ```
 
 效果如下：![图片](https://mmbiz.qpic.cn/mmbiz_png/iccXN8sGPLT4hFEAdGrN8C406yW3fS6Kx11VibqObrV7cKiaXJzVwx08gemBYK0QX1sdCicQUpNbQ5G6THUcWWPOfQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+
+
+
+
+
+元素的margin的top、bottom及padding的top、bottom使用百分比作为单位时，其是相对父元素的宽度width的而不是我们想象的高度height；
+
+
+
+当父容器里有绝对定位的子元素时，子元素设置width:100%实际上指的是相对于父容器的padding+content的宽度。当子元素是非绝对定位的元素时width:100%才是指子元素的 content ，其等于父元素的 content宽度。
