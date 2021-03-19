@@ -2220,9 +2220,7 @@ if (!isIE && typeof MutationObserver !== 'undefined' && (
 
 ---
 
-
-
-## Mutation Observer API
+# Mutation Observer API
 
 **1、概述**
 
@@ -3219,3 +3217,26 @@ export function set(target: Array<any> | Object, key: any, val: any): any {
 - Vue 中的事件绑定就是发布订阅模式
 
 观察者模式中观察者和被观察者是存在关联的。发布订阅模式中订阅者和发布者没有关联，所以观察者模式中包含了发布订阅模式(watcher 和 dep)
+
+# 兄弟组件通信方法
+
+
+
+# 父子组件通信方法 之 props/$emit
+
+
+
+# Vue2 与 vue3 生命周期的区别
+
+
+
+# 理解 Composition API 之 优化代码组织
+
+
+
+# 父子组件生命周期执行顺序
+
+
+
+# v-if 和 v-show 的区别
+
