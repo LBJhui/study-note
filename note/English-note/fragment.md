@@ -58,3 +58,60 @@
 23. I'm going to have to get going 我不得不离开了
 24. I don't want to hog you 我不想缠着你
 25. I've already taken so much of your time! 我占用你太多时间了！
+
+I own your an apology
+I would like to apologize
+I sincerely apologize
+Please,forgive me
+
+```Formal and written
+
+I wanted to tell you I am sorry
+My apologies
+Sorry,my bad/ fault /mistake
+I’m sorry, I was wrong on that
+How stupid of me! I should have thought about this
+~~~~~~~~~~~~informal and to people you know well
+
+I am so Sorry to hear that
+I’m so sorry about your loss
+~~~~~~~~~~~~~~~express one’s sympathy
+
+Sorry about ~when sympathy or you heard sth
+Sorry for ~sth you done is wrong
+
+Don’t worry about it,it’s ok
+That’s all right ,forget it
+No big thing/no worries/no problem
+~~~~~~~~~~~~~informal
+This is not your fault
+Please do not blame yourself
+You should not blame yourself
+~~~~~~~~~~~~~formal
+```
+
+01
+to come up / out smelling of roses
+
+> emerge from a situation with one's reputation undamaged
+
+The scandal could have ruined her reputation, but she came up smelling of roses.
+
+02
+to go to seed
+
+> to decline in quality or appearance
+
+After having children, he started to go to seed. He didn't look so good anymore.
+
+03
+as fresh ad a daisy
+
+> healthy and full of energy
+
+I thougth I'd have a hangover, but I've woken up as fresh as a daisy.
+
+04
+a late bloomer
+
+>
