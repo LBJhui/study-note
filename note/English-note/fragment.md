@@ -109,7 +109,7 @@ as fresh ad a daisy
 
 > healthy and full of energy
 
-I thougth I'd have a hangover, but I've woken up as fresh as a daisy.
+I thought I'd have a hangover, but I've woken up as fresh as a daisy.
 
 04
 a late bloomer
