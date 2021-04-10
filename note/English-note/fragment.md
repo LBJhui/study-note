@@ -59,6 +59,27 @@
 24. I don't want to hog you 我不想缠着你
 25. I've already taken so much of your time! 我占用你太多时间了！
 
+I think
+I'm (absolutely) sure
+I'm certain
+No doubt
+I'm postive
+I bet
+I guess
+I'm not (very) sure
+I suppose
+As far as I know，
+If I'm not mistaken,
+Correct me if I'm wrong,
+I have a feeling
+To the best of my knowledfe/belief,
+In my opinion,
+It seems to me
+To tell the truth,
+To be honest,
+To my mind,
+If u ask me,
+
 I own your an apology
 I would like to apologize
 I sincerely apologize
@@ -77,41 +98,5 @@ I am so Sorry to hear that
 I’m so sorry about your loss
 ~~~~~~~~~~~~~~~express one’s sympathy
 
-Sorry about ~when sympathy or you heard sth
-Sorry for ~sth you done is wrong
 
-Don’t worry about it,it’s ok
-That’s all right ,forget it
-No big thing/no worries/no problem
-~~~~~~~~~~~~~informal
-This is not your fault
-Please do not blame yourself
-You should not blame yourself
-~~~~~~~~~~~~~formal
 ```
-
-01
-to come up / out smelling of roses
-
-> emerge from a situation with one's reputation undamaged
-
-The scandal could have ruined her reputation, but she came up smelling of roses.
-
-02
-to go to seed
-
-> to decline in quality or appearance
-
-After having children, he started to go to seed. He didn't look so good anymore.
-
-03
-as fresh ad a daisy
-
-> healthy and full of energy
-
-I thought I'd have a hangover, but I've woken up as fresh as a daisy.
-
-04
-a late bloomer
-
->
