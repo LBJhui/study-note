@@ -52,13 +52,13 @@ module.exports = {
 
   })
 
-  /******/ 	// The module cache
+  /******/ 	// The module cache 先定义一个缓存
   var __webpack_module_cache__ = {}
 
-  // The require function
+  // The require function 配置了 实现了require
   function __webpack_require__ (moduleId) {
     // Check if module is in cache
-    if (__webpack_module_cache__[moduleId]) {
+    if (__webpack_module_cache__[moduleId]) { // 不在缓存中...
       return __webpack_module_cache__[moduleId].exports
     }
     // Create a new module (and put it into the cache)
@@ -82,3 +82,14 @@ module.exports = {
 })()
 ```
 
+
+
+## 修改`webpack.config.my.js` 文件名
+
+Package.json
+
+```json
+"scripts":{
+	 "build": "webpack --config webpack.config.my.js"
+},
+```
