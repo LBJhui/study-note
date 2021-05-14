@@ -6,12 +6,12 @@
 
 不同的场景需要不同的数据结构
 
-- 有序列表数据允许重复——Array
-- 无序列表不允许重复——Set
-- 无序数据键值对形式——Object
-- 有序键值对可遍历数据——Map
+- 有序列表数据允许重复——数组——Array
+- 无序列表不允许重复——集合——Set
+- 无序数据键值对形式——对象——Object
+- 有序键值对可遍历数据——映射——Map
 
-# JavaScript 数组
+## JavaScript 数组
 
 - 保留插入顺序
 - 通过索引访问元素
@@ -33,7 +33,7 @@ for (const name of names) {
 }
 
 // 添加元素
-name.push('Lucy')
+name.push('James')
 console.log(names.length)
 
 // 查询元素
@@ -45,7 +45,7 @@ names.splice(2, 1)
 console.log(names)
 ```
 
-# JavaScript 集合
+## JavaScript 集合
 
 - 无序（存储和读取的顺序可能不一样）
 - 通过方法访问和获取元素
@@ -75,7 +75,7 @@ ids.has('a')
 ids.delete('b')
 ```
 
-# 数组 vs 集合
+## 数组 vs 集合
 
 - 数组
   - 总是使用数组
@@ -84,7 +84,7 @@ ids.delete('b')
   - 仅在顺序无关紧要且仅要求唯一值时可用
   - 与数组相比，可以简化数据访问（例如查找，删除）
 
-# JavaScript 对象
+## JavaScript 对象
 
 - 无序的键值对数据
 - 通过键（属性）访问元素
@@ -98,6 +98,9 @@ const person = {
   name: 'LBjhui',
   age: 23,
   hobbies: ['NBA', 'Music'],
+    greeting() {
+    console.log('Hello, I am ' + this.name)
+  }
 }
 
 console.log(person[0]) // undefined
@@ -109,9 +112,13 @@ person.sex = 'male'
 
 // 删除属性
 delete person.age
+
+// 有方法，添加功能
+person.greeting()
+console.log(person)
 ```
 
-# JavaScript 映射
+## JavaScript 映射
 
 - 有序的键值对数据
 - 通过键访问元素
@@ -156,7 +163,7 @@ resultData.delete({
 })  ❎
 ```
 
-# 对象 vs 映射
+## 对象 vs 映射
 
 - 对象
   - 非常通用的构造和数据存储结构
@@ -165,7 +172,7 @@ resultData.delete({
   - 专注于数据存储
   - 与对象相比，可以简化数据访问
 
-# 弱集合 vs 弱映射
+## 弱集合 vs 弱映射
 
 集合和映射的变体 ➡️ 值和键仅“弱引用” ➡️ 如果未在应用程序的其他任何地方使用，垃圾回收则可以删除值和键
 
@@ -181,16 +188,17 @@ class LinkedList {
     this.tail = null // 链表中最后一个节点
   }
 
-  // append 追加节点（末尾添加）
+  // append 追加节点(末尾添加)
   append (value) {
-    const newNode = {value: value, next: null}
-    if(this.tail){
+    const newNode = { value: value, next: null }
+    if (this.tail) {
       this.tail.next = newNode
     }
-    this.tail - newNode
-    if(!this.head){
-      this.heaad = newNode
+    this.tail = newNode
+    if (!this.head) {
+      this.head = newNode
     }
   }
 }
+const linkedList1 = new LinkedList()
 ```
