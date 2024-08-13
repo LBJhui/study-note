@@ -1,0 +1,26 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="tinit_master_future" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+    <module name="nxops-01" />
+    <option name="INTERPRETER_OPTIONS" value="" />
+    <option name="PARENT_ENVS" value="true" />
+    <envs>
+      <env name="PYTHONUNBUFFERED" value="1" />
+      <env name="PYTHONPATH" value="D:\Desktop\note-docsify\nxops-01\nxop" />
+    </envs>
+    <option name="SDK_HOME" value="C:\Users\LBJ辉\AppData\Local\Programs\Python\Python38\python.exe" />
+    <option name="SDK_NAME" value="Python 3.8 (nxops) (2)" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/nxop" />
+    <option name="IS_MODULE_SDK" value="false" />
+    <option name="ADD_CONTENT_ROOTS" value="true" />
+    <option name="ADD_SOURCE_ROOTS" value="true" />
+    <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+    <option name="SCRIPT_NAME" value="$PROJECT_DIR$/nxop/simrun/tinit/tinit_master_future.py" />
+    <option name="PARAMETERS" value="--env nsight" />
+    <option name="SHOW_COMMAND_LINE" value="false" />
+    <option name="EMULATE_TERMINAL" value="false" />
+    <option name="MODULE_MODE" value="false" />
+    <option name="REDIRECT_INPUT" value="false" />
+    <option name="INPUT_FILE" value="" />
+    <method v="2" />
+  </configuration>
+</component>

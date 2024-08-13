@@ -1,0 +1,92 @@
+{
+  "simrun": {
+    "type": "mysql",
+    "settings": {
+      "host": "10.189.66.115",
+      "user": "root",
+      "password": "D115mysql:root@2021",
+      "database": "siminfo",
+      "allow_local_infile": true
+    }
+  },
+  "singularity": {
+    "type": "mysql",
+    "settings": {
+      "host": "10.188.79.130",
+      "user": "singularity_real",
+      "password": "Singularity_real2019$",
+      "port": 3306,
+      "database": "singularity_real"
+    }
+  },
+  "real_singularity": {
+    "type": "mssql",
+    "settings": {
+      "host": "10.188.4.65",
+      "user": "qidian_n",
+      "password": "nshijie@cfsc",
+      "port": 1433,
+      "database": "wanping_download"
+    }
+  },
+  "real_singularity_spot_sqlserver": {
+    "type": "mssql",
+    "settings": {
+      "host": "10.188.80.72",
+      "user": "qidian_n",
+      "password": "nshijie@cfsc",
+      "port": 1433,
+      "database": "wp_12_download"
+    }
+  },
+  "real_singularity_spot": {
+    "type": "mysql",
+    "settings": {
+      "host": "10.188.80.23",
+      "user": "qidian_X",
+      "password": "X@cfsc2022",
+      "database": "wp_12_download",
+      "allow_local_infile": true
+    }
+  },
+  "real_singularity_credit_sqlserver": {
+    "type": "mssql",
+    "settings": {
+      "host": "10.188.80.72",
+      "user": "qidian_n",
+      "password": "nshijie@cfsc",
+      "port": 1433,
+      "database": "sh_12credit_download"
+    }
+  },
+  "real_singularity_credit": {
+    "type": "mysql",
+    "settings": {
+      "host": "10.188.80.23",
+      "user": "qidian_X",
+      "password": "X@cfsc2022",
+      "database": "sh_12credit_download",
+      "allow_local_infile": true
+    }
+  },
+  "real_singularity_option": {
+    "type": "mssql",
+    "settings": {
+      "host": "10.188.80.72",
+      "user": "qidian_n",
+      "password": "nshijie@cfsc",
+      "port": 1433,
+      "database": "wanping_spdownload"
+    }
+  },
+  "wind": {
+    "type": "oracle",
+    "settings": {
+      "dsn": "10.168.49.207:1521/wind",
+      "user": "wind_sjcj",
+      "password": "winDSjcj$2021",
+      "encoding": "UTF-8",
+      "nencoding": "UTF-8"
+    }
+  }
+}
