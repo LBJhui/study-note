@@ -605,12 +605,6 @@ class QuantServicePlayer_Future(ServicePlayer):
 @click.option('--run_id', required=False, default=1)
 def start(env, config, run_id):
     AppContext.load("./config/simrun_context.json", env)
-    '''
-    BASE_HOME = base_home
-    CONFIG_HOME = config_home
-    ENV_ID = env_id
-    _context = {'base_home': '.', 'config_home': './config/simrun', 'env_id': 'quant'}
-    '''
 
     # 日志
     # AppContext.get_config_path("loggers.json"): ./config/simrun\quant\loggers.json

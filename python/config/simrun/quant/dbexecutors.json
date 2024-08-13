@@ -1,0 +1,6 @@
+{
+    "task": {
+        "datasource": "simrun",
+        "package": "nxpy.task.easymodules"
+    }
+}
