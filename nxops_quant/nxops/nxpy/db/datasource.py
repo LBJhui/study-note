@@ -50,7 +50,6 @@ class DataSource(DBOperator):
 
     def __init__(self, pid, dbtype, settings, driver=None):
         super().__init__()
-
         self.pid = pid
         self.dbtype = dbtype
         self.settings = settings
@@ -72,6 +71,7 @@ class DataSource(DBOperator):
         self.pool = PooledDB(self.driver, **self.settings)
 
         self.pools.update({self.pid: self})
+
 
     @classmethod
     def get_datasource(cls, pid):

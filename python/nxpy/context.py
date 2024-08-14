@@ -4,6 +4,7 @@
 # @File: context
 # @Project: python
 import os
+import threading
 
 import rapidjson  # pip install python-rapidjson
 
@@ -35,3 +36,24 @@ class AppContext:
         if env_id:
             return os.path.join(PathUtils.get_real_path(AppContext.get(AppContext.CONFIG_HOME)), env_id, file_path)
         return os.path.join(PathUtils.get_real_path(AppContext.get(AppContext.CONFIG_HOME)), file_path)
+
+APP_RUNTIME_LOCAL = threading.local()
+
+
+class AppRuntime:
+    @staticmethod
+    def get_value(key):
+        if hasattr(APP_RUNTIME_LOCAL, "runtime"):
+            return APP_RUNTIME_LOCAL.runtime.get(key, None)
+        return None
+
+    @staticmethod
+    def set_value(key, value):
+        if not hasattr(APP_RUNTIME_LOCAL, "runtime"):
+            APP_RUNTIME_LOCAL.runtime = {}
+        APP_RUNTIME_LOCAL.runtime.update({key: value})
+
+    @staticmethod
+    def del_value(key):
+        if hasattr(APP_RUNTIME_LOCAL, "runtime"):
+            APP_RUNTIME_LOCAL.runtime.pop(key, None)

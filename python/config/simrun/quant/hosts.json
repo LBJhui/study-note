@@ -1,0 +1,118 @@
+{
+  "localhost": {
+    "host": "127.0.0.1",
+    "user": "nxapp",
+    "password": "P34nxapp@2021"
+  },
+  "xapphost": {
+    "host": "10.188.172.16",
+    "user": "xapp",
+    "password": "P16xapp@2021"
+  },
+  "security_md_server": {
+    "host": "10.188.172.22",
+    "user": "trade",
+    "password": "P22trade@2021"
+  },
+  "quant_server": {
+    "host": "10.188.172.128",
+    "user": "mddepot",
+    "password": "P128mddepot@2021"
+  },
+  "quant_web": {
+    "host": "10.188.172.30",
+    "user": "uapp",
+    "password": "P30uapp@2021"
+  },
+  "sse_spot_credit_exchange": {
+    "host": "10.188.172.45",
+    "port": 22,
+    "user": "trade",
+    "password": "P45trade@2021"
+  },
+  "sse_spot_credit_robot": {
+    "host": "10.188.172.45",
+    "port": 22,
+    "user": "robot",
+    "password": "P45robot@2021"
+  },
+  "szse_spot_credit_exchange": {
+    "host": "10.188.172.46",
+    "port": 22,
+    "user": "trade",
+    "password": "P46trade@2021"
+  },
+  "szse_spot_credit_robot": {
+    "host": "10.188.172.46",
+    "port": 22,
+    "user": "robot",
+    "password": "P46robot@2021"
+  },
+  "bse_spot_credit_exchange": {
+    "host": "10.188.172.132",
+    "port": 22,
+    "user": "trade",
+    "password": "P132trade@2021"
+  },
+  "bse_spot_credit_robot": {
+    "host": "10.188.172.132",
+    "port": 22,
+    "user": "robot",
+    "password": "P132robot@2021"
+  },
+  "option_exchange": {
+    "host": "10.188.172.40",
+    "port": 22,
+    "user": "trade",
+    "password": "P40trade@2021"
+  },
+  "option_robot": {
+    "host": "10.188.172.40",
+    "port": 22,
+    "user": "robot",
+    "password": "P40robot@2021"
+  },
+  "spot_broker": {
+    "host": "10.188.172.38",
+    "port": 22,
+    "user": "trade",
+    "password": "P38trade@2021"
+  },
+  "spot_broker_new": {
+    "host": "10.188.172.47",
+    "port": 22,
+    "user": "trade",
+    "password": "P47trade@2021"
+  },
+  "option_broker": {
+    "host": "10.188.172.42",
+    "user": "trade",
+    "password": "P42trade@2021"
+  },
+  "credit_broker": {
+    "host": "10.188.172.52",
+    "user": "trade",
+    "password": "P52trade@2021"
+  },
+  "credit_broker_new": {
+    "host": "10.188.172.37",
+    "user": "trade",
+    "password": "P37trade@2021"
+  },
+  "future_exchange": {
+    "host": "10.188.172.33",
+    "user": "trade",
+    "password": "P33trade@2021"
+  },
+  "future_robot": {
+    "host": "10.188.172.33",
+    "user": "robot",
+    "password": "P33robot@2021"
+  },
+  "future_broker": {
+    "host": "10.188.172.20",
+    "user": "trade",
+    "password": "P20trade@2021"
+  }
+}
+

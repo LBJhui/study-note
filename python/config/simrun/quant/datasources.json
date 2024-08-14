@@ -1,0 +1,42 @@
+{
+  "simrun": {
+    "type": "mysql",
+    "settings": {
+      "host": "10.189.66.115",
+      "user": "root",
+      "password": "D115mysql:root@2021",
+      "database": "siminfo",
+      "allow_local_infile": true
+    }
+  },
+  "memclear": {
+    "type": "mysql",
+    "settings": {
+      "host": "10.189.66.115",
+      "user": "root",
+      "password": "D115mysql:root@2021",
+      "database": "quant",
+      "allow_local_infile": true
+    }
+  },
+  "memclear_24": {
+    "type": "mysql",
+    "settings": {
+      "host": "10.189.66.115",
+      "user": "root",
+      "password": "D115mysql:root@2021",
+      "database": "quant",
+      "allow_local_infile": true
+    }
+  },
+  "wande": {
+    "type": "oracle",
+    "settings": {
+      "dsn": "10.168.49.207:1521/wind",
+      "user": "wind_sjcj",
+      "password": "winDSjcj$2021",
+      "encoding": "UTF-8",
+      "nencoding": "UTF-8"
+    }
+  }
+}
