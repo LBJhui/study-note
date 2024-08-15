@@ -94,16 +94,14 @@ class QuantServicePlayer_Future(ServicePlayer):
                         spot_trade_data = pandas.read_csv(spot_trade_file, encoding=file_encoding, dtype="object")
                         spot_trade_data["HistoryNo"] = history_no
                         spot_trade_data.rename(columns={"VolumeMutiple": "VolumeMultiple"}, inplace=True)
-                        spot_trade_data.to_sql(name="t_Future_SimTestTrade", con=connection, if_exists='append',
-                                               index=False, chunksize=10000)
+                        spot_trade_data.to_sql(name="t_Future_SimTestTrade", con=connection, if_exists='append',index=False, chunksize=10000)
 
                     spot_order_file = os.path.join(data_home, "SimTestFutureOrder.csv")
                     if os.path.exists(spot_order_file):
                         spot_order_data = pandas.read_csv(spot_order_file, encoding=file_encoding, dtype="object")
                         spot_order_data["HistoryNo"] = history_no
                         spot_order_data.rename(columns={"VolumeMutiple": "VolumeMultiple"}, inplace=True)
-                        spot_order_data.to_sql(name="t_Future_SimTestOrder", con=connection, if_exists='append',
-                                               index=False, chunksize=10000)
+                        spot_order_data.to_sql(name="t_Future_SimTestOrder", con=connection, if_exists='append',index=False, chunksize=10000)
 
                     spot_position_file = os.path.join(data_home, "SimTestFuturePosition.csv")
                     if os.path.exists(spot_position_file):
@@ -115,12 +113,10 @@ class QuantServicePlayer_Future(ServicePlayer):
 
                     spot_position_detail_file = os.path.join(data_home, "SimTestFuturePositionDetail.csv")
                     if os.path.exists(spot_position_detail_file):
-                        spot_position_detail_data = pandas.read_csv(spot_position_detail_file, encoding=file_encoding,
-                                                                    dtype="object")
+                        spot_position_detail_data = pandas.read_csv(spot_position_detail_file, encoding=file_encoding,dtype="object")
                         spot_position_detail_data["HistoryNo"] = history_no
                         spot_position_detail_data.rename(columns={"VolumeMutiple": "VolumeMultiple"}, inplace=True)
-                        spot_position_detail_data.to_sql(name="t_Future_SimTestPositionDetail", con=connection,
-                                                         if_exists='append', index=False, chunksize=10000)
+                        spot_position_detail_data.to_sql(name="t_Future_SimTestPositionDetail", con=connection,if_exists='append', index=False, chunksize=10000)
 
                     sub_md_file = os.path.join(data_home, "SimTestSubMD.csv")
                     if os.path.exists(sub_md_file):
@@ -130,8 +126,7 @@ class QuantServicePlayer_Future(ServicePlayer):
                             sub_md_data.drop("VolumeMultiple", axis=1, inplace=True)
                         if "VolumeMutiple" in sub_md_data.columns:
                             sub_md_data.drop("VolumeMutiple", axis=1, inplace=True)
-                        sub_md_data.to_sql(name="t_Future_SimTestSubMD", con=connection, if_exists='append',
-                                           index=False, chunksize=10000)
+                        sub_md_data.to_sql(name="t_Future_SimTestSubMD", con=connection, if_exists='append', index=False, chunksize=10000)
 
                     spot_asset_file = os.path.join(data_home, "SimTestTradingAccount.csv")
                     if os.path.exists(spot_asset_file):

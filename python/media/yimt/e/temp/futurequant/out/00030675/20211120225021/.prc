@@ -1,1 +1,1 @@
-{"history_no":8800,"quant_id":"20211120225021","pid":16084,"file_encoding":"UTF-8","file_path":"./media/yimt/e/temp/futurequant/out\\00030675\\20211120225021\\.prc","status":"clearing","begin_time":"20240814 16:50:43.416508","old_prc_info":null}
+{"history_no":8770,"quant_id":"20211120225021","pid":30860,"file_encoding":"UTF-8","file_path":"./media/yimt/e/temp/futurequant/out\\00030675\\20211120225021\\.prc","status":"clearing","begin_time":"20240815 14:52:23.869721","old_prc_info":null}

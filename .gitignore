@@ -5,6 +5,7 @@ bin-release/
 [Bb]in/
 node_modules
 dist
+__pycache__
 
 # Other files and folders
 .settings/
@@ -15,6 +16,7 @@ dist
 *.ipa
 *.apk
 *.mp4
+*.pyc
 
 # Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
 # should NOT be excluded as they contain compiler settings and other important

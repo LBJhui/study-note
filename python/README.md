@@ -418,6 +418,67 @@ MySQL 数据库的引擎。最后，我们调用了 DataFrame 的 `to_sql` 方�
 请注意，根据你的数据库配置和权限，你可能需要调整数据库 URL、用户名、密码等参数。此外，如果你的 DataFrame
 包含大量数据，将其保存到数据库可能需要一些时间。
 
+## drop
+
+在Pandas中，`drop`是一个非常常用的方法，用于从DataFrame或Series中删除指定的行或列。这个方法非常灵活，可以通过几个参数来控制删除的具体行为。
+
+### DataFrame.drop()
+
+对于DataFrame，`drop`方法的基本语法如下：
+
+```python
+DataFrame.drop(labels=None, axis=0, index=None, columns=None, errors='raise', inplace=False)
+```
+
+- `labels`：要删除的行或列的标签（名称）。在较新版本的Pandas中，推荐使用`index`或`columns`参数来明确指定是删除行还是列，尽管`labels`参数仍然可以工作。
+- `axis`：指定操作的轴。`0`或`index`表示沿着行的方向操作（即删除行），`1`或`columns`表示沿着列的方向操作（即删除列）。
+- `index`：直接指定要删除的行标签的列表或数组。
+- `columns`：直接指定要删除的列标签的列表或数组。
+- `errors`：指定如果`labels`参数中的标签不在DataFrame中时的处理方式。`'raise'`（默认值）表示引发错误，`'ignore'`表示忽略错误。
+- `inplace`：布尔值，指示是否在原DataFrame上进行修改。如果为`True`，则直接在原DataFrame上修改；如果为`False`，则返回一个新的DataFrame对象，原DataFrame保持不变。
+
+### 示例
+
+假设我们有一个DataFrame `df`，如下所示：
+
+```python
+import pandas as pd
+
+data = {
+    'Name': ['Tom', 'Jerry', 'Mickey'],
+    'Age': [5, 7, 8],
+    'City': ['New York', 'Los Angeles', 'Chicago']
+}
+
+df = pd.DataFrame(data)
+```
+
+#### 删除列
+
+要删除名为`Age`的列，可以使用以下任一方法：
+
+```python
+df.drop('Age', axis=1, inplace=True)  # 使用axis参数
+# 或者
+df.drop(columns=['Age'], inplace=True)  # 使用columns参数，这是更明确的方式
+```
+
+#### 删除行
+
+要删除索引为1的行（注意Pandas的索引是从0开始的），可以使用以下任一方法：
+
+```python
+df.drop(index=1, inplace=True)  # 使用index参数
+# 或者
+df.drop(labels=1, inplace=True)  # 使用labels参数（尽管在这种情况下，推荐使用index）
+```
+
+注意，在使用`inplace=True`时，原DataFrame `df` 会被直接修改。如果你不想修改原DataFrame，可以省略`inplace=True`参数，并将结果赋值给一个新的DataFrame变量：
+
+```python
+df_without_age = df.drop('Age', axis=1)  # df_without_age是删除了'Age'列的新DataFrame，df保持不变
+```
+
 ## read_sql_query
 
 `read_sql_query` 是 pandas 库中用于从 SQL 数据库读取数据的一个函数，它属于 `pandas.read_sql_query`。这个函数允许你执行一个
@@ -471,3 +532,78 @@ conn.close()
 - 对于大型数据库，考虑使用 `chunksize` 参数来分批加载数据，以避免内存不足的问题。
 - 当你完成数据库操作时，不要忘记关闭数据库连接。在上面的示例中，我们使用 `conn.close()` 来关闭 SQLite
   连接。对于其他数据库，关闭连接的方法可能略有不同。
+
+# click
+
+`click` 是 Python
+中的一个第三方库，用于创建命令行接口（CLI）。它让开发者能够轻松地为他们的应用程序添加命令行接口，而不需要编写复杂的解析器代码。`click`
+提供了许多装饰器和函数，用于定义命令行选项、参数和命令。
+
+### 安装 Click
+
+首先，你需要确保已经安装了 `click`。如果还没有安装，可以通过 pip 来安装：
+
+```bash
+pip install click
+```
+
+### 基本用法
+
+以下是一个使用 `click` 创建简单命令行工具的示例：
+
+```python
+import click
+
+
+@click.command()
+@click.option('--count', default=1, help='Number of greetings.')
+@click.argument('name')
+def hello(count, name):
+    """Simple program that greets NAME for a total of COUNT times."""
+    for x in range(count):
+        click.echo(f'Hello {name}!')
+
+
+if __name__ == '__main__':
+    hello()
+```
+
+在这个示例中，我们定义了一个名为 `hello` 的命令，它接受一个 `--count` 选项（默认为 1）和一个位置参数 `name`
+。当运行这个程序并传入相应的参数时，它会打印出指定次数的问候语。
+
+### 运行程序
+
+假设上述程序保存在名为 `hello.py` 的文件中，你可以通过以下方式运行它：
+
+```bash
+python hello.py John
+```
+
+这将输出：
+
+```
+Hello John!
+```
+
+如果你想要增加问候次数，可以这样做：
+
+```bash
+python hello.py --count=3 John
+```
+
+输出将是：
+
+```
+Hello John!
+Hello John!
+Hello John!
+```
+
+### Click 的优势
+
+- **简单性**：`click` 提供了一个直观的 API 来创建命令行接口，减少了编写自定义解析器的需要。
+- **灵活性**：你可以定义任意数量的命令、选项和参数，以及它们之间的复杂关系。
+- **自动帮助**：`click` 会自动生成帮助信息，包括命令的描述、选项和参数的说明。
+- **嵌套命令**：支持将命令组织成子命令，创建更复杂的命令行接口。
+
+`click` 是 Python 社区中非常流行的命令行工具创建库，它为快速、轻松地创建命令行接口提供了强大的支持。
