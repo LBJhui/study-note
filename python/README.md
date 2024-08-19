@@ -3,7 +3,7 @@ conda deactivate
 
 # threading.Condition().notify()
 
-在Python的`threading`模块中，`Condition`
+在 Python 的`threading`模块中，`Condition`
 对象用于线程之间的同步，特别是当需要多个线程在某些条件成立时才能继续执行时。`Condition`对象内部维护了一个锁（通常是`RLock`
 ），并且支持等待/通知机制。这意味着线程可以在等待某个条件变为真时阻塞，而当条件满足时，另一个线程可以通知一个或多个等待的线程继续执行。
 
@@ -57,7 +57,7 @@ with condition:
 最后，务必确保在调用`notify()`或`notify_all()`之前已经获得了条件变量的锁，否则将抛出`RuntimeError`
 异常。在上面的例子中，我们通过在`with condition:`块中调用`notify()`来确保这一点。
 
-# with语句
+# with 语句
 
 Python 中的 `with` 语句是一种上下文管理器（context
 manager），它用于包装代码的执行，以便在代码执行前后自动执行某些操作，比如资源的获取与释放、文件的打开与关闭等。使用 `with`
@@ -274,9 +274,9 @@ print(df.head())
 - `sep` 或 `delimiter`：指定字段之间的分隔符，默认为逗号 `','`。如果你的 CSV 文件是用其他字符（如制表符 `\t`）分隔的，你需要指定这个参数。
 - `header`：指定作为列名的行。默认为 `0`（即第一行）。如果文件中没有列名，可以设置为 `None`。
 - `index_col`：指定哪一列用作行索引（标签）。默认情况下，索引是一个整数序列。
-- `usecols`：返回DataFrame的一部分列。默认情况下，返回所有列。可以传递列名的列表或使用列位置的整数列表。
+- `usecols`：返回 DataFrame 的一部分列。默认情况下，返回所有列。可以传递列名的列表或使用列位置的整数列表。
 - `nrows`：要读取的行数（从文件开始处算起）。这可以用来进行部分文件的读取。
-- `skiprows`：需要跳过的行号列表（从0开始），或是一个范围（比如 `2:5` 表示跳过第2行到第4行）。
+- `skiprows`：需要跳过的行号列表（从 0 开始），或是一个范围（比如 `2:5` 表示跳过第 2 行到第 4 行）。
 - `na_values`：将特定值视为 NaN（缺失值）。
 - `dtype`：为每列指定数据类型。这可以提高读取性能，尤其是在处理大型文件时。
 
@@ -305,7 +305,7 @@ print(df)
 
 ```
          Age         City
-Name                    
+Name
 Alice     30     New York
 Bob       25  Los Angeles
 Charlie   35      Chicago
@@ -420,26 +420,26 @@ MySQL 数据库的引擎。最后，我们调用了 DataFrame 的 `to_sql` 方�
 
 ## drop
 
-在Pandas中，`drop`是一个非常常用的方法，用于从DataFrame或Series中删除指定的行或列。这个方法非常灵活，可以通过几个参数来控制删除的具体行为。
+在 Pandas 中，`drop`是一个非常常用的方法，用于从 DataFrame 或 Series 中删除指定的行或列。这个方法非常灵活，可以通过几个参数来控制删除的具体行为。
 
 ### DataFrame.drop()
 
-对于DataFrame，`drop`方法的基本语法如下：
+对于 DataFrame，`drop`方法的基本语法如下：
 
 ```python
 DataFrame.drop(labels=None, axis=0, index=None, columns=None, errors='raise', inplace=False)
 ```
 
-- `labels`：要删除的行或列的标签（名称）。在较新版本的Pandas中，推荐使用`index`或`columns`参数来明确指定是删除行还是列，尽管`labels`参数仍然可以工作。
+- `labels`：要删除的行或列的标签（名称）。在较新版本的 Pandas 中，推荐使用`index`或`columns`参数来明确指定是删除行还是列，尽管`labels`参数仍然可以工作。
 - `axis`：指定操作的轴。`0`或`index`表示沿着行的方向操作（即删除行），`1`或`columns`表示沿着列的方向操作（即删除列）。
 - `index`：直接指定要删除的行标签的列表或数组。
 - `columns`：直接指定要删除的列标签的列表或数组。
-- `errors`：指定如果`labels`参数中的标签不在DataFrame中时的处理方式。`'raise'`（默认值）表示引发错误，`'ignore'`表示忽略错误。
-- `inplace`：布尔值，指示是否在原DataFrame上进行修改。如果为`True`，则直接在原DataFrame上修改；如果为`False`，则返回一个新的DataFrame对象，原DataFrame保持不变。
+- `errors`：指定如果`labels`参数中的标签不在 DataFrame 中时的处理方式。`'raise'`（默认值）表示引发错误，`'ignore'`表示忽略错误。
+- `inplace`：布尔值，指示是否在原 DataFrame 上进行修改。如果为`True`，则直接在原 DataFrame 上修改；如果为`False`，则返回一个新的 DataFrame 对象，原 DataFrame 保持不变。
 
 ### 示例
 
-假设我们有一个DataFrame `df`，如下所示：
+假设我们有一个 DataFrame `df`，如下所示：
 
 ```python
 import pandas as pd
@@ -465,7 +465,7 @@ df.drop(columns=['Age'], inplace=True)  # 使用columns参数，这是更明确�
 
 #### 删除行
 
-要删除索引为1的行（注意Pandas的索引是从0开始的），可以使用以下任一方法：
+要删除索引为 1 的行（注意 Pandas 的索引是从 0 开始的），可以使用以下任一方法：
 
 ```python
 df.drop(index=1, inplace=True)  # 使用index参数
@@ -473,7 +473,7 @@ df.drop(index=1, inplace=True)  # 使用index参数
 df.drop(labels=1, inplace=True)  # 使用labels参数（尽管在这种情况下，推荐使用index）
 ```
 
-注意，在使用`inplace=True`时，原DataFrame `df` 会被直接修改。如果你不想修改原DataFrame，可以省略`inplace=True`参数，并将结果赋值给一个新的DataFrame变量：
+注意，在使用`inplace=True`时，原 DataFrame `df` 会被直接修改。如果你不想修改原 DataFrame，可以省略`inplace=True`参数，并将结果赋值给一个新的 DataFrame 变量：
 
 ```python
 df_without_age = df.drop('Age', axis=1)  # df_without_age是删除了'Age'列的新DataFrame，df保持不变

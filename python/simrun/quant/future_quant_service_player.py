@@ -166,7 +166,7 @@ class QuantServicePlayer_Future(ServicePlayer):
             parameters = {"history_no": history_no}
 
             error, exec_result = clear_executor.execute("QuantDataClear.deal_future_quant_data", paras=parameters)
-
+            ##############################################
         except Exception as e:
             self.error(f"deal[{history_no}] failed: error: [{e}]")
             return False

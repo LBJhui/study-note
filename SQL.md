@@ -167,3 +167,36 @@ SELECT COUNT(department_id) FROM employees;
 
 - 当你使用 `COUNT(DISTINCT column_name)` 时，同样会排除 NULL 值，因为 `DISTINCT` 操作会去除重复值，包括 NULL（在 SQL 中，NULL 被视为特殊的“未知”值，任何与 NULL 的比较操作都会返回 NULL，因此它不会被视为重复值）。
 - 在某些情况下，如果表非常大且你主要关心非 NULL 值的数量，使用 `COUNT(column_name)` 可能会比 `COUNT(*)` 更快，因为数据库可能不需要扫描整个列来找到 NULL 值。然而，实际的性能差异取决于数据库的实现和数据的具体情况。
+
+# SQL 语句
+
+## CASE WHEN
+
+```sql
+CREATE TABLE scores (
+  name char(3),
+  stage char(3),
+  score int
+);
+
+INSERT INTO scores VALUES
+('A', '基', 1),
+('B', '基', 2),
+('C', '基', 2),
+('A', '爬', 3),
+('B', '爬', 1),
+('C', '爬', 2),
+('A', 'SQL', 2),
+('B', 'SQL', 2),
+('C', 'SQL', 4);
+
+SElECT name,
+max(CASE WHEN stage = '基' THEN score ELSE NULL END) as '基',
+max(CASE WHEN stage = '爬' THEN score ELSE NULL END) as '爬',
+max(CASE WHEN stage = 'SQL' THEN score ELSE NULL END) as 'SQL'
+FROM scores GROUP BY name;
+```
+
+## JOIN
+
+JOIN 是 SQL 中最常用的操作之一，用于将两个或多个表连接在一起，以获取更复杂的数据。它通过使用连接条件（如 ON 语句）来确定连接的行。
