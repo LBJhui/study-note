@@ -166,7 +166,63 @@ class QuantServicePlayer_Future(ServicePlayer):
             parameters = {"history_no": history_no}
 
             error, exec_result = clear_executor.execute("QuantDataClear.deal_future_quant_data", paras=parameters)
-            ##############################################
+            if error:
+                self.error(f"deal[{history_no}] failed: [code={error['code']}, msg={error['msg']}]")
+                return False
+            else:
+                mysql_config = executor.get_datasource().settings
+                mysql_url = "mysql+mysqlconnector://%s:%s@%s:%s/quant?charset=utf8" % (mysql_config["user"], quote(mysql_config["password"]), mysql_config["host"], str(mysql_config.get("port", 3306)))
+                mysql_engine = create_engine(mysql_url, pool_pre_ping=True, pool_recycle=600, execution_options={"autocommit": False})
+
+                with mysql_engine.connect() as connection:
+                    with connection.begin():
+                        error, test_profit_data = clear_executor.pandas_query("QuantDataClear.get_future_quant_test_profit", options)
+                        if error:
+                            self.error(f"deal[{history_no}] failed: get_future_quant_test_profit error: [code={error['code']}, msg={error['msg']}]")
+                            return False
+                        # 回测盈亏信息
+                        test_profit_data.to_sql(name="t_ClientQuantTestProfit", con=connection, if_exists='append', index=False, chunksize=10000)
+
+                        error, bench_profit_data = clear_executor.pandas_query("QuantDataClear.get_future_quant_bench_profit", options)
+                        if error:
+                            self.error(f"deal[{history_no}] failed: get_future_quant_bench_profit error: [code={error['code']}, msg={error['msg']}]")
+                            return False
+                        # 回测基准收益
+                        bench_profit_data.to_sql(name="t_QuantTestBenchmarkProfit", con=connection, if_exists='append', index=False, chunksize=10000)
+
+                        error, test_info_data = clear_executor.pandas_query("QuantDataClear.get_future_quant_test_info", options)
+                        if error:
+                            self.error(f"deal[{history_no}] failed: get_future_quant_test_info error: [code={error['code']}, msg={error['msg']}]")
+                            return False
+                        # test_info_data.to_sql(name="t_Future_SimTestInfo", con=connection, if_exists='append', index=False, chunksize=10000)
+
+                error, quant_market = clear_executor.querylist("QuantDataClear.get_quant_test_market", paras=options)
+                if error:
+                    self.error(f"deal[{history_no}] failed: get_quant_test_market error: [code={error['code']}, msg={error['msg']}]")
+                    return False
+
+                batch_paras = []
+                if quant_market and len(quant_market) > 0 and quant_market[0] and len(quant_market[0]) > 0:
+                    batch_paras = [{"quant_market": row[0]} for row in quant_market[0]]
+
+                error, quant_history = clear_executor.queryone("QuantDataClear.get_future_quant_test_history", paras=options)
+                if error:
+                    self.error(f"deal[{history_no}] failed: get_future_quant_test_history error: [code={error['code']}, msg={error['msg']}]")
+                    return False
+
+                init_asset = 0
+                total_asset = 0
+                test_trade_days = 0
+
+                if quant_history and len(quant_history) > 0 and quant_history[0] and len(quant_history[0]) > 0:
+                    init_asset = quant_history[0][0]
+                    total_asset = quant_history[0][1]
+                    test_trade_days = quant_history[0][2]
+
+                error, exec_result = executor.execute("QuantDataClear.save_future_quant_history", paras=dict(options, test_data_status="0", test_data_file_status="0", init_asset=init_asset, total_asset=total_asset, test_trade_days=test_trade_days), batch_paras=batch_paras)
+                if error:
+                    self.error(f"deal[{history_nAo}] failed: [code={error['code']}, msg={error['msg']}]")
+                    return False
         except Exception as e:
             self.error(f"deal[{history_no}] failed: error: [{e}]")
             return False
@@ -287,7 +343,6 @@ class QuantServicePlayer_Future(ServicePlayer):
                             f.write(rapidjson.dumps(prc_info))
 
                         self.info(f"deal [{history_no}]->[{test_home}]")
-
                         self.clear_quant(options)
             except Exception as e:
                 self.error(e)

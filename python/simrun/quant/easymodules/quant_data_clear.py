@@ -395,8 +395,9 @@ ware = {
         }
     ],
     "deal_future_quant_data": [
-        ## save_future_quant_order
+        ## save_future_quant_order 回测报单信息
         {
+
             "sql": """DELETE FROM quant.t_Future_QuantOrder WHERE HistoryNo = #{history_no}"""
         },
         {
@@ -406,7 +407,7 @@ ware = {
                         LEFT JOIN quant.t_future_quantmarketdata t1 ON (t.TradingDay = t1.TradingDay And t.ExchangeID = t1.ExchangeID AND t.InstrumentID = t1.InstrumentID)
                         WHERE t.HistoryNo = #{history_no}"""
         },
-        ## save_future_quant_trade
+        ## save_future_quant_trade 回测成交信息
         {
             "sql": """DELETE FROM quant.t_Future_QuantTrade WHERE HistoryNo = #{history_no}"""
         },
@@ -417,7 +418,7 @@ ware = {
                         LEFT JOIN quant.t_future_quantmarketdata t1 ON (t.TradingDay = t1.TradingDay And t.ExchangeID = t1.ExchangeID AND t.InstrumentID = t1.InstrumentID)
                         WHERE t.HistoryNo = #{history_no}"""
         },
-        ## save_future_quant_asset
+        ## save_future_quant_asset 回测资产信息
         {
             "sql": """DELETE FROM quant.t_Future_QuantAsset WHERE HistoryNo = #{history_no}"""
         },
@@ -434,7 +435,7 @@ ware = {
                         LEFT JOIN (SELECT t.HistoryNo, t.TradingDay, SUM(IFNULL(IF((t.Direction = '0' AND t.OffsetFlag = '0') OR (t.Direction = '1' AND t.OffsetFlag = '1'), t.Price * t.Volume * t.VolumeMultiple, 0), 0)) AS TodayBuyCapital, SUM(IFNULL(IF((t.Direction = '0' AND t.OffsetFlag = '1') OR (t.Direction = '1' AND t.OffsetFlag = '0'), t.Price * t.Volume * t.VolumeMultiple, 0), 0)) AS TodaySellCapital FROM quant.t_Future_QuantTrade t WHERE t.HistoryNo = #{history_no} GROUP BY t.HistoryNo, t.TradingDay) tt ON (t.HistoryNo = tt.HistoryNo AND t.TradingDay = tt.TradingDay)
                         GROUP BY t.HistoryNo, t.TradingDay"""
         },
-        ## save_future_quant_position
+        ## save_future_quant_position 回测持仓信息
         {
             "sql": """DELETE FROM quant.t_Future_QuantPosition WHERE HistoryNo = #{history_no}"""
         },
@@ -455,7 +456,7 @@ ware = {
                             JOIN (SELECT t.HistoryNo, t.TradingDay, SUM(ABS(t.Profit)) AS AbsProfit FROM (SELECT t.HistoryNo, t.TradingDay, t.CloseProfit + t.PositionProfit AS Profit FROM quant.t_future_simtestposition t WHERE t.HistoryNo = #{history_no}) t GROUP BY t.HistoryNO, t.TradingDay) t6 ON (t.HistoryNo = t6.HistoryNo AND t.TradingDay = t6.TradingDay)
                             WHERE t.HistoryNo = #{history_no}"""
         },
-        ## save_future_quant_profit
+        ## save_future_quant_profit 期货回测盈亏信息
         {
             "sql": """DELETE FROM quant.t_Future_QuantProfit WHERE HistoryNo = #{history_no}"""
         },
@@ -729,6 +730,7 @@ ware = {
             "sql": """DELETE FROM quant.t_quanttesthistory WHERE HistoryNo = #{history_no}"""
         }
     ],
+    # 回测盈亏信息
     "get_future_quant_test_profit": {
         "sql": """SELECT HistoryNo, TradingDay, '15:00:00' AS TradingTime, PreAsset AS LastAsset, TotalAsset AS Asset, TodayProfit AS DayProfit, TodayBuyCapital AS DayBuyCapital, TodaySellCapital AS DaySellCapital, Profit AS TotalProfit, ProfitRatio AS TotalProfitRatio
                     FROM quant.t_future_quantasset
@@ -739,6 +741,7 @@ ware = {
                     FROM quant.t_quantasset
                     WHERE HistoryNo = #{history_no}"""
     },
+    # 回测基准行情信息
     "get_future_quant_bench_profit": {
         "sql": """SELECT t1.HistoryNo, CONCAT(CASE WHEN t2.ExchangeID = '1' THEN 'sh' WHEN t2.ExchangeID = '2' THEN 'sz' WHEN t2.ExchangeID = '4' THEN 'bj' ELSE '' END, t2.SecurityID) AS BenchmarkStockID, t2.SecurityName AS BenchmarkStockName, t2.TradingDay, t2.TradingTime, IF(t2.LastClosingPrice = 0, t2.ClosingPrice, t2.LastClosingPrice) AS LastClosingPrice, t2.ClosingPrice, ROUND(t2.ClosingPrice - t3.LastClosingPrice, 4) AS TotalProfit, ROUND((t2.ClosingPrice - t3.LastClosingPrice) / t3.LastClosingPrice, 6) AS TotalProfitRatio
                     FROM quant.t_future_quantasset t1, quant.t_quantmarketdata t2, 
