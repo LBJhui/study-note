@@ -1,5 +1,18 @@
 CPU 内核数
 
+```html
+只允许输入数字(整数：小数点不能输入)
+<input type="text" onkeyup="value=value.replace(/[^\d]/g,'')" />
+允许输入小数(两位小数)
+<input type="text" onkeyup="value=value.replace(/^\D*(\d*(?:\.\d{0,2})?).*$/g, '$1')" />
+允许输入小数(一位小数)
+<input type="text" onkeyup="value=value.replace(/^\D*(\d*(?:\.\d{0,1})?).*$/g, '$1')" />
+开头不能为0，且不能输入小数
+<input type="text" onkeyup="value=value.replace(/[^\d]/g,'').replace(/^0{1,}/g,'')" />
+```
+
+ElementUI 日期选择器时间选择范围限制
+
 ```shell
 git clone <repository> --recursive 递归的方式克隆整个项目
 git submodule add <repository> <path> 添加子模块
