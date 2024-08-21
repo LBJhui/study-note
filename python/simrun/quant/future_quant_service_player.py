@@ -77,7 +77,8 @@ class QuantServicePlayer_Future(ServicePlayer):
         try:
             clear_executor_id = options.get('clear_executor_id')
             clear_executor = EasyDBExecutor.get_executor(clear_executor_id)
-            clear_executor.execute("QuantDataClear.clean_future_simtest_data", paras=options)  # 清空数据控中 history_no 相关数据
+            clear_executor.execute("QuantDataClear."
+                                   "", paras=options)  # 清空数据控中 history_no 相关数据
 
             mysql_config = clear_executor.get_datasource().settings
             mysql_url = f"mysql+mysqlconnector://%s:%s@%s:%s/quant?charset=utf8" % (mysql_config["user"], quote(mysql_config["password"]), mysql_config["host"], str(mysql_config.get("port", 3306)))
@@ -221,7 +222,7 @@ class QuantServicePlayer_Future(ServicePlayer):
 
                 error, exec_result = executor.execute("QuantDataClear.save_future_quant_history", paras=dict(options, test_data_status="0", test_data_file_status="0", init_asset=init_asset, total_asset=total_asset, test_trade_days=test_trade_days), batch_paras=batch_paras)
                 if error:
-                    self.error(f"deal[{history_nAo}] failed: [code={error['code']}, msg={error['msg']}]")
+                    self.error(f"deal[{history_no}] failed: [code={error['code']}, msg={error['msg']}]")
                     return False
         except Exception as e:
             self.error(f"deal[{history_no}] failed: error: [{e}]")
