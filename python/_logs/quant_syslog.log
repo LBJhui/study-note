@@ -91,3 +91,7 @@
                     WHERE HistoryNo = %s]
 2024-08-20 15:40:03.253 | DEBUG    | 3116:21836 | nxpy.db.executor:make_statement:444 - sql [quant_data_clear.get_quant_test_market] = [SELECT DISTINCT SecurityCategoryType FROM quant.t_simtestsubmd WHERE HistoryNo = %s]
 2024-08-20 15:40:03.270 | INFO     | 3116:21836 | nxpy.service.service_player:info:69 - quant_clearer deal[8771] finished
+2024-08-22 13:55:57.088 | DEBUG    | 2468:23368 | nxpy.db.executor:make_statement:444 - sql [quant_data_clear_copy.get_history_no.0] = [SELECT CurrValue FROM quant.t_Counter WHERE CounterID = 't_QuantTestHistory' FOR UPDATE]
+2024-08-22 13:55:57.182 | DEBUG    | 2468:23368 | nxpy.db.executor:make_statement:444 - sql [quant_data_clear_copy.get_history_no.1] = [UPDATE quant.t_Counter SET CurrValue = %s WHERE CounterID = 't_QuantTestHistory']
+2024-08-22 13:55:57.238 | INFO     | 2468:23368 | nxpy.service.service_player:info:69 - quant_clearer deal [8772]->[./media/yimt/e/temp/futurequant/out\00030675\20211120225021]
+2024-08-22 13:55:57.277 | ERROR    | 2468:23368 | nxpy.service.service_player:error:76 - quant_clearer dump[8772] failed: error: [[QuantDataClear.] not found]

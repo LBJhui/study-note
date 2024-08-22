@@ -77,8 +77,7 @@ class QuantServicePlayer_Future(ServicePlayer):
         try:
             clear_executor_id = options.get('clear_executor_id')
             clear_executor = EasyDBExecutor.get_executor(clear_executor_id)
-            clear_executor.execute("QuantDataClear."
-                                   "", paras=options)  # 清空数据控中 history_no 相关数据
+            clear_executor.execute("QuantDataClear.clean_future_simtest_data", paras=options)  # 清空数据控中 history_no 相关数据
 
             mysql_config = clear_executor.get_datasource().settings
             mysql_url = f"mysql+mysqlconnector://%s:%s@%s:%s/quant?charset=utf8" % (mysql_config["user"], quote(mysql_config["password"]), mysql_config["host"], str(mysql_config.get("port", 3306)))
@@ -231,14 +230,33 @@ class QuantServicePlayer_Future(ServicePlayer):
         self.info(f"deal[{history_no}] finished")
         return True
 
+    def fit_web_quant(self,options):
+        history_no = options.get("history_no")
+        if not history_no:
+            self.error("none history_no")
+            return False
+
+        self.info(f"fit[{history_no}] begin")
+
+        web_home = options.get("web_home")
+        web_home = PathUtils.get_real_path(web_home)
+
+        temp_home = options.get("temp_home")
+        temp_home = PathUtils.get_real_path(temp_home)
+
+        history_home = os.path.join(temp_home, f"{history_no}")
+        if not os.path.exists(history_home):
+            os.makedirs(history_home)
+        ############################################
+
     def clear_quant(self, options):
         result = self.dump_quant_data(options)
 
         if result:
             result = self.deal_quant_data(options)
-        #
-        # if result:
-        #     result = self.fit_web_quant(options)
+
+        if result:
+            result = self.fit_web_quant(options)
 
         return result
 
@@ -366,7 +384,6 @@ def start(env, config, run_id):
 
     service_player = QuantServicePlayer_Future(config=service_config_path)
     service_player.start()
-
 
 if __name__ == '__main__':
     start()
