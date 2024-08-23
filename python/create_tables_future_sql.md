@@ -32,136 +32,10 @@ update quant.t_future_quantmarketdata t,
 set t.lasttradingday = t3.lasttradingday
 where t.tradingday = t3.tradingday;
 
-CREATE TABLE quant.`t_Future_SimTestPositionDetail`
-(
-    `HistoryNo`             BIGINT(10) NOT NULL COMMENT '回测ID',
-    `TradingDay`            VARCHAR(8)     NOT NULL COMMENT '交易日',
-    `BrokerID`              VARCHAR(8)     NOT NULL COMMENT '会员代码',
-    `InvestorID`            VARCHAR(20)    NOT NULL COMMENT '投资者代码',
-    `InvestUnitID`          VARCHAR(20) NULL COMMENT '投资单位代码',
-    `ExchangeID`            VARCHAR(8)     NOT NULL COMMENT '交易所代码',
-    `InstrumentID`          VARCHAR(32)    NOT NULL COMMENT '合约代码',
-    `Direction`             CHAR(1)        NOT NULL COMMENT '买卖方向',
-    `HedgeFlag`             CHAR(1)        NOT NULL COMMENT '套保标识',
-    `OpenDate`              VARCHAR(8)     NOT NULL COMMENT '开仓日期',
-    `TradeID`               VARCHAR(32)    NOT NULL COMMENT '成交ID',
-    `Volume`                BIGINT(16) NOT NULL DEFAULT '0' COMMENT '数量',
-    `VolumeMultiple`        INTEGER(6) NOT NULL DEFAULT '1' COMMENT '标的乘数',
-    `OpenPrice`             DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '开仓价格',
-    `SettlementID`          BIGINT(16) NOT NULL DEFAULT '0' COMMENT '结算编号',
-    `CloseProfitByDate`     DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '逐日盯市平仓盈亏',
-    `CloseProfitByTrade`    DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '逐笔对冲平仓收益',
-    `PositionProfitByDate`  DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '逐日盯市持仓盈亏',
-    `PositionProfitByTrade` DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '逐笔对冲持仓盈亏',
-    `Margin`                DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '投资者保证金',
-    `ExchMargin`            DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '交易所保证金',
-    `MarginRateByMoney`     DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '保证金率',
-    `MarginRateByVolume`    DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '按手保证金率',
-    `LastSettlementPrice`   DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '昨结算价格',
-    `SettlementPrice`       DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '结算价格',
-    `CloseVolume`           BIGINT(16) NOT NULL DEFAULT '0' COMMENT '平仓数量',
-    `CloseAmount`           DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '平仓金额',
-    `TimeFirstVolume`       BIGINT(16) NOT NULL DEFAULT '0' COMMENT '先开先平剩余数量',
-    `SpecPosiType`          CHAR(1)        NOT NULL COMMENT '特殊持仓标志 普通持仓明细 # TAS合约成交产生的标的合约持仓明细 0',
-    `CombInstrumentID`      VARCHAR(32) NULL COMMENT '组合合约代码',
-    PRIMARY KEY (`HistoryNo`, `TradingDay`, `BrokerID`, `InvestorID`, `ExchangeID`, `InstrumentID`, `Direction`,
-                 `OpenDate`, `TradeID`)
-) COMMENT='期货回测持仓明细信息'
-;
 
-CREATE TABLE quant.`t_Future_SimTestSubMD`
-(
-    `HistoryNo`      BIGINT(10) NOT NULL COMMENT '回测ID',
-    `TradingDay`     VARCHAR(8)  NOT NULL COMMENT '交易日',
-    `ExchangeID`     VARCHAR(8)  NOT NULL COMMENT '交易所代码',
-    `InstrumentID`   VARCHAR(32) NOT NULL COMMENT '合约代码',
-    `InstrumentType` CHAR(1)     NOT NULL COMMENT '合约类型',
-    PRIMARY KEY (`HistoryNo`, `TradingDay`, `ExchangeID`, `InstrumentID`)
-) COMMENT='期货回测行情订阅信息'
-;
 
-CREATE TABLE quant.`t_Future_SimTestTradingAccount`
-(
-    `HistoryNo`                      BIGINT(10) NOT NULL COMMENT '回测ID',
-    `TradingDay`                     VARCHAR(8)     NOT NULL COMMENT '交易日',
-    `BrokerID`                       VARCHAR(8)     NOT NULL COMMENT '会员代码',
-    `AccountID`                      VARCHAR(20)    NOT NULL COMMENT '资金账号',
-    `CurrencyID`                     VARCHAR(20)    NOT NULL COMMENT '币种代码',
-    `BizType`                        CHAR(1)        NOT NULL COMMENT '业务类型 期货：1 证券：2',
-    `PreMortgage`                    DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '上次质押金额',
-    `PreCredit`                      DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '上次信用额度',
-    `PreDeposit`                     DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '上次存款额',
-    `PreBalance`                     DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '上次结算准备金',
-    `PreMargin`                      DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '上次占用的保证金',
-    `InterestBase`                   DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '利息基数',
-    `Interest`                       DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '利息收入',
-    `Deposit`                        DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '入金金额',
-    `Withdraw`                       DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '出金金额',
-    `CurrMargin`                     DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '当前保证金总额',
-    `CashIn`                         DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '资金差额',
-    `Commission`                     DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '手续费',
-    `CloseProfit`                    DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '平仓盈亏',
-    `PositionProfit`                 DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '持仓盈亏',
-    `Balance`                        DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '期货结算准备金',
-    `Available`                      DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '可用资金',
-    `WithdrawQuota`                  DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '可取资金',
-    `Reserve`                        DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '基本准备金',
-    `Credit`                         DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '信用额度',
-    `Mortgage`                       DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '质押金额',
-    `ExchangeMargin`                 DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '交易所保证金',
-    `DeliveryMargin`                 DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '投资者交割保证金',
-    `ExchangeDeliveryMargin`         DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '交易所交割保证金',
-    `ReserveBalance`                 DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '保底期货结算准备',
-    `PreFundMortgageIn`              DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '上次货币质入金额',
-    `PreFundMortgageOut`             DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '上次货币质出金额',
-    `FundMortgageIn`                 DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '货币质入金额',
-    `FundMortgageOut`                DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '货币质出金额',
-    `FundMortgageAvailable`          DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '货币质押余额',
-    `MortgageableFund`               DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '可质押货币金额',
-    `SpecProductMargin`              DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '特殊产品占用保证金',
-    `SpecProductCommission`          DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '特殊产品手续费',
-    `SpecProductPositionProfit`      DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '特殊产品持仓盈亏',
-    `SpecProductCloseProfit`         DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '特殊产品平仓盈亏',
-    `SpecProductPositionProfitByAlg` DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '根据持仓盈亏算法计算的特殊产品持仓盈亏',
-    `SpecProductExchangeMargin`      DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '特殊产品交易所保证金',
-    `FrozenSwap`                     DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '延时换汇冻结金额',
-    `RemainSwap`                     DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '剩余换汇额度',
-    PRIMARY KEY (`HistoryNo`, `TradingDay`, `BrokerID`, `AccountID`, `CurrencyID`)
-) COMMENT='期货回测账户信息'
-;
 
-CREATE TABLE quant.`t_Future_QuantOrder`
-(
-    `HistoryNo`           BIGINT(10) NOT NULL COMMENT '回测ID',
-    `TradingDay`          VARCHAR(8)     NOT NULL COMMENT '交易日',
-    `ExchangeID`          VARCHAR(8)     NOT NULL COMMENT '交易所代码',
-    `InstrumentID`        VARCHAR(32)    NOT NULL COMMENT '合约代码',
-    `InstrumentName`      VARCHAR(128) NULL COMMENT '合约名称',
-    `FullInstrumentID`    VARCHAR(32)    NOT NULL COMMENT 'Full合约代码',
-    `SpecInstrumentID`    VARCHAR(32)    NOT NULL COMMENT '标准合约代码',
-    `Direction`           CHAR(1)        NOT NULL COMMENT '方向 买 0 卖 1',
-    `OffsetFlag`          CHAR(1)        NOT NULL COMMENT '开平标识 开仓 0 平仓 1 强平 2 平今 3 平昨 4 强减 5 本地强平 6',
-    `HedgeFlag`           CHAR(1)        NOT NULL COMMENT '套保标识 Speculation 1 Arbitrage 2 Hedge 3',
-    `OrderPriceType`      CHAR(1)        NOT NULL COMMENT '报单价格类型 任意价 1 限价 2 最优价 3 最新价 4 卖一价 8 买一价  C 五档价  G',
-    `TimeCondition`       CHAR(1)        NOT NULL COMMENT '报单有效期类型 立即完成，否则撤销  1 本节有效  2 当日有效  3 指定日期前有效  4 撤销前有效  5 集合竞价有效  6',
-    `VolumeCondition`     CHAR(1)        NOT NULL COMMENT '报单成交数量类型 任何数量 1 最小数量 2 全部数量 3',
-    `ContingentCondition` CHAR(1)        NOT NULL COMMENT '触发条件 立即 1 止损 2 止赢 3 预埋单 4 最新价大于条件价 5 最新价大于等于条件价 6 最新价小于条件价 7 最新价小于等于条件价 8 卖一价大于条件价 9 卖一价大于等于条件价 A 卖一价小于条件价 B 卖一价小于等于条件价 C 买一价大于条件价 D 买一价大于等于条件价 E 买一价小于条件价 F 买一价小于等于条件价 H',
-    `SimOrderType`        CHAR(1) NULL COMMENT '报单类型',
-    `LimitPrice`          DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '价格',
-    `Volume`              BIGINT(16) NOT NULL DEFAULT '0' COMMENT '数量',
-    `VolumeMultiple`      INTEGER(6) NOT NULL DEFAULT '1' COMMENT '标的乘数',
-    `OrderLocalID`        VARCHAR(32)    NOT NULL COMMENT '报单本地代码',
-    `OrderSysID`          VARCHAR(32)    NOT NULL COMMENT '报单系统代码',
-    `OrderStatus`         CHAR(1)        NOT NULL COMMENT '报单状态',
-    `VolumeTraded`        BIGINT(16) NOT NULL DEFAULT '0' COMMENT '成交数量',
-    `InsertTime`          VARCHAR(8)     NOT NULL COMMENT '报单时间',
-    `InsertMillisec`      INTEGER(3) NOT NULL COMMENT '报单时间毫秒',
-    `CancelTime`          VARCHAR(8) NULL COMMENT '撤单时间',
-    `Turnover`            DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '成交金额',
-    PRIMARY KEY (`HistoryNo`, `TradingDay`, `ExchangeID`, `InstrumentID`, `FullInstrumentID`, `SpecInstrumentID`,
-                 `OrderLocalID`, `OrderSysID`)
-) COMMENT='期货回测报单信息'
-;
+
 
 CREATE TABLE quant.`t_Future_QuantTrade`
 (
@@ -190,8 +64,7 @@ CREATE TABLE quant.`t_Future_QuantTrade`
     `AfterTradeTodayAmount`  DECIMAL(26, 7) NOT NULL DEFAULT '0' COMMENT '交易后今日资金',
     PRIMARY KEY (`HistoryNo`, `TradingDay`, `ExchangeID`, `InstrumentID`, `FullInstrumentID`, `SpecInstrumentID`,
                  `TradeID`)
-) COMMENT='期货回测成交信息'
-;
+) COMMENT='期货回测成交信息';
 
 
 CREATE TABLE quant.`t_Future_QuantPosition`

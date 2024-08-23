@@ -1,5 +1,37 @@
 CPU 内核数
 
+```javascript
+// 让下面的代码成立
+var [a, b] = {
+  a: 3,
+  b: 4,
+};
+console.log(a, b); // 3 4
+
+Object.prototype[Symbol.iterator] = function () {
+  return Object.values(this)[Symbol.iterator]();
+};
+
+Object.prototype[Symbol.iterator] = function* () {
+  yield* Object.values(this);
+};
+```
+
+vscode 正则插件：any-rule、Regex Previewer
+
+```ts
+模块自动导入：unplugin-auto-import
+// vite.config.ts
+import AutoImport from 'unplugin-auto-import/vite'
+export default defineConfig({
+  plugins: [AutoImport({
+    imports: ['vue','vue-router'],//第三方
+    dirs: ['./src/api'],//本地
+    dts:'src/auto-imports.d.ts' // 生成 ts 声明文件
+  })]
+})
+```
+
 ```html
 只允许输入数字(整数：小数点不能输入)
 <input type="text" onkeyup="value=value.replace(/[^\d]/g,'')" />
