@@ -1,5 +1,7 @@
 CPU 内核数
 
+js 文档注释：jsDoc
+
 ```javascript
 // 让下面的代码成立
 var [a, b] = {
