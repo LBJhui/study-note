@@ -1,4 +1,4 @@
-CPU 内核数
+在 TypeScript 中正确的遍历一个对象
 
 js 文档注释：jsDoc
 
@@ -19,7 +19,7 @@ Object.prototype[Symbol.iterator] = function* () {
 };
 ```
 
-vscode 正则插件：any-rule、Regex Previewer
+vscode 正则插件：Regex Previewer
 
 ```ts
 模块自动导入：unplugin-auto-import
@@ -796,3 +796,5 @@ function transform(value: number) {
 ```
 
 文字描边 paint-order text-stroke
+
+前端打印 printjs
