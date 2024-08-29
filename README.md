@@ -1,5 +1,14 @@
 在 TypeScript 中正确的遍历一个对象
 
+```javascript
+(function () {
+  var a = (b = 5);
+})();
+
+console.log(a);
+console.log(b);
+```
+
 js 文档注释：jsDoc
 
 ```javascript
@@ -20,19 +29,6 @@ Object.prototype[Symbol.iterator] = function* () {
 ```
 
 vscode 正则插件：Regex Previewer
-
-```ts
-模块自动导入：unplugin-auto-import
-// vite.config.ts
-import AutoImport from 'unplugin-auto-import/vite'
-export default defineConfig({
-  plugins: [AutoImport({
-    imports: ['vue','vue-router'],//第三方
-    dirs: ['./src/api'],//本地
-    dts:'src/auto-imports.d.ts' // 生成 ts 声明文件
-  })]
-})
-```
 
 ```html
 只允许输入数字(整数：小数点不能输入)
