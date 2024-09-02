@@ -7,7 +7,7 @@ const BalanceFactor = {
   SLIGHTLY_UNBALANCED_RIGHT: 2,
   BALANCED: 3,
   SLIGHTLY_UNBALANCED_LEFT: 4,
-  UNBALANCED_LEFT: 5
+  UNBALANCED_LEFT: 5,
 };
 
 export default class AVLTree extends BinarySearchTree {
@@ -24,6 +24,7 @@ export default class AVLTree extends BinarySearchTree {
   }
   /**
    * Left left case: rotate right
+   * 节点的左侧子节点的高度大于右侧子节点的高度时，并且左侧子节点也是平衡或左侧较重的
    *
    *       b                           a
    *      / \                         / \
@@ -41,6 +42,7 @@ export default class AVLTree extends BinarySearchTree {
   }
   /**
    * Right right case: rotate left
+   * 右侧子节点的高度大于左侧子节点的高度，并且右侧子节点也是平衡或右侧较重的
    *
    *     a                              b
    *    / \                            / \
@@ -58,6 +60,7 @@ export default class AVLTree extends BinarySearchTree {
   }
   /**
    * Left right case: rotate left then right
+   * 左侧子节点的高度大于右侧子节点的高度，并且左侧子节点右侧较重
    * @param node Node<T>
    */
   rotationLR(node) {
@@ -66,6 +69,7 @@ export default class AVLTree extends BinarySearchTree {
   }
   /**
    * Right left case: rotate right then left
+   * 右侧子节点的高度大于左侧子节点的高度，并且右侧子节点左侧较重
    * @param node Node<T>
    */
   rotationRL(node) {
@@ -131,20 +135,17 @@ export default class AVLTree extends BinarySearchTree {
     const balanceFactor = this.getBalanceFactor(node);
     if (balanceFactor === BalanceFactor.UNBALANCED_LEFT) {
       // Left left case
-      if (
-        this.getBalanceFactor(node.left) === BalanceFactor.BALANCED ||
-        this.getBalanceFactor(node.left) === BalanceFactor.SLIGHTLY_UNBALANCED_LEFT
-      ) {
+      if (this.getBalanceFactor(node.left) === BalanceFactor.BALANCED || this.getBalanceFactor(node.left) === BalanceFactor.SLIGHTLY_UNBALANCED_LEFT) {
         return this.rotationLL(node);
       }
       // Left right case
       // eg:
       //     e                              e                               e
-      //    / \      rotationRR(node.left) / \        roationLL(node)      / \ 
+      //    / \      rotationRR(node.left) / \        roationLL(node)      / \
       //   c  ...   -> rotationRR(a) ->   c   ...   -> roationLL(c) ->    b   ...
-      //  /                              /                               / \       
+      //  /                              /                               / \
       // a                              b                               a   c
-      //  \                            / 
+      //  \                            /
       //   b                          a
       if (this.getBalanceFactor(node.left) === BalanceFactor.SLIGHTLY_UNBALANCED_RIGHT) {
         return this.rotationLR(node);
@@ -152,18 +153,15 @@ export default class AVLTree extends BinarySearchTree {
     }
     if (balanceFactor === BalanceFactor.UNBALANCED_RIGHT) {
       // Right right case
-      if (
-        this.getBalanceFactor(node.right) === BalanceFactor.BALANCED ||
-        this.getBalanceFactor(node.right) === BalanceFactor.SLIGHTLY_UNBALANCED_RIGHT
-      ) {
+      if (this.getBalanceFactor(node.right) === BalanceFactor.BALANCED || this.getBalanceFactor(node.right) === BalanceFactor.SLIGHTLY_UNBALANCED_RIGHT) {
         return this.rotationRR(node);
       }
       // Right left case
       // eg:
       //     a                              a                           a
-      //    / \     rotationLL(node.right) / \       roationRR(node)   / \ 
+      //    / \     rotationLL(node.right) / \       roationRR(node)   / \
       // ...   b    -> rotationLL(d) ->  ...  b   -> roationRR(b) -> ...  c
-      //        \                              \                         / \       
+      //        \                              \                         / \
       //        d                               c                       b   d
       //       /                                 \
       //      c                                   d
