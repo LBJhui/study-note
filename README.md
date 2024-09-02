@@ -1,5 +1,18 @@
 在 TypeScript 中正确的遍历一个对象
 
+```css
+/* 设置滚动条样式 */
+scrollbar-face-color: #eaeaea;
+scrollbar-shadow-color: #eaeaea;
+scrollbar-highlight-color: #eaeaea;
+scrollbar-3dlight-color: #eaeaea;
+scrollbar-darkshadow-color: #697074;
+scrollbar-track-color: #f7f7f7;
+scrollbar-arrow-color: #666666;
+```
+
+font-variant、text-transform
+
 ```javascript
 (function () {
   var a = (b = 5);
