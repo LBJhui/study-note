@@ -1,3 +1,4 @@
+// 最小生成树
 const INF = Number.MAX_SAFE_INTEGER;
 const find = (i, parent) => {
   while (parent[i]) {
@@ -12,7 +13,7 @@ const union = (i, j, parent) => {
   }
   return false;
 };
-const initializeCost = graph => {
+const initializeCost = (graph) => {
   const cost = [];
   const { length } = graph;
   for (let i = 0; i < length; i++) {
@@ -27,7 +28,7 @@ const initializeCost = graph => {
   }
   return cost;
 };
-export const kruskal = graph => {
+export const kruskal = (graph) => {
   const { length } = graph;
   const parent = [];
   let ne = 0;

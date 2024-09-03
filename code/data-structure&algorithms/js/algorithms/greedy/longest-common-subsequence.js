@@ -1,3 +1,4 @@
+// 最长公共子序列
 export function lcs(wordX, wordY, m = wordX.length, n = wordY.length) {
   if (m === 0 || n === 0) {
     return 0;

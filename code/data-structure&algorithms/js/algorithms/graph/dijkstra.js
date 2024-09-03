@@ -1,3 +1,4 @@
+// 最短路径
 const INF = Number.MAX_SAFE_INTEGER;
 const minDistance = (dist, visited) => {
   let min = INF;

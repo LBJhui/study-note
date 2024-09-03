@@ -1,5 +1,11 @@
 在 TypeScript 中正确的遍历一个对象
 
+实现 sleep 函数
+
+实现 throttle 节流函数
+
+实现 debounce 防抖函数
+
 ```css
 /* 设置滚动条样式 */
 scrollbar-face-color: #eaeaea;

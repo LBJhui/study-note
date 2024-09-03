@@ -1,3 +1,4 @@
+// 分数背包问题
 export function knapSack(capacity, weights, values) {
   const n = values.length;
   let load = 0;

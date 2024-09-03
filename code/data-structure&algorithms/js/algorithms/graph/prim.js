@@ -1,3 +1,4 @@
+// 最小生成树
 const INF = Number.MAX_SAFE_INTEGER;
 const minKey = (graph, key, visited) => {
   // Initialize min value
@@ -11,7 +12,7 @@ const minKey = (graph, key, visited) => {
   }
   return minIndex;
 };
-export const prim = graph => {
+export const prim = (graph) => {
   const parent = [];
   const key = [];
   const visited = [];
