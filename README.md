@@ -1,5 +1,32 @@
 在 TypeScript 中正确的遍历一个对象
 
+```js
+
+```
+
+```ts
+// 不可变类型
+tyepe DeepReadonly<T extends Record<string|symbol,any>> = {
+  readonly [P in keyof T]: DeepReadonly<T[P]>;
+}
+
+interface Obj {
+  a: number;
+  b: string;
+}
+// Readonly 浅的不可变类型
+let obj: Readonly<Obj> = {
+  a: 1,
+  b: '2',
+};
+```
+
+```
+Object 的 key 是字符串， Map 的 key 没有限制
+[NaN].includes(NaN) // true
+[NaN].indexOf(NaN) // -1
+```
+
 实现 sleep 函数
 
 实现 throttle 节流函数
