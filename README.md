@@ -1,30 +1,34 @@
 在 TypeScript 中正确的遍历一个对象
 
-```js
+块级作用域里不能声明函数，可以写函数表达式
+
+css 新单位 vmin vmax
+
+tesseract.js
+
+vue-draggable-plus
+
+重绘和回流
+
+防截屏防录制：Encrypted Media Extensions API
 
 ```
-
-```ts
-// 不可变类型
-tyepe DeepReadonly<T extends Record<string|symbol,any>> = {
-  readonly [P in keyof T]: DeepReadonly<T[P]>;
-}
-
-interface Obj {
-  a: number;
-  b: string;
-}
-// Readonly 浅的不可变类型
-let obj: Readonly<Obj> = {
-  a: 1,
-  b: '2',
-};
+拼音标注
+<ruby></ruby>
+import pinyin from 'pinyin';
+判断是不是中文
 ```
+
+组件循环依赖：动态导入
 
 ```
 Object 的 key 是字符串， Map 的 key 没有限制
 [NaN].includes(NaN) // true
 [NaN].indexOf(NaN) // -1
+isNaN(NaN) // true
+isNaN(1) // false
+isNaN('1') // false
+isNaN('x') // true
 ```
 
 实现 sleep 函数
@@ -153,12 +157,6 @@ withModifiers
 ```
 
 ```
-获取参数和返回值类型
-  Parameters<typeof func>
-  ReturnType<typeof func>
-```
-
-```
 微队列
   MutationObserver
   ob.observe(target, { childList: true })
@@ -177,8 +175,6 @@ Array.from()
 Web Animation API: element.animate() element.getAnimations()
 
 symbol.toStringTag
-
-宽度适应内容：width:fit-content
 
 禁止触发系统菜单和长按选中：touch-callout:none
 
