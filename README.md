@@ -1,6 +1,27 @@
 在 TypeScript 中正确的遍历一个对象
 
+正则中的 lastIndex
+
+BroadcastChannel API
+
 块级作用域里不能声明函数，可以写函数表达式
+
+图片调色盘：colorThief
+
+```js
+/**
+ * 静态资源的动态访问
+ */
+
+// 打包后每个图片生成对应的 js 文件
+import(`./assests/${val}.png`).then((res) => {
+  res.default;
+});
+// 打包只有图片
+const url = new URL(`./assests/${val}.png`, import.meta.url);
+```
+
+符号绑定
 
 css 新单位 vmin vmax
 
@@ -183,8 +204,6 @@ symbol.toStringTag
 改变 webkit 表单输入框 placeholder 的颜色值：input::-webkit-input-placehold
 
 去掉 ios 系统中元素被触摸时产生的半透明灰色遮罩：tip-highlight-color:rgba(0,0,0,0)
-
-localecompare
 
 background-clip
 
