@@ -1,3 +1,34 @@
+```js
+// 实现 LRU 缓存置换算法 least-recently-used
+class LRUCache {
+  #map
+  #length
+  constructor(length) {
+    this.#map = new Map()
+    this.#length = length
+  }
+  get(key) {
+    if (!this.#map.has(key)) {
+      return
+    }
+    const value = this.#map.get(key)
+    this.#map.delete(key)
+    this.#map.set(key, value)
+    return value
+  }
+  set(key, val) {
+    if (this.#map.has(key)) {
+      this.#map.delete(key)
+    }
+    if (this.#map.size > this.#length) {
+      const firstKey = this.#map.keys().next().value
+      this.#map.delete(firstKey)
+    }
+    this.#map.set(key, val)
+  }
+}
+```
+
 在 TypeScript 中正确的遍历一个对象
 
 正则中的 lastIndex
@@ -6,20 +37,15 @@ BroadcastChannel API
 
 块级作用域里不能声明函数，可以写函数表达式
 
-图片调色盘：colorThief
-
-```js
-/**
- * 静态资源的动态访问
- */
-
-// 打包后每个图片生成对应的 js 文件
-import(`./assests/${val}.png`).then((res) => {
-  res.default;
-});
-// 打包只有图片
-const url = new URL(`./assests/${val}.png`, import.meta.url);
 ```
+let 和 var 的区别
+1.全局污染，可以跨标签
+2.块级作用域  var 全局作用域，函数作用域，let 块级作用域
+3.TDZ 暂时性死区
+4.重复声明  var 可以重新声明，let 不可以重新声明
+```
+
+图片调色盘：colorThief
 
 符号绑定
 
@@ -72,12 +98,12 @@ scrollbar-arrow-color: #666666;
 font-variant、text-transform
 
 ```javascript
-(function () {
-  var a = (b = 5);
-})();
+;(function () {
+  var a = (b = 5)
+})()
 
-console.log(a);
-console.log(b);
+console.log(a)
+console.log(b)
 ```
 
 js 文档注释：jsDoc
@@ -87,16 +113,16 @@ js 文档注释：jsDoc
 var [a, b] = {
   a: 3,
   b: 4,
-};
-console.log(a, b); // 3 4
+}
+console.log(a, b) // 3 4
 
 Object.prototype[Symbol.iterator] = function () {
-  return Object.values(this)[Symbol.iterator]();
-};
+  return Object.values(this)[Symbol.iterator]()
+}
 
 Object.prototype[Symbol.iterator] = function* () {
-  yield* Object.values(this);
-};
+  yield* Object.values(this)
+}
 ```
 
 vscode 正则插件：Regex Previewer
@@ -211,7 +237,7 @@ http accept-lang/navigator.lang
 
 margin-inline-start
 
-gsap scrolltrigger
+[动画库：GSAP scrolltrigger]https://gsap.com/
 
 git 忽略文件名大小写 git config core.ignorecase false
 
@@ -793,51 +819,51 @@ remoteModule().then((module) => {
 ```js
 // js将大数字单位转化成 千、万、千万、亿
 function transform(value: number) {
-  let newValue = ['', '', ''];
-  let fr = 1000;
-  const ad = 1;
-  let num = 3;
-  const fm = 1;
+  let newValue = ['', '', '']
+  let fr = 1000
+  const ad = 1
+  let num = 3
+  const fm = 1
   while (value / fr >= 1) {
-    fr *= 10;
-    num += 1;
-    console.log('数字', value / fr, 'num:', num);
+    fr *= 10
+    num += 1
+    console.log('数字', value / fr, 'num:', num)
   }
   if (num <= 4) {
     // 千
-    newValue[1] = '千';
-    newValue[0] = parseInt(value / 1000) + '';
+    newValue[1] = '千'
+    newValue[0] = parseInt(value / 1000) + ''
   } else if (num <= 8) {
     // 万
-    const text1 = parseInt(num - 4) / 3 > 1 ? '千万' : '万';
+    const text1 = parseInt(num - 4) / 3 > 1 ? '千万' : '万'
     // tslint:disable-next-line:no-shadowed-variable
-    const fm = '万' === text1 ? 10000 : 10000000;
-    newValue[1] = text1;
-    newValue[0] = value / fm + '';
+    const fm = '万' === text1 ? 10000 : 10000000
+    newValue[1] = text1
+    newValue[0] = value / fm + ''
   } else if (num <= 16) {
     // 亿
-    let text1 = (num - 8) / 3 > 1 ? '千亿' : '亿';
-    text1 = (num - 8) / 4 > 1 ? '万亿' : text1;
-    text1 = (num - 8) / 7 > 1 ? '千万亿' : text1;
+    let text1 = (num - 8) / 3 > 1 ? '千亿' : '亿'
+    text1 = (num - 8) / 4 > 1 ? '万亿' : text1
+    text1 = (num - 8) / 7 > 1 ? '千万亿' : text1
     // tslint:disable-next-line:no-shadowed-variable
-    let fm = 1;
+    let fm = 1
     if ('亿' === text1) {
-      fm = 100000000;
+      fm = 100000000
     } else if ('千亿' === text1) {
-      fm = 100000000000;
+      fm = 100000000000
     } else if ('万亿' === text1) {
-      fm = 1000000000000;
+      fm = 1000000000000
     } else if ('千万亿' === text1) {
-      fm = 1000000000000000;
+      fm = 1000000000000000
     }
-    newValue[1] = text1;
-    newValue[0] = parseInt(value / fm) + '';
+    newValue[1] = text1
+    newValue[0] = parseInt(value / fm) + ''
   }
   if (value < 1000) {
-    newValue[1] = '';
-    newValue[0] = value + '';
+    newValue[1] = ''
+    newValue[0] = value + ''
   }
-  return newValue.join('');
+  return newValue.join('')
 }
 ```
 
