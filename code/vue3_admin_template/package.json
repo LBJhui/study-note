@@ -51,7 +51,7 @@
     "stylelint-order": "^6.0.4",
     "stylelint-scss": "^6.2.1",
     "typescript": "^5.2.2",
-    "vite": "^5.1.4",
+    "vite": "^5.1.8",
     "vite-plugin-mock": "2.9.6",
     "vite-plugin-svg-icons": "^2.0.1",
     "vue-tsc": "^1.8.27"
