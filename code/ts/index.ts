@@ -1,14 +1,14 @@
 interface Person {
-  name: string;
-  age: string;
+  name: string
+  age: string
 }
 
 // keyof
 function print(obj: Person) {
-  let key: keyof Person;
+  let key: keyof Person
   for (key in obj) {
     // ✅
-    console.log(key, obj[key].toUpperCase());
+    console.log(key, obj[key].toUpperCase())
   }
 }
 
@@ -16,6 +16,6 @@ function print(obj: Person) {
 function print(obj: Person) {
   Object.keys(obj).forEach((k) => {
     // ✅
-    console.log(k, obj[k as keyof Person].toUpperCase());
-  });
+    console.log(k, obj[k as keyof Person].toUpperCase())
+  })
 }

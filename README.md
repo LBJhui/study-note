@@ -1,41 +1,8 @@
-```js
-// 实现 LRU 缓存置换算法 least-recently-used
-class LRUCache {
-  #map
-  #length
-  constructor(length) {
-    this.#map = new Map()
-    this.#length = length
-  }
-  get(key) {
-    if (!this.#map.has(key)) {
-      return
-    }
-    const value = this.#map.get(key)
-    this.#map.delete(key)
-    this.#map.set(key, value)
-    return value
-  }
-  set(key, val) {
-    if (this.#map.has(key)) {
-      this.#map.delete(key)
-    }
-    if (this.#map.size > this.#length) {
-      const firstKey = this.#map.keys().next().value
-      this.#map.delete(firstKey)
-    }
-    this.#map.set(key, val)
-  }
-}
-```
-
 在 TypeScript 中正确的遍历一个对象
 
-正则中的 lastIndex
+页面可见度 page visibility
 
 BroadcastChannel API
-
-块级作用域里不能声明函数，可以写函数表达式
 
 ```
 let 和 var 的区别
@@ -97,15 +64,6 @@ scrollbar-arrow-color: #666666;
 
 font-variant、text-transform
 
-```javascript
-;(function () {
-  var a = (b = 5)
-})()
-
-console.log(a)
-console.log(b)
-```
-
 js 文档注释：jsDoc
 
 ```javascript
@@ -127,18 +85,9 @@ Object.prototype[Symbol.iterator] = function* () {
 
 vscode 正则插件：Regex Previewer
 
-```html
-只允许输入数字(整数：小数点不能输入)
-<input type="text" onkeyup="value=value.replace(/[^\d]/g,'')" />
-允许输入小数(两位小数)
-<input type="text" onkeyup="value=value.replace(/^\D*(\d*(?:\.\d{0,2})?).*$/g, '$1')" />
-允许输入小数(一位小数)
-<input type="text" onkeyup="value=value.replace(/^\D*(\d*(?:\.\d{0,1})?).*$/g, '$1')" />
-开头不能为0，且不能输入小数
-<input type="text" onkeyup="value=value.replace(/[^\d]/g,'').replace(/^0{1,}/g,'')" />
-```
-
 ElementUI 日期选择器时间选择范围限制
+
+数组新增的纯函数 API：toSorted、toReversed、toSpliced、with
 
 ```shell
 git clone <repository> --recursive 递归的方式克隆整个项目
@@ -183,16 +132,6 @@ withModifiers
   window.addEventListener('online', () => {})
   window.addEventListener('offline', () => {})
   navigatot.connection.addEventListener('change', () => {})
-```
-
-```
-你不知道的HTML属性
-  inputmode
-  accesskey
-  tabindex
-  dir: ltr/rtl 该属性可以用于设置内部文字的排版方向
-  spellcheck
-  translate:使用 translate 可以指定某个元素的内容是否应该触发翻译
 ```
 
 ```
@@ -264,7 +203,16 @@ Web Locks API
 
 preventDefault、stopPropagation
 
+```
+监听复制事件
 addEventListener {passive:false} copy
+e.clipboardData.setData('text/palin','hello world')
+```
+
+```
+阴影效果
+filter:drop-shadow(0 0 5px #000)
+```
 
 getPrototypeOf、setPrototypeOf
 
@@ -286,7 +234,13 @@ Object.keys() 对象自有可枚举的属性、defineProperty()、hasOwnProperty
 
 webpack: raw-loader vite: ?raw
 
-object-fit,aspect-ratio
+object-fit
+
+```
+保持元素宽高比
+css属性: aspect-ratio
+padding 相对于父元素宽度
+```
 
 mix-blend-mode
 
@@ -295,8 +249,6 @@ mix-blend-mode
 Houdini @property
 
 CSS 剪切函数 clip-path
-
-- 惰性加载表示函数执行的分支只会在函数第一次调用的时候执行，在第一次调用的过程中，该函数被覆盖为另一个按照合适的方式执行的函数，这样任何对原函数的调用就不用再经过执行的分支了
 
 Object.defineProperty 只能监听到对象属性的读取或者是写入，而 Proxy 除读写外还可以监听对象中属性的删除，对对象当中方法的调用
 
