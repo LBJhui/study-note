@@ -1,0 +1,52 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index"
+		},
+		{
+			"path": "pages/optional/optional"
+		},
+		{
+			"path": "pages/market/market"
+		},
+		{
+			"path": "pages/mine/mine"
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "觅股",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"color": "#7A7E83",
+		"selectedColor": "#3cc51f",
+		"borderStyle": "black",
+		"backgroundColor": "#ffffff",
+		"list": [{
+				"pagePath": "pages/index/index",
+				"text": "首页"
+			},
+			{
+				"pagePath": "pages/optional/optional",
+				"text": "自选"
+			},
+			{
+				"pagePath": "pages/market/market",
+				"text": "市场"
+			},
+			{
+				"pagePath": "pages/mine/mine",
+				"text": "我的"
+			}
+		],
+		"midButton": {
+			"width": "80px",
+			"height": "80px",
+
+			"iconPath": "static/image/voice.svg",
+			"iconWidth": "60px"
+		}
+	}
+}
