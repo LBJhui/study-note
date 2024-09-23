@@ -7,7 +7,7 @@ npm config get registry
 npm config set registry https://registry.npmmirror.com/
 ```
 
-**\*pnpm**
+**pnpm**
 
 ```shell
 # 查看源
