@@ -1,5 +1,53 @@
 在 TypeScript 中正确的遍历一个对象
 
+行盒的截断样式：box-decoration-break
+
+```js
+// vite打包结构控制
+export default definConfig({
+  build: {
+    rollupOptions: {
+      output: {
+        entryFileNames: 'js/[name]-[hash].js',
+        chunkFileNames: 'js/[name]-[hash].js',
+        assetFileNames(assetInfo) {
+          if (assetInfo.name.endsWith('.css')) {
+            return 'css/[name]-[hash].css'
+          }
+          const imgExts = ['.png', '.jpg', '.jpeg', '.webp', '.svg', '.gif', '.ico']
+          if (imgExt.some((e) => assetInfo.name.endsWith(e))) {
+            return 'imgs/[name]-[hash].[ext]'
+          }
+          return 'asset/[name]-[hash].[ext]'
+        },
+      },
+    },
+  },
+})
+```
+
+```
+对象属性
+symbol 属性不能被json序列化
+symbol 属性可以删除，configurable:true
+```
+
+```
+内存泄漏：一个对象，再不能被使用的情况下，占用了内存，这个对象就是内存泄漏
+垃圾回收监听：FinalizationRegistry
+1.持有了不再需要的函数引用，会导致函数关联的词法环境无法销毁，从而导致内存泄漏
+2.当多个函数共享词法环境时，会导致词法环境膨胀，从而导致出现无法触达也无法回收的内存空间
+```
+
+call 方法第一个参数为 null 或 undefined，this 会被设置为全局对象
+
+```css
+/* 纯css实现页面滚动动画 */
+scroll-timelin-name
+animation-timeline
+animation-range
+```
+
 ```
 什么是 vue 的响应式？
 **vue 数据响应式设计的初衷是为了实现数据和函数的联动**，当数据变化后，用到该数据的联动函数会自动重新运行。
@@ -216,10 +264,6 @@ Array.from()
 Web Animation API: element.animate() element.getAnimations()
 
 symbol.toStringTag
-
-禁止触发系统菜单和长按选中：touch-callout:none
-
-禁止用户选中文字：user-select:none
 
 改变 webkit 表单输入框 placeholder 的颜色值：input::-webkit-input-placehold
 
@@ -1584,3 +1628,9 @@ CSP（Content Security Policy）与跨域（Cross-Origin）在 Web 安全领域�
 - **相互影响**：在某些情况下，CSP 的设置可能会影响跨域请求的实现。例如，在使用 CSP 限制脚本加载时，如果跨域请求需要加载并执行远程脚本，可能会受到 CSP 策略的限制。同样，跨域请求的实现也可能需要考虑 CSP 策略的影响，以确保请求的资源符合 CSP 规则。
 
 综上所述，CSP 和跨域在 Web 安全领域中各自扮演着重要的角色。开发者需要根据实际需求合理配置 CSP 策略和跨域请求的实现方式，以确保 Web 应用的安全性和可用性。
+
+```
+禁止触发系统菜单和长按选中：`touch-callout:none` contextmenu
+
+禁止用户选中文字：`user-select:none`
+```
