@@ -1,6 +1,115 @@
 在 TypeScript 中正确的遍历一个对象
 
+```js
+/**
+ * 比较逻辑
+ * 1.两端类型相同，比较值
+ * 2.两端存在 NaN，返回 false
+ * 3.undefined 和 null 只有与自身比较，或者互相比较时，才会返回 true
+ * 4.两端都是原始类型，转换成数字比较
+ * 5.一端是原始类型，一端是对象类型，把对象转换成原始类型后进入第 1 步
+ */
+
+/**
+ * 对象如何转原始类型？
+ * 1.如果对象拥有 [Symbol.toPrimitive] 方法，调用该方法。
+ *   若该方法得到原始值，使用该原始值
+ *   若得不到原始值，抛出异常
+ * 2.调用对象的 valueOf 方法
+ *   若该方法能得到原始值，使用该原始值
+ *   若得不到原始值，进入下一步
+ * 3.调用对象的 toString 方法
+ *   若该方法能得到原始值，使用该原始值
+ *   若得不到原始值，抛出异常
+ */
+if (a == 1 && a == 2 && a == 3) {
+  console.log('hello LBJhui')
+}
+
+const a = {
+  count: 1,
+  [Symbol.toPrimitive]() {
+    return this.count++
+  },
+}
+```
+
+backface-visibility
+
+```
+什么是WebSocket，以及它与传统的HTTP长轮询相比的优势
+1.持久链接
+2.双向通信
+3.低延迟
+4.减少资源消耗
+5.消息帧格式
+```
+
+```
+px em rem 区别
+1.px：固定值绝对单位
+2.em：相对单位：相对于它的父元素的字体大小
+3.rem：相对单位：相对于根元素（html）字体大小
+```
+
 行盒的截断样式：box-decoration-break
+
+```js
+// 状态仓库持久化
+// vuex 全部
+//store.js
+import persistPlugin from './persistPlugin'
+
+const store = createStore({
+  modules: {
+    counter,
+    test,
+  },
+  plugins: [persistPlugin],
+})
+
+// persistPlugin
+const KEY = 'VUEX"STATE'
+
+export default function (store) {
+  // 存
+  window.addEventListener('beforeunload', () => {
+    localStorage.setItem(KEY, JSON.stringify(store.state))
+  })
+  // 取
+  try {
+    const state = JSON.parse(localStorage.getItem(KEY))
+    if (state) {
+      store.replaceState(state)
+    }
+  } catch {
+    console.log('存储的数据有误')
+  }
+}
+
+// pinia 单个模块
+//main.js
+import { createPinia } from 'pinia'
+import persistPlugin from './store/persistPlugin'
+const pinia = createPinia()
+pinia.use(persistPlugin)
+
+// persistPlugin
+const KEY_PREFIX = 'PINIA:STATE'
+export default function (context) {
+  // 存
+  window.addEventListener('beforeunload', () => {
+    localStorage.setItem(KEY_PREFIX + store.$id, JSON.stringify(store.$state))
+  })
+  // 取
+  try {
+    const state = JSON.parse(localStorage.getItem(KEY_PREFIX + store.$id))
+    if (state) {
+      store.$patch(state)
+    }
+  } catch {}
+}
+```
 
 ```js
 // vite打包结构控制
