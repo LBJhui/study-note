@@ -1,38 +1,99 @@
+```css
+/* 系统主题 */
+@media (prefers-color-scheme: dark) {
+}
+@media (prefers-color-scheme: light) {
+}
+
+/* js */
+const match=matchMedia('(prefers-color-scheme: dark)')
+match.addEventListener('change',(e)=>{})
+```
+
+依赖检查工具 depcheck
+
+鼠标位置信息：pageX,clientX,offsetX,movementX
+
+滚动元素到可视区域：scrollIntoView
+
+```
+原始尺寸 naturalWidth naturalHeight
+样式尺寸
+缩放倍率 window.devicePixelRatio
+
+原始尺寸=样式尺寸*缩放倍率
+```
+
+```
+CSS属性值的计算过程
+getComputedStyle
+1.确定声明值
+2.层叠
+  1. 比较重要性
+    重要性从高到低：
+      1.带有 important 的作者样式
+      2.带有 important 的默认样式
+      3.作者样式
+      4.默认样式
+  2.比较特定性（权重）
+  3.比较源次序：源码中靠后的覆盖靠前的
+3.继承
+  对仍然没有值的属性，若可以继承则使用继承
+4.使用默认值
+  对仍然没有值的属性，使用默认值
+```
+
 在 TypeScript 中正确的遍历一个对象
 
-```js
-/**
- * 比较逻辑
- * 1.两端类型相同，比较值
- * 2.两端存在 NaN，返回 false
- * 3.undefined 和 null 只有与自身比较，或者互相比较时，才会返回 true
- * 4.两端都是原始类型，转换成数字比较
- * 5.一端是原始类型，一端是对象类型，把对象转换成原始类型后进入第 1 步
- */
+垃圾回收监听：FinalizationRegistry
 
-/**
- * 对象如何转原始类型？
- * 1.如果对象拥有 [Symbol.toPrimitive] 方法，调用该方法。
- *   若该方法得到原始值，使用该原始值
- *   若得不到原始值，抛出异常
- * 2.调用对象的 valueOf 方法
- *   若该方法能得到原始值，使用该原始值
- *   若得不到原始值，进入下一步
- * 3.调用对象的 toString 方法
- *   若该方法能得到原始值，使用该原始值
- *   若得不到原始值，抛出异常
- */
-if (a == 1 && a == 2 && a == 3) {
-  console.log('hello LBJhui')
-}
-
-const a = {
-  count: 1,
-  [Symbol.toPrimitive]() {
-    return this.count++
-  },
-}
 ```
+全局导入和局部导入的区别
+```
+
+```
+ajax
+  XMLHttpRequest XHR
+  Fetch
+axios --> XHR
+umi-request --> Fetch
+```
+
+| 功能点                     |   XHR    |  Fetch   |
+| -------------------------- | :------: | :------: |
+| 基本的请求功能             |    √     |    √     |
+| 基本的获取相应能力         |    √     |    √     |
+| 监控请求进度               |    √     |    ×     |
+| 监控相应进度               |    √     |    √     |
+| Service Workder 中是否可用 |    ×     |    √     |
+| 精细控制 cookie 的携带     |    ×     |    √     |
+| 控制重定向                 |    ×     |    √     |
+| 请求取消                   |    √     |    √     |
+| 自定义 referrer            |    ×     |    √     |
+| 流                         |    ×     |    √     |
+| API 风格                   |  Event   | Promise  |
+| 活跃度                     | 停止更新 | 不断更新 |
+
+```
+如何优化js代码的执行效率
+1.代码压缩与合并
+2.模块化和懒加载
+3.缓存和持久化
+4.优化循环和数组操作
+5.减少 DOM 操作
+6.避免阻塞 UI 线程
+7.减少重绘和回流
+```
+
+```
+/* 你不知道的 CSS 选择器 */
+:focus-within
+:has()
+::first-letter
+::selection
+```
+
+symbol.toStringTag
 
 backface-visibility
 
@@ -43,13 +104,6 @@ backface-visibility
 3.低延迟
 4.减少资源消耗
 5.消息帧格式
-```
-
-```
-px em rem 区别
-1.px：固定值绝对单位
-2.em：相对单位：相对于它的父元素的字体大小
-3.rem：相对单位：相对于根元素（html）字体大小
 ```
 
 行盒的截断样式：box-decoration-break
@@ -139,13 +193,6 @@ export default definConfig({
 对象属性
 symbol 属性不能被json序列化
 symbol 属性可以删除，configurable:true
-```
-
-```
-内存泄漏：一个对象，再不能被使用的情况下，占用了内存，这个对象就是内存泄漏
-垃圾回收监听：FinalizationRegistry
-1.持有了不再需要的函数引用，会导致函数关联的词法环境无法销毁，从而导致内存泄漏
-2.当多个函数共享词法环境时，会导致词法环境膨胀，从而导致出现无法触达也无法回收的内存空间
 ```
 
 call 方法第一个参数为 null 或 undefined，this 会被设置为全局对象
@@ -278,23 +325,6 @@ font-variant、text-transform
 
 js 文档注释：jsDoc
 
-```javascript
-// 让下面的代码成立
-var [a, b] = {
-  a: 3,
-  b: 4,
-}
-console.log(a, b) // 3 4
-
-Object.prototype[Symbol.iterator] = function () {
-  return Object.values(this)[Symbol.iterator]()
-}
-
-Object.prototype[Symbol.iterator] = function* () {
-  yield* Object.values(this)
-}
-```
-
 vscode 正则插件：Regex Previewer
 
 ElementUI 日期选择器时间选择范围限制
@@ -371,8 +401,6 @@ withModifiers
 Array.from()
 
 Web Animation API: element.animate() element.getAnimations()
-
-symbol.toStringTag
 
 改变 webkit 表单输入框 placeholder 的颜色值：input::-webkit-input-placehold
 
@@ -1391,19 +1419,6 @@ css3 硬件加速
 
 缓存样式属性
 
-# CSS 中的 important 规则有什么特殊性？何时应避免使用？
-
-特殊性：
-
-    1. 打破了 css 层叠关系和继承规则
-    1. 出现多次时，后者覆盖前者
-
-何时避免使用：
-
-    1. 尽量避免使用
-    1. 大型项目
-    1. 覆盖样式尽量使用选择器
-
 # SPA 的优缺点，以及在何种场景下更适合使用 SPA
 
 优点：
@@ -1506,6 +1521,13 @@ SEO 问题比较严重
 
 # rem 和 em 的区别是什么？
 
+```
+px em rem 区别
+1.px：固定值绝对单位
+2.em：相对单位：相对于它的父元素的字体大小
+3.rem：相对单位：相对于根元素（html）字体大小
+```
+
 1. rem
 
    相对于根元素的字体大小来计算的
@@ -1514,7 +1536,7 @@ SEO 问题比较严重
 
 2. em
 
-   em 相对于当前元素的字体大小来计算
+   em 相对于当前元素的父元素字体大小来计算
 
    如果父元素设置了字体大小，子元素使用 em 单位，它的大小会受到父元素字体大小的影响
 
