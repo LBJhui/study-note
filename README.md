@@ -10,7 +10,221 @@ const match=matchMedia('(prefers-color-scheme: dark)')
 match.addEventListener('change',(e)=>{})
 ```
 
+```css
+inital: 默认值;
+unset 清除浏览器样式
+revert 使用浏览器的样式
+```
+
+```
+Cookie 中的 SameSite：用于限制跨站请求
+None:不作任何限制，使用该值必须保证 Cookie 为 Secure，否则无效
+lax:阻止发送 Cookie，但对超链接放行，默认值
+strict:阻止发送 Cookie
+```
+
+```
+css原子化
+  taiwind
+  windi
+  uno
+```
+
+```html
+<!-- 图片的马赛克效果 -->
+①
+<!-- step 1 -->
+<svg>
+  <filter id="mosaic">
+    <feFlood x="4" y="4" height="2" width="2" />
+    <feComposite width="8" heigth="8" />
+    <feTile result="a" />
+    <feComposite in="SourceGraphic" in2="a" operator="in" />
+    <feMorphology operator="dilate" raduis="4" />
+  </filter>
+</svg>
+<!-- step 2 马赛克图片应用滤镜 -->
+<style>
+  img {
+    filter: url(#mosaic);
+  }
+</style>
+
+② image-rendering:pixelated 图片要小 vite-imagetools
+<style>
+  img {
+    image-rendering: pixelated;
+  }
+</style>
+```
+
 依赖检查工具 depcheck
+
+---
+
+# 为什么要使用 Typescript？
+
+增加了静态类型 代码质量更好 更健壮
+
+优势
+
+- 杜绝手误导致变量名写错
+- 类型一定程度充当文档
+- IDE 自动填充 自动联想
+
+---
+
+const readonly
+const 防止变量值被修改
+readonly 防止变量属性值被修改
+
+枚举
+常量枚举 编译阶段会被删除 被内敛
+
+接口
+类型别名 可以用于其他类型，基本类型，联合类型，元组
+都可以用来描述对象或函数类型
+
+---
+
+- any 动态类型变量 失去了类型检查的作用
+- never 永远不存在的值的类型
+  - 抛出异常 根本没有返回值的函数表达式 或者箭头函数表达式返回值类型
+- unknown 任何类型的值都可以赋值给 unknown，unknown 只能赋值给 unknown、any
+- null & undefined 默认是所有类型的子类型 --strictNullChecks 标记 null 或者 undefined 只能赋值给 void 或者它们自己
+- void 没有任何类型 函数没有返回值 可以定义为 void
+
+---
+
+# interface 可以给 Function / Array / Class 做声明吗？
+
+```ts
+// 函数声明
+interface Say {
+  (name: string): void
+}
+let say: Say = (name: string): void => {}
+
+// Array
+interface NumberArray {
+  [index: number]: number
+}
+
+let list: NumberArray = [1, 2, 4, 5]
+
+// Class 声明
+interface Person {
+  name: string
+  sayHi(name: string): string
+}
+```
+
+---
+
+# Typescript 中的 this 和 JavaScript 中的 this 有什么差异？
+
+TS：noImplicitThis:true 必须去声明 this 类型，才能在函数或者对象中使用 this
+
+# Typescript 中使用 Union Types 时有哪些注意事项？
+
+属性或者方法访问：只能访问共有属性或者方法
+
+# Typescript 如何设计 Class 的声明？
+
+```ts
+class Greet {
+  greeting: string
+  constructor(message: string) {
+    this.greeting = message
+  }
+  greet(): string {
+    return `hello,${this.message}`
+  }
+}
+
+let greeter = new Greet('world')
+```
+
+# Typescript 中如何联合枚举类型的 key
+
+```ts
+enum str {
+  A,
+  B,
+  C,
+  D,
+}
+type strUnion = keyof typeof str // 'A'|'B'|'C'|'D'
+```
+
+# type 和 interface 的区别
+
+相同点：
+
+- 都可以描述对象或者函数
+- 都允许拓展
+
+不同点：
+
+- type 可以声明基本类型 联合类型 元组
+- type 可以使用 typeof 获取实例类型进行赋值
+- 多个相同的 interface 可以自动合并
+
+类型兼容性
+
+# 对象展开会有什么副作用
+
+1. 展开对象后面的属性会覆盖前面的属性
+2. 仅包含可枚举的属性，不可枚举属性丢失
+
+# 全局声明和局部声明
+
+不包含 import export 变成全局声明
+包含 局部声明 不会影响到全局声明
+
+# Typescript 项目引入并识别编译为 JavaScript 的 npm 库包？
+
+1. 选择安装 ts 版本 npm install @types/xxx --save
+2. 没有类型的 js 库 需要编写同名的 .d.ts
+
+# Typescript 中如何设置模块导入的路径别名
+
+tsconfig.json paths
+
+```json
+{
+  "compilerOptions": {
+    "paths": {
+      "@/helper/*": ["src/helper/*"]
+    }
+  }
+}
+```
+
+# declare，declare global 是什么
+
+declare 定义全局变量 全局函数 全局命名空间 js modules class 等
+delcare global 为全局对象 window 增加新的属性
+
+```ts
+declare global {
+  interface Window {
+    csrf: string
+  }
+}
+```
+
+# keypf 和 typedof 关键字的作用
+
+keyof 索引类型查询操作符 获取索引类型属性名 构成联合类型
+typeof 获取一个变量或者对象的类型
+
+---
+
+```
+对等依赖 peerDependencies(package.json)
+npm i --legacy-peer-deps
+```
 
 鼠标位置信息：pageX,clientX,offsetX,movementX
 
@@ -197,13 +411,6 @@ symbol 属性可以删除，configurable:true
 
 call 方法第一个参数为 null 或 undefined，this 会被设置为全局对象
 
-```css
-/* 纯css实现页面滚动动画 */
-scroll-timelin-name
-animation-timeline
-animation-range
-```
-
 ```
 什么是 vue 的响应式？
 **vue 数据响应式设计的初衷是为了实现数据和函数的联动**，当数据变化后，用到该数据的联动函数会自动重新运行。
@@ -310,6 +517,10 @@ isNaN('x') // true
 
 实现 debounce 防抖函数
 
+自定义指令控制权限的弊端
+
+动画库 vueusemotion
+
 ```css
 /* 设置滚动条样式 */
 scrollbar-face-color: #eaeaea;
@@ -321,6 +532,24 @@ scrollbar-track-color: #f7f7f7;
 scrollbar-arrow-color: #666666;
 ```
 
+```javascript
+Number(undefined) // NaN
+Number('   123    ') // 123
+Number('12 3') // NaN (only whitespace from the start and end are removed)
+NaN ** 0 // 1
+isNaN('this is a string not a NaN value') // true
+Number.isNaN('this is a string not a NaN value') // false
+
+typeof null // object
+
+let numbers = {
+  0: 0
+}
+
+console.log(numbers."0"); // error
+console.log(numbers[0]); // 0
+```
+
 font-variant、text-transform
 
 js 文档注释：jsDoc
@@ -329,7 +558,10 @@ vscode 正则插件：Regex Previewer
 
 ElementUI 日期选择器时间选择范围限制
 
-数组新增的纯函数 API：toSorted、toReversed、toSpliced、with
+```js
+数组新增的纯函数 API：toSorted、toReversed、toSpliced、with(修改数组)
+
+```
 
 ```shell
 git clone <repository> --recursive 递归的方式克隆整个项目
@@ -400,7 +632,18 @@ withModifiers
 
 Array.from()
 
+````
 Web Animation API: element.animate() element.getAnimations()
+requestAnimationFrame
+transitionend、animationend
+逐帧动画 step
+animation-play-state
+
+/* 纯css实现页面滚动动画 */
+scroll-timelin-name
+animation-timeline
+animation-range
+```
 
 改变 webkit 表单输入框 placeholder 的颜色值：input::-webkit-input-placehold
 
@@ -424,10 +667,6 @@ insertBefore
 
 removeProperty
 
-requestAnimationFrame
-
-transitionend、animationend
-
 Web Locks API
 
 元素尺寸：
@@ -440,25 +679,34 @@ Web Locks API
 preventDefault、stopPropagation
 
 ```
+
 监听复制事件
 addEventListener {passive:false} copy
 e.clipboardData.setData('text/palin','hello world')
+
 ```
 
 ```
+
 阴影效果
 filter:drop-shadow(0 0 5px #000)
+
 ```
 
 getPrototypeOf、setPrototypeOf
 
-scroll-behavior
+```
+
+平滑滚动
+css:scroll-behavior
+js: window.scrollTo({
+top:0,
+behavior:'smooth'
+})
+
+```
 
 HTMLCollection & NodeList
-
-逐帧动画 step
-
-animation-play-state
 
 writing-mode、margin-block-start、margin-block-end、text-combine-upright
 
@@ -473,17 +721,21 @@ webpack: raw-loader vite: ?raw
 object-fit
 
 ```
+
 保持元素宽高比
-css属性: aspect-ratio
+css 属性: aspect-ratio
 padding 相对于父元素宽度
+
 ```
 
 mix-blend-mode
 
 ```
+
 手动解析 DOM 树:
 removeTag
 new DOMParser().parseFromString(str, 'text/html')
+
 ```
 
 Houdini @property
@@ -525,26 +777,30 @@ Object.defineProperty 只能监听到对象属性的读取或者是写入，而 
 例如，我们可以传递一个 getTemplate 函数，将图片的相对路径转为绝对路径，它会在处理模板时使用：
 
 ```
+
 start({
-  getTemplate(tpl,...rest) {
-    // 为了直接看到效果，所以写死了，实际中需要用正则匹配
-    return tpl.replace('<img src="./img/jQuery1.png">', '<img src="http://localhost:3333/img/jQuery1.png">');
-  }
+getTemplate(tpl,...rest) {
+// 为了直接看到效果，所以写死了，实际中需要用正则匹配
+return tpl.replace('<img src="./img/jQuery1.png">', '<img src="http://localhost:3333/img/jQuery1.png">');
+}
 });
+
 ```
 
 对于动态插入的标签，劫持其插入 DOM 的函数，注入前缀。
 
 ```
+
 beforeMount: app => {
-   if(app.name === 'purehtml'){
-       // jQuery 的 html 方法是一个挺复杂的函数，这里只是为了看效果，简写了
-       $.prototype.html = function(value){
-          const str = value.replace('<img src="/img/jQuery2.png">', '<img src="http://localhost:3333/img/jQuery2.png">')
-          this[0].innerHTML = str;
-       }
-   }
+if(app.name === 'purehtml'){
+// jQuery 的 html 方法是一个挺复杂的函数，这里只是为了看效果，简写了
+$.prototype.html = function(value){
+const str = value.replace('<img src="/img/jQuery2.png">', '<img src="http://localhost:3333/img/jQuery2.png">')
+this[0].innerHTML = str;
 }
+}
+}
+
 ```
 
 #### 方案三：给 jQuery 项目加上 webpack 打包
@@ -558,24 +814,28 @@ beforeMount: app => {
 以下是一个例子，假设我们有一个子应用，它使用 jQuery 动态插入了一张图片：
 
 ```
+
 const render = $ => {
-  $('#app-container').html('<p>Hello, render with jQuery</p><img src="./img/my-image.png">');
-  return Promise.resolve();
+$('#app-container').html('<p>Hello, render with jQuery</p><img src="./img/my-image.png">');
+return Promise.resolve();
 };
+
 ```
 
 我们可以在主应用中劫持 jQuery 的 `html` 方法，将图片的相对路径替换为绝对路径：
 
 ```
+
 beforeMount: app => {
-   if(app.name === 'my-app'){
-       // jQuery 的 html 方法是一个复杂的函数，这里为了简化，我们只处理 img 标签
-       $.prototype.html = function(value){
-          const str = value.replace('<img src="./img/my-image.png">', '<img src="http://localhost:8080/img/my-image.png">')
-          this[0].innerHTML = str;
-       }
-   }
+if(app.name === 'my-app'){
+// jQuery 的 html 方法是一个复杂的函数，这里为了简化，我们只处理 img 标签
+$.prototype.html = function(value){
+const str = value.replace('<img src="./img/my-image.png">', '<img src="http://localhost:8080/img/my-image.png">')
+this[0].innerHTML = str;
 }
+}
+}
+
 ```
 
 在这个例子中，我们劫持了 jQuery 的 `html` 方法，将图片的相对路径 `./img/my-image.png` 替换为了绝对路径 `http://localhost:8080/img/my-image.png`。这样，无论子应用在哪里运行，图片都可以正确地加载。
@@ -587,25 +847,29 @@ beforeMount: app => {
 1. **使用 `qiankun` 的 `getTemplate` 函数重写静态资源路径**：对于 HTML 中已有的 `img/audio/video` 等标签，`qiankun` 支持重写 `getTemplate` 函数，可以将入口文件 `index.html` 中的静态资源路径替换掉。例如：
 
 ```
+
 start({
-  getTemplate(tpl,...rest) {
-    // 为了直接看到效果，所以写死了，实际中需要用正则匹配
-    return tpl.replace('<img src="./img/my-image.png">', '<img src="http://localhost:8080/img/my-image.png">');
-  }
+getTemplate(tpl,...rest) {
+// 为了直接看到效果，所以写死了，实际中需要用正则匹配
+return tpl.replace('<img src="./img/my-image.png">', '<img src="http://localhost:8080/img/my-image.png">');
+}
 });
+
 ```
 
 1. **劫持标签插入函数**：对于动态插入的 `img/audio/video` 等标签，我们可以劫持 `appendChild` 、 `innerHTML` 、`insertBefore` 等事件，将资源的相对路径替换成绝对路径。例如，我们可以劫持 jQuery 的 `html` 方法，将图片的相对路径替换为绝对路径：
 
 ```
+
 beforeMount: app => {
-   if(app.name === 'my-app'){
-       $.prototype.html = function(value){
-          const str = value.replace('<img src="./img/my-image.png">', '<img src="http://localhost:8080/img/my-image.png">')
-          this[0].innerHTML = str;
-       }
-   }
+if(app.name === 'my-app'){
+$.prototype.html = function(value){
+const str = value.replace('<img src="./img/my-image.png">', '<img src="http://localhost:8080/img/my-image.png">')
+this[0].innerHTML = str;
 }
+}
+}
+
 ```
 
 1. **给老项目加上 webpack 打包**：这个方案的可行性不高，都是陈年老项目了，没必要这样折腾。
@@ -625,7 +889,9 @@ beforeMount: app => {
 如果只有一个子项目，要想启用预加载，可以这样使用 `start` 函数：
 
 ```
+
 start({ prefetch: 'all' });
+
 ```
 
 这样，主应用 `start` 之后会预加载子应用的所有静态资源，无论子应用是否激活。
@@ -639,19 +905,21 @@ start({ prefetch: 'all' });
 例如，如果我们在子应用中添加了一个全局的点击事件，我们可以在子应用的 `unmount` 生命周期函数中移除这个事件：
 
 ```
+
 export async function mount(props) {
-  // 添加全局点击事件
-  window.addEventListener('click', handleClick);
+// 添加全局点击事件
+window.addEventListener('click', handleClick);
 }
 
 export async function unmount() {
-  // 移除全局点击事件
-  window.removeEventListener('click', handleClick);
+// 移除全局点击事件
+window.removeEventListener('click', handleClick);
 }
 
 function handleClick() {
-  // 处理点击事件
+// 处理点击事件
 }
+
 ```
 
 这样，当子应用卸载时，全局的点击事件也会被移除，不会影响到其他的子应用。
@@ -663,30 +931,32 @@ function handleClick() {
 然而，我们可以通过一些技巧来实现 `keep-alive` 的效果。一种可能的方法是在子应用的生命周期函数中保存和恢复子应用的状态。例如，我们可以在子应用的 `unmount` 函数中保存子应用的状态，然后在 `mount` 函数中恢复这个状态：
 
 ```
+
 // 伪代码
 let savedState;
 
 export async function mount(props) {
-  // 恢复子应用的状态
-  if (savedState) {
-    restoreState(savedState);
-  }
+// 恢复子应用的状态
+if (savedState) {
+restoreState(savedState);
+}
 }
 
 export async function unmount() {
-  // 保存子应用的状态
-  savedState = saveState();
+// 保存子应用的状态
+savedState = saveState();
 }
 
 function saveState() {
-  // 保存子应用的状态
-  // 这个函数的实现取决于你的应用
+// 保存子应用的状态
+// 这个函数的实现取决于你的应用
 }
 
 function restoreState(state) {
-  // 恢复子应用的状态
-  // 这个函数的实现取决于你的应用
+// 恢复子应用的状态
+// 这个函数的实现取决于你的应用
 }
+
 ```
 
 这种方法的缺点是需要手动保存和恢复子应用的状态，这可能会增加开发的复杂性。此外，这种方法也不能保留子应用的 DOM 状态，只能保留 JavaScript 的状态。
@@ -714,17 +984,21 @@ function restoreState(state) {
 1. 首先，你需要在你的项目中安装`npm-run-all`，可以通过下面的命令进行安装：
 
 ```
+
 npm install --save-dev npm-run-all
+
 ```
 
 1. 然后，在你的`package.json`文件中定义你需要并行运行的脚本。比如，你有两个子应用，分别为`app1`和`app2`，你可以定义如下的脚本：
 
 ```
+
 "scripts": {
-    "start:app1": "npm start --prefix ./app1",
-    "start:app2": "npm start --prefix ./app2",
-    "start:all": "npm-run-all start:app1 start:app2"
+"start:app1": "npm start --prefix ./app1",
+"start:app2": "npm start --prefix ./app2",
+"start:all": "npm-run-all start:app1 start:app2"
 }
+
 ```
 
 在这个例子中，`start:app1`和`start:app2`脚本分别用于启动`app1`和`app2`应用，`start:all`脚本则用于同时启动这两个应用。
@@ -740,10 +1014,12 @@ npm install --save-dev npm-run-all
 1. `Shadow DOM`：`Shadow DOM`是一种浏览器内置的 Web 标准技术，它可以创建一个封闭的 DOM 结构，这个 DOM 结构对外部是隔离的，包括其 CSS 样式。`qiankun`在挂载子应用时，会将子应用的 HTML 元素挂载到`Shadow DOM`上，从而实现 CSS 的隔离。
 
 ```
-// qiankun使用Shadow DOM挂载子应用
+
+// qiankun 使用 Shadow DOM 挂载子应用
 const container = document.getElementById('container');
 const shadowRoot = container.attachShadow({mode: 'open'});
 shadowRoot.innerHTML = '<div id="subapp-container"></div>';
+
 ```
 
 对于`qiankun`的隔离方案，一个潜在的缺点是它需要浏览器支持`Shadow DOM`，这在一些旧的浏览器或者不兼容`Shadow DOM`的浏览器中可能会出现问题。
@@ -753,20 +1029,24 @@ shadowRoot.innerHTML = '<div id="subapp-container"></div>';
 例如，假设你有一个名为`Button`的 CSS 模块：
 
 ```
-/* Button.module.css */
+
+/_ Button.module.css _/
 .button {
-    background-color: blue;
+background-color: blue;
 }
+
 ```
 
 在你的 JavaScript 文件中，你可以这样引入并使用这个模块：
 
 ```
+
 import styles from './Button.module.css';
 
 function Button() {
-    return <button className={styles.button}>Click me</button>;
+return <button className={styles.button}>Click me</button>;
 }
+
 ```
 
 在这个例子中，`button`类名会被转换成一个唯一的名字，如`Button_button__xxx`，这样就可以避免全局样式冲突了。
@@ -787,21 +1067,23 @@ function Button() {
    - 2.3. **on 方法**用于监听事件，接收事件名称和回调函数作为参数。当相应的事件被派发时，回调函数将被执行。
 
 ```
+
 window.globalEvent = {
-  events: {},
-  emit(event, data) {
-    if (!this.events[event]) {
-      return;
-    }
-    this.events[event].forEach(callback => callback(data));
-  },
-  on(event, callback) {
-    if (!this.events[event]) {
-      this.events[event] = [];
-    }
-    this.events[event].push(callback);
-  },
+events: {},
+emit(event, data) {
+if (!this.events[event]) {
+return;
+}
+this.events[event].forEach(callback => callback(data));
+},
+on(event, callback) {
+if (!this.events[event]) {
+this.events[event] = [];
+}
+this.events[event].push(callback);
+},
 };
+
 ```
 
 ### 1.在主项目中使用 qiankun 注册子项目时，如何解决子项目路由的 hash 与 history 模式之争？
@@ -850,40 +1132,42 @@ window.globalEvent = {
 Webpack 5 的联邦模块允许不同的微前端应用之间共享模块，避免重复加载和代码冗余。通过联邦模块，我们可以将一些公共的模块抽离成一个独立的模块，并在各个微前端应用中进行引用。这样可以节省资源，并提高应用的加载速度。
 
 ```
+
 // main-app webpack.config.js
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { ModuleFederationPlugin } = require('webpack').container;
 
 module.exports = {
-  // ...其他配置
+// ...其他配置
 
-  plugins: [
-    new HtmlWebpackPlugin(),
-    new ModuleFederationPlugin({
-      name: 'main_app',
-      remotes: {
-        shared_module: 'shared_module@http://localhost:8081/remoteEntry.js',
-      },
-    }),
-  ],
+plugins: [
+new HtmlWebpackPlugin(),
+new ModuleFederationPlugin({
+name: 'main_app',
+remotes: {
+shared_module: 'shared_module@http://localhost:8081/remoteEntry.js',
+},
+}),
+],
 };
 
 // shared-module webpack.config.js
 const { ModuleFederationPlugin } = require('webpack').container;
 
 module.exports = {
-  // ...其他配置
+// ...其他配置
 
-  plugins: [
-    new ModuleFederationPlugin({
-      name: 'shared_module',
-      filename: 'remoteEntry.js',
-      exposes: {
-        './Button': './src/components/Button',
-      },
-    }),
-  ],
+plugins: [
+new ModuleFederationPlugin({
+name: 'shared_module',
+filename: 'remoteEntry.js',
+exposes: {
+'./Button': './src/components/Button',
+},
+}),
+],
 };
+
 ```
 
 在上述示例中，`main-app` 和 `shared-module` 分别是两个微前端应用的 webpack 配置文件。通过 `ModuleFederationPlugin` 插件，`shared-module` 将 `Button` 组件暴露给其他应用使用，而 `main-app` 则通过 `remotes` 配置引入了 `shared-module`。
@@ -893,6 +1177,7 @@ module.exports = {
 Webpack 5 联邦模块还支持动态加载模块，这对于微前端应用的按需加载和性能优化非常有用。通过动态加载，可以在需要时动态地加载远程模块，而不是在应用初始化时一次性加载所有模块。
 
 ```
+
 // main-app
 const remoteModule = () => import('shared_module/Button');
 
@@ -900,11 +1185,12 @@ const remoteModule = () => import('shared_module/Button');
 
 // 在需要的时候动态加载模块
 remoteModule().then((module) => {
-  // 使用加载的模块
-  const Button = module.default;
-  // ...
+// 使用加载的模块
+const Button = module.default;
+// ...
 });
-```
+
+````
 
 在上述示例中，`main-app` 使用 `import()` 函数动态加载 `shared_module` 中的 `Button` 组件。通过动态加载，可以在需要时异步地加载远程模块，并在加载完成后使用模块。
 
@@ -1059,7 +1345,13 @@ function transform(value: number) {
 }
 ```
 
-文字描边 paint-order text-stroke
+```
+文字描边
+-webkit-text-stroke 居中描边
+paint-order 配合 -webkit-text-stroke 使用，值为 stroke 时，外描边
+paint-order:markers|stroke|fill
+text-shadow：只适合小的外描边
+```
 
 前端打印 printjs
 
@@ -1322,14 +1614,6 @@ Object.create(null)
 
 1. rgba 指的是颜色，rgb 分别是红、绿、蓝，a 指 Alpha 透明度。所以 rgba 只能作用于颜色；而 opacity 作用于整个元素
 2. opacity 会被子元素继承；rgba 不会
-
-# 判断函数是否标记为 async
-
-```javascript
-function isAsyncFunction(func) {
-  return Object.prototype.toString.call(func) === '[object AsyncFunction]'
-}
-```
 
 # 匹配字符
 
@@ -1764,4 +2048,23 @@ CSP（Content Security Policy）与跨域（Cross-Origin）在 Web 安全领域�
 禁止触发系统菜单和长按选中：`touch-callout:none` contextmenu
 
 禁止用户选中文字：`user-select:none`
+```
+
+```js
+/**
+ * nums 数组中包含 1 个或多个正整数
+ * 其他的数字都出现 2 次
+ * 只有一个数字出现了 1 次
+ * 找出只出现了 1 次的数字
+ */
+function uniqueNumber(nums) {
+  // 0 异或 别的数等于数本身
+  // 相同的数异或结果为 0
+  var result = 0
+  for (const n of nums) {
+    result ^= n
+  }
+  return result
+  // return nums.reduce((a, b) => a ^ b, 0)
+}
 ```
