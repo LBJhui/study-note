@@ -1,3 +1,33 @@
+```
+node 的模块查找策略
+  文件查找
+  文件夹查找
+    默认 index.js
+    可通过文件夹中 package.json 中 main 字段修改配置
+  内置模块
+  第三方
+    node_modules
+```
+
+```
+为什么需要箭头函数
+  消除函数二义性
+  指令序列
+  创建实例
+```
+
+```js
+// vue-router
+base: '/'
+
+// vue.config.js
+publicPath: '/' // 浏览器如何找资源
+```
+
+mask-image
+
+js 引用传递 具名导入 import { n as main } from 'a.js'
+
 ```css
 /* 系统主题 */
 @media (prefers-color-scheme: dark) {
@@ -8,6 +38,46 @@
 /* js */
 const match=matchMedia('(prefers-color-scheme: dark)')
 match.addEventListener('change',(e)=>{})
+```
+
+```js
+// 隐式转换和布尔判定
+;[] + []
+;[] + ![]
+```
+
+```js
+// 数字格式化
+const str = '10000000000'
+const s = str.replace(/\B(?=(\d{3})+$)/g, ',')
+```
+
+```
+sass 混合 @mixin @include
+sass 继承 extends %(抽象类)
+```
+
+```scss
+// SASS中的颜色函数
+
+$btnColors: #409eff, #67c23a, #f56c6c, #e6a23c, #909399;
+
+@for $i from 1 through length($btnColors) {
+  .btn.type-#{$i} {
+    $color: nth($btnColors, $i);
+    background: $color;
+    color: #fff;
+    &:hover {
+      background: lighten($color, 10%);
+    }
+    &:active {
+      background: darken($color, 10%);
+    }
+    &:disabled {
+      background: lighten($color, 20%);
+    }
+  }
+}
 ```
 
 ```css
@@ -575,6 +645,16 @@ markRaw
 
 withModifiers
 
+```js
+监控页面是否出现卡顿
+const observer = new PerformanceObserver((list) => {
+  for (const entry of list.getEntries()) {
+  }
+})
+
+observer.observe({ entryTypes: ['longtask'] })
+```
+
 ```text
 网络
   五层网络模型
@@ -738,7 +818,18 @@ new DOMParser().parseFromString(str, 'text/html')
 
 ```
 
+```css
+cubic-bezier
+css 动画只支持数值类的属性
 Houdini @property
+```
+
+```html
+show,showModel
+<dialog open></dialog>
+::backdrop
+```
+
 
 CSS 剪切函数 clip-path
 
@@ -2068,3 +2159,5 @@ function uniqueNumber(nums) {
   // return nums.reduce((a, b) => a ^ b, 0)
 }
 ```
+
+web-vitals
