@@ -9,6 +9,34 @@ node 的模块查找策略
     node_modules
 ```
 
+```js
+统计字符频率的风骚写法
+const str = 'dlskdlkdsowjfood'
+const result = [...str].reduce((a, b) => (a[b]++ || (a[b] = 1), a), {})
+```
+
+模板预编译
+
+vue3 expose defineExpose
+
+浏览器的自动播放策略
+
+BFF 层 backends for frontends
+
+函数签名 = 函数名 + 参数 + 返回值
+
+```ts
+// TS中字符串索引带来的类型问题
+const obj = {
+  name: 'LBJhui',
+  age: 18,
+}
+
+function method(key: string) {
+  const v = obj[key as keyof typeof obj]
+}
+```
+
 ```
 为什么需要箭头函数
   消除函数二义性
@@ -712,7 +740,7 @@ observer.observe({ entryTypes: ['longtask'] })
 
 Array.from()
 
-````
+```css
 Web Animation API: element.animate() element.getAnimations()
 requestAnimationFrame
 transitionend、animationend
@@ -749,41 +777,41 @@ removeProperty
 
 Web Locks API
 
+conic-gradient
+
 元素尺寸：
 
 - clientWidth：content + padding
 - offsetWidth：content + padding + scroll + border
 - scrollWidth：visible + invisible
-- getBoundingClientRect
+- getBoundingClientRect()
 
 preventDefault、stopPropagation
 
-```
+俄罗斯方块实现思路
 
+```js
 监听复制事件
-addEventListener {passive:false} copy
+addEventListener {passive:false} copy paste
 e.clipboardData.setData('text/palin','hello world')
-
+Clipboard API
+navigator.clipboard.readText().then(text=>{})
 ```
 
 ```
-
 阴影效果
 filter:drop-shadow(0 0 5px #000)
-
 ```
 
 getPrototypeOf、setPrototypeOf
 
 ```
-
 平滑滚动
 css:scroll-behavior
 js: window.scrollTo({
 top:0,
 behavior:'smooth'
 })
-
 ```
 
 HTMLCollection & NodeList
@@ -796,16 +824,32 @@ map(parseInt)
 
 Object.keys() 对象自有可枚举的属性、defineProperty()、hasOwnProperty()、使用 in 遍历属性
 
-webpack: raw-loader vite: ?raw
+```js
+// 读取文件原始内容
+// webpack: raw-loader
+module.exports = defineConfig({
+  configureWebpack: {
+    module: {
+      rules: [
+        {
+          test: /\.dataurl$/,
+          loader: 'raw-loader',
+        },
+      ],
+    },
+  },
+})
+
+// vite: ?raw
+import data from './data.dataurl?raw'
+```
 
 object-fit
 
 ```
-
 保持元素宽高比
 css 属性: aspect-ratio
 padding 相对于父元素宽度
-
 ```
 
 mix-blend-mode
@@ -829,7 +873,6 @@ show,showModel
 <dialog open></dialog>
 ::backdrop
 ```
-
 
 CSS 剪切函数 clip-path
 
@@ -1281,7 +1324,7 @@ const Button = module.default;
 // ...
 });
 
-````
+```
 
 在上述示例中，`main-app` 使用 `import()` 函数动态加载 `shared_module` 中的 `Button` 组件。通过动态加载，可以在需要时异步地加载远程模块，并在加载完成后使用模块。
 
