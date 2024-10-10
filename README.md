@@ -1,4 +1,166 @@
 ```
+object 和 map 有什么相同点和不同点
+创建方式的区别
+  通过字面量创建 Object、通过构造函数创建 Object
+  通过构造函数创建 Map
+key 的类型不同
+  Object：对象的键是字符串或者Symbol
+  Map：Map可以使用任何类型的值作为键，包括对象、函数、原始值等。
+key 的顺序
+  Object：key的顺序与插入顺序无关
+  Map：key的顺序就是插入的顺序
+```
+
+```js
+Object.is()
+```
+
+```
+高阶函数：可以接收一个或多个函数作为参数，并且返回一个函数的函数称为高阶函数
+1.代码复用
+2.模块化和解耦
+3.延迟执行
+4.函数组合
+
+用途：
+  1.数组操作
+  2.函数式编程
+  3.异步编程
+  4.代码重构和优化
+  5.事件监听
+
+使用高阶函数时需要考虑哪些性能因素
+  1.函数调用开销
+  2.内存使用
+  3.垃圾回收
+  4.并行和异步处理
+  5.编译器优化
+```
+
+```
+如何在不同设备间同步用户的本地存储数据
+  1.云同步服务
+  2.websockets
+  3.合并同步策略
+  4.增量同步
+  5.周期性全量同步增量更新
+  6.第三方服务
+  7.端到端加密
+```
+
+```
+如何处理跨域请求中的安全问题
+  1.CORS策略
+  2.HTTPS
+  3.预检请求
+  4.限制跨站请求伪造
+  5.token验证
+```
+
+```
+禁用了js，本地存储还能使用吗
+不能使用
+  1.技术依赖
+  2.数据交互通道封锁
+  3.安全和隐私考量
+```
+
+```js
+// 原型方法和实例方法
+function Person() {
+  Person.say = function () {
+    console.log('a')
+  }
+  this.say = function () {
+    console.log('b')
+  }
+}
+
+Person.prototype.say = function () {
+  console.log('c')
+}
+
+Person.say = function () {
+  console.log('d')
+}
+
+Person.say()
+var p = new Person()
+p.say()
+Person.say()
+```
+
+```ts
+// 实现Optional
+interface Article {
+  title: string
+  content: string
+  tags: string[]
+  comments: string[]
+  likeCount: number
+}
+
+type Optional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>
+
+type CreateArticleOptions = Optional<Article, 'tags' | 'comments'>
+```
+
+```js
+中文输入法导致的高频事件
+// 多个按键对应一个字符
+dom.addEventListener('compositionstart', function (e) {})
+dom.addEventListener('compositionend', function (e) {})
+```
+
+```
+# BFC 是什么？它可以解决什么问题？
+
+块级格式化上下文（Block Fromatting Context）
+浏览器在渲染过程中用于组织块级元素的一个独立渲染区域，它是一个完全独立的空间（布局环境），让空间里的子元素不会影响到外面的布局
+
+触发 BFC 的条件
+    1. body 根元素
+    2. float 值不为 none 的元素
+    3. position 的值为 absolute/fixed 的元素
+    4. display 值为 inline-block/table-cell/table-caption/grid/flex 等非默认块级显示模式的元素
+    5. overflow 的值不是 visible 的块级元素
+
+BFC 特性：
+    1. BFC 就是页面中的一个**隔离的独立容器**，容器里的标签不会影响到外部标签
+    2. 垂直方向的距离由 margin 决定，属于**同一个 BFC 内部**的两个相邻的标签外边距会发生重叠
+    3. 计算 BFC 高度时，**浮动元素也参与计算**
+
+解决问题：
+    1. 外边距合并
+    2. 浮动元素的影响
+    3. 文字环绕效果
+    4. 防止外边距穿透
+```
+
+```
+parseInt和Math.floor有什么区别
+Math.floor()
+无论正负，Math.floor都只是简单地将一个数向下取整到最接近的整数
+它只接收一个参数：你想要向下取整的数
+
+Math.floor(-4.05)
+parseInt(-4.05)
+
+parseInt：向零取整
+对于负数，会**向上取整**到最接近的整数
+对于正数，会**向下取整到**最接近的整数
+
+parseInt 会忽略任何数字后面的非数字字符
+parseInt('4.05abc') // 4
+Math.floor('4.05abc') // NaN
+
+parseInt 处理不同的进制数据
+parseInt('11',2)  // 结果是3，因为在2进制中，11表示的是十进制中的3
+```
+
+正则匹配的贪婪模式和惰性模式有什么区别
+
+```
 node 的模块查找策略
   文件查找
   文件夹查找
@@ -9,13 +171,60 @@ node 的模块查找策略
     node_modules
 ```
 
+```
+Proxy 和 DefineProperty
+vue 3.0 使用 proxy 替代了 vue 2.x 中使用的 Object.defineProperty 来实现响应式系统，这种变化有以下几个原因：
+1.更强大的拦截能力:Proxy 提供了更丰富的拦截器,可以拦截更多的的操作,包括属性的读取、设置、删除、函数调用、in运算符等。这使得Vue可以更好地跟踪数据的变化,并在之前无法拦截的场景下提供更精确的响应式行为。
+2.更直观和高效的代码:Proxy 的拦截能力更加直观和灵活,可以通过简单且可读性更高的代码实现复杂的操作。相比之下,使用 Object.defineProperty 手动地处理每个属性的getter和setter更加繁琐和冗长。
+3.更好的性能和更少的内存消耗:Proxy 采用代理对象的方式,只需要在读取和修改属性时触发拦截器,而不需要获取和设置属性的特性。这种方式可以带来更好的性能,并且不会对每个属性都添加额外的setter和getter。
+4.支持嵌套对象的响应式:使用 Proxy 可以实现对嵌套对象的响应式处理,而 Object.defineProperty 在处理嵌套对象时需要遍历和递归操作,相比之下,Proxy 更加高效和简洁。
+总而言之,Vue 3.0选择使用 Proxy 替代 Object.defineProperty 是为了提供更强大、直观、高效的响应式能力,并且能够支持更复杂的场景,同时带来更好的性能和更少的内存消耗。这使得Vue3.0在开发体验和性能方面均有很大的提升。
+
+vue2和3有什么区别
+  1.用组合式api替换选项式api，方便逻辑更加的聚合
+  2.一些细节的使用点改变
+    1.因为改成组合式api所以没有this
+    2.生命周期没有create，setup等同于create，卸载改成unmount
+    3.vue3中v-if高于v-for的优先级
+    4.根实例的创建从new app变成了createApp方法
+    5.一些全局注册，比如mixin，注册全局组件，use改成了用app实例调用，而不是vue类调用
+    6.新增了传送门teleport组件
+    7.template模板可以不包在一个根div里
+
+  1.响应式原理改成了用proxy，解决了数组无法通过下标修改，无法监听到对象属性的新增和删除的问题。也提升了响应式的效率
+  2.可以额外叙述vue3并不是完全抛弃了defineProperty，通过reactive定义的响应式数据使用proxy包装出来，而ref还是用的defineProperty去给一个空对象，定义了一个value属性来做的响应式
+  3.组合式api的写法下，源码改成了函数式编程，方便按需引入，因为tree-shaking功能必须配合按需引入写法。所以vue3更好地配合tree-shaking能让打包体积更小
+  4.性能优化，增加了静态节点标记。会标记静态节点，不对静态节点进行比对，从而增加效率
+  5.此外大家可以叙述具体标记策略，从而提升自己的印象
+```
+
+```
+vue-watch value 更新 → 触发回调函数 → DOM 更新
+{flush:'pre'}
+pre(默认)：回调函数会在 DOM 更新之前执行
+post：回调函数会在 DOM 更新之后执行，在实际开发中，假设你希望滚动到页面的某个位置再执行回调，可以用这个
+sync:回调函数会同步执行，也就是在响应式数据发生变化时立即执行
+
+watch 只能收集同步代码的依赖，如果存在 await 依赖收集会出现问题
+
+①
+watchEffect 会自动追踪函数内部使用的数据变化，数据变化时重新执行该函数
+watch 需要显示地指定监听的数据，若指定的数据发生变化，重新执行该函数
+
+②
+watchEffect 的函数会立即执行一次，并在依赖的数据变化时再次执行
+watch 的回调函数只有在侦听的数据源发生变化时才会执行，不会立即执行
+
+③
+watch 可以更精细地控制监听行为，如 deep、immediate、flush
+watchEffect 更适合简单的场景，不需要额外的配置。相当于默认开启了 deep、immediate
+```
+
 ```js
 统计字符频率的风骚写法
 const str = 'dlskdlkdsowjfood'
 const result = [...str].reduce((a, b) => (a[b]++ || (a[b] = 1), a), {})
 ```
-
-模板预编译
 
 vue3 expose defineExpose
 
@@ -357,11 +566,13 @@ getComputedStyle
 
 在 TypeScript 中正确的遍历一个对象
 
+```js
 垃圾回收监听：FinalizationRegistry
+  引用计数
+  标记清除 memory management
+```
 
-```
 全局导入和局部导入的区别
-```
 
 ```
 ajax
@@ -707,6 +918,8 @@ observer.observe({ entryTypes: ['longtask'] })
   WebSocket
 ```
 
+addEventListener compositionstart
+
 ```text
 网络状态监控
   navigator.connection
@@ -822,7 +1035,14 @@ writing-mode、margin-block-start、margin-block-end、text-combine-upright
 
 map(parseInt)
 
-Object.keys() 对象自有可枚举的属性、defineProperty()、hasOwnProperty()、使用 in 遍历属性
+```js
+属性到底存在不存在
+Object.keys() 对象自有可枚举的属性
+hasOwnProperty() 对象自有属性
+getOwnPropertyDescriptor()
+defineProperty()
+使用 in 遍历属性，原型上也会查找
+```
 
 ```js
 // 读取文件原始内容
@@ -1973,26 +2193,6 @@ px em rem 区别
    利用 after 伪元素为浮动元素的父容器添加看不见的内容，然后设置 clear:both;display:block;content:''
 
 4. 直接设置高度
-
-# BFC 是什么？它可以解决什么问题？
-
-块级格式化上下文
-
-浏览器在渲染过程中用于组织块级元素的一个独立渲染区域
-
-触发 BFC 的条件
-
-    1. float 值不为 None 的元素
-    1. position 的值为 absolute/fixed 的元素
-    1. display 值为 inline-block/table-cell/table-caption/grid/flex 等非默认块级显示模式的元素
-    1. overflow 的值不是 visible 的块级元素
-
-解决问题：
-
-    1. 外边距合并
-    1. 浮动元素的影响
-    1. 文字环绕效果
-    1. 防止外边距穿透
 
 # forEach
 
