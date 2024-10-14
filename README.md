@@ -1,3 +1,16 @@
+```ts
+type Props = {
+  onClick: (e: MouseEvent) => void
+  onDrag: (e: DragEvent) => void
+  news1Types: string
+  class2Name: string
+}
+
+type t1 = keyof Props
+type t2 = keyof Props & {}
+type t3 = keyof Props & `on${string}`
+```
+
 ```
 object 和 map 有什么相同点和不同点
 创建方式的区别
@@ -9,10 +22,6 @@ key 的类型不同
 key 的顺序
   Object：key的顺序与插入顺序无关
   Map：key的顺序就是插入的顺序
-```
-
-```js
-Object.is()
 ```
 
 ```
@@ -957,7 +966,7 @@ Array.from()
 Web Animation API: element.animate() element.getAnimations()
 requestAnimationFrame
 transitionend、animationend
-逐帧动画 step
+逐帧动画 step animation: name 1s steps(5)
 animation-play-state
 
 /* 纯css实现页面滚动动画 */
@@ -1027,7 +1036,9 @@ behavior:'smooth'
 })
 ```
 
-HTMLCollection & NodeList
+```
+HTMLCollection(动态) & NodeList(静态) 伪数组
+```
 
 writing-mode、margin-block-start、margin-block-end、text-combine-upright
 
