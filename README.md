@@ -1,3 +1,91 @@
+```css
+/* 图片边框 */
+border-image-source
+border-image-slice
+border-image-repeat
+```
+
+```js
+// 如何将 class 转换为 function
+class Example {
+  constructor(name) {
+    this.name = name
+  }
+  func() {
+    console.log(this.name)
+  }
+}
+
+;('use strict')
+function Example(name) {
+  // 验证 this 的指向
+  if (!(this instanceof Example)) {
+    throw new TypeError('Class constructor Example cannot be invoked without "new"')
+  }
+  this.name = name
+}
+
+Object.defineProperty(Example.prototype, 'func', {
+  value: function () {
+    // 不可通过 new 调用
+    if (!(this instanceof Example)) {
+      throw new TypeError('Class constructor Example cannot be invoked without "new"')
+    }
+    console.log(this.name)
+  },
+  enumerable: false,
+})
+```
+
+```js
+// 字符串比较
+/**
+ * 比较两个字符串的大小
+ * 两个字符串都是用-连接的数字，比如1-2-33-41-5
+ * 比较方式是从左到右，依次比较每个数字的大小，遇到相等的数字继续往后比较，遇到不同的数字直接得到比较结果
+ * s1 > s2 return 1
+ * s1 < s2 return -1
+ * s1 === s2 return 0
+ */
+function compare(s1, s2) {
+  while (1) {
+    const iter1 = walk(s1)
+    const iter2 = walk(s2)
+    if (iter1.done && iter2.done) {
+      return 0
+    } else if (n1.done) {
+      return -1
+    } else if (n2.done) {
+      return 1
+    } else if (n1.value > n2.value) {
+      return 1
+    } else if (n1.value < n2.value) {
+      return -1
+    } else {
+      continue
+    }
+  }
+}
+
+function* walk(str) {
+  let n = ''
+  for (let i = 0; i < str.length; i++) {
+    const char = str[i]
+    if (char === '-') {
+      if (n) {
+        yield +n
+        n = ''
+      }
+    } else {
+      n += char
+    }
+  }
+  if (n) {
+    yield +n
+  }
+}
+```
+
 ```ts
 type Props = {
   onClick: (e: MouseEvent) => void
@@ -10,6 +98,66 @@ type t1 = keyof Props
 type t2 = keyof Props & {}
 type t3 = keyof Props & `on${string}`
 ```
+
+```js
+执行上下文
+// ①
+var name = 'global'
+const obj = {
+  name: 'LBJhui',
+  fun1() {
+    ;(() => {
+      console.log(this.name)
+    })()
+  },
+  fun2: () => {
+    console.log(this.name)
+  },
+}
+obj.fun1()
+obj.fun2()
+
+// ②
+var length = 1
+function fun() {
+  console.log(this.length)
+}
+let arr = [fun, 'a', 'b']
+arr[0]()
+let fun2 = arr[0]
+fun2()
+
+// ③
+var name = 'LBJhui'
+let obj = {
+  name: 'objLBJhui',
+  say: function () {
+    console.log(this.name)
+  },
+}
+obj.say()
+setTimeout(obj.say, 10)
+
+// ④
+var name = 'LBJhui'
+function outerFunction() {
+  this.name = 'outerFunction'
+  return () => {
+    console.log(this.name)
+  }
+}
+const obj = {
+  name: 'objLBJhui',
+  innerFunction1: outerFunction(),
+  innerFunction2: () => {
+    console.log(this.name)
+  },
+}
+obj.innerFunction1()
+obj.innerFunction2()
+```
+
+node 版本管理工具:`volta` `nvm`
 
 ```
 object 和 map 有什么相同点和不同点
@@ -181,6 +329,7 @@ node 的模块查找策略
 ```
 
 ```
+Reflect
 Proxy 和 DefineProperty
 vue 3.0 使用 proxy 替代了 vue 2.x 中使用的 Object.defineProperty 来实现响应式系统，这种变化有以下几个原因：
 1.更强大的拦截能力:Proxy 提供了更丰富的拦截器,可以拦截更多的的操作,包括属性的读取、设置、删除、函数调用、in运算符等。这使得Vue可以更好地跟踪数据的变化,并在之前无法拦截的场景下提供更精确的响应式行为。
@@ -544,8 +693,6 @@ npm i --legacy-peer-deps
 
 鼠标位置信息：pageX,clientX,offsetX,movementX
 
-滚动元素到可视区域：scrollIntoView
-
 ```
 原始尺寸 naturalWidth naturalHeight
 样式尺寸
@@ -698,10 +845,43 @@ export default function (context) {
 ```
 
 ```js
-// vite打包结构控制
+// 自动注入Less全局变量
+module.exports = defineConfig({
+  css: {
+    loaderOptions: {
+      less: {
+        additionalData: '@import "~@/var.less"',
+      },
+    },
+  },
+})
+// vite esbulid rollup
+export default defineConfig({
+  plugins: [vue()],
+  resolve: {
+    alias: {
+      '~@': './src',
+    },
+  },
+  css: {
+    preprocessOptions: {
+      less: {
+        additionalData: '@import "~@/var.less"',
+      },
+    },
+  },
+})
+
 export default definConfig({
   build: {
     rollupOptions: {
+      // 在vite中手动分包
+      manualChunks(id) {
+        if (id.includes('node_modules')) {
+          return 'vendor'
+        }
+      },
+      // vite打包结构控制
       output: {
         entryFileNames: 'js/[name]-[hash].js',
         chunkFileNames: 'js/[name]-[hash].js',
@@ -782,8 +962,6 @@ if (process.env.NODE_ENV === 'production') {
 }
 ```
 
-nvm
-
 页面可见度 page visibility
 
 BroadcastChannel API
@@ -836,19 +1014,6 @@ isNaN('x') // true
 实现 debounce 防抖函数
 
 自定义指令控制权限的弊端
-
-动画库 vueusemotion
-
-```css
-/* 设置滚动条样式 */
-scrollbar-face-color: #eaeaea;
-scrollbar-shadow-color: #eaeaea;
-scrollbar-highlight-color: #eaeaea;
-scrollbar-3dlight-color: #eaeaea;
-scrollbar-darkshadow-color: #697074;
-scrollbar-track-color: #f7f7f7;
-scrollbar-arrow-color: #666666;
-```
 
 ```javascript
 Number(undefined) // NaN
@@ -962,17 +1127,45 @@ addEventListener compositionstart
 
 Array.from()
 
+[动画库：GSAP scrolltrigger]https://gsap.com/
+
 ```css
+动画
 Web Animation API: element.animate() element.getAnimations()
 requestAnimationFrame
 transitionend、animationend
 逐帧动画 step animation: name 1s steps(5)
-animation-play-state
+动画的暂停和恢复:animation-play-state paused running
+dom.style.setProperty('--name', 'value')
+
+滚动元素到可视区域：scrollIntoView
+平滑滚动
+css:scroll-behavior
+js: window.scrollTo({
+  top:0,
+  behavior:'smooth'
+})
+
+/* 设置滚动条样式 */
+scrollbar-face-color: #eaeaea;
+scrollbar-shadow-color: #eaeaea;
+scrollbar-highlight-color: #eaeaea;
+scrollbar-3dlight-color: #eaeaea;
+scrollbar-darkshadow-color: #697074;
+scrollbar-track-color: #f7f7f7;
+scrollbar-arrow-color: #666666;
 
 /* 纯css实现页面滚动动画 */
 scroll-timelin-name
 animation-timeline
 animation-range
+
+动画库 vueusemotion
+cubic-bezier
+css 动画只支持数值类的属性
+Houdini @property
+
+CSS 剪切函数 clip-path
 ```
 
 改变 webkit 表单输入框 placeholder 的颜色值：input::-webkit-input-placehold
@@ -984,8 +1177,6 @@ background-clip
 http accept-lang/navigator.lang
 
 margin-inline-start
-
-[动画库：GSAP scrolltrigger]https://gsap.com/
 
 git 忽略文件名大小写 git config core.ignorecase false
 
@@ -1028,19 +1219,16 @@ filter:drop-shadow(0 0 5px #000)
 getPrototypeOf、setPrototypeOf
 
 ```
-平滑滚动
-css:scroll-behavior
-js: window.scrollTo({
-top:0,
-behavior:'smooth'
-})
-```
-
-```
 HTMLCollection(动态) & NodeList(静态) 伪数组
 ```
 
-writing-mode、margin-block-start、margin-block-end、text-combine-upright
+```css
+/* 调整文字方向： */
+writing-mode、
+margin-block-start、
+margin-block-end、
+text-combine-upright
+```
 
 包含块
 
@@ -1073,9 +1261,17 @@ module.exports = defineConfig({
 
 // vite: ?raw
 import data from './data.dataurl?raw'
+
+// vite 寻找 views 文件夹中所有的 page.js
+import.meta.glob('../views/**/page.js', {
+  eager: true,
+  import: 'default',
+})
 ```
 
 object-fit
+
+不规则的文字环绕:shape-outside
 
 ```
 保持元素宽高比
@@ -1093,19 +1289,11 @@ new DOMParser().parseFromString(str, 'text/html')
 
 ```
 
-```css
-cubic-bezier
-css 动画只支持数值类的属性
-Houdini @property
-```
-
 ```html
 show,showModel
 <dialog open></dialog>
 ::backdrop
 ```
-
-CSS 剪切函数 clip-path
 
 Object.defineProperty 只能监听到对象属性的读取或者是写入，而 Proxy 除读写外还可以监听对象中属性的删除，对对象当中方法的调用
 
