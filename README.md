@@ -1,3 +1,85 @@
+```js
+// 构造函数内和外的方法有什么区别
+class Person {
+  constructor(name) {
+    this.name = name
+    this.say1 = () => {
+      console.log('我在里面', this.name)
+    }
+  }
+  say2() {
+    console.log('我在外面', this.name)
+  }
+}
+
+const A = new Person('A')
+const B = new Person('B')
+
+A.say1()
+A.say2()
+A.say1 === B.say1
+A.say2 === B.say2
+
+①
+在构造函数内部定义的方法，实际上是在**每个对象实例**上创建了一个新的函数
+在构造函数外部定义的方法是在 Person 的原型对象(Person.prototype)上创建的
+
+②
+在构造函数内部定义的方法是各个实例对象独有的
+在构造函数外部定义的方法，所有Person实例共享的
+
+③
+在构造函数内部定义的方法可以被`Object.keys()`遍历
+在构造函数外部定义的方法不能被`Object.keys()`遍历
+```
+
+```js
+// 函数的length
+function fun1(a) {}
+function fun2(b = 'a', a) {}
+function fun3(a, b = 'a') {}
+function fun4(a, ...arr) {}
+console.log(fun1.length)
+console.log(fun2.length)
+console.log(fun3.length)
+console.log(fun4.length)
+```
+
+new.target 可以判断函数是否被 new 调用
+
+```js
+parseInt和Math.floor有什么区别
+Math.floor()
+无论正负，Math.floor都只是简单地将一个数向下取整到最接近的整数
+它只接收一个参数：你想要向下取整的数
+
+Math.floor(-4.05)
+parseInt(-4.05)
+
+parseInt：向零取整
+对于负数，会**向上取整**到最接近的整数
+对于正数，会**向下取整到**最接近的整数
+
+parseInt 会忽略任何数字后面的非数字字符
+parseInt('4.05abc') // 4
+Math.floor('4.05abc') // NaN
+
+parseInt 处理不同的进制数据
+parseInt('11',2)  // 结果是3，因为在2进制中，11表示的是十进制中的3
+
+;['1', '2', '3'].map(parseInt) // parseInt(item,index,arr)
+
+parseInt 第二个参数：
+1.不传递、undefined、0
+  自动
+    1）0x 十六进制
+    2）0 十进制/八进制
+    3）十进制
+2.无效进制（2-36 有效） NaN
+3.有效进制 正常转换
+
+```
+
 ```css
 /* 图片边框 */
 border-image-source
@@ -7,6 +89,7 @@ border-image-repeat
 
 ```js
 // 如何将 class 转换为 function
+// 初始化之前不能new
 class Example {
   constructor(name) {
     this.name = name
@@ -292,27 +375,6 @@ BFC 特性：
     2. 浮动元素的影响
     3. 文字环绕效果
     4. 防止外边距穿透
-```
-
-```
-parseInt和Math.floor有什么区别
-Math.floor()
-无论正负，Math.floor都只是简单地将一个数向下取整到最接近的整数
-它只接收一个参数：你想要向下取整的数
-
-Math.floor(-4.05)
-parseInt(-4.05)
-
-parseInt：向零取整
-对于负数，会**向上取整**到最接近的整数
-对于正数，会**向下取整到**最接近的整数
-
-parseInt 会忽略任何数字后面的非数字字符
-parseInt('4.05abc') // 4
-Math.floor('4.05abc') // NaN
-
-parseInt 处理不同的进制数据
-parseInt('11',2)  // 结果是3，因为在2进制中，11表示的是十进制中的3
 ```
 
 正则匹配的贪婪模式和惰性模式有什么区别
@@ -681,7 +743,7 @@ declare global {
 
 # keypf 和 typedof 关键字的作用
 
-keyof 索引类型查询操作符 获取索引类型属性名 构成联合类型
+keyof 索引类型查询操作符 获取某种类型的所有键，其返回类型是联合类型
 typeof 获取一个变量或者对象的类型
 
 ---
@@ -689,16 +751,6 @@ typeof 获取一个变量或者对象的类型
 ```
 对等依赖 peerDependencies(package.json)
 npm i --legacy-peer-deps
-```
-
-鼠标位置信息：pageX,clientX,offsetX,movementX
-
-```
-原始尺寸 naturalWidth naturalHeight
-样式尺寸
-缩放倍率 window.devicePixelRatio
-
-原始尺寸=样式尺寸*缩放倍率
 ```
 
 ```
@@ -1133,7 +1185,8 @@ Array.from()
 动画
 Web Animation API: element.animate() element.getAnimations()
 requestAnimationFrame
-transitionend、animationend
+dom.addEventListener('transitionend') transitionstart
+animationend
 逐帧动画 step animation: name 1s steps(5)
 动画的暂停和恢复:animation-play-state paused running
 dom.style.setProperty('--name', 'value')
@@ -1192,12 +1245,24 @@ Web Locks API
 
 conic-gradient
 
-元素尺寸：
+```
+鼠标位置信息：pageX,clientX,offsetX,movementX
+原始尺寸 naturalWidth naturalHeight
+样式尺寸
+缩放倍率 window.devicePixelRatio
 
+原始尺寸=样式尺寸*缩放倍率
+
+元素尺寸：
 - clientWidth：content + padding
-- offsetWidth：content + padding + scroll + border
+- offsetWidth：content + padding + scroll(滚动条) + border
 - scrollWidth：visible + invisible
-- getBoundingClientRect()
+- 可见尺寸 getBoundingClientRect()
+
+dom.style.width DOM树
+getComputedStyle(dom).width CSSOM树
+layout tree 布局树 几何信息
+```
 
 preventDefault、stopPropagation
 
@@ -1231,8 +1296,6 @@ text-combine-upright
 ```
 
 包含块
-
-map(parseInt)
 
 ```js
 属性到底存在不存在
