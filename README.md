@@ -1,3 +1,12 @@
+localeCompare 字典顺序
+
+```
+github 慢
+C:\Windows\System32\drivers\etc\hosts
+140.82.114.4 github.com
+199.232.69.194 github.global.ssl.fastly.net
+```
+
 ```js
 // 构造函数内和外的方法有什么区别
 class Person {
@@ -1245,23 +1254,21 @@ Web Locks API
 
 conic-gradient
 
-```
-鼠标位置信息：pageX,clientX,offsetX,movementX
-原始尺寸 naturalWidth naturalHeight
-样式尺寸
-缩放倍率 window.devicePixelRatio
+```html
+鼠标位置信息：pageX,clientX,offsetX,movementX 原始尺寸 naturalWidth naturalHeight 样式尺寸 缩放倍率 window.devicePixelRatio
 
-原始尺寸=样式尺寸*缩放倍率
+<img srcset="https:picsum.photos/200/300?random=1 1x, https:picsum.photos/400/600?random=1 2x" />
+<img
+  srcset="https:picsum.photos/200/300?random=1 200w, https:picsum.photos/400/600?random=1 400w"
+  sizes="
+    (max-width: 300px)50vw,
+    (max-width: 600px) 50vw,
+    50vw
+  "
+/>
 
-元素尺寸：
-- clientWidth：content + padding
-- offsetWidth：content + padding + scroll(滚动条) + border
-- scrollWidth：visible + invisible
-- 可见尺寸 getBoundingClientRect()
-
-dom.style.width DOM树
-getComputedStyle(dom).width CSSOM树
-layout tree 布局树 几何信息
+原始尺寸=样式尺寸*缩放倍率 元素尺寸： - clientWidth：content + padding - offsetWidth：content + padding + scroll(滚动条) + border - scrollWidth：visible + invisible - 可见尺寸
+getBoundingClientRect() dom.style.width DOM树 getComputedStyle(dom).width CSSOM树 layout tree 布局树 几何信息
 ```
 
 preventDefault、stopPropagation
