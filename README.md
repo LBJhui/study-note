@@ -1,3 +1,135 @@
+ESModule 的工作原理
+
+```js
+const o = (function () {
+  const obj = {
+    a: 1,
+    b: 2,
+  }
+  return {
+    get: function (k) {
+      return obj[k]
+    },
+  }
+})()
+// 闭包代码的提权漏洞
+// 如何在不改变上面代码的情况下，修改 obj 对象
+Object.defineProperty(Object.prototype, 'abc', {
+  get() {
+    return this
+  },
+})
+console.log(o.get('abc'))
+
+// 解决
+const o = (function () {
+  // var obj = Object.create(null)
+  const obj = {
+    a: 1,
+    b: 2,
+  }
+  // Object.setPropertytypeOf(obj, null)
+  return {
+    get: function (k) {
+      if (obj.hasOwnProperty(k)) {
+        return obj[k]
+      }
+    },
+  }
+})()
+```
+
+```js
+let a = 5
+let b = 6
+
+// ①
+const temp = b
+b = a
+a = temp
+
+// ②
+;[a, b] = [b, a]
+
+// ③ 数字
+a = a + b
+b = a - b
+a = a - b
+// a = b + (b = a) - b
+
+// ④ 整数
+a = a ^ b
+b = a ^ b
+a = a ^ b
+```
+
+```js
+// 手写 call
+Function.prototype.myCall = function (ctx, ...args) {
+  ctx = ctx === null || ctx === undefined ? globalThis : Object(ctx)
+  const fn = this
+  const key = Symbol()
+  Object.defineProperty(ctx, key, {
+    value: fn,
+    enumerable: false,
+  })
+  const r = ctx[key](...args)
+  delete ctx[key]
+  return r
+}
+
+// 手写 bind
+Function.prototype.myBind = function (ctx, ...args) {
+  const fn = this
+  return function (...restArgs) {
+    if (new.target) {
+      return new fn(...args, ...restArgs)
+    }
+    return fn.apply(ctx, [...args, ...restArgs])
+  }
+}
+```
+
+```js
+// 并发请求
+function concurRequest(urls, maxNum) {
+  if (urls.length === 0) return Promise.resolve([])
+  return new Promise((resolve) => {
+    let index = 0 // 指向下一次请求的 url 对应的下标
+    const result = [] // 存储所有请求的结果
+    let count = 0 // 当前完成的请求数量
+    async function _request() {
+      const i = index
+      const url = urls[index]
+      index++
+      try {
+        const resp = await fetch(url)
+        result[i] = resp
+      } catch (err) {
+        result[i] = err
+      } finally {
+        count++
+        if (count === urls.length) {
+          resolve(result)
+        }
+        if (index < urls.length) {
+          _request()
+        }
+      }
+    }
+    for (let i = 0; i < Math.min(urls.length, maxNum); i++) {
+      _request()
+    }
+  })
+}
+```
+
+```ts
+// 对柯里化进行类型标注
+type Curried<A extends any[], R> = A extends [] ? () => R : A extends [infer P] ? (x: P) => R : A extends [infer P, ...infer Rest] ? (x: p) => Curried<Rest, R> : never
+declare function curry<A extends any[], R>(fn: (...args: A) => R): Curried<A, R>
+```
+
 localeCompare 字典顺序
 
 ```
@@ -962,12 +1094,6 @@ export default definConfig({
 })
 ```
 
-```
-对象属性
-symbol 属性不能被json序列化
-symbol 属性可以删除，configurable:true
-```
-
 call 方法第一个参数为 null 或 undefined，this 会被设置为全局对象
 
 ```
@@ -1073,6 +1199,11 @@ isNaN('x') // true
 实现 throttle 节流函数
 
 实现 debounce 防抖函数
+
+```ts
+// 对防抖函数进行类型标注
+declare function debounce<T extends any[]>(fn: (...args: T) => any, delay: number): (...args: T) => void
+```
 
 自定义指令控制权限的弊端
 
@@ -1309,8 +1440,12 @@ text-combine-upright
 Object.keys() 对象自有可枚举的属性
 hasOwnProperty() 对象自有属性
 getOwnPropertyDescriptor()
-defineProperty()
+defineProperty()  value writable enumerable configurable
 使用 in 遍历属性，原型上也会查找
+
+对象属性
+symbol 属性不能被json序列化
+symbol 属性可以删除，configurable:true
 ```
 
 ```js
