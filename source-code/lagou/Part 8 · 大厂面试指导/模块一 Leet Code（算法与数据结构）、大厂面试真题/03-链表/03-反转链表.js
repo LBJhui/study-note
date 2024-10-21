@@ -1,8 +1,9 @@
 /**
+ * https://leetcode.cn/problems/reverse-linked-list/description/
  * @param {ListNode} head
  * @return {ListNode}
  */
-var reverseList = function(head) {
+var reverseList = function (head) {
   // 声明变量记录 prev、cur
   let prev = null
   let cur = head
@@ -15,4 +16,4 @@ var reverseList = function(head) {
     cur = next
   }
   return prev
-};
+}

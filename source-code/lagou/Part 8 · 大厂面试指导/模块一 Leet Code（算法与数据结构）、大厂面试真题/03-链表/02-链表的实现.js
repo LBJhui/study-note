@@ -1,6 +1,6 @@
 // 节点类
 class LinkedNode {
-  constructor (value) {
+  constructor(value) {
     this.value = value
     // 用于存储下一个节点的引用
     this.next = null
@@ -9,12 +9,12 @@ class LinkedNode {
 
 // 链表类
 class LinkedList {
-  constructor () {
+  constructor() {
     this.count = 0
     this.head = null
   }
   // 添加节点 (尾）
-  addAtTail (value) {
+  addAtTail(value) {
     // 创建新节点
     const node = new LinkedNode(value)
     // 检测链表是否存在数据
@@ -31,7 +31,7 @@ class LinkedList {
     this.count++
   }
   // 添加节点（首）
-  addAtHead (value) {
+  addAtHead(value) {
     const node = new LinkedNode(value)
     if (this.count === 0) {
       this.head = node
@@ -43,7 +43,7 @@ class LinkedList {
     this.count++
   }
   // 获取节点（根据索引）
-  get (index) {
+  get(index) {
     if (this.count === 0 || index < 0 || index >= this.count) {
       return
     }
@@ -55,7 +55,7 @@ class LinkedList {
     return current
   }
   // 添加节点（根据索引）
-  addAtIndex (value, index) {
+  addAtIndex(value, index) {
     if (this.count === 0 || index >= this.count) {
       return
     }
@@ -74,7 +74,7 @@ class LinkedList {
     this.count++
   }
   // 删除（根据索引）
-  removeAtIndex (index) {
+  removeAtIndex(index) {
     if (this.count === 0 || index < 0 || index >= this.count) {
       return
     }
@@ -93,4 +93,3 @@ const l = new LinkedList()
 l.addAtTail('a')
 l.addAtTail('b')
 l.addAtTail('c')
-

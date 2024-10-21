@@ -1,15 +1,15 @@
 class Queue {
-  constructor () {
+  constructor() {
     // 用于存储队列数据
     this.queue = []
     this.count = 0
   }
   // 入队方法
-  enQueue (item) {
+  enQueue(item) {
     this.queue[this.count++] = item
   }
   // 出队方法
-  deQueue () {
+  deQueue() {
     if (this.isEmpty()) {
       return
     }
@@ -19,22 +19,22 @@ class Queue {
     this.count--
     return this.queue.shift()
   }
-  isEmpty () {
+  isEmpty() {
     return this.count === 0
   }
   // 获取队首元素值
-  top () {
+  top() {
     if (this.isEmpty()) {
       return
     }
     return this.queue[0]
   }
-  size () {
+  size() {
     return this.count
   }
-  clear () {
+  clear() {
     // this.queue = []
-    this.length = 0
+    this.queue.length = 0
     this.count = 0
   }
 }

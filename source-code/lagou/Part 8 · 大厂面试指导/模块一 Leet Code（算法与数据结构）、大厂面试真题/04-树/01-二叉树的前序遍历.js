@@ -30,7 +30,7 @@
   return res
 }; */
 
-const preorderTraversal = function(root) {
+const preorderTraversal = function (root) {
   const res = []
   const stk = []
   while (root || stk.length) {

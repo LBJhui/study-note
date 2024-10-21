@@ -12,7 +12,8 @@ class MinStack {
   }
   // 实现最小值功能
   min() {
-    return Math.min.apply(null, this.stack)
+    // return Math.min.apply(null, this.stack)
+    return Math.min(...this.stack)
   }
   // 出栈方法
   pop() {

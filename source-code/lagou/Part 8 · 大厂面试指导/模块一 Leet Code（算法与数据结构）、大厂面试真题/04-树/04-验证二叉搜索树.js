@@ -40,7 +40,7 @@ const helper = (root, lower, upper) => {
  * @param {TreeNode} root
  * @return {boolean}
  */
-var isValidBST = function(root) {
+var isValidBST = function (root) {
   let stk = []
   // 用于记录上一次取得的节点值，BST 中这个值应小于当前节点
   // 设置默认值为 -Infinity 避免对比较结果产生干扰
@@ -48,7 +48,7 @@ var isValidBST = function(root) {
 
   while (root || stk.length) {
     while (root) {
-      stk.push(root) 
+      stk.push(root)
       root = root.left
     }
     root = stk.pop()
@@ -61,4 +61,4 @@ var isValidBST = function(root) {
     root = root.right
   }
   return true
-};
+}

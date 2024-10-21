@@ -1,9 +1,10 @@
 /**
+ * https://leetcode.cn/problems/sliding-window-maximum/description/
  * @param {number[]} nums 传入数组
  * @param {number} k 滑动窗口宽度
- * @return {number[]} 
+ * @return {number[]}
  */
-var maxSlidingWindow = function(nums, k) {
+var maxSlidingWindow = function (nums, k) {
   if (k <= 1) {
     return nums
   }
@@ -41,4 +42,4 @@ var maxSlidingWindow = function(nums, k) {
   }
 
   return result
-};
+}

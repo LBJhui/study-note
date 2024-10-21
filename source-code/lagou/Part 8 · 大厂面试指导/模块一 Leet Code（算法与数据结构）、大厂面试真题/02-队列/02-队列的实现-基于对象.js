@@ -1,16 +1,16 @@
 class Queue {
-  constructor () {
+  constructor() {
     this.queue = {}
-    this.count = 0
+    this.rear = 0
     // 用于记录队首的键
     this.head = 0
   }
   // 入队方法
-  enQueue (item) {
-    this.queue[this.count++] = item
+  enQueue(item) {
+    this.queue[this.rear++] = item
   }
   // 出队方法
-  deQueue () {
+  deQueue() {
     if (this.isEmpty()) {
       return
     }
@@ -19,15 +19,15 @@ class Queue {
     this.head++
     return headData
   }
-  length () {
-    return this.count - this.head
+  length() {
+    return this.rear - this.head
   }
-  isEmpty () {
+  isEmpty() {
     return this.length() === 0
   }
-  clear () {
+  clear() {
     this.queue = {}
-    this.count = 0
+    this.rear = 0
     this.head = 0
   }
 }

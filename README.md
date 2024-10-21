@@ -493,31 +493,6 @@ dom.addEventListener('compositionstart', function (e) {})
 dom.addEventListener('compositionend', function (e) {})
 ```
 
-```
-# BFC 是什么？它可以解决什么问题？
-
-块级格式化上下文（Block Fromatting Context）
-浏览器在渲染过程中用于组织块级元素的一个独立渲染区域，它是一个完全独立的空间（布局环境），让空间里的子元素不会影响到外面的布局
-
-触发 BFC 的条件
-    1. body 根元素
-    2. float 值不为 none 的元素
-    3. position 的值为 absolute/fixed 的元素
-    4. display 值为 inline-block/table-cell/table-caption/grid/flex 等非默认块级显示模式的元素
-    5. overflow 的值不是 visible 的块级元素
-
-BFC 特性：
-    1. BFC 就是页面中的一个**隔离的独立容器**，容器里的标签不会影响到外部标签
-    2. 垂直方向的距离由 margin 决定，属于**同一个 BFC 内部**的两个相邻的标签外边距会发生重叠
-    3. 计算 BFC 高度时，**浮动元素也参与计算**
-
-解决问题：
-    1. 外边距合并
-    2. 浮动元素的影响
-    3. 文字环绕效果
-    4. 防止外边距穿透
-```
-
 正则匹配的贪婪模式和惰性模式有什么区别
 
 ```

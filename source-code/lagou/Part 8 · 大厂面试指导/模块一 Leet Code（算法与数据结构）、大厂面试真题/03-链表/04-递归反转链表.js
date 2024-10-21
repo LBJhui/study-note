@@ -2,7 +2,7 @@
  * @param {ListNode} head
  * @return {ListNode}
  */
-var reverseList = function(head) {
+var reverseList = function (head) {
   if (head === null || head.next === null) {
     return head
   }
@@ -13,4 +13,4 @@ var reverseList = function(head) {
   //   - 可以让最后一次（1）的 next 设置为 null
   head.next = null
   return newHead
-};
+}

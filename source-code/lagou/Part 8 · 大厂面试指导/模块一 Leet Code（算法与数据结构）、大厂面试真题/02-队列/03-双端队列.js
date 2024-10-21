@@ -1,19 +1,19 @@
 class Deque {
-  constructor () {
+  constructor() {
     this.queue = {}
-    this.count = 0
+    this.rear = 0
     this.head = 0
   }
   // 队首添加
-  addFront (item) {
+  addFront(item) {
     this.queue[--this.head] = item
   }
   // 队尾添加
-  addBack (item) {
-    this.queue[this.count++] = item
+  addBack(item) {
+    this.queue[this.rear++] = item
   }
   // 队首删除
-  removeFront () {
+  removeFront() {
     if (this.isEmpty()) {
       return
     }
@@ -22,34 +22,34 @@ class Deque {
     return headData
   }
   // 队尾删除
-  removeBack () {
+  removeBack() {
     if (this.isEmpty()) {
       return
     }
-    const backData = this.queue[this.count - 1]
-    delete this.queue[--this.count]
-    // this.count-- 与 上一步 this.count - 1 合并
+    const backData = this.queue[this.rear - 1]
+    delete this.queue[--this.rear]
+    // this.rear-- 与 上一步 this.rear - 1 合并
     return backData
   }
   // 获取队首值
-  frontTop () {
+  frontTop() {
     if (this.isEmpty()) {
       return
     }
     return this.queue[this.head]
   }
   // 获取队尾值
-  backTop () {
+  backTop() {
     if (this.isEmpty()) {
       return
     }
-    return this.queue[this.count - 1]
+    return this.queue[this.rear - 1]
   }
-  isEmpty () {
+  isEmpty() {
     return this.size() === 0
   }
-  size () {
-    return this.count - this.head
+  size() {
+    return this.rear - this.head
   }
 }
 
