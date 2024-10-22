@@ -32,27 +32,28 @@ props 可以实现父子组件通信,在 vue3 中我们可以通过 defineProps 
 
 **父组件给子组件传递数据**
 
-```
+```vue
 <Child info="我爱祖国" :money="money"></Child>
 ```
 
 **子组件获取父组件传递数据:方式 1**
 
-```
+```JavaScript
 let props = defineProps({
-  info:{
-   type:String,//接受的数据类型
-   default:'默认参数',//接受默认数据
-  },
-  money:{
-   type:Number,
-   default:0
-}})
+	info:{
+		type:String,//接受的数据类型
+		default:'默认参数',//接受默认数据
+	},
+	money:{
+		type:Number,
+		default:0
+	}
+})
 ```
 
 **子组件获取父组件传递数据:方式 2**
 
-```
+```JavaScript
 let props = defineProps(["info",'money']);
 ```
 
@@ -70,16 +71,16 @@ let props = defineProps(["info",'money']);
 
 代码如下:
 
-```
- <pre @click="handler">
+```vue
+<pre @click="handler">
       我是祖国的老花骨朵
  </pre>
 ```
 
 当前代码级给 pre 标签绑定原生 DOM 事件点击事件,默认会给事件回调注入 event 事件对象。当然点击事件想注入多个参数可以按照下图操作。但是切记注入的事件对象务必叫做$event.
 
-```
-  <div @click="handler1(1,2,3,$event)">我要传递多个参数</div>
+```vue
+<div @click="handler1(1, 2, 3, $event)">我要传递多个参数</div>
 ```
 
 在 vue3 框架 click、dbclick、change(这类原生 DOM 事件),不管是在标签、自定义标签上(组件标签)都是原生 DOM 事件。
@@ -92,13 +93,13 @@ let props = defineProps(["info",'money']);
 
 比如在父组件内部给子组件(Event2)绑定一个自定义事件
 
-```
-<Event2  @xxx="handler3"></Event2>
+```vue
+<Event2 @xxx="handler3"></Event2>
 ```
 
 在 Event2 子组件内部触发这个自定义事件
 
-```
+```vue
 <template>
   <div>
     <h1>我是子组件2</h1>
@@ -107,13 +108,12 @@ let props = defineProps(["info",'money']);
 </template>
 
 <script setup lang="ts">
-let $emit = defineEmits(["xxx"]);
+let $emit = defineEmits(['xxx'])
 const handler = () => {
-  $emit("xxx", "法拉利", "茅台");
-};
+  $emit('xxx', '法拉利', '茅台')
+}
 </script>
-<style scoped>
-</style>
+<style scoped></style>
 ```
 
 我们会发现在 script 标签内部,使用了 defineEmits 方法，此方法是 vue3 提供的方法,不需要引入直接使用。defineEmits 方法执行，传递一个数组，数组元素即为将来组件需要触发的自定义事件类型，此方执行会返回一个$emit 方法用于触发自定义事件。
@@ -122,14 +122,14 @@ const handler = () => {
 
 需要注意的是:代码如下
 
-```
-<Event2  @xxx="handler3" @click="handler"></Event2>
+```vue
+<Event2 @xxx="handler3" @click="handler"></Event2>
 ```
 
 正常说组件标签书写@click 应该为原生 DOM 事件,但是如果子组件内部通过 defineEmits 定义就变为自定义事件了
 
-```
-let $emit = defineEmits(["xxx",'click']);
+```javascript
+let $emit = defineEmits(['xxx', 'click'])
 ```
 
 ### 1.3 全局事件总线
@@ -154,13 +154,13 @@ v-model 指令可是收集表单数据(数据双向绑定)，除此之外它也�
 
 实现父子组件数据同步
 
-```
+```vue
 <Child v-model="msg"></Child>
 ```
 
 在 vue3 中一个组件可以通过使用多个 v-model,让父子组件多个数据同步,下方代码相当于给组件 Child 传递两个 props 分别是 pageNo 与 pageSize，以及绑定两个自定义事件 update:pageNo 与 update:pageSize 实现父子数据同步
 
-```
+```vue
 <Child v-model:pageNo="msg" v-model:pageSize="msg1"></Child>
 ```
 
@@ -170,16 +170,16 @@ v-model 指令可是收集表单数据(数据双向绑定)，除此之外它也�
 
 比如:在父组件内部使用一个子组件 my-button
 
-```
-<my-button type="success" size="small" title='标题' @click="handler"></my-button>
+```vue
+<my-button type="success" size="small" title="标题" @click="handler"></my-button>
 ```
 
 子组件内部可以通过 useAttrs 方法获取组件属性与事件.因此你也发现了，它类似于 props,可以接受父组件传递过来的属性与属性值。需要注意如果 defineProps 接受了某一个属性，useAttrs 方法返回的对象身上就没有相应属性与属性值。
 
-```
+```vue
 <script setup lang="ts">
-import {useAttrs} from 'vue';
-let $attrs = useAttrs();
+import { useAttrs } from 'vue'
+let $attrs = useAttrs()
 </script>
 ```
 
@@ -191,7 +191,7 @@ ref,提及到 ref 可能会想到它可以获取元素的 DOM 或者获取子组
 
 父组件内部代码:
 
-```
+```vue
 <template>
   <div>
     <h1>ref与$parent</h1>
@@ -199,35 +199,31 @@ ref,提及到 ref 可能会想到它可以获取元素的 DOM 或者获取子组
   </div>
 </template>
 <script setup lang="ts">
-import Son from "./Son.vue";
-import { onMounted, ref } from "vue";
-const son = ref();
+import Son from './Son.vue'
+import { onMounted, ref } from 'vue'
+const son = ref()
 onMounted(() => {
-  console.log(son.value);
-});
+  console.log(son.value)
+})
 </script>
 ```
 
 但是需要注意，如果想让父组件获取子组件的数据或者方法需要通过 defineExpose 对外暴露,因为 vue3 中组件内部的数据对外“关闭的”，外部不能访问
 
-```
+```vue
 <script setup lang="ts">
-import { ref } from "vue";
+import {ref} from "vue";
 //数据
 let money = ref(1000);
 //方法
-const handler = ()=>{
-}
-defineExpose({
-  money,
-   handler
-})
+const handler = ()=>{}
+defineExpose({(money, handler)})
 </script>
 ```
 
 $parent 可以获取某一个组件的父组件实例 VC,因此可以使用父组件内部的数据与方法。必须子组件内部拥有一个按钮点击时候获取父组件实例，当然父组件的数据与方法需要通过 defineExpose 方法对外暴露
 
-```
+```vue
 <button @click="handler($parent)">点击我获取父组件实例</button>
 ```
 
@@ -243,19 +239,19 @@ vue3 提供两个方法 provide 与 inject,可以实现隔辈组件传递参数
 
 provide 方法用于提供数据，此方法执需要传递两个参数,分别提供数据的 key 与提供数据 value
 
-```
+```vue
 <script setup lang="ts">
-import {provide} from 'vue'
-provide('token','admin_token');
+import { provide } from 'vue'
+provide('token', 'admin_token')
 </script>
 ```
 
 后代组件可以通过 inject 方法获取数据,通过 key 获取存储的数值
 
-```
+```vue
 <script setup lang="ts">
-import {inject} from 'vue'
-let token = inject('token');
+import { inject } from 'vue'
+let token = inject('token')
 </script>
 ```
 
@@ -273,23 +269,21 @@ pinia 也是集中式管理状态容器,类似于 vuex。但是核心概念没�
 
 在子组件内部的模板中书写 slot 全局组件标签
 
-```
+```vue
 <template>
   <div>
     <slot></slot>
   </div>
 </template>
-<script setup lang="ts">
-</script>
-<style scoped>
-</style>
+<script setup lang="ts"></script>
+<style scoped></style>
 ```
 
 在父组件内部提供结构：Todo 即为子组件,在父组件内部使用的时候，在双标签内部书写结构传递给子组件
 
 注意开发项目的时候默认插槽一般只有一个
 
-```
+```vue
 <Todo>
   <h1>我是默认插槽填充的结构</h1>
 </Todo>
@@ -301,7 +295,7 @@ pinia 也是集中式管理状态容器,类似于 vuex。但是核心概念没�
 
 下面是一个子组件内部,模板中留两个插槽
 
-```
+```vue
 <template>
   <div>
     <h1>todo</h1>
@@ -309,24 +303,24 @@ pinia 也是集中式管理状态容器,类似于 vuex。但是核心概念没�
     <slot name="b"></slot>
   </div>
 </template>
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
-<style scoped>
-</style>
+<style scoped></style>
 ```
 
 父组件内部向指定的具名插槽传递结构。需要注意 v-slot：可以替换为#
 
-```
+```vue
 <template>
   <div>
     <h1>slot</h1>
     <Todo>
-      <template v-slot:a>  //可以用#a替换
+      <template v-slot:a>
+        //可以用#a替换
         <div>填入组件A部分的结构</div>
       </template>
-      <template v-slot:b>//可以用#b替换
+      <template v-slot:b
+        >//可以用#b替换
         <div>填入组件B部分的结构</div>
       </template>
     </Todo>
@@ -334,10 +328,9 @@ pinia 也是集中式管理状态容器,类似于 vuex。但是核心概念没�
 </template>
 
 <script setup lang="ts">
-import Todo from "./Todo.vue";
+import Todo from './Todo.vue'
 </script>
-<style scoped>
-</style>
+<style scoped></style>
 ```
 
 **作用域插槽**
@@ -346,53 +339,51 @@ import Todo from "./Todo.vue";
 
 子组件 Todo 代码如下:
 
-```
+```vue
 <template>
   <div>
     <h1>todo</h1>
     <ul>
-     <!--组件内部遍历数组-->
-      <li v-for="(item,index) in todos" :key="item.id">
-         <!--作用域插槽将数据回传给父组件-->
-         <slot :$row="item" :$index="index"></slot>
+      <!--组件内部遍历数组-->
+      <li v-for="(item, index) in todos" :key="item.id">
+        <!--作用域插槽将数据回传给父组件-->
+        <slot :$row="item" :$index="index"></slot>
       </li>
     </ul>
   </div>
 </template>
 <script setup lang="ts">
-defineProps(['todos']);//接受父组件传递过来的数据
+defineProps(['todos']) //接受父组件传递过来的数据
 </script>
-<style scoped>
-</style>
+<style scoped></style>
 ```
 
 父组件内部代码如下:
 
-```
+```vue
 <template>
   <div>
     <h1>slot</h1>
     <Todo :todos="todos">
-      <template v-slot="{$row,$index}">
-         <!--父组件决定子组件的结构与外观-->
-         <span :style="{color:$row.done?'green':'red'}">{{$row.title}}</span>
+      <template v-slot="{ $row, $index }">
+        <!--父组件决定子组件的结构与外观-->
+        <span :style="{ color: $row.done ? 'green' : 'red' }">{{ $row.title }}</span>
       </template>
     </Todo>
   </div>
 </template>
 
 <script setup lang="ts">
-import Todo from "./Todo.vue";
-import { ref } from "vue";
+import Todo from './Todo.vue'
+import { ref } from 'vue'
 //父组件内部数据
 let todos = ref([
-  { id: 1, title: "吃饭", done: true },
-  { id: 2, title: "睡觉", done: false },
-  { id: 3, title: "打豆豆", done: true },
-]);
+  { id: 1, title: '吃饭', done: true },
+  { id: 2, title: '睡觉', done: false },
+  { id: 3, title: '打豆豆', done: true },
+])
 </script>
-<style scoped>
-</style>
+<style scoped></style>
 ```
 
 ## 二、搭建后台管理系统模板
@@ -416,13 +407,13 @@ let todos = ref([
 
 pnpm 安装指令
 
-```
+```shell
 npm i -g pnpm
 ```
 
 项目初始化命令:
 
-```
+```shell
 pnpm create vite
 ```
 
@@ -440,63 +431,58 @@ ESLint 最初是由[Nicholas C. Zakas](http://nczonline.net/) 于 2013 年 6 月
 
 首先安装 eslint
 
-```
+```shell
 pnpm i eslint -D
 ```
 
 生成配置文件:.eslint.cjs
 
-```
+```shell
 npx eslint --init
 ```
 
 **.eslint.cjs 配置文件**
 
-```
+```javascript
 module.exports = {
-   //运行环境
-    "env": {
-        "browser": true,//浏览器端
-        "es2021": true,//es2021
-    },
-    //规则继承
-    "extends": [
-       //全部规则默认是关闭的,这个配置项开启推荐规则,推荐规则参照文档
-       //比如:函数不能重名、对象不能出现重复key
-        "eslint:recommended",
-        //vue3语法规则
-        "plugin:vue/vue3-essential",
-        //ts语法规则
-        "plugin:@typescript-eslint/recommended"
-    ],
-    //要为特定类型的文件指定处理器
-    "overrides": [
-    ],
-    //指定解析器:解析器
-    //Esprima 默认解析器
-    //Babel-ESLint babel解析器
-    //@typescript-eslint/parser ts解析器
-    "parser": "@typescript-eslint/parser",
-    //指定解析器选项
-    "parserOptions": {
-        "ecmaVersion": "latest",//校验ECMA最新版本
-        "sourceType": "module"//设置为"script"（默认），或者"module"代码在ECMAScript模块中
-    },
-    //ESLint支持使用第三方插件。在使用插件之前，您必须使用npm安装它
-    //该eslint-plugin-前缀可以从插件名称被省略
-    "plugins": [
-        "vue",
-        "@typescript-eslint"
-    ],
-    //eslint规则
-    "rules": {
-    }
+  //运行环境
+  env: {
+    browser: true, //浏览器端
+    es2021: true, //es2021
+  },
+  //规则继承
+  extends: [
+    //全部规则默认是关闭的,这个配置项开启推荐规则,推荐规则参照文档
+    //比如:函数不能重名、对象不能出现重复key
+    'eslint:recommended',
+    //vue3语法规则
+    'plugin:vue/vue3-essential',
+    //ts语法规则
+    'plugin:@typescript-eslint/recommended',
+  ],
+  //要为特定类型的文件指定处理器
+  overrides: [],
+  //指定解析器:解析器
+  //Esprima 默认解析器
+  //Babel-ESLint babel解析器
+  //@typescript-eslint/parser ts解析器
+  parser: '@typescript-eslint/parser',
+  //指定解析器选项
+  parserOptions: {
+    ecmaVersion: 'latest', //校验ECMA最新版本
+    sourceType: 'module', //设置为"script"（默认），或者"module"代码在ECMAScript模块中
+  },
+  //ESLint支持使用第三方插件。在使用插件之前，您必须使用npm安装它
+  //该eslint-plugin-前缀可以从插件名称被省略
+  plugins: ['vue', '@typescript-eslint'],
+  //eslint规则
+  rules: {},
 }
 ```
 
 ##### 1.1vue3 环境代码校验插件
 
-```
+```json
 # 让所有与prettier规则存在冲突的Eslint rules失效，并使用prettier进行代码检查
 "eslint-config-prettier": "^8.6.0",
 "eslint-plugin-import": "^2.27.5",
@@ -511,13 +497,13 @@ module.exports = {
 
 安装指令
 
-```
+```shell
 pnpm install -D eslint-plugin-import eslint-plugin-vue eslint-plugin-node eslint-plugin-prettier eslint-config-prettier eslint-plugin-node @babel/eslint-parser
 ```
 
 ##### 1.2 修改.eslintrc.cjs 配置文件
 
-```
+```javascript
 // @see https://eslint.bootcss.com/docs/rules/
 
 module.exports = {
@@ -540,12 +526,7 @@ module.exports = {
     },
   },
   /* 继承已有的规则 */
-  extends: [
-    'eslint:recommended',
-    'plugin:vue/vue3-essential',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended',
-  ],
+  extends: ['eslint:recommended', 'plugin:vue/vue3-essential', 'plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended'],
   plugins: ['vue', '@typescript-eslint'],
   /*
    * "off" 或 0    ==>  关闭规则
@@ -576,12 +557,11 @@ module.exports = {
     'vue/attribute-hyphenation': 'off', // 对模板中的自定义组件强制执行属性命名样式
   },
 }
-
 ```
 
 ##### 1.3.eslintignore 忽略文件
 
-```
+```.eslintignore
 dist
 node_modules
 ```
@@ -590,7 +570,7 @@ node_modules
 
 package.json 新增两个运行脚本
 
-```
+```json
 "scripts": {
     "lint": "eslint src",
     "fix": "eslint src --fix",
@@ -609,13 +589,13 @@ package.json 新增两个运行脚本
 
 ##### 2.1 安装依赖包
 
-```
+```shell
 pnpm install -D eslint-plugin-prettier prettier eslint-config-prettier
 ```
 
 ##### 2.2.prettierrc.json 添加规则
 
-```
+```json
 {
   "singleQuote": true,
   "semi": false,
@@ -647,7 +627,7 @@ pnpm install -D eslint-plugin-prettier prettier eslint-config-prettier
 
 我们的项目中使用 scss 作为预处理器，安装以下依赖：
 
-```
+```shell
 pnpm add sass sass-loader stylelint postcss postcss-scss postcss-html stylelint-config-prettier stylelint-config-recess-order stylelint-config-recommended-scss stylelint-config-standard stylelint-config-standard-vue stylelint-scss stylelint-order stylelint-config-standard-scss -D
 ```
 
@@ -655,7 +635,7 @@ pnpm add sass sass-loader stylelint postcss postcss-scss postcss-html stylelint-
 
 **官网:https://stylelint.bootcss.com/**
 
-```
+```javascript
 // @see https://stylelint.bootcss.com/
 
 module.exports = {
@@ -677,15 +657,7 @@ module.exports = {
       customSyntax: 'postcss-html',
     },
   ],
-  ignoreFiles: [
-    '**/*.js',
-    '**/*.jsx',
-    '**/*.tsx',
-    '**/*.ts',
-    '**/*.json',
-    '**/*.md',
-    '**/*.yaml',
-  ],
+  ignoreFiles: ['**/*.js', '**/*.jsx', '**/*.tsx', '**/*.ts', '**/*.json', '**/*.md', '**/*.yaml'],
   /**
    * null  => 关闭该规则
    * always => 必须
@@ -722,7 +694,7 @@ module.exports = {
 
 ##### 3.3 运行脚本
 
-```
+```json
 "scripts": {
 	"lint:style": "stylelint src/**/*.{css,scss,vue} --cache --fix"
 }
@@ -730,7 +702,7 @@ module.exports = {
 
 最后配置统一的 prettier 来格式化我们的 js 和 css，html 代码
 
-```
+```json
  "scripts": {
     "dev": "vite --open",
     "build": "vue-tsc && vite build",
@@ -753,13 +725,13 @@ module.exports = {
 
 安装`husky`
 
-```
+```shell
 pnpm install -D husky
 ```
 
 执行
 
-```
+```shell
 npx husky-init
 ```
 
@@ -781,33 +753,18 @@ pnpm run format
 
 安装包
 
-```
+```shell
 pnpm add @commitlint/config-conventional @commitlint/cli -D
 ```
 
 添加配置文件，新建`commitlint.config.cjs`(注意是 cjs)，然后添加下面的代码：
 
-```
+```javascript
 module.exports = {
   extends: ['@commitlint/config-conventional'],
   // 校验规则
   rules: {
-    'type-enum': [
-      2,
-      'always',
-      [
-        'feat',
-        'fix',
-        'docs',
-        'style',
-        'refactor',
-        'perf',
-        'test',
-        'chore',
-        'revert',
-        'build',
-      ],
-    ],
+    'type-enum': [2, 'always', ['feat', 'fix', 'docs', 'style', 'refactor', 'perf', 'test', 'chore', 'revert', 'build']],
     'type-case': [0],
     'type-empty': [0],
     'scope-empty': [0],
@@ -821,7 +778,7 @@ module.exports = {
 
 在`package.json`中配置 scripts 命令
 
-```
+```json
 # 在scrips中添加下面的代码
 {
 "scripts": {
@@ -847,7 +804,7 @@ module.exports = {
 
 配置 husky
 
-```
+```shell
 npx husky add .husky/commit-msg
 ```
 
@@ -869,19 +826,16 @@ pnpm commitlint
 
 在根目录创建`scritps/preinstall.js`文件，添加下面的内容
 
-```
+```javascript
 if (!/pnpm/.test(process.env.npm_execpath || '')) {
-  console.warn(
-    `\u001b[33mThis repository must using pnpm as the package manager ` +
-    ` for scripts to work properly.\u001b[39m\n`,
-  )
+  console.warn(`\u001b[33mThis repository must using pnpm as the package manager ` + ` for scripts to work properly.\u001b[39m\n`)
   process.exit(1)
 }
 ```
 
 配置命令
 
-```
+```json
 "scripts": {
 	"preinstall": "node ./scripts/preinstall.js"
 }
@@ -897,25 +851,25 @@ if (!/pnpm/.test(process.env.npm_execpath || '')) {
 
 官网地址:https://element-plus.gitee.io/zh-CN/
 
-```
+```shell
 pnpm install element-plus @element-plus/icons-vue
 ```
 
 **入口文件 main.ts 全局安装 element-plus,element-plus 默认支持语言英语设置为中文**
 
-```
-import ElementPlus from 'element-plus';
+```typescript
+import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 //@ts-ignore忽略当前文件ts类型的检测否则有红色提示(打包会失败)
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 app.use(ElementPlus, {
-    locale: zhCn
+  locale: zhCn,
 })
 ```
 
 **Element Plus 全局组件类型声明**
 
-```
+```json
 // tsconfig.json
 {
   "compilerOptions": {
@@ -927,33 +881,34 @@ app.use(ElementPlus, {
 
 配置完毕可以测试 element-plus 组件与图标的使用.
 
-### 3.2src 别名的配置
+### 3.2 src 别名的配置
 
 在开发项目的时候文件与文件关系可能很复杂，因此我们需要给 src 文件夹配置一个别名！！！
 
-```
+```typescript
 // vite.config.ts
-import {defineConfig} from 'vite'
+import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
 export default defineConfig({
-    plugins: [vue()],
-    resolve: {
-        alias: {
-            "@": path.resolve("./src") // 相对路径别名配置，使用 @ 代替 src
-        }
-    }
+  plugins: [vue()],
+  resolve: {
+    alias: {
+      '@': path.resolve('./src'), // 相对路径别名配置，使用 @ 代替 src
+    },
+  },
 })
 ```
 
 **TypeScript 编译配置**
 
-```
+```json
 // tsconfig.json
 {
   "compilerOptions": {
     "baseUrl": "./", // 解析非相对模块的基地址，默认是当前目录
-    "paths": { //路径映射，相对于baseUrl
+    "paths": {
+      //路径映射，相对于baseUrl
       "@/*": ["src/*"]
     }
   }
@@ -1007,7 +962,7 @@ VITE_APP_BASE_API = '/test-api'
 
 配置运行命令：package.json
 
-```
+```json
  "scripts": {
     "dev": "vite --open",
     "build:test": "vue-tsc && vite build --mode test",
@@ -1018,7 +973,7 @@ VITE_APP_BASE_API = '/test-api'
 
 通过 import.meta.env 获取环境变量
 
-### 3.4SVG 图标配置
+### 3.4 SVG 图标配置
 
 在开发项目的时候经常会用到 svg 矢量图,而且我们使用 SVG 以后，页面上加载的不再是图片资源,
 
@@ -1026,13 +981,13 @@ VITE_APP_BASE_API = '/test-api'
 
 **安装 SVG 依赖插件**
 
-```
+```shell
 pnpm install vite-plugin-svg-icons -D
 ```
 
 **在`vite.config.ts`中配置插件**
 
-```
+```typescript
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import path from 'path'
 export default () => {
@@ -1061,7 +1016,7 @@ import 'virtual:svg-icons-register'
 
 **在 src/components 目录下创建一个 SvgIcon 组件:代表如下**
 
-```
+```vue
 <template>
   <div>
     <svg :style="{ width: width, height: height }">
@@ -1075,26 +1030,25 @@ defineProps({
   //xlink:href属性值的前缀
   prefix: {
     type: String,
-    default: '#icon-'
+    default: '#icon-',
   },
   //svg矢量图的名字
   name: String,
   //svg图标的颜色
   color: {
     type: String,
-    default: ""
+    default: '',
   },
   //svg宽度
   width: {
     type: String,
-    default: '16px'
+    default: '16px',
   },
   //svg高度
   height: {
     type: String,
-    default: '16px'
-  }
-
+    default: '16px',
+  },
 })
 </script>
 <style scoped></style>
@@ -1102,31 +1056,31 @@ defineProps({
 
 在 src 文件夹目录下创建一个 index.ts 文件：用于注册 components 文件夹内部全部全局组件！！！
 
-```
-import SvgIcon from './SvgIcon/index.vue';
-import type { App, Component } from 'vue';
-const components: { [name: string]: Component } = { SvgIcon };
+```typescript
+import SvgIcon from './SvgIcon/index.vue'
+import type { App, Component } from 'vue'
+const components: { [name: string]: Component } = { SvgIcon }
 export default {
-    install(app: App) {
-        Object.keys(components).forEach((key: string) => {
-            app.component(key, components[key]);
-        })
-    }
+  install(app: App) {
+    Object.keys(components).forEach((key: string) => {
+      app.component(key, components[key])
+    })
+  },
 }
 ```
 
 在入口文件引入 src/index.ts 文件,通过 app.use 方法安装自定义插件
 
-```
-import gloablComponent from './components/index';
-app.use(gloablComponent);
+```typescript
+import gloablComponent from './components/index'
+app.use(gloablComponent)
 ```
 
 ### 3.5 集成 sass
 
 我们目前在组件内部已经可以使用 scss 样式,因为在配置 styleLint 工具的时候，项目当中已经安装过 sass sass-loader,因此我们再组件内可以使用 scss 语法！！！需要加上 lang="scss"
 
-```
+```vue
 <style scoped lang="scss"></style>
 ```
 
@@ -1150,7 +1104,7 @@ import '@/styles'
 
 在 vite.config.ts 文件配置如下:
 
-```
+```typescript
 export default defineConfig((config) => {
 	css: {
       preprocessorOptions: {
@@ -1168,21 +1122,21 @@ export default defineConfig((config) => {
 
 配置完毕你会发现 scss 提供这些全局变量可以在组件样式中使用了！！！
 
-### 3.6mock 数据
+### 3.6 mock 数据
 
 安装依赖:https://www.npmjs.com/package/vite-plugin-mock
 
-```
+```shell
 pnpm install -D vite-plugin-mock mockjs
 ```
 
 在 vite.config.js 配置文件启用插件。
 
-```
+```typescript
 import { UserConfigExport, ConfigEnv } from 'vite'
 import { viteMockServe } from 'vite-plugin-mock'
 import vue from '@vitejs/plugin-vue'
-export default ({ command })=> {
+export default ({ command }) => {
   return {
     plugins: [
       vue(),
@@ -1198,87 +1152,83 @@ export default ({ command })=> {
 
 在 mock 文件夹内部创建一个 user.ts 文件
 
-```
+```typescript
 //用户信息数据
 function createUserList() {
-    return [
-        {
-            userId: 1,
-            avatar:
-                'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-            username: 'admin',
-            password: '111111',
-            desc: '平台管理员',
-            roles: ['平台管理员'],
-            buttons: ['cuser.detail'],
-            routes: ['home'],
-            token: 'Admin Token',
-        },
-        {
-            userId: 2,
-            avatar:
-                'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-            username: 'system',
-            password: '111111',
-            desc: '系统管理员',
-            roles: ['系统管理员'],
-            buttons: ['cuser.detail', 'cuser.user'],
-            routes: ['home'],
-            token: 'System Token',
-        },
-    ]
+  return [
+    {
+      userId: 1,
+      avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
+      username: 'admin',
+      password: '111111',
+      desc: '平台管理员',
+      roles: ['平台管理员'],
+      buttons: ['cuser.detail'],
+      routes: ['home'],
+      token: 'Admin Token',
+    },
+    {
+      userId: 2,
+      avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
+      username: 'system',
+      password: '111111',
+      desc: '系统管理员',
+      roles: ['系统管理员'],
+      buttons: ['cuser.detail', 'cuser.user'],
+      routes: ['home'],
+      token: 'System Token',
+    },
+  ]
 }
 
 export default [
-    // 用户登录接口
-    {
-        url: '/api/user/login',//请求地址
-        method: 'post',//请求方式
-        response: ({ body }) => {
-            //获取请求体携带过来的用户名与密码
-            const { username, password } = body;
-            //调用获取用户信息函数,用于判断是否有此用户
-            const checkUser = createUserList().find(
-                (item) => item.username === username && item.password === password,
-            )
-            //没有用户返回失败信息
-            if (!checkUser) {
-                return { code: 201, data: { message: '账号或者密码不正确' } }
-            }
-            //如果有返回成功信息
-            const { token } = checkUser
-            return { code: 200, data: { token } }
-        },
+  // 用户登录接口
+  {
+    url: '/api/user/login', //请求地址
+    method: 'post', //请求方式
+    response: ({ body }) => {
+      //获取请求体携带过来的用户名与密码
+      const { username, password } = body
+      //调用获取用户信息函数,用于判断是否有此用户
+      const checkUser = createUserList().find((item) => item.username === username && item.password === password)
+      //没有用户返回失败信息
+      if (!checkUser) {
+        return { code: 201, data: { message: '账号或者密码不正确' } }
+      }
+      //如果有返回成功信息
+      const { token } = checkUser
+      return { code: 200, data: { token } }
     },
-    // 获取用户信息
-    {
-        url: '/api/user/info',
-        method: 'get',
-        response: (request) => {
-            //获取请求头携带token
-            const token = request.headers.token;
-            //查看用户信息是否包含有次token用户
-            const checkUser = createUserList().find((item) => item.token === token)
-            //没有返回失败的信息
-            if (!checkUser) {
-                return { code: 201, data: { message: '获取用户信息失败' } }
-            }
-            //如果有返回成功信息
-            return { code: 200, data: {checkUser} }
-        },
+  },
+  // 获取用户信息
+  {
+    url: '/api/user/info',
+    method: 'get',
+    response: (request) => {
+      //获取请求头携带token
+      const token = request.headers.token
+      //查看用户信息是否包含有次token用户
+      const checkUser = createUserList().find((item) => item.token === token)
+      //没有返回失败的信息
+      if (!checkUser) {
+        return { code: 201, data: { message: '获取用户信息失败' } }
+      }
+      //如果有返回成功信息
+      return { code: 200, data: { checkUser } }
     },
+  },
 ]
 ```
 
 **安装 axios**
 
-```
+```shell
 pnpm install axios
 ```
 
 最后通过 axios 测试接口！！！
 
-### 3.7axios 二次封装
+### 3.7 axios 二次封装
 
 在开发项目的时候避免不了与后端进行交互,因此我们需要使用 axios 插件实现发送网络请求。在开发项目的时候
 
@@ -1292,52 +1242,54 @@ pnpm install axios
 
 在根目录下创建 utils/request.ts
 
-```
-import axios from "axios";
-import { ElMessage } from "element-plus";
+```typescript
+import axios from 'axios'
+import { ElMessage } from 'element-plus'
 //创建axios实例
 let request = axios.create({
-    baseURL: import.meta.env.VITE_APP_BASE_API,
-    timeout: 5000
+  baseURL: import.meta.env.VITE_APP_BASE_API,
+  timeout: 5000,
 })
 //请求拦截器
-request.interceptors.request.use(config => {
-    return config;
-});
+request.interceptors.request.use((config) => {
+  return config
+})
 //响应拦截器
-request.interceptors.response.use((response) => {
-    return response.data;
-}, (error) => {
+request.interceptors.response.use(
+  (response) => {
+    return response.data
+  },
+  (error) => {
     //处理网络错误
-    let msg = '';
-    let status = error.response.status;
+    let msg = ''
+    let status = error.response.status
     switch (status) {
-        case 401:
-            msg = "token过期";
-            break;
-        case 403:
-            msg = '无权访问';
-            break;
-        case 404:
-            msg = "请求地址错误";
-            break;
-        case 500:
-            msg = "服务器出现问题";
-            break;
-        default:
-            msg = "无网络";
-
+      case 401:
+        msg = 'token过期'
+        break
+      case 403:
+        msg = '无权访问'
+        break
+      case 404:
+        msg = '请求地址错误'
+        break
+      case 500:
+        msg = '服务器出现问题'
+        break
+      default:
+        msg = '无网络'
     }
     ElMessage({
-        type: 'error',
-        message: msg
+      type: 'error',
+      message: msg,
     })
-    return Promise.reject(error);
-});
-export default request;
+    return Promise.reject(error)
+  }
+)
+export default request
 ```
 
-### 3.8API 接口统一管理
+### 3.8 API 接口统一管理
 
 在开发项目的时候,接口可能很多需要统一管理。在 src 目录下去创建 api 文件夹去统一管理项目的接口；
 

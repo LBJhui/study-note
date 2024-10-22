@@ -1334,17 +1334,14 @@ css 动画只支持数值类的属性
 Houdini @property
 
 CSS 剪切函数 clip-path
+background-clip
 ```
 
 改变 webkit 表单输入框 placeholder 的颜色值：input::-webkit-input-placehold
 
 去掉 ios 系统中元素被触摸时产生的半透明灰色遮罩：tip-highlight-color:rgba(0,0,0,0)
 
-background-clip
-
 http accept-lang/navigator.lang
-
-margin-inline-start
 
 git 忽略文件名大小写 git config core.ignorecase false
 
@@ -1406,6 +1403,7 @@ writing-mode、
 margin-block-start、
 margin-block-end、
 text-combine-upright
+margin-inline-start
 ```
 
 包含块
