@@ -1,30 +1,25 @@
-<script setup lang="ts">
-</script>
-
 <template>
   <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+    111
+    <svg-icon name="phone" color="red" width="100px" height="100px"></svg-icon>
   </div>
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
+<script setup lang="ts">
+import request from '@/utils/request'
 
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
+request({
+  url: '/user/login',
+  method: 'post',
+  data: {
+    username: 'admin',
+    password: '111111',
+  },
+})
+</script>
 
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+<style scoped lang="scss">
+div {
+  color: $color;
 }
 </style>

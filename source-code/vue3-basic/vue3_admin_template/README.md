@@ -171,7 +171,12 @@ v-model 指令可是收集表单数据(数据双向绑定)，除此之外它也�
 比如:在父组件内部使用一个子组件 my-button
 
 ```vue
-<my-button type="success" size="small" title="标题" @click="handler"></my-button>
+<my-button
+  type="success"
+  size="small"
+  title="标题"
+  @click="handler"
+></my-button>
 ```
 
 子组件内部可以通过 useAttrs 方法获取组件属性与事件.因此你也发现了，它类似于 props,可以接受父组件传递过来的属性与属性值。需要注意如果 defineProps 接受了某一个属性，useAttrs 方法返回的对象身上就没有相应属性与属性值。
@@ -319,8 +324,8 @@ pinia 也是集中式管理状态容器,类似于 vuex。但是核心概念没�
         //可以用#a替换
         <div>填入组件A部分的结构</div>
       </template>
-      <template v-slot:b
-        >//可以用#b替换
+      <template v-slot:b>
+        //可以用#b替换
         <div>填入组件B部分的结构</div>
       </template>
     </Todo>
@@ -367,7 +372,9 @@ defineProps(['todos']) //接受父组件传递过来的数据
     <Todo :todos="todos">
       <template v-slot="{ $row, $index }">
         <!--父组件决定子组件的结构与外观-->
-        <span :style="{ color: $row.done ? 'green' : 'red' }">{{ $row.title }}</span>
+        <span :style="{ color: $row.done ? 'green' : 'red' }">
+          {{ $row.title }}
+        </span>
       </template>
     </Todo>
   </div>
@@ -498,7 +505,7 @@ module.exports = {
 安装指令
 
 ```shell
-pnpm install -D eslint-plugin-import eslint-plugin-vue eslint-plugin-node eslint-plugin-prettier eslint-config-prettier eslint-plugin-node @babel/eslint-parser
+pnpm add -D eslint-plugin-import eslint-plugin-vue eslint-plugin-node eslint-plugin-prettier eslint-config-prettier eslint-plugin-node @babel/eslint-parser
 ```
 
 ##### 1.2 修改.eslintrc.cjs 配置文件
@@ -526,7 +533,12 @@ module.exports = {
     },
   },
   /* 继承已有的规则 */
-  extends: ['eslint:recommended', 'plugin:vue/vue3-essential', 'plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended'],
+  extends: [
+    'eslint:recommended',
+    'plugin:vue/vue3-essential',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended',
+  ],
   plugins: ['vue', '@typescript-eslint'],
   /*
    * "off" 或 0    ==>  关闭规则
@@ -537,8 +549,8 @@ module.exports = {
     // eslint（https://eslint.bootcss.com/docs/rules/）
     'no-var': 'error', // 要求使用 let 或 const 而不是 var
     'no-multiple-empty-lines': ['warn', { max: 1 }], // 不允许多个空行
-    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-console': process.env.MODE === 'production' ? 'error' : 'off',
+    'no-debugger': process.env.MODE === 'production' ? 'error' : 'off',
     'no-unexpected-multiline': 'error', // 禁止空余的多行
     'no-useless-escape': 'off', // 禁止不必要的转义字符
 
@@ -590,10 +602,10 @@ package.json 新增两个运行脚本
 ##### 2.1 安装依赖包
 
 ```shell
-pnpm install -D eslint-plugin-prettier prettier eslint-config-prettier
+pnpm add -D eslint-plugin-prettier prettier eslint-config-prettier
 ```
 
-##### 2.2.prettierrc.json 添加规则
+##### 2.2 .prettierrc.json 添加规则
 
 ```json
 {
@@ -607,7 +619,7 @@ pnpm install -D eslint-plugin-prettier prettier eslint-config-prettier
 }
 ```
 
-##### 2.3.prettierignore 忽略文件
+##### 2.3 .prettierignore 忽略文件
 
 ```
 /dist/*
@@ -657,7 +669,15 @@ module.exports = {
       customSyntax: 'postcss-html',
     },
   ],
-  ignoreFiles: ['**/*.js', '**/*.jsx', '**/*.tsx', '**/*.ts', '**/*.json', '**/*.md', '**/*.yaml'],
+  ignoreFiles: [
+    '**/*.js',
+    '**/*.jsx',
+    '**/*.tsx',
+    '**/*.ts',
+    '**/*.json',
+    '**/*.md',
+    '**/*.yaml',
+  ],
   /**
    * null  => 关闭该规则
    * always => 必须
@@ -726,7 +746,7 @@ module.exports = {
 安装`husky`
 
 ```shell
-pnpm install -D husky
+pnpm add -D husky
 ```
 
 执行
@@ -764,7 +784,22 @@ module.exports = {
   extends: ['@commitlint/config-conventional'],
   // 校验规则
   rules: {
-    'type-enum': [2, 'always', ['feat', 'fix', 'docs', 'style', 'refactor', 'perf', 'test', 'chore', 'revert', 'build']],
+    'type-enum': [
+      2,
+      'always',
+      [
+        'feat',
+        'fix',
+        'docs',
+        'style',
+        'refactor',
+        'perf',
+        'test',
+        'chore',
+        'revert',
+        'build',
+      ],
+    ],
     'type-case': [0],
     'type-empty': [0],
     'scope-empty': [0],
@@ -828,7 +863,10 @@ pnpm commitlint
 
 ```javascript
 if (!/pnpm/.test(process.env.npm_execpath || '')) {
-  console.warn(`\u001b[33mThis repository must using pnpm as the package manager ` + ` for scripts to work properly.\u001b[39m\n`)
+  console.warn(
+    `\u001b[33mThis repository must using pnpm as the package manager ` +
+      ` for scripts to work properly.\u001b[39m\n`,
+  )
   process.exit(1)
 }
 ```
@@ -852,7 +890,7 @@ if (!/pnpm/.test(process.env.npm_execpath || '')) {
 官网地址:https://element-plus.gitee.io/zh-CN/
 
 ```shell
-pnpm install element-plus @element-plus/icons-vue
+pnpm add element-plus @element-plus/icons-vue
 ```
 
 **入口文件 main.ts 全局安装 element-plus,element-plus 默认支持语言英语设置为中文**
@@ -982,7 +1020,7 @@ VITE_APP_BASE_API = '/test-api'
 **安装 SVG 依赖插件**
 
 ```shell
-pnpm install vite-plugin-svg-icons -D
+pnpm add vite-plugin-svg-icons -D
 ```
 
 **在`vite.config.ts`中配置插件**
@@ -1127,7 +1165,7 @@ export default defineConfig((config) => {
 安装依赖:https://www.npmjs.com/package/vite-plugin-mock
 
 ```shell
-pnpm install -D vite-plugin-mock mockjs
+pnpm add -D vite-plugin-mock mockjs
 ```
 
 在 vite.config.js 配置文件启用插件。
@@ -1158,7 +1196,8 @@ function createUserList() {
   return [
     {
       userId: 1,
-      avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
+      avatar:
+        'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
       username: 'admin',
       password: '111111',
       desc: '平台管理员',
@@ -1169,7 +1208,8 @@ function createUserList() {
     },
     {
       userId: 2,
-      avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
+      avatar:
+        'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
       username: 'system',
       password: '111111',
       desc: '系统管理员',
@@ -1190,7 +1230,9 @@ export default [
       //获取请求体携带过来的用户名与密码
       const { username, password } = body
       //调用获取用户信息函数,用于判断是否有此用户
-      const checkUser = createUserList().find((item) => item.username === username && item.password === password)
+      const checkUser = createUserList().find(
+        (item) => item.username === username && item.password === password,
+      )
       //没有用户返回失败信息
       if (!checkUser) {
         return { code: 201, data: { message: '账号或者密码不正确' } }
@@ -1284,7 +1326,7 @@ request.interceptors.response.use(
       message: msg,
     })
     return Promise.reject(error)
-  }
+  },
 )
 export default request
 ```
