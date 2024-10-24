@@ -1370,8 +1370,8 @@ conic-gradient
   "
 />
 
-原始尺寸=样式尺寸*缩放倍率 元素尺寸： - clientWidth：content + padding - offsetWidth：content + padding + scroll(滚动条) + border - scrollWidth：visible + invisible - 可见尺寸
-getBoundingClientRect() dom.style.width DOM树 getComputedStyle(dom).width CSSOM树 layout tree 布局树 几何信息
+原始尺寸=样式尺寸*缩放倍率 元素尺寸： - clientWidth：content + padding - offsetWidth：content + padding + scroll(滚动条) + border - scrollWidth：visible + invisible - 可见尺寸 getBoundingClientRect()
+dom.style.width DOM树 getComputedStyle(dom).width CSSOM树 layout tree 布局树 几何信息
 ```
 
 preventDefault、stopPropagation

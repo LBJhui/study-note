@@ -1,25 +1,7 @@
 <template>
-  <div>
-    111
-    <svg-icon name="phone" color="red" width="100px" height="100px"></svg-icon>
-  </div>
+  <router-view></router-view>
 </template>
 
-<script setup lang="ts">
-import request from '@/utils/request'
+<script setup lang="ts"></script>
 
-request({
-  url: '/user/login',
-  method: 'post',
-  data: {
-    username: 'admin',
-    password: '111111',
-  },
-})
-</script>
-
-<style scoped lang="scss">
-div {
-  color: $color;
-}
-</style>
+<style scoped lang="scss"></style>
