@@ -1,4 +1,17 @@
+```
+拖拽API
+<div draggable="true></div>
+
+
+dragstart
+e.dataTransfer.effect = 'move'
+dragend
+dragenter
+```
+
 ESModule 的工作原理
+
+transform 从右到左
 
 ```js
 const o = (function () {

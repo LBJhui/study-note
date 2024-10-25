@@ -41,7 +41,7 @@ let $route = useRoute()
 //定义变量控制按钮加载效果
 let loading = ref(false)
 //收集账号与密码的数据
-let loginForm = reactive({ username: 'admin', password: '111111' })
+let loginForm = reactive({ username: 'admin', password: 'atguigu123' })
 //登录按钮回调
 const login = async () => {
   //保证全部表单相校验通过再发请求
@@ -65,14 +65,16 @@ const login = async () => {
       message: '欢迎回来',
       title: `HI,${getTime()}好`,
     })
+    //登录成功加载效果也消失
+    loading.value = false
   } catch (error) {
+    //登录失败加载效果消息
+    loading.value = false
     //登录失败的提示信息
     ElNotification({
       type: 'error',
       message: (error as Error).message,
     })
-  } finally {
-    loading.value = false
   }
 }
 //自定义校验规则函数
