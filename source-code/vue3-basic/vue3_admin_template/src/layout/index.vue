@@ -53,6 +53,7 @@ export default {
   name: 'Layout',
 }
 </script>
+
 <style scoped lang="scss">
 .layout_container {
   width: 100%;

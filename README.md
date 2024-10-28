@@ -1,4 +1,414 @@
+```js
+// 数组扁平化
+Array.prototype.customFlatten = function () {
+  // 转化结果
+  let flat = []
+  for (let item of this) {
+    if (Array.isArray(item)) {
+      flat = flat.concat(item.customFlatten())
+    } else {
+      flat.push(item)
+    }
+  }
+  return flat
+}
 ```
+
+```js
+Object 的 key 是字符串， Map 的 key 没有限制
+[NaN].includes(NaN) // true
+[NaN].indexOf(NaN) // -1
+isNaN(NaN) // true
+isNaN(1) // false
+isNaN('1') // false
+isNaN('x') // true
+
+Number(undefined) // NaN
+Number('   123    ') // 123
+Number('12 3') // NaN (only whitespace from the start and end are removed)
+NaN ** 0 // 1
+isNaN('this is a string not a NaN value') // true
+Number.isNaN('this is a string not a NaN value') // false
+
+
+// NaN 和 Number.isNaN 有什么区别 Not a Number
+console.log(NaN===NaN) // false
+console.log(Number.isNaN(NaN)) // true
+console.log(Number.isNaN('42')) // false
+console.log(Number.isNaN('NaN')) // false
+console.log(isNaN(NaN)) // true
+console.log(isNaN(42)) // false
+console.log(isNaN('NaN')) // true
+
+/**
+ * NaN 与任何值相加结果都为 NaN
+ * NaN 与任何值相等结果都为 false
+ *
+ * isNaN() 先尝试转换为数字，若无法转换为数字，则返回 true，否则返回 false
+ * Number.isNaN 直接检查一个值是否是 NaN
+ */
+
+
+console.log(isNaN('0yd'))
+console.log(isNaN('0xd'))
+console.log(NaN===NaN)
+console.log(Number.isNaN('0yd'))
+console.log(Number.isNaN('0xd'))
+```
+
+```js
+Object.freeze(obj)
+let person = {
+  a: '1',
+  b: '2',
+}
+Object.freeze(person)
+person.a = '3'
+console.log(person) // {a: '1', b: '2'}
+person = {
+  c: '3',
+}
+console.log(person) // {c: '3'}
+
+/**
+ * Object.freeze() 返回的是一个不可变的对象。这就意味着我们不能添加，删除或更改对象的任何属性
+ * const 和 Object.freeze 并不同，const 是防止变量重新分配，而 Object.freeze 是使对象具有不可变性
+ *
+ * Object.freeze 只能冻结当前对象
+ *  Object.freeze 仅能冻结对象的当前层级属性，换而言之，如果对象的某个属性本身也是一个对象，那么这个内部对象并不会被 Object.freeze 冻结
+ */
+
+// 深冻结
+function deepFreeze(obj) {
+  var propNames = Object.getOwnPropertyNames(obj)
+  propNames.forEach((name) => {
+    var prop = obj[name]
+    if (typeof prop == 'object' && prop !== null) deepFreeze(prop)
+  })
+  return Object.freeze(obj)
+}
+```
+
+```css
+/* 磨砂玻璃效果 */
+backdrop-filter: blur(10px);
+```
+
+```js
+// 访问器成员
+function Product(name, unitPrice, chooseNumber) {
+  this.name = name
+  this.unitPrice = unitPrice
+  this.chooseNumber = chooseNumber
+  // ES5
+  Object.defineProperty(this, 'totalPrice', {
+    get() {
+      return this.unitPrice * this.chooseNumber
+    },
+  })
+  // ES6
+  get totalPrice() {
+    return this.unitPrice * this.chooseNumber
+  }
+}
+```
+
+```js
+// 使用代理拦截动态属性
+function createProxy(values = []) {
+  return new Proxy(
+    {},
+    {
+      get(target, p) {
+        if (p === Symbol.toPrimitive) {
+          return () => values.reduce((a, b) => a + b, 0)
+        }
+        return createProxy([...values, +p])
+      },
+    }
+  )
+}
+
+const add = createProxy()
+add + 4 // 期望结果 4
+const r1 = add[1][2][3] + 4 // 期望结果 10
+const r2 = add[10][20] + 30 // 期望结果 60
+const r3 = add[100][200][300] + 400 // 期望结果 1000
+
+// 链式调用
+function chain(value){
+  const handler={
+    get:function(obj,prop){
+      if(prop==='end'){
+        return obj.value
+      }
+      if(typedof window[prop]==='function'){
+        obj.value = window[prop](obj.value)
+        return proxy
+      }
+      return obj[prop]
+    }
+  }
+  const proxy = new Proxy({ value }, handler)
+  return proxy
+}
+```
+
+```js
+// 循环转递归
+// 实现一个求和函数，不能使用循环，不能使用数组方法
+function sum(arr, i = 0) {
+  if (i >= arr.length) {
+    return 0
+  }
+  return arr[i] + sum(arr, i + 1)
+}
+
+function demo1() {
+  // 前面的代码
+  for (初始代码; 条件; 后置代码) {
+    // 循环体
+  }
+  // 后面的代码
+}
+
+function demo2() {
+  // 前面的代码
+  初始代码
+  function _m() {
+    if (!条件) {
+      return
+    }
+    // 循环体
+    后置代码
+    _m()
+  }
+  _m()
+  // 后面的代码
+}
+
+function demo1(arr) {
+  let sum = 0
+  for (let i = 0; i < arr.length; i++) {
+    sum += arr[i]
+  }
+  return sum
+}
+
+function demo2(arr) {
+  let sum = 0
+  let i = 0
+  function _m() {
+    if (i >= arr.length) {
+      return
+    }
+    sum += arr[i++]
+    _m()
+  }
+  _m()
+  return sum
+}
+```
+
+```js
+// 监听元素的重叠度
+const ob = new IntersectionObserver(entries=>{
+  const entry = entries[0]
+  if(entry.isIntersecting){
+    console.log('加载更多')
+  }
+},{
+  root:null
+  threshold: 0
+})
+const dom = document.querySelector('.loading')
+ob.observe(dom)
+```
+
+```js
+// 分时函数的封装
+const tasks = Array.from({ length: 300000 }, (_, i) => {
+  const div = document.createElement('div')
+  div.innerText = i
+  document.body.appendChild(div)
+})
+
+const btn = document.querySelector('.btn')
+btn.onclick = () => {
+  // for (const task of tasks) {
+  //   task()
+  // }
+  performTasks(tasks)
+}
+
+// 浏览器的微任务队列
+function performTasks(tasks) {
+  if (tasks.length === 0) {
+    return
+  }
+  let i = 0
+  // 每一次的执行
+  function _run() {
+    requestIdleCallback((idle) => {
+      while (i < tasks.length && idle.timeRemaining() > 0) {
+        tasks[i++]()
+      }
+      _run()
+    })
+  }
+  _run()
+}
+
+// 自定义调度器
+btn.onclick = () => {
+  const scheduler = (chunkTask) => {
+    setTimeout(() => {
+      const now = performance.now()
+      chunkTask(() => performance.noew() - now < 1)
+    }, 1000)
+  }
+  performTasks(tasks, scheduler)
+}
+
+function performTasks(tasks, scheduler) {
+  if (tasks.length === 0) {
+    return
+  }
+  let i = 0
+  // 每一次的执行
+  function _run() {
+    scheduler((goOn) => {
+      while (i < tasks.length && goOn()) {
+        tasks[i++]()
+      }
+      _run()
+    })
+  }
+  _run()
+}
+
+function idlePerformTasks(tasks) {
+  const scheduler = (chunkTask) => {
+    requestIdleCallback((deadline) => {
+      chunkTask(() => deadline.timeRemaining() > 0)
+    })
+  }
+  performanceTasks(tasks, scheduler)
+}
+```
+
+```
+非严格相等
+  两端类型一致
+    等同于严格相等
+  两端类型不一致
+    特殊
+      null == undefined
+      null === undefined
+      null == 0
+      null == ''
+      undefined == ''
+    规则 1 均为原始，转数字
+    规则 2 有对象，转原始
+
+1. 相等比较（==）
+  1. 如果两个操作数类型相同，执行严格比较
+  2. 如果两个操作数类型不同，则进行**类型转换后**再进行比较，规则如下：
+    1. 如果一个操作数是数值，另一个操作数是字符串，则将字符串转换为数值，然后进行比较
+    2. 如果一个操作数十布尔值，则将布尔值转换为数值，然后进行比较
+    3. 如果一个操作数十对象，另一个操作数十数值或字符串，则将对象转换为原始值，然后进行比较
+
+如果一个操作数是对象，另一个操作数是字符串或者数字，会首先调用对象的 valueOf 方法，将对象转化为基本类型，再进行比较
+当valueOf 返回的不是基本类型的时候，才会调用 toString 方法
+
+Object.is 和 === 规则如下
+Object.is 和 === 在比较两个值时都不会进行类型转换
+
+Object.is：
+  当比较 NaN 是，Object.is(NaN,NaN) 返回 true
+  当比较 +0 和 -0 时，Object.is(+0,-0) 返回 false，因为它能区分正零和负零
+
+===：
+  NaN === NaN 返回 false， 因为 NaN 不等于任何值，包括它自身
+  对于 +0 和 -0，+0 === -0 返回 true，因为严格相等不区分正负
+```
+
+```scss
+// 用Sass简化媒介查询
+// 1. 函数的参数默认值
+@mixin flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.container {
+  @include flex;
+}
+
+// 2. 函数的参数默认值 + 内容块
+@mixin flex($layout) {
+  display: flex;
+  align-items: $layout;
+  justify-content: center;
+  @content;
+}
+.container {
+  @include flex(start) {
+    gap: 20px;
+  }
+}
+
+// 3. 函数的参数默认值 + 响应式
+@mixin respondTo($breakname) {
+  @if $breakname == 'phone' {
+    @media (min-width: 320px) and (max-width: 480px) {
+      @content;
+    }
+  }
+  @if $breakname == 'pad' {
+    @media (min-width: 481px) and (max-width: 768px) {
+      @content;
+    }
+  }
+}
+
+.header {
+  width: 100%;
+  @include respondTo('phone') {
+    height: 50px;
+  }
+  @include respondTo('pad') {
+    height: 60px;
+  }
+}
+
+// 4. 媒介查询的参数是对象
+$breakpoints = {
+  phone: (320px, 480px);
+  pad: (481px, 768px);
+  notebook: (769px, 1024px);
+  desktop: (1025px, 1280px);
+  tv: 1281px;
+}
+
+@mixin respondTo($breakname) {
+  $bp: map-get($breakpoints, $breakname);
+  @if type-of($bp) == 'list' {
+    $min: nth($bp, 1);
+    $max: nth($bp, 2);
+    @media (min-width: $min) and (max-width: $max) {
+      @content;
+    }
+  } @else {
+    @media (min-width: $bp) {
+      @content;
+    }
+  }
+}
+```
+
+```
+https://juejin.cn/post/7362587412067385354
 拖拽API
 <div draggable="true></div>
 
@@ -135,12 +545,40 @@ function concurRequest(urls, maxNum) {
     }
   })
 }
+
+/**
+ * 可以重试的请求
+ * 发出请求，返回 Promise
+ * @param {string} url 请求地址
+ * @param {number} maxCount 最大重试次数
+ */
+function request(url, maxCount = 5) {
+  return fetch(url).catch((err) => {
+    maxCount <= 0 ? Promise.reject(err) : request(url, maxCount - 1)
+  })
+}
 ```
 
 ```ts
 // 对柯里化进行类型标注
 type Curried<A extends any[], R> = A extends [] ? () => R : A extends [infer P] ? (x: P) => R : A extends [infer P, ...infer Rest] ? (x: p) => Curried<Rest, R> : never
 declare function curry<A extends any[], R>(fn: (...args: A) => R): Curried<A, R>
+
+柯里化是将接收多个参数的函数转换成接收一个单一参数的函数
+
+组合是将两个或多个函数组合成一个新的函数，并且组合的函数从右到左执行
+
+管道函数与组合函数
+  共同点：都可以将两个或多个函数组合成一个新的函数，新函数的执行结果等于连续调用多个原函数的执行结果
+  区别：组合函数是从右到左执行，而管道函数是从左到右执行
+
+function pipe(...fns) {
+  return function (x) {
+    return fns.reduce(function (acc, fn) {
+      return fn(acc)
+    }, x)
+  }
+}
 ```
 
 localeCompare 字典顺序
@@ -1172,16 +1610,6 @@ import pinyin from 'pinyin';
 
 组件循环依赖：动态导入
 
-```
-Object 的 key 是字符串， Map 的 key 没有限制
-[NaN].includes(NaN) // true
-[NaN].indexOf(NaN) // -1
-isNaN(NaN) // true
-isNaN(1) // false
-isNaN('1') // false
-isNaN('x') // true
-```
-
 实现 sleep 函数
 
 实现 throttle 节流函数
@@ -1196,13 +1624,6 @@ declare function debounce<T extends any[]>(fn: (...args: T) => any, delay: numbe
 自定义指令控制权限的弊端
 
 ```javascript
-Number(undefined) // NaN
-Number('   123    ') // 123
-Number('12 3') // NaN (only whitespace from the start and end are removed)
-NaN ** 0 // 1
-isNaN('this is a string not a NaN value') // true
-Number.isNaN('this is a string not a NaN value') // false
-
 typeof null // object
 
 let numbers = {
@@ -1223,7 +1644,6 @@ ElementUI 日期选择器时间选择范围限制
 
 ```js
 数组新增的纯函数 API：toSorted、toReversed、toSpliced、with(修改数组)
-
 ```
 
 ```shell
@@ -1244,7 +1664,6 @@ const observer = new PerformanceObserver((list) => {
   for (const entry of list.getEntries()) {
   }
 })
-
 observer.observe({ entryTypes: ['longtask'] })
 ```
 
