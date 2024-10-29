@@ -55,6 +55,16 @@ export const constantRoute = [
       icon: 'Platform',
     },
   },
+  {
+    path: '/UI',
+    component: () => import('@/views/UI/index.vue'),
+    name: 'UI',
+    meta: {
+      hidden: false,
+      title: 'UI组件二次封装',
+      icon: 'Platform',
+    },
+  },
 ]
 
 //异步路由

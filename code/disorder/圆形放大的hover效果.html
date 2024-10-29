@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>圆形放大的hover效果</title>
+    <style>
+      body {
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #fff;
+      }
+
+      .avatar {
+        /*设置背景图*/
+        background: url(https:picsum.photos/200) center / cover;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        /*设置鼠标指针 - 手型*/
+        cursor: pointer;
+        /*设置元素为相对定位*/
+        position: relative;
+      }
+
+      /* 第一层 */
+      .avatar::before,
+      .avatar::after {
+        content: '';
+        /*设置before和after为绝对定位*/
+        position: absolute;
+        /* 等同于 `top: 0; right: 0; bottom: 0; left: 0;` */
+        inset: 0;
+        /*设置before和after为继承父元素的圆角值*/
+        border-radius: inherit;
+      }
+
+      /* 第二层 */
+      .avatar::before {
+        /* 设置before的背景颜色*/
+        background: rgba(0, 0, 0, 0.5);
+      }
+
+      /* 第三层 */
+      .avatar::after {
+        /*继承父元素的背景图像*/
+        background: inherit;
+        /*设置元素裁剪路径，默认其半径为0%，圆心为 50% 50%*/
+        clip-path: circle(0% at 50% 50%);
+        /*设置转化过度时长，使其平滑过度到鼠标移入状态*/
+        transition: 0.3s;
+      }
+
+      .avatar:hover::after {
+        /*设置鼠标移入时元素的裁剪路径，半径为50%，圆心为 50% 50%*/
+        clip-path: circle(50% at 50% 50%);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="avatar"></div>
+  </body>
+</html>

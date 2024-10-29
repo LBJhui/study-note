@@ -1,3 +1,115 @@
+```
+ESModule 的工作原理
+transform 从右到左
+localeCompare 字典顺序
+依赖检查工具 depcheck
+mask-image
+js 引用传递 具名导入 import { n as main } from 'a.js'
+vue3 expose defineExpose
+正则匹配的贪婪模式和惰性模式有什么区别
+node 版本管理工具:`volta` `nvm`
+new.target 可以判断函数是否被 new 调用
+浏览器的自动播放策略
+BFF 层 backends for frontends
+函数签名 = 函数名 + 参数 + 返回值
+改变 webkit 表单输入框 placeholder 的颜色值：input::-webkit-input-placehold
+去掉 ios 系统中元素被触摸时产生的半透明灰色遮罩：tip-highlight-color:rgba(0,0,0,0)
+http accept-lang/navigator.lang
+git 忽略文件名大小写 git config core.ignorecase false
+content-type
+showDirectoryPicker FileSystem API
+insertBefore
+removeProperty
+Web Locks API
+preventDefault、stopPropagation
+俄罗斯方块实现思路
+conic-gradient
+web-vitals
+?? 运算符 返回第一个已定义的值
+色彩空间 hex rgb hsl hsv
+```
+
+```css
+/* 黏性定位 */
+position: sticky;
+样式计算 视觉格式化模型
+包含块
+最近可滚动祖先
+```
+
+```scss
+// SASS中的模块化开发
+// @import
+//   运行时 css
+//   编译时
+//     混淆
+//     污染 变量污染
+//     无私有
+// @use
+
+@use 'common.scss';
+@use 'var.scss' as b;
+
+$_n: 6; // 私有变量
+
+.foo {
+  color: common.$color;
+}
+```
+
+```js
+// CommonJS的本质 https://blog.csdn.net/huangpb123/article/details/138473608
+// 2.js
+this.a = 1
+exports.b = 2
+exports = {
+  c: 3,
+}
+module.exports = {
+  d: 4,
+}
+exports.e = 5
+this.f = 6
+
+//1.js
+const a = require('./2')
+console.log(a)
+```
+
+```js
+// 可缓存的方法 计算属性如何传参
+import { computed } from 'vue'
+function useComputed(fn) {
+  const map = new Map()
+  return function (...args) {
+    const key = JSON.stringify(args)
+    if (map.has(key)) {
+      return map.get(key)
+    }
+    const result = computed(() => {
+      return fn(...args)
+    })
+    map.set(key, result)
+    return result
+  }
+}
+```
+
+```js
+// 标签化模板 styled components
+function tag(strings, ...values) {
+  console.log(strings)
+  console.log(values)
+}
+
+const user = {
+  name: 'LBJhui',
+  age: 18,
+}
+
+const hi = tag`My name is ${user.name}, I'm ${user.age} years old.`
+```
+
 ```js
 // 数组扁平化
 Array.prototype.customFlatten = function () {
@@ -419,10 +531,6 @@ dragend
 dragenter
 ```
 
-ESModule 的工作原理
-
-transform 从右到左
-
 ```js
 const o = (function () {
   const obj = {
@@ -581,8 +689,6 @@ function pipe(...fns) {
 }
 ```
 
-localeCompare 字典顺序
-
 ```
 github 慢
 C:\Windows\System32\drivers\etc\hosts
@@ -636,8 +742,6 @@ console.log(fun2.length)
 console.log(fun3.length)
 console.log(fun4.length)
 ```
-
-new.target 可以判断函数是否被 new 调用
 
 ```js
 parseInt和Math.floor有什么区别
@@ -832,8 +936,6 @@ obj.innerFunction1()
 obj.innerFunction2()
 ```
 
-node 版本管理工具:`volta` `nvm`
-
 ```
 object 和 map 有什么相同点和不同点
 创建方式的区别
@@ -944,8 +1046,6 @@ dom.addEventListener('compositionstart', function (e) {})
 dom.addEventListener('compositionend', function (e) {})
 ```
 
-正则匹配的贪婪模式和惰性模式有什么区别
-
 ```
 node 的模块查找策略
   文件查找
@@ -1013,14 +1113,6 @@ const str = 'dlskdlkdsowjfood'
 const result = [...str].reduce((a, b) => (a[b]++ || (a[b] = 1), a), {})
 ```
 
-vue3 expose defineExpose
-
-浏览器的自动播放策略
-
-BFF 层 backends for frontends
-
-函数签名 = 函数名 + 参数 + 返回值
-
 ```ts
 // TS中字符串索引带来的类型问题
 const obj = {
@@ -1047,10 +1139,6 @@ base: '/'
 // vue.config.js
 publicPath: '/' // 浏览器如何找资源
 ```
-
-mask-image
-
-js 引用传递 具名导入 import { n as main } from 'a.js'
 
 ```css
 /* 系统主题 */
@@ -1151,8 +1239,6 @@ css原子化
   }
 </style>
 ```
-
-依赖检查工具 depcheck
 
 ---
 
@@ -1769,26 +1855,6 @@ CSS 剪切函数 clip-path
 background-clip
 ```
 
-改变 webkit 表单输入框 placeholder 的颜色值：input::-webkit-input-placehold
-
-去掉 ios 系统中元素被触摸时产生的半透明灰色遮罩：tip-highlight-color:rgba(0,0,0,0)
-
-http accept-lang/navigator.lang
-
-git 忽略文件名大小写 git config core.ignorecase false
-
-content-type
-
-showDirectoryPicker FileSystem API
-
-insertBefore
-
-removeProperty
-
-Web Locks API
-
-conic-gradient
-
 ```html
 鼠标位置信息：pageX,clientX,offsetX,movementX 原始尺寸 naturalWidth naturalHeight 样式尺寸 缩放倍率 window.devicePixelRatio
 
@@ -1805,10 +1871,6 @@ conic-gradient
 原始尺寸=样式尺寸*缩放倍率 元素尺寸： - clientWidth：content + padding - offsetWidth：content + padding + scroll(滚动条) + border - scrollWidth：visible + invisible - 可见尺寸 getBoundingClientRect()
 dom.style.width DOM树 getComputedStyle(dom).width CSSOM树 layout tree 布局树 几何信息
 ```
-
-preventDefault、stopPropagation
-
-俄罗斯方块实现思路
 
 ```js
 监听复制事件
@@ -1837,8 +1899,6 @@ margin-block-end、
 text-combine-upright
 margin-inline-start
 ```
-
-包含块
 
 ```js
 属性到底存在不存在
@@ -3187,6 +3247,8 @@ CSP（Content Security Policy）与跨域（Cross-Origin）在 Web 安全领域�
 
 综上所述，CSP 和跨域在 Web 安全领域中各自扮演着重要的角色。开发者需要根据实际需求合理配置 CSP 策略和跨域请求的实现方式，以确保 Web 应用的安全性和可用性。
 
+#
+
 ```
 禁止触发系统菜单和长按选中：`touch-callout:none` contextmenu
 
@@ -3211,5 +3273,3 @@ function uniqueNumber(nums) {
   // return nums.reduce((a, b) => a ^ b, 0)
 }
 ```
-
-web-vitals
