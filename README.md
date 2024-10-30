@@ -1,6 +1,8 @@
 ```
+消除异步的传染性 https://blog.csdn.net/weixin_51351053/article/details/140050295
+全局导入和局部导入的区别
 ESModule 的工作原理
-transform 从右到左
+transform 从右到左 translate3d
 localeCompare 字典顺序
 依赖检查工具 depcheck
 mask-image
@@ -27,6 +29,143 @@ conic-gradient
 web-vitals
 ?? 运算符 返回第一个已定义的值
 色彩空间 hex rgb hsl hsv
+Object.defineProperty 只能监听到对象属性的读取或者是写入，而 Proxy 除读写外还可以监听对象中属性的删除，对对象当中方法的调用
+mix-blend-mode
+object-fit
+不规则的文字环绕:shape-outside
+getPrototypeOf、setPrototypeOf
+Array.from()
+[动画库：GSAP scrolltrigger]https://gsap.com/
+addEventListener compositionstart
+markRaw、withModifiers
+数组新增的纯函数 API：toSorted、toReversed、toSpliced、with(修改数组)
+font-variant、text-transform
+js 文档注释：jsDoc
+vscode 正则插件：Regex Previewer
+ElementUI 日期选择器时间选择范围限制
+自定义指令控制权限的弊端
+组件循环依赖：动态导入
+实现 sleep 函数
+实现 throttle 节流函数
+实现 debounce 防抖函数
+图片调色盘：colorThief
+符号绑定
+css 新单位 vmin vmax
+tesseract.js
+vue-draggable-plus
+重绘和回流
+防截屏防录制：Encrypted Media Extensions API
+console.log() 打印对象时，点击小三角实时加载
+元素倒影:-webkit-box-reflect
+页面可见度 API page visibility
+BroadcastChannel API
+禁止触发系统菜单和长按选中：`touch-callout:none` contextmenu
+禁止用户选中文字：`user-select:none`
+```
+
+```js
+// 高量级任务执行优化
+/**
+ * 运行一个耗时任务
+ * 如果要异步执行任务，请返回 Promise
+ * 要尽快完成任务，同时不要让页面产生卡顿
+ * 尽量兼容更多的浏览器
+ * @param {Function} task
+
+ */
+//直接运行任务 阻塞
+function runTask(task) {
+  task()
+}
+
+// 微任务 阻塞
+function runTask(task) {
+  return new Promise((resolve) => {
+    Promise.resolve().then(() => {
+      task()
+      resolve()
+    })
+  })
+}
+
+// 宏任务 卡顿
+function runTask(task) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      task()
+      resolve()
+    }, 0)
+  })
+}
+
+// requestAnimationFrame 阻塞
+function runTask(task) {
+  return new Promise((resolve) => {
+    requestAnimationFrame(() => {
+      task()
+      resolve()
+    })
+  })
+}
+
+function _runTask(task, callback) {
+  // requestIdleCallback 兼容性差
+  // requestIdleCallback((idle) => {
+  //   if (idle.timeRemaining > 0) {
+  //     task()
+  //     callback()
+  //   } else {
+  //     _runTask(task, callback)
+  //   }
+  // })
+  let start = Date.now()
+  requestAnimationFrame(() => {
+    if (Date.now() - start < 16.6) {
+      task()
+      callback()
+    } else {
+      _runTask(task, callback)
+    }
+  })
+}
+
+function runTask(task) {
+  return new Promise((resolve) => {
+    _runTask(task, resolve)
+  })
+}
+```
+
+```js
+// 数据的流式获取
+async function getRespnse(content) {
+  const resp = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(content),
+  })
+  console.log('123')
+  // const data = awit resp.text()
+  const reder = resp.body.getReader()
+  const decoder = new TextDecoder()
+  while (true) {
+    const { done, value } = await reader.read()
+    if (done) {
+      break
+    }
+    const txt = decoder.decode(value)
+  }
+}
+```
+
+```
+动态规划入门
+1.思路
+  确定状态转移方程
+  不同规模的相同问题之间的关系
+2.实现
 ```
 
 ```css
@@ -1433,14 +1572,53 @@ getComputedStyle
   标记清除 memory management
 ```
 
-全局导入和局部导入的区别
-
-```
+```js
 ajax
   XMLHttpRequest XHR
   Fetch
 axios --> XHR
 umi-request --> Fetch
+
+// xhr 请求进度监控
+xhr.upload.addEventListener('progress', (e) => {
+  console.log(e.loaded, e.total)
+})
+
+// xhr 响应进度监控
+xhr.addEventListener('progress', (e) => {
+  console.log(e.loaded, e.total)
+  onProgress &&
+    onProgress({
+      loaded: e.loaded,
+      total: e.total,
+    })
+})
+xhr.open(method, url)
+xhr.send(data)
+
+// fetch 响应进度监控
+const resp = await fetch(url, {
+  method,
+  body: data,
+})
+const total = +resp.headers.get('content-length')
+const decoder = new TextDecoder()
+let body = ''
+const reader = resp.body.getReader()
+let loaded = 0
+while (1) {
+  const { done, value } = await reader.read()
+  if (done) {
+    break
+  }
+  loaded += value.length
+  body += decoder.decode(value)
+  onProgress &&
+    onProgress({
+      loaded: e.loaded,
+      total: e.total,
+    })
+}
 ```
 
 | 功能点                     |   XHR    |  Fetch   |
@@ -1636,10 +1814,6 @@ GET 和 POST 的区别？
 浏览器层面：
 ```
 
-console.log() 打印对象时，点击小三角实时加载
-
-元素倒影:-webkit-box-reflect
-
 ```html
 <!-- DNS预解析 -->
 <link rel="dns-prefetch" href="xxxx" />
@@ -1661,10 +1835,6 @@ if (process.env.NODE_ENV === 'production') {
 }
 ```
 
-页面可见度 page visibility
-
-BroadcastChannel API
-
 ```
 let 和 var 的区别
 1.全局污染，可以跨标签
@@ -1673,20 +1843,6 @@ let 和 var 的区别
 4.重复声明  var 可以重新声明，let 不可以重新声明
 ```
 
-图片调色盘：colorThief
-
-符号绑定
-
-css 新单位 vmin vmax
-
-tesseract.js
-
-vue-draggable-plus
-
-重绘和回流
-
-防截屏防录制：Encrypted Media Extensions API
-
 ```
 拼音标注
 <ruby></ruby>
@@ -1694,20 +1850,10 @@ import pinyin from 'pinyin';
 判断是不是中文
 ```
 
-组件循环依赖：动态导入
-
-实现 sleep 函数
-
-实现 throttle 节流函数
-
-实现 debounce 防抖函数
-
 ```ts
 // 对防抖函数进行类型标注
 declare function debounce<T extends any[]>(fn: (...args: T) => any, delay: number): (...args: T) => void
 ```
-
-自定义指令控制权限的弊端
 
 ```javascript
 typeof null // object
@@ -1720,18 +1866,6 @@ console.log(numbers."0"); // error
 console.log(numbers[0]); // 0
 ```
 
-font-variant、text-transform
-
-js 文档注释：jsDoc
-
-vscode 正则插件：Regex Previewer
-
-ElementUI 日期选择器时间选择范围限制
-
-```js
-数组新增的纯函数 API：toSorted、toReversed、toSpliced、with(修改数组)
-```
-
 ```shell
 git clone <repository> --recursive 递归的方式克隆整个项目
 git submodule add <repository> <path> 添加子模块
@@ -1739,10 +1873,6 @@ git submodule init 初始化子模块
 git submodule update 更新子模块
 git submodule foreach git pull 拉取所有子模块
 ```
-
-markRaw
-
-withModifiers
 
 ```js
 监控页面是否出现卡顿
@@ -1777,8 +1907,6 @@ observer.observe({ entryTypes: ['longtask'] })
   WebSocket
 ```
 
-addEventListener compositionstart
-
 ```text
 网络状态监控
   navigator.connection
@@ -1810,10 +1938,6 @@ addEventListener compositionstart
   preload
 ```
 
-Array.from()
-
-[动画库：GSAP scrolltrigger]https://gsap.com/
-
 ```css
 动画
 Web Animation API: element.animate() element.getAnimations()
@@ -1831,6 +1955,8 @@ js: window.scrollTo({
   top:0,
   behavior:'smooth'
 })
+
+如何阻止滚动嵌套冒泡 `overscroll-behavior:contain`
 
 /* 设置滚动条样式 */
 scrollbar-face-color: #eaeaea;
@@ -1885,8 +2011,6 @@ navigator.clipboard.readText().then(text=>{})
 filter:drop-shadow(0 0 5px #000)
 ```
 
-getPrototypeOf、setPrototypeOf
-
 ```
 HTMLCollection(动态) & NodeList(静态) 伪数组
 ```
@@ -1939,24 +2063,16 @@ import.meta.glob('../views/**/page.js', {
 })
 ```
 
-object-fit
-
-不规则的文字环绕:shape-outside
-
 ```
 保持元素宽高比
 css 属性: aspect-ratio
 padding 相对于父元素宽度
 ```
 
-mix-blend-mode
-
-```
-
+```js
 手动解析 DOM 树:
 removeTag
 new DOMParser().parseFromString(str, 'text/html')
-
 ```
 
 ```html
@@ -1964,8 +2080,6 @@ show,showModel
 <dialog open></dialog>
 ::backdrop
 ```
-
-Object.defineProperty 只能监听到对象属性的读取或者是写入，而 Proxy 除读写外还可以监听对象中属性的删除，对对象当中方法的调用
 
 ## 你能详细描述一下 qiankun 微前端框架的工作原理吗？
 
@@ -3248,12 +3362,6 @@ CSP（Content Security Policy）与跨域（Cross-Origin）在 Web 安全领域�
 综上所述，CSP 和跨域在 Web 安全领域中各自扮演着重要的角色。开发者需要根据实际需求合理配置 CSP 策略和跨域请求的实现方式，以确保 Web 应用的安全性和可用性。
 
 #
-
-```
-禁止触发系统菜单和长按选中：`touch-callout:none` contextmenu
-
-禁止用户选中文字：`user-select:none`
-```
 
 ```js
 /**
