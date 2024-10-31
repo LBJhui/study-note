@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>拖拽排序</title>
+    <style>
+      .list {
+        width: 300px;
+        margin: auto;
+      }
+      .list-item {
+        margin-bottom: 20px;
+        width: 300px;
+        line-height: 40px;
+        background-color: aqua;
+      }
+
+      .list-item.moving {
+        background: transparent;
+        color: transparent;
+        border: 1px dashed #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="list">
+      <div draggable="true" class="list-item">1</div>
+      <div draggable="true" class="list-item">2</div>
+      <div draggable="true" class="list-item">3</div>
+      <div draggable="true" class="list-item">4</div>
+      <div draggable="true" class="list-item">5</div>
+    </div>
+
+    <script>
+      const list = document.querySelector('.list')
+      let sourceNode = null
+      list.ondragstart = (e) => {
+        setTimeout(() => {
+          e.target.classList.add('moving')
+        }, 0)
+        sourceNode = e.target
+      }
+
+      list.ondragenter = (e) => {
+        e.preventDefault()
+
+        if (e.target === list || e.target === sourceNode) {
+          return
+        }
+        const children = [...list.children]
+        const sourceIndex = children.indexOf(sourceNode)
+        const targetIndex = children.indexOf(e.target)
+        if (sourceIndex > targetIndex) {
+          list.insertBefore(sourceNode, e.target)
+        } else {
+          list.insertBefore(sourceNode, e.target.nextElementSibling)
+        }
+      }
+
+      list.ondragover = (e) => {
+        e.preventDefault()
+      }
+
+      list.ondragend = (e) => {
+        e.target.classList.remove('moving')
+      }
+
+      // flip动画
+    </script>
+  </body>
+</html>

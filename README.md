@@ -1,5 +1,9 @@
 ```
-消除异步的传染性 https://blog.csdn.net/weixin_51351053/article/details/140050295
+使用冻结对象提升效率 Object.freeze() 冻结对象在vue中不会变为响应式
+symbol.toStringTag
+backface-visibility
+行盒的截断样式：box-decoration-break
+CSS实现奥林匹克五环
 全局导入和局部导入的区别
 ESModule 的工作原理
 transform 从右到左 translate3d
@@ -61,6 +65,269 @@ console.log() 打印对象时，点击小三角实时加载
 BroadcastChannel API
 禁止触发系统菜单和长按选中：`touch-callout:none` contextmenu
 禁止用户选中文字：`user-select:none`
+```
+
+```javascript
+/**
+ * 两个超过整数存储范围的大正整数求和
+ * @param {String} a
+ * @param {String} b
+ */
+
+function sum(a, b) {
+  let result = ''
+  const len = Math.max(a.length, b.length)
+  a = a.padStart(len, '0')
+  b = b.padStart(len, '0')
+  let addOne = 0
+  for (let i = len - 1; i >= 0; i--) {
+    const n = +a[i] + +b[i] + addOne
+    addOne = Math.floor(n / 10)
+    result = (n % 10) + result
+  }
+  if (addOne) result = addOne + result
+  return result
+}
+```
+
+```ts
+协变和逆变 https://blog.csdn.net/u014676858/article/details/141826960
+  类型安全 所有成员可用
+
+收：Fans: 父类型 成员少
+给：Ikun: 子类型 成员多
+
+inferface Fans{
+  call():void
+}
+
+interface IKun extends Fans{
+  sing():void
+  dance():void
+  basketball():void
+  rap():void
+}
+
+let fans:Fans
+let ikun:IKun
+
+fans = ikun
+ikun = fans // 不能赋值
+```
+
+```javascript
+// 2048游戏核心逻辑
+const matrix = [
+  [0, 2, 2, 0],
+  [0, 0, 2, 2],
+  [2, 4, 4, 2],
+  [2, 4, 4, 4],
+]
+
+function move(matrix, direction) {
+  const rows = matrix.length
+  const cols = matrix[0].length
+  function _inRange(i, j) {
+    return i >= 0 && i < rows && j >= 0 && j < cols
+  }
+
+  const nexts = {
+    up: (i, j) => [i + 1, j],
+    down: (i, j) => [i - 1, j],
+    left: (i, j) => [i, j + 1],
+    right: (i, j) => [i, j - 1],
+  }
+
+  // 得到下一个非零的位置 [r, c, value]
+  function _nextNonZero(i, j) {
+    // 得到下一个位置
+    let [nextI, nextJ] = nexts[direction](i, j)
+    if (!_inRange(nextI, nextJ)) return null
+    while (_inRange(nextI, nextJ)) {
+      const value = matrix[nextI][nextJ]
+      if (value !== 0) {
+        return [nextI, nextJ, value]
+      }
+      ;[nextI, nextJ] = nexts[direction](nextI, nextJ)
+    }
+    return null
+  }
+  // 从 i，j 出发，依次处理某行或某列的数据
+  function _cal(i, j) {
+    if (!_inRange(i, j)) return
+    const next = _nextNonZero(i, j)
+    if (!next) {
+      return
+    }
+    const [nextI, nextJ, nextValue] = next
+    if (matrix[i][j] === 0) {
+      matrix[i][j] = nextValue
+      matrix[nextI][nextJ] = 0
+      _cal(i, j)
+    } else if (matrix[i][j] === nextValue) {
+      matrix[i][j] *= 2
+      matrix[nextI][nextJ] = 0
+    }
+    const [ni, nj] = nexts[direction](i, j)
+    _cal(ni, nj)
+  }
+
+  if (direction === 'up') {
+    for (let j = 0; j < cols; j++) {
+      _cal(0, j)
+    }
+  } else if (direction === 'down') {
+    for (let j = 0; j < cols; j++) {
+      _cal(rows - 1, j)
+    }
+  } else if (direction === 'left') {
+    for (let i = 0; i < rows; i++) {
+      _cal(i, 0)
+    }
+  } else if (direction === 'right') {
+    for (let i = 0; i < rows; i++) {
+      _cal(i, cols - 1)
+    }
+  }
+  return matrix
+}
+
+console.log(move(matrix, 'up'))
+
+/**
+ * [
+ *  [4, 2, 4, 4],
+ *  [0, 8, 8, 4],
+ *  [0, 0, 0, 0],
+ *  [0, 0, 0, 0]
+ * ]
+ */
+```
+
+```js
+// 消除异步的传染性 https://blog.csdn.net/weixin_51351053/article/details/140050295
+async function getUser() {
+  return await fetch('./1.json')
+}
+
+async function m1() {
+  const user = await getUser()
+  return user
+}
+
+async function m2() {
+  const user = await m1()
+  return user
+}
+
+async function m3() {
+  const user = await m2()
+  return user
+}
+
+/**
+ * main->getUser->fetch(error)--->main->getUser->fetch->getUser->main
+ *                      fetch-->cache-->main
+ */
+function main() {
+  const user = m3()
+  console.log(user)
+}
+
+function run(func) {
+  // 1. 改动 Fetch
+  const oldFetch = window.fetch
+  const cache = {
+    status: 'pending',
+    value: null,
+  }
+  function newFetch(...args) {
+    // 有缓存返回缓存
+    if (cache.status === 'fulfilled') {
+      return cache
+    } else if (cache.status === 'rejected') {
+      throw new Error(cache.value)
+    }
+    // 没有缓存
+    const p = oldFetch(...arguments)
+      .then((data) => data.json)
+      .then((data) => {
+        cache.status = 'fulfilled'
+        cache.value = data
+      })
+      .catch((err) => {
+        cache.status = 'rejected'
+        cache.value = err
+      })
+    // 抛出错误
+    throw 123
+  }
+  window.fetch = newFetch
+  // 2. 执行 func
+  try {
+    func()
+  } catch (e) {
+    // 等待请求完成后重新运行 func
+    if (err instanceof Promise) {
+      err.finall(() => {
+        window.fetch = newFetch
+        func()
+        window.fetch = oldFetch
+      })
+    }
+  }
+  // 3. 改回 fetch
+  window.fetch = oldFetch
+}
+
+run(main)
+```
+
+```javascript
+// call和apply的链式调用
+const r = console.log.call.call.call.call.call.call.call.apply((a) => a, [1, 2])
+
+console.log(r)
+
+console.log(console.log.__proto__ === Function.prototype)
+console.log(console.log.call === Function.prototype.call)
+
+// const r = Function.prototype.call.apply((a) => a, [1, 2])
+```
+
+```js
+// 触发迅雷下载
+const link = '需要下载的地址'
+const newHref = btoa(`AA${link}ZZ`) // a 标签的地址
+
+a.href = `thunder://${newHref}`
+```
+
+```js
+Pormise.resolve()
+  .then(() => {
+    console.log(0)
+    return Promise.resolve(4)
+  })
+  .then((res) => {
+    console.log(res)
+  })
+Promise.resolve()
+  .then(() => {
+    console.log(1)
+  })
+  .then(() => {
+    console.log(2)
+  })
+  .then(() => {
+    console.log(3)
+  })
+  .then(() => {
+    console.log(5)
+  })
+  .then(() => {
+    console.log(6)
+  })
 ```
 
 ```js
@@ -1655,10 +1922,6 @@ while (1) {
 ::selection
 ```
 
-symbol.toStringTag
-
-backface-visibility
-
 ```
 什么是WebSocket，以及它与传统的HTTP长轮询相比的优势
 1.持久链接
@@ -1667,8 +1930,6 @@ backface-visibility
 4.减少资源消耗
 5.消息帧格式
 ```
-
-行盒的截断样式：box-decoration-break
 
 ```js
 // 状态仓库持久化
@@ -2150,29 +2411,25 @@ this[0].innerHTML = str;
 
 以下是一个例子，假设我们有一个子应用，它使用 jQuery 动态插入了一张图片：
 
-```
-
-const render = $ => {
-$('#app-container').html('<p>Hello, render with jQuery</p><img src="./img/my-image.png">');
-return Promise.resolve();
-};
-
+```js
+const render = ($) => {
+  $('#app-container').html('<p>Hello, render with jQuery</p><img src="./img/my-image.png">')
+  return Promise.resolve()
+}
 ```
 
 我们可以在主应用中劫持 jQuery 的 `html` 方法，将图片的相对路径替换为绝对路径：
 
-```
-
-beforeMount: app => {
-if(app.name === 'my-app'){
-// jQuery 的 html 方法是一个复杂的函数，这里为了简化，我们只处理 img 标签
-$.prototype.html = function(value){
-const str = value.replace('<img src="./img/my-image.png">', '<img src="http://localhost:8080/img/my-image.png">')
-this[0].innerHTML = str;
+```js
+beforeMount: (app) => {
+  if (app.name === 'my-app') {
+    // jQuery 的 html 方法是一个复杂的函数，这里为了简化，我们只处理 img 标签
+    $.prototype.html = function (value) {
+      const str = value.replace('<img src="./img/my-image.png">', '<img src="http://localhost:8080/img/my-image.png">')
+      this[0].innerHTML = str
+    }
+  }
 }
-}
-}
-
 ```
 
 在这个例子中，我们劫持了 jQuery 的 `html` 方法，将图片的相对路径 `./img/my-image.png` 替换为了绝对路径 `http://localhost:8080/img/my-image.png`。这样，无论子应用在哪里运行，图片都可以正确地加载。
@@ -2183,30 +2440,26 @@ this[0].innerHTML = str;
 
 1. **使用 `qiankun` 的 `getTemplate` 函数重写静态资源路径**：对于 HTML 中已有的 `img/audio/video` 等标签，`qiankun` 支持重写 `getTemplate` 函数，可以将入口文件 `index.html` 中的静态资源路径替换掉。例如：
 
-```
-
+```js
 start({
-getTemplate(tpl,...rest) {
-// 为了直接看到效果，所以写死了，实际中需要用正则匹配
-return tpl.replace('<img src="./img/my-image.png">', '<img src="http://localhost:8080/img/my-image.png">');
-}
-});
-
+  getTemplate(tpl, ...rest) {
+    // 为了直接看到效果，所以写死了，实际中需要用正则匹配
+    return tpl.replace('<img src="./img/my-image.png">', '<img src="http://localhost:8080/img/my-image.png">')
+  },
+})
 ```
 
 1. **劫持标签插入函数**：对于动态插入的 `img/audio/video` 等标签，我们可以劫持 `appendChild` 、 `innerHTML` 、`insertBefore` 等事件，将资源的相对路径替换成绝对路径。例如，我们可以劫持 jQuery 的 `html` 方法，将图片的相对路径替换为绝对路径：
 
-```
-
-beforeMount: app => {
-if(app.name === 'my-app'){
-$.prototype.html = function(value){
-const str = value.replace('<img src="./img/my-image.png">', '<img src="http://localhost:8080/img/my-image.png">')
-this[0].innerHTML = str;
+```js
+beforeMount: (app) => {
+  if (app.name === 'my-app') {
+    $.prototype.html = function (value) {
+      const str = value.replace('<img src="./img/my-image.png">', '<img src="http://localhost:8080/img/my-image.png">')
+      this[0].innerHTML = str
+    }
+  }
 }
-}
-}
-
 ```
 
 1. **给老项目加上 webpack 打包**：这个方案的可行性不高，都是陈年老项目了，没必要这样折腾。
@@ -2225,10 +2478,8 @@ this[0].innerHTML = str;
 
 如果只有一个子项目，要想启用预加载，可以这样使用 `start` 函数：
 
-```
-
-start({ prefetch: 'all' });
-
+```js
+start({ prefetch: 'all' })
 ```
 
 这样，主应用 `start` 之后会预加载子应用的所有静态资源，无论子应用是否激活。
@@ -2241,22 +2492,20 @@ start({ prefetch: 'all' });
 
 例如，如果我们在子应用中添加了一个全局的点击事件，我们可以在子应用的 `unmount` 生命周期函数中移除这个事件：
 
-```
-
+```js
 export async function mount(props) {
-// 添加全局点击事件
-window.addEventListener('click', handleClick);
+  // 添加全局点击事件
+  window.addEventListener('click', handleClick)
 }
 
 export async function unmount() {
-// 移除全局点击事件
-window.removeEventListener('click', handleClick);
+  // 移除全局点击事件
+  window.removeEventListener('click', handleClick)
 }
 
 function handleClick() {
-// 处理点击事件
+  // 处理点击事件
 }
-
 ```
 
 这样，当子应用卸载时，全局的点击事件也会被移除，不会影响到其他的子应用。
