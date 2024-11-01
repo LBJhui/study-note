@@ -1,4 +1,5 @@
 ```
+视频文本化 text-image
 使用冻结对象提升效率 Object.freeze() 冻结对象在vue中不会变为响应式
 symbol.toStringTag
 backface-visibility
@@ -65,6 +66,14 @@ console.log() 打印对象时，点击小三角实时加载
 BroadcastChannel API
 禁止触发系统菜单和长按选中：`touch-callout:none` contextmenu
 禁止用户选中文字：`user-select:none`
+```
+
+```javascript
+// 下载的流式传输
+// 如果前端直接打开文件，没有触发下载 a 元素 download
+res.setHeader('Content-Disposition', `attachment; filename=${encodeURIComponent(filename)}`)
+
+// https://blog.csdn.net/weixin_64684095/article/details/139484213
 ```
 
 ```javascript
