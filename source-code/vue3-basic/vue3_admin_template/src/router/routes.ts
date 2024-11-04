@@ -1,3 +1,33 @@
+/**
+ * 在vite中自动生成路由
+ */
+
+// 寻找views文件夹下所有page.js文件
+const pages = import.meta.glob('/src/views/**/page.js', {
+  eager: true,
+  import: 'default',
+})
+
+const pageComs = import.meta.glob('@/views/**/index.vue', {
+  import: 'default',
+})
+
+const routes = Object.entries(pages).map(([path, config]) => {
+  let pageJSPath = path
+  path = path.replace('/src/views', '').replace('/page.js', '')
+  path = path || '/'
+  const name = path.split('/').filter(Boolean).join('-') || 'index'
+  const comPath = pageJSPath.replace('page.js', 'index.vue')
+  return {
+    path,
+    name,
+    component: pageComs[comPath],
+    meta: config,
+  }
+})
+
+/************************************************************ */
+
 //对外暴露配置路由(常量路由):全部用户都可以访问到的路由
 export const constantRoute = [
   {
@@ -55,16 +85,7 @@ export const constantRoute = [
       icon: 'Platform',
     },
   },
-  {
-    path: '/UI',
-    component: () => import('@/views/UI/index.vue'),
-    name: 'UI',
-    meta: {
-      hidden: false,
-      title: 'UI组件二次封装',
-      icon: 'Platform',
-    },
-  },
+  ...routes,
 ]
 
 //异步路由

@@ -1,4 +1,7 @@
 ```
+使用computed拦截v-model https://juejin.cn/post/7338634091397431330
+右键菜单组件的封装 https://blog.csdn.net/DuyiZiChen/article/details/131405493
+SocketIO
 视频文本化 text-image
 使用冻结对象提升效率 Object.freeze() 冻结对象在vue中不会变为响应式
 symbol.toStringTag
@@ -35,13 +38,12 @@ web-vitals
 ?? 运算符 返回第一个已定义的值
 色彩空间 hex rgb hsl hsv
 Object.defineProperty 只能监听到对象属性的读取或者是写入，而 Proxy 除读写外还可以监听对象中属性的删除，对对象当中方法的调用
-mix-blend-mode
 object-fit
 不规则的文字环绕:shape-outside
 getPrototypeOf、setPrototypeOf
 Array.from()
 [动画库：GSAP scrolltrigger]https://gsap.com/
-addEventListener compositionstart
+addEventListener compositionstart 'contextmenu'
 markRaw、withModifiers
 数组新增的纯函数 API：toSorted、toReversed、toSpliced、with(修改数组)
 font-variant、text-transform
@@ -66,6 +68,83 @@ console.log() 打印对象时，点击小三角实时加载
 BroadcastChannel API
 禁止触发系统菜单和长按选中：`touch-callout:none` contextmenu
 禁止用户选中文字：`user-select:none`
+```
+
+```js
+/**
+ * nums 数组中包含 1 个或多个正整数
+ * 其他的数字都出现 2 次
+ * 只有一个数字出现了 1 次
+ * 找出只出现了 1 次的数字
+ */
+function uniqueNumber(nums) {
+  // 0 异或 别的数等于数本身
+  // 相同的数异或结果为 0
+  var result = 0
+  for (const n of nums) {
+    result ^= n
+  }
+  return result
+  // return nums.reduce((a, b) => a ^ b, 0)
+}
+```
+
+```javascript
+// 目录的自动高亮
+function highlight(id) {
+  document.querySelectorAll('a.highlight').forEach((a) => {
+    a.classList.remove('highlight')
+  })
+  if (id instanceof HTMLElement) {
+    id.classList.add('highlight')
+    return
+  }
+  if (id.startsWith('#')) {
+    id = id.substring(1)
+  }
+  document.querySelector(`a[href="${id}"`).classList.add('highlight')
+}
+
+const links = document.querySelectorAll('.toc a[href^="#"')
+const titles = []
+for (const link of links) {
+  link.addEventListener('click', (e) => {
+    highlight(link)
+  })
+  const url = new URL(link.href)
+  const dom = document.querySelector(url.hash)
+  if (dom) {
+    titles.push(dom)
+  }
+}
+
+const debounce = (fn, delay) => {
+  let timer = null
+  return (...args) => {
+    clearTimeout(timer)
+    timer = setTimeout(() => {
+      fn(...args)
+    }, delay)
+  }
+}
+
+const scrollHandler = debounce(() => {
+  const rects = titles.map((title) => title.getBoundingClientRect())
+  const toRange = 300
+  for (let i = 0; i < titles.length; i++) {
+    const rect = rects[i] // 标题的位置信息
+    const title = titles[i] // 标题的 Dom
+    if (rect.top >= 0 && rect.top <= toRange) {
+      highlight(title.id)
+      break
+    } else if (rect.top < 0 && rect[i + 1] && rect[i + 1].top > document.documentElement.clientHeight) {
+      highlight(title.id)
+      break
+    }
+  }
+}, 100)
+
+window.addEventListener('scroll', scrollHandler)
 ```
 
 ```javascript
@@ -2249,6 +2328,7 @@ Houdini @property
 
 CSS 剪切函数 clip-path
 background-clip
+mix-blend-mode background-blend-mode
 ```
 
 ```html
@@ -3618,24 +3698,3 @@ CSP（Content Security Policy）与跨域（Cross-Origin）在 Web 安全领域�
 - **相互影响**：在某些情况下，CSP 的设置可能会影响跨域请求的实现。例如，在使用 CSP 限制脚本加载时，如果跨域请求需要加载并执行远程脚本，可能会受到 CSP 策略的限制。同样，跨域请求的实现也可能需要考虑 CSP 策略的影响，以确保请求的资源符合 CSP 规则。
 
 综上所述，CSP 和跨域在 Web 安全领域中各自扮演着重要的角色。开发者需要根据实际需求合理配置 CSP 策略和跨域请求的实现方式，以确保 Web 应用的安全性和可用性。
-
-#
-
-```js
-/**
- * nums 数组中包含 1 个或多个正整数
- * 其他的数字都出现 2 次
- * 只有一个数字出现了 1 次
- * 找出只出现了 1 次的数字
- */
-function uniqueNumber(nums) {
-  // 0 异或 别的数等于数本身
-  // 相同的数异或结果为 0
-  var result = 0
-  for (const n of nums) {
-    result ^= n
-  }
-  return result
-  // return nums.reduce((a, b) => a ^ b, 0)
-}
-```
