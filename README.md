@@ -14,7 +14,6 @@ transform 从右到左 translate3d
 localeCompare 字典顺序
 依赖检查工具 depcheck
 mask-image
-js 引用传递 具名导入 import { n as main } from 'a.js'
 vue3 expose defineExpose
 正则匹配的贪婪模式和惰性模式有什么区别
 node 版本管理工具:`volta` `nvm`
@@ -68,6 +67,101 @@ console.log() 打印对象时，点击小三角实时加载
 BroadcastChannel API
 禁止触发系统菜单和长按选中：`touch-callout:none` contextmenu
 禁止用户选中文字：`user-select:none`
+使用data url预览图片 https://blog.csdn.net/u012804440/article/details/136018598
+```
+
+```
+值传递
+引用传递
+js 引用传递 具名导入 import { n as main } from 'a.js'
+https://blog.csdn.net/brilliantSt/article/details/136300491
+```
+
+```js
+/**
+ * 对象的属性迭代顺序大致遵循以下规则：
+ *  1、数值属性：首先会迭代对象的所有数值键，按照数值的升序进行。
+ *  2、字符串属性：然后按字符串的插入顺序依次迭代字符串属性
+ *  3、symbol属性：再然后按symbol的插入顺序依次迭代symbol属性
+ *  4、继承属性：当一个对象上有自己的属性，并且还继承一些属性的时候。整体也是按照上述三条规则排序的，但是插入顺序可能需要注意。这里暂不考虑这种特殊复杂情况。
+ */
+const obj = {
+  a: 0,
+}
+obj['1'] = 0
+obj[++obj.a] = obj.a++
+const values = Object.values(obj)
+obj[values[1]] = obj.a
+console.log(obj)
+```
+
+```js
+// 手写memoize
+class MemoizeMap {
+  #map
+  #weakMap
+  constructor() {
+    this.#map = new Map()
+    this.#weakMap = new WeakMap()
+  }
+
+  _isObject(v) {
+    return typeof v === 'object' && v !== null
+  }
+
+  set(key, value) {
+    if (this._isObject(key)) {
+      this.#weakMap.set(key, value)
+    } else {
+      this.#map.set(key, value)
+    }
+  }
+
+  get(key) {
+    if (this._isObject(key)) {
+      return this.#weakMap.get(key)
+    } else {
+      return this.#map.get(key)
+    }
+  }
+
+  has(key) {
+    if (this._isObject(key)) {
+      return this.#weakMap.get(key)
+    } else {
+      return this.#map.get(key)
+    }
+  }
+}
+
+function memoize(fn, resolver) {
+  function memoized(...args) {
+    const key = resolver ? resolver(...args) : args[0]
+    const cache = memoized.cache
+    if (cache.has(key)) {
+      return cache.get(key)
+    }
+    const result = fn.apply(this, args)
+    cache.set(key, result)
+    return result
+  }
+  memoized.cache = new MemoizeMap()
+  return memoized
+}
+```
+
+```js
+// JSLabel语法
+outer: for (let i = 0; i < 10; i++) {
+  console.log('顶层循环')
+  for (let j = 0; j < 10; j++) {
+    console.log('内层循环', i, j)
+    if (i * j > 30) {
+      console.log('退出顶层循环')
+      break outer
+    }
+  }
+}
 ```
 
 ```js
@@ -392,6 +486,7 @@ a.href = `thunder://${newHref}`
 ```
 
 ```js
+// ①
 Pormise.resolve()
   .then(() => {
     console.log(0)
@@ -416,6 +511,69 @@ Promise.resolve()
   .then(() => {
     console.log(6)
   })
+
+/**
+ * thenable
+ *  1. 完成，所有注册的 thenable 进队列
+ *  2. 调用 then，如果已完成，直接进队列
+ */
+
+// ②
+new Promise((resolve, reject) => {
+  resolve(2)
+  new Promise((resolve, reject) => {
+    resolve(5)
+  }).then((v) => console.log(v))
+}).then((v) => console.log(v))
+
+// ③
+new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve(2)
+    new Promise((resolve, reject) => {
+      resolve(5)
+    }).then((v) => console.log(v))
+  })
+}).then((v) => console.log(v))
+
+// ④
+const promise1 = Promise.resolve('first')
+
+const promise2 = new Promise((resolve) => {
+  setTimeout(() => {
+    resolve('second')
+  }, 1000)
+})
+
+const promise3 = Promise.reject('third')
+
+function handlePromise(promise) {
+  return promise
+    .then((value) => {
+      console.log(value)
+      return value
+    })
+    .catch((error) => {
+      console.log('Error', error)
+      return 'Error handler'
+    })
+}
+
+async function runPromises() {
+  try {
+    const result1 = await handlePromise(promise1)
+    console.log('result1', result1)
+    // const result2 = await handlePromise(promise2)
+    const result2 = handlePromise(promise2)
+    console.log('result2', result2)
+    const result3 = await handlePromise(promise3)
+    console.log('result3', result3)
+  } catch (error) {
+    console.error('Caught error', error)
+  }
+}
+
+runPromises()
 ```
 
 ```js
@@ -513,14 +671,6 @@ async function getRespnse(content) {
     const txt = decoder.decode(value)
   }
 }
-```
-
-```
-动态规划入门
-1.思路
-  确定状态转移方程
-  不同规模的相同问题之间的关系
-2.实现
 ```
 
 ```css
@@ -1289,7 +1439,7 @@ class Example {
   }
 }
 
-;('use strict')
+;('use strict') // 严格模式
 function Example(name) {
   // 验证 this 的指向
   if (!(this instanceof Example)) {
@@ -1298,6 +1448,7 @@ function Example(name) {
   this.name = name
 }
 
+// 不可枚举
 Object.defineProperty(Example.prototype, 'func', {
   value: function () {
     // 不可通过 new 调用
@@ -1697,13 +1848,6 @@ Cookie 中的 SameSite：用于限制跨站请求
 None:不作任何限制，使用该值必须保证 Cookie 为 Secure，否则无效
 lax:阻止发送 Cookie，但对超链接放行，默认值
 strict:阻止发送 Cookie
-```
-
-```
-css原子化
-  taiwind
-  windi
-  uno
 ```
 
 ```html
