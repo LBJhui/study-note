@@ -1,4 +1,6 @@
 ```
+console.log(([][[]] + [])[+!![]] + ([] + {})[+!![] + +!![]])
+展示组件和容器组件
 使用computed拦截v-model https://juejin.cn/post/7338634091397431330
 右键菜单组件的封装 https://blog.csdn.net/DuyiZiChen/article/details/131405493
 SocketIO
@@ -68,6 +70,40 @@ BroadcastChannel API
 禁止触发系统菜单和长按选中：`touch-callout:none` contextmenu
 禁止用户选中文字：`user-select:none`
 使用data url预览图片 https://blog.csdn.net/u012804440/article/details/136018598
+在 TypeScript 中正确的遍历一个对象
+```
+
+```js
+// 深度克隆的一般实现
+const cache = new WeakMap()
+
+function deepClone(value) {
+  if (typeof value !== 'object' || value === null) {
+    return value
+  }
+  // value 是对象
+  if (cache.has(value)) {
+    return cache.get(value)
+  }
+  const result = Array.isArray(value) ? [] : {}
+  Object.setPrototypeOf(result, Object.getPrototypeOf(value))
+  cache.set(value, result)
+  for (const key in value) {
+    if (value.hasOwnProperty(key)) {
+      result[key] = deepClone(value[key])
+    }
+  }
+  return result
+}
+```
+
+```ts
+class A {
+  a: number = 1
+  b: string = 'a'
+}
+
+type AFields= keypf InstanceType<typeof A>
 ```
 
 ```
@@ -843,11 +879,6 @@ function deepFreeze(obj) {
   })
   return Object.freeze(obj)
 }
-```
-
-```css
-/* 磨砂玻璃效果 */
-backdrop-filter: blur(10px);
 ```
 
 ```js
@@ -1682,6 +1713,31 @@ interface Article {
 type Optional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>
 
 type CreateArticleOptions = Optional<Article, 'tags' | 'comments'>
+
+// 实现GetOptionals
+interface Article {
+  title: string
+  content: string
+  tags: string[]
+  comments?: string[]
+  likeCount?: number
+}
+
+type GetOptional<T> = {
+  [P in keyof T]: T[P]
+}
+
+type GetOptional1<T> = {
+  [P in keyof T as `get${Capitalize<P & string>}`]: T[P]
+}
+type GetOptional2<T> = {
+  [P in keyof T as never]: T[P]
+}
+
+Required<Article>
+type GetOptional<T> = {
+  [P in keyof T as T[P] extends Required<T>[p] ? never : P]: T[P]
+}
 ```
 
 ```js
@@ -1876,6 +1932,17 @@ strict:阻止发送 Cookie
     image-rendering: pixelated;
   }
 </style>
+
+<style>
+  /* 磨砂玻璃效果 */
+  backdrop-filter: blur(10px);
+
+  /* 阴影效果 */
+  filter: drop-shadow(0 0 5px #000);
+  filter: blur(5px);
+  filter: grayscale(50%);
+  filter: hue-rotate(90deg);
+</style>
 ```
 
 ---
@@ -2063,8 +2130,6 @@ getComputedStyle
   对仍然没有值的属性，使用默认值
 ```
 
-在 TypeScript 中正确的遍历一个对象
-
 ```js
 垃圾回收监听：FinalizationRegistry
   引用计数
@@ -2146,7 +2211,7 @@ while (1) {
 7.减少重绘和回流
 ```
 
-```
+```css
 /* 你不知道的 CSS 选择器 */
 :focus-within
 :has()
@@ -2248,8 +2313,35 @@ export default defineConfig({
   },
 })
 
+// 统一vite中的图片转换逻辑
+import fs from 'node:fs'
+
+const myPlugin = (limit = 4096) => {
+  return {
+    name: 'my-plugin',
+    transform: async (code, id) => {
+      if (process.env.NODE_ENV !== 'development') return
+      if (!/\.(png|jpe?g|gif|webp|svg)$/.test(id)) {
+        return
+      }
+      const state = await fs.promise.stat(id)
+      if (state.size > limit) {
+        return
+      }
+      const buffer = await fs.promise.readFile(id)
+      const base64 = buffer.toString('base64')
+      const dataurl = `data:image/png;base64,${base64}`
+      return {
+        code: `export default ${dataurl}`,
+      }
+    },
+  }
+}
+
 export default definConfig({
   build: {
+    // 统一vite中的图片转换逻辑
+    assetsInlineLimit:0,
     rollupOptions: {
       // 在vite中手动分包
       manualChunks(id) {
@@ -2498,11 +2590,6 @@ addEventListener {passive:false} copy paste
 e.clipboardData.setData('text/palin','hello world')
 Clipboard API
 navigator.clipboard.readText().then(text=>{})
-```
-
-```
-阴影效果
-filter:drop-shadow(0 0 5px #000)
 ```
 
 ```

@@ -21,8 +21,8 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
-import { fileSize, extname } from '../utils';
+import { computed, ref } from 'vue'
+import { fileSize, extname } from '../utils'
 
 const props = defineProps({
   exts: {
@@ -33,59 +33,57 @@ const props = defineProps({
     type: Number,
     default: 1024 * 1024,
   },
-});
+})
 
-const emit = defineEmits(['drop']);
+const emit = defineEmits(['drop'])
 
-const supports = computed(() => props.exts.join('、'));
+const supports = computed(() => props.exts.join('、'))
 
-const maxSize = computed(() => fileSize(props.fileSize));
+const maxSize = computed(() => fileSize(props.fileSize))
 
-const isDraging = ref(false);
+const isDraging = ref(false)
 
 const dragInHandler = (e) => {
   if (!e.dataTransfer.types.includes('Files')) {
-    return;
+    return
   }
-  e.preventDefault();
-  isDraging.value = true;
-};
+  e.preventDefault()
+  isDraging.value = true
+}
 const dragLeaveHandler = (e) => {
-  e.preventDefault();
-  isDraging.value = false;
-};
+  e.preventDefault()
+  isDraging.value = false
+}
 const dropHandler = async (e) => {
-  e.preventDefault();
-  isDraging.value = false;
+  e.preventDefault()
+  isDraging.value = false
   let results = await Promise.all(
-    [...e.dataTransfer.items].map((item) =>
-      handleEntry(item.webkitGetAsEntry())
-    )
-  );
+    // 拖拽的文件
+    [...e.dataTransfer.items].map((item) => handleEntry(item.webkitGetAsEntry()))
+  )
 
-  results = results
-    .flat(Infinity)
-    .filter((f) => validExt(f.name) && validSize(f.size));
+  results = results.flat(Infinity).filter((f) => validExt(f.name) && validSize(f.size))
 
-  emit('drop', results);
-};
+  emit('drop', results)
+}
 
-const validExt = (name) => props.exts.includes(extname(name));
+const validExt = (name) => props.exts.includes(extname(name))
 
-const validSize = (size) => size <= props.fileSize;
+const validSize = (size) => size <= props.fileSize
 
 const handleEntry = (entry) => {
   return new Promise((resolve) => {
     if (entry.isFile) {
-      entry.file(resolve);
-      return;
+      entry.file(resolve)
+      return
     }
-    const dirReader = entry.createReader();
+    // 文件夹
+    const dirReader = entry.createReader()
     dirReader.readEntries(async (entries) => {
-      resolve(await Promise.all(entries.map(handleEntry)));
-    });
-  });
-};
+      resolve(await Promise.all(entries.map(handleEntry)))
+    })
+  })
+}
 </script>
 
 <style scoped>
