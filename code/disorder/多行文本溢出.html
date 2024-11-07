@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>多行文本溢出</title>
+    <style>
+      .container {
+        width: 400px;
+        background-color: aqua;
+        text-align: justify; /* 两端对齐 */
+        padding: 10px;
+      }
+      .text-container {
+        height: 100px;
+        overflow: hidden;
+      }
+      .content {
+        line-height: 25px;
+        margin-top: -80px;
+      }
+      .text-container::before {
+        content: '';
+        height: 80px;
+        display: block;
+        background-color: aquamarine;
+      }
+      .more {
+        float: right;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="text-container">
+        <div class="more">...</div>
+        <div class="content">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis tempora error quia sit ipsam suscipit, numquam odit eaque consequuntur tenetur ipsa fugiat recusandae earum et est
+          porro, nihil molestias quasi repellendus nulla sed iure aliquid saepe. Beatae sequi, nobis iste cupiditate quos eaque aliquam dolore sit totam, facilis, nesciunt ea libero! Veniam iste sunt
+          nesciunt quis doloribus provident beatae repellat!
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,4 +1,5 @@
 ```
+vue方法中属性丢失的问题 methods配置的方法与组件实例的方法
 console.log(([][[]] + [])[+!![]] + ([] + {})[+!![] + +!![]])
 展示组件和容器组件
 使用computed拦截v-model https://juejin.cn/post/7338634091397431330
@@ -71,6 +72,104 @@ BroadcastChannel API
 禁止用户选中文字：`user-select:none`
 使用data url预览图片 https://blog.csdn.net/u012804440/article/details/136018598
 在 TypeScript 中正确的遍历一个对象
+```
+
+```
+打包结果分析工具
+  Webpack:webpack-bundle-analyzer
+  vite:vite-bundle-visualizer
+       rollup-bundle-visualizer
+```
+
+```
+元素的绘制顺序
+  可替换元素
+    元素本身
+    元素内容
+  堆叠上下文、层叠上下文
+    z-index,position:relative
+    transform
+```
+
+```
+文件上传
+  单文件上传 multiport/form-data
+  二进制格式上传文件 binary/application/octet-stream
+
+文件下载
+// 下载的流式传输
+// 如果前端直接打开文件，没有触发下载 a 元素 download
+
+// 服务器端：
+  res.setHeader('Content-Disposition', 'attachment;filename=es6.pdf')
+// 前端
+  <a download=''></a>
+// https://blog.csdn.net/weixin_64684095/article/details/139484213
+
+// 触发迅雷下载
+const link = '需要下载的地址'
+const newHref = btoa(`AA${link}ZZ`) // a 标签的地址
+
+a.href = `thunder://${newHref}`
+```
+
+```ts
+// never类型的妙用
+type Method = 'GET' | 'POST'
+
+function request(url: string, method: Method) {
+  if (method === 'GET') {
+    // do something
+  } else if (method === 'POST') {
+    // do something
+  } else {
+    // 之后 Method 方法修改，这里会报错
+    const n: never = method
+  }
+}
+
+// never类型的妙用2
+function m<T>(x: T extends number ? never : T) {}
+```
+
+```javascript
+// 从视频文件提取画面帧 https://juejin.cn/post/7352079398072746047
+const inp = document.querySelector('input[type=file]')
+inp.onchange = (e) => {
+  const file = e.target.files[0]
+  captureFrame(file, 1).then(({ url }) => {
+    const img = document.createElement('img')
+    img.src = url
+    document.body.appendChild(img)
+  })
+}
+
+function captureFrame(file, time = 0) {
+  return new Promise((resolve, reject) => {
+    const vdo = document.createElement('video')
+    vdo.currentTime = time
+    vdo.mute = true
+    vdo.autoplay = true
+    vdo.src = URL.createObjectURL(file)
+    vdo = oncanplay = () => {
+      const cvs = document.createElement('canvas')
+      cvs.width = vdo.videoWidth
+      cvs.height = vdo.videoHeight
+      const ctx = cvs.getContext('2d')
+      ctx.drawImage(vdo, 0, 0, cvs.width, cvs.height)
+      // document.body.appendChild(cvs)
+
+      cvs.toBlob((blob) => {
+        const url = URL.createObjectURL(blob)
+        resolve({ url, blob })
+      })
+    }
+  })
+  // return {
+  //   url:图片的url地址
+  //   blob:图片的二进制数据
+  // }
+}
 ```
 
 ```js
@@ -275,14 +374,6 @@ const scrollHandler = debounce(() => {
 }, 100)
 
 window.addEventListener('scroll', scrollHandler)
-```
-
-```javascript
-// 下载的流式传输
-// 如果前端直接打开文件，没有触发下载 a 元素 download
-res.setHeader('Content-Disposition', `attachment; filename=${encodeURIComponent(filename)}`)
-
-// https://blog.csdn.net/weixin_64684095/article/details/139484213
 ```
 
 ```javascript
@@ -511,14 +602,6 @@ console.log(console.log.__proto__ === Function.prototype)
 console.log(console.log.call === Function.prototype.call)
 
 // const r = Function.prototype.call.apply((a) => a, [1, 2])
-```
-
-```js
-// 触发迅雷下载
-const link = '需要下载的地址'
-const newHref = btoa(`AA${link}ZZ`) // a 标签的地址
-
-a.href = `thunder://${newHref}`
 ```
 
 ```js
@@ -2479,8 +2562,6 @@ observer.observe({ entryTypes: ['longtask'] })
   JWT
   cookie
   sessionnavigator.hardwareConcurrency
-  文件上传
-  文件下载
   缓存协议
   CSRF
   XSS
@@ -2499,14 +2580,6 @@ observer.observe({ entryTypes: ['longtask'] })
   window.addEventListener('online', () => {})
   window.addEventListener('offline', () => {})
   navigatot.connection.addEventListener('change', () => {})
-```
-
-```
-下载的流式传输
-服务器端：
-  res.setHeader('Content-Disposition', 'attachment;filename=es6.pdf')
-前端
-  <a download=''></a>
 ```
 
 ```
@@ -2551,6 +2624,11 @@ scrollbar-3dlight-color: #eaeaea;
 scrollbar-darkshadow-color: #697074;
 scrollbar-track-color: #f7f7f7;
 scrollbar-arrow-color: #666666;
+
+/* 使用CSS实现滚动吸附效果 */
+scroll-snap-type: mandatory;
+scroll-snap-align: center;
+scroll-snap-stop: always;
 
 /* 纯css实现页面滚动动画 */
 scroll-timelin-name
