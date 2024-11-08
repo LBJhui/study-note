@@ -286,7 +286,7 @@ type AFields = keypf
 InstanceType<typeof A>
 ```
 
-```
+```text
 值传递
 引用传递
 js 引用传递 具名导入 import { n as main } from 'a.js'
@@ -691,6 +691,7 @@ run(main)
 ```
 
 ```javascript
+// call 方法第一个参数为 null 或 undefined，this 会被设置为全局对象
 // call和apply的链式调用
 const r = console.log.call.call.call.call.call.call.call.apply((a) => a, [1, 2])
 
@@ -801,7 +802,7 @@ runPromises()
  * 要尽快完成任务，同时不要让页面产生卡顿
  * 尽量兼容更多的浏览器
  * @param {Function} task
- 
+
  */
 //直接运行任务 阻塞
 function runTask(task) {
@@ -2635,8 +2636,6 @@ export default definConfig({
   },
 })
 ```
-
-call 方法第一个参数为 null 或 undefined，this 会被设置为全局对象
 
 ```
 什么是 vue 的响应式？
