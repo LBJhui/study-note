@@ -67,11 +67,91 @@ vue-draggable-plus
 console.log() 打印对象时，点击小三角实时加载
 元素倒影:-webkit-box-reflect
 页面可见度 API page visibility
-BroadcastChannel API
 禁止触发系统菜单和长按选中：`touch-callout:none` contextmenu
 禁止用户选中文字：`user-select:none`
 使用data url预览图片 https://blog.csdn.net/u012804440/article/details/136018598
 在 TypeScript 中正确的遍历一个对象
+```
+
+```text
+跨标签页通信常见方案
+  BroadcastChannel API
+  Service Worker
+  LocalStorage  window.onstorage 监听
+  Shared Worker 定时器轮询 setInterval
+  IndexedDB 定时器轮询
+  cookie 定时器轮询
+  window.open、window.postMessage
+  WebSocket
+```
+
+```javascript
+// 任务执行的洋葱模型
+class TaskPro {
+  #tasksList
+  #isRunning
+  #currentIndex
+  #next
+
+  constructor() {
+    this.#tasksList = []
+    this.#isRunning = false
+    this.#currentIndex = 0
+    this.#next = async () => {
+      this.#currentIndex++
+      await this.#runTask()
+    }
+  }
+
+  addTask(task) {
+    this.#tasksList.push(task)
+  }
+
+  run() {
+    if (this.#isRunning || this.#tasksList.length === 0) return undefined
+    this.#isRunning = true
+    this.#runTask()
+  }
+
+  /**
+   * 取出一个任务执行
+   */
+  async #runTask() {
+    if (this.#currentIndex >= this.#tasksList.length) {
+      this.#reset()
+      return undefined
+    }
+    const i = this.#currentIndex
+    const task = this.#tasksList[this.#currentIndex]
+    await task(this.#next)
+    const j = this.#currentIndex
+    if (i === j) {
+      await this.#next()
+    }
+  }
+
+  #reset() {
+    this.#currentIndex = 0
+    this.#isRunning = false
+    this.#tasksList = []
+  }
+}
+
+const t = new TaskPro()
+
+t.addTask(async (next) => {
+  console.log('task1 start')
+  await next()
+  console.log('task1 end')
+})
+t.addTask((next) => {
+  console.log('task2')
+})
+t.addTask((next) => {
+  console.log('task3')
+})
+
+t.run()
 ```
 
 ```
@@ -202,7 +282,8 @@ class A {
   b: string = 'a'
 }
 
-type AFields= keypf InstanceType<typeof A>
+type AFields = keypf
+InstanceType<typeof A>
 ```
 
 ```
@@ -235,6 +316,7 @@ console.log(obj)
 class MemoizeMap {
   #map
   #weakMap
+
   constructor() {
     this.#map = new Map()
     this.#weakMap = new WeakMap()
@@ -280,6 +362,7 @@ function memoize(fn, resolver) {
     cache.set(key, result)
     return result
   }
+
   memoized.cache = new MemoizeMap()
   return memoized
 }
@@ -400,25 +483,36 @@ function sum(a, b) {
 ```
 
 ```ts
-协变和逆变 https://blog.csdn.net/u014676858/article/details/141826960
-  类型安全 所有成员可用
+协变和逆变
+https://blog.csdn.net/u014676858/article/details/141826960
+  类型安全
+所有成员可用
 
-收：Fans: 父类型 成员少
-给：Ikun: 子类型 成员多
+收：Fans: 父类型
+成员少
+给：Ikun: 子类型
+成员多
 
-inferface Fans{
-  call():void
+inferface
+Fans
+{
+  call()
+:
+  void
 }
 
-interface IKun extends Fans{
-  sing():void
-  dance():void
-  basketball():void
-  rap():void
+interface IKun extends Fans {
+  sing(): void
+
+  dance(): void
+
+  basketball(): void
+
+  rap(): void
 }
 
-let fans:Fans
-let ikun:IKun
+let fans: Fans
+let ikun: IKun
 
 fans = ikun
 ikun = fans // 不能赋值
@@ -436,6 +530,7 @@ const matrix = [
 function move(matrix, direction) {
   const rows = matrix.length
   const cols = matrix[0].length
+
   function _inRange(i, j) {
     return i >= 0 && i < rows && j >= 0 && j < cols
   }
@@ -461,6 +556,7 @@ function move(matrix, direction) {
     }
     return null
   }
+
   // 从 i，j 出发，依次处理某行或某列的数据
   function _cal(i, j) {
     if (!_inRange(i, j)) return
@@ -550,6 +646,7 @@ function run(func) {
     status: 'pending',
     value: null,
   }
+
   function newFetch(...args) {
     // 有缓存返回缓存
     if (cache.status === 'fulfilled') {
@@ -571,6 +668,7 @@ function run(func) {
     // 抛出错误
     throw 123
   }
+
   window.fetch = newFetch
   // 2. 执行 func
   try {
@@ -703,7 +801,7 @@ runPromises()
  * 要尽快完成任务，同时不要让页面产生卡顿
  * 尽量兼容更多的浏览器
  * @param {Function} task
-
+ 
  */
 //直接运行任务 阻塞
 function runTask(task) {
@@ -794,7 +892,9 @@ async function getRespnse(content) {
 
 ```css
 /* 黏性定位 */
-position: sticky;
+position: sticky
+
+;
 样式计算 视觉格式化模型
 包含块
 最近可滚动祖先
@@ -842,6 +942,7 @@ console.log(a)
 ```js
 // 可缓存的方法 计算属性如何传参
 import { computed } from 'vue'
+
 function useComputed(fn) {
   const map = new Map()
   return function (...args) {
@@ -890,9 +991,15 @@ Array.prototype.customFlatten = function () {
 ```
 
 ```js
-Object 的 key 是字符串， Map 的 key 没有限制
-[NaN].includes(NaN) // true
-[NaN].indexOf(NaN) // -1
+Object
+的
+key
+是字符串， Map
+的
+key
+没有限制
+  [NaN].includes(NaN) // true
+  [NaN].indexOf(NaN) // -1
 isNaN(NaN) // true
 isNaN(1) // false
 isNaN('1') // false
@@ -905,9 +1012,8 @@ NaN ** 0 // 1
 isNaN('this is a string not a NaN value') // true
 Number.isNaN('this is a string not a NaN value') // false
 
-
 // NaN 和 Number.isNaN 有什么区别 Not a Number
-console.log(NaN===NaN) // false
+console.log(NaN === NaN) // false
 console.log(Number.isNaN(NaN)) // true
 console.log(Number.isNaN('42')) // false
 console.log(Number.isNaN('NaN')) // false
@@ -923,10 +1029,9 @@ console.log(isNaN('NaN')) // true
  * Number.isNaN 直接检查一个值是否是 NaN
  */
 
-
 console.log(isNaN('0yd'))
 console.log(isNaN('0xd'))
-console.log(NaN===NaN)
+console.log(NaN === NaN)
 console.log(Number.isNaN('0yd'))
 console.log(Number.isNaN('0xd'))
 ```
@@ -977,7 +1082,9 @@ function Product(name, unitPrice, chooseNumber) {
     },
   })
   // ES6
-  get totalPrice() {
+  get
+  totalPrice()
+  {
     return this.unitPrice * this.chooseNumber
   }
 }
@@ -1006,20 +1113,22 @@ const r2 = add[10][20] + 30 // 期望结果 60
 const r3 = add[100][200][300] + 400 // 期望结果 1000
 
 // 链式调用
-function chain(value){
-  const handler={
-    get:function(obj,prop){
-      if(prop==='end'){
+function chain(value) {
+  const handler = {
+    get: function (obj, prop) {
+      if (prop === 'end') {
         return obj.value
       }
-      if(typedof window[prop]==='function'){
+      if (typedof window[prop] === 'function'
+    )
+      {
         obj.value = window[prop](obj.value)
         return proxy
       }
       return obj[prop]
     }
   }
-  const proxy = new Proxy({ value }, handler)
+  const proxy = new Proxy({value}, handler)
   return proxy
 }
 ```
@@ -1045,6 +1154,7 @@ function demo1() {
 function demo2() {
   // 前面的代码
   初始代码
+
   function _m() {
     if (!条件) {
       return
@@ -1053,6 +1163,7 @@ function demo2() {
     后置代码
     _m()
   }
+
   _m()
   // 后面的代码
 }
@@ -1068,6 +1179,7 @@ function demo1(arr) {
 function demo2(arr) {
   let sum = 0
   let i = 0
+
   function _m() {
     if (i >= arr.length) {
       return
@@ -1075,6 +1187,7 @@ function demo2(arr) {
     sum += arr[i++]
     _m()
   }
+
   _m()
   return sum
 }
@@ -1082,13 +1195,13 @@ function demo2(arr) {
 
 ```js
 // 监听元素的重叠度
-const ob = new IntersectionObserver(entries=>{
+const ob = new IntersectionObserver(entries => {
   const entry = entries[0]
-  if(entry.isIntersecting){
+  if (entry.isIntersecting) {
     console.log('加载更多')
   }
-},{
-  root:null
+}, {
+  root: null
   threshold: 0
 })
 const dom = document.querySelector('.loading')
@@ -1117,6 +1230,7 @@ function performTasks(tasks) {
     return
   }
   let i = 0
+
   // 每一次的执行
   function _run() {
     requestIdleCallback((idle) => {
@@ -1126,6 +1240,7 @@ function performTasks(tasks) {
       _run()
     })
   }
+
   _run()
 }
 
@@ -1145,6 +1260,7 @@ function performTasks(tasks, scheduler) {
     return
   }
   let i = 0
+
   // 每一次的执行
   function _run() {
     scheduler((goOn) => {
@@ -1154,6 +1270,7 @@ function performTasks(tasks, scheduler) {
       _run()
     })
   }
+
   _run()
 }
 
@@ -1211,6 +1328,7 @@ Object.is：
   align-items: center;
   justify-content: center;
 }
+
 .container {
   @include flex;
 }
@@ -1222,6 +1340,7 @@ Object.is：
   justify-content: center;
   @content;
 }
+
 .container {
   @include flex(start) {
     gap: 20px;
@@ -1253,7 +1372,7 @@ Object.is：
 }
 
 // 4. 媒介查询的参数是对象
-$breakpoints = {
+$breakpoints= {
   phone: (320px, 480px);
   pad: (481px, 768px);
   notebook: (769px, 1024px);
@@ -1406,6 +1525,7 @@ function concurRequest(urls, maxNum) {
         }
       }
     }
+
     for (let i = 0; i < Math.min(urls.length, maxNum); i++) {
       _request()
     }
@@ -1428,6 +1548,7 @@ function request(url, maxCount = 5) {
 ```ts
 // 对柯里化进行类型标注
 type Curried<A extends any[], R> = A extends [] ? () => R : A extends [infer P] ? (x: P) => R : A extends [infer P, ...infer Rest] ? (x: p) => Curried<Rest, R> : never
+
 declare function curry<A extends any[], R>(fn: (...args: A) => R): Curried<A, R>
 
 柯里化是将接收多个参数的函数转换成接收一个单一参数的函数
@@ -1435,8 +1556,8 @@ declare function curry<A extends any[], R>(fn: (...args: A) => R): Curried<A, R>
 组合是将两个或多个函数组合成一个新的函数，并且组合的函数从右到左执行
 
 管道函数与组合函数
-  共同点：都可以将两个或多个函数组合成一个新的函数，新函数的执行结果等于连续调用多个原函数的执行结果
-  区别：组合函数是从右到左执行，而管道函数是从左到右执行
+共同点：都可以将两个或多个函数组合成一个新的函数，新函数的执行结果等于连续调用多个原函数的执行结果
+区别：组合函数是从右到左执行，而管道函数是从左到右执行
 
 function pipe(...fns) {
   return function (x) {
@@ -1463,6 +1584,7 @@ class Person {
       console.log('我在里面', this.name)
     }
   }
+
   say2() {
     console.log('我在外面', this.name)
   }
@@ -1477,24 +1599,33 @@ A.say1 === B.say1
 A.say2 === B.say2
 
 ①
-在构造函数内部定义的方法，实际上是在**每个对象实例**上创建了一个新的函数
-在构造函数外部定义的方法是在 Person 的原型对象(Person.prototype)上创建的
+在构造函数内部定义的方法，实际上是在 ** 每个对象实例 ** 上创建了一个新的函数
+在构造函数外部定义的方法是在
+Person
+的原型对象(Person.prototype)
+上创建的
 
 ②
 在构造函数内部定义的方法是各个实例对象独有的
 在构造函数外部定义的方法，所有Person实例共享的
 
 ③
-在构造函数内部定义的方法可以被`Object.keys()`遍历
-在构造函数外部定义的方法不能被`Object.keys()`遍历
+在构造函数内部定义的方法可以被`Object.keys()`
+遍历
+在构造函数外部定义的方法不能被`Object.keys()`
+遍历
 ```
 
 ```js
 // 函数的length
 function fun1(a) {}
+
 function fun2(b = 'a', a) {}
+
 function fun3(a, b = 'a') {}
+
 function fun4(a, ...arr) {}
+
 console.log(fun1.length)
 console.log(fun2.length)
 console.log(fun3.length)
@@ -1511,26 +1642,37 @@ Math.floor(-4.05)
 parseInt(-4.05)
 
 parseInt：向零取整
-对于负数，会**向上取整**到最接近的整数
-对于正数，会**向下取整到**最接近的整数
+对于负数，会 ** 向上取整 ** 到最接近的整数
+对于正数，会 ** 向下取整到 ** 最接近的整数
 
-parseInt 会忽略任何数字后面的非数字字符
+parseInt
+会忽略任何数字后面的非数字字符
 parseInt('4.05abc') // 4
 Math.floor('4.05abc') // NaN
 
-parseInt 处理不同的进制数据
-parseInt('11',2)  // 结果是3，因为在2进制中，11表示的是十进制中的3
+parseInt
+处理不同的进制数据
+parseInt('11', 2)  // 结果是3，因为在2进制中，11表示的是十进制中的3
 
 ;['1', '2', '3'].map(parseInt) // parseInt(item,index,arr)
 
-parseInt 第二个参数：
-1.不传递、undefined、0
-  自动
-    1）0x 十六进制
-    2）0 十进制/八进制
-    3）十进制
-2.无效进制（2-36 有效） NaN
-3.有效进制 正常转换
+parseInt
+第二个参数：
+1.
+不传递、undefined、0
+自动
+1）0
+x
+十六进制
+2）0
+十进制 / 八进制
+3）十进制
+2.
+无效进制（2 - 36
+有效） NaN
+3.
+有效进制
+正常转换
 
 ```
 
@@ -1548,6 +1690,7 @@ class Example {
   constructor(name) {
     this.name = name
   }
+
   func() {
     console.log(this.name)
   }
@@ -1657,9 +1800,11 @@ obj.fun2()
 
 // ②
 var length = 1
+
 function fun() {
   console.log(this.length)
 }
+
 let arr = [fun, 'a', 'b']
 arr[0]()
 let fun2 = arr[0]
@@ -1678,12 +1823,14 @@ setTimeout(obj.say, 10)
 
 // ④
 var name = 'LBJhui'
+
 function outerFunction() {
   this.name = 'outerFunction'
   return () => {
     console.log(this.name)
   }
 }
+
 const obj = {
   name: 'objLBJhui',
   innerFunction1: outerFunction(),
@@ -1928,12 +2075,34 @@ publicPath: '/' // 浏览器如何找资源
 /* 系统主题 */
 @media (prefers-color-scheme: dark) {
 }
+
 @media (prefers-color-scheme: light) {
 }
 
 /* js */
-const match=matchMedia('(prefers-color-scheme: dark)')
-match.addEventListener('change',(e)=>{})
+const match
+
+=
+matchMedia
+
+(
+'(prefers-color-scheme: dark)'
+)
+match.
+addEventListener
+
+(
+'change'
+,
+(
+e
+
+)
+=
+> {
+}
+
+)
 ```
 
 ```js
@@ -1963,12 +2132,15 @@ $btnColors: #409eff, #67c23a, #f56c6c, #e6a23c, #909399;
     $color: nth($btnColors, $i);
     background: $color;
     color: #fff;
+
     &:hover {
       background: lighten($color, 10%);
     }
+
     &:active {
       background: darken($color, 10%);
     }
+
     &:disabled {
       background: lighten($color, 20%);
     }
@@ -1977,7 +2149,9 @@ $btnColors: #409eff, #67c23a, #f56c6c, #e6a23c, #909399;
 ```
 
 ```css
-inital: 默认值;
+inital: 默认值
+
+;
 unset 清除浏览器样式
 revert 使用浏览器的样式
 ```
@@ -2018,13 +2192,13 @@ strict:阻止发送 Cookie
 
 <style>
   /* 磨砂玻璃效果 */
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur (10 px);
 
   /* 阴影效果 */
-  filter: drop-shadow(0 0 5px #000);
-  filter: blur(5px);
-  filter: grayscale(50%);
-  filter: hue-rotate(90deg);
+  filter: drop-shadow (0 0 5 px #000);
+  filter: blur (5 px);
+  filter: grayscale (50 %);
+  filter: hue-rotate (90 deg);
 </style>
 ```
 
@@ -2071,6 +2245,7 @@ readonly 防止变量属性值被修改
 interface Say {
   (name: string): void
 }
+
 let say: Say = (name: string): void => {}
 
 // Array
@@ -2083,6 +2258,7 @@ let list: NumberArray = [1, 2, 4, 5]
 // Class 声明
 interface Person {
   name: string
+
   sayHi(name: string): string
 }
 ```
@@ -2102,9 +2278,11 @@ TS：noImplicitThis:true 必须去声明 this 类型，才能在函数或者对�
 ```ts
 class Greet {
   greeting: string
+
   constructor(message: string) {
     this.greeting = message
   }
+
   greet(): string {
     return `hello,${this.message}`
   }
@@ -2122,6 +2300,7 @@ enum str {
   C,
   D,
 }
+
 type strUnion = keyof typeof str // 'A'|'B'|'C'|'D'
 ```
 
@@ -2215,16 +2394,19 @@ getComputedStyle
 
 ```js
 垃圾回收监听：FinalizationRegistry
-  引用计数
-  标记清除 memory management
+引用计数
+标记清除
+memory
+management
 ```
 
 ```js
 ajax
-  XMLHttpRequest XHR
-  Fetch
-axios --> XHR
-umi-request --> Fetch
+XMLHttpRequest
+XHR
+Fetch
+axios-- > XHR
+umi - request-- > Fetch
 
 // xhr 请求进度监控
 xhr.upload.addEventListener('progress', (e) => {
@@ -2348,6 +2530,7 @@ export default function (store) {
 //main.js
 import { createPinia } from 'pinia'
 import persistPlugin from './store/persistPlugin'
+
 const pinia = createPinia()
 pinia.use(persistPlugin)
 
@@ -2364,7 +2547,8 @@ export default function (context) {
     if (state) {
       store.$patch(state)
     }
-  } catch {}
+  } catch {
+  }
 }
 ```
 
@@ -2424,7 +2608,7 @@ const myPlugin = (limit = 4096) => {
 export default definConfig({
   build: {
     // 统一vite中的图片转换逻辑
-    assetsInlineLimit:0,
+    assetsInlineLimit: 0,
     rollupOptions: {
       // 在vite中手动分包
       manualChunks(id) {
@@ -2530,7 +2714,10 @@ let numbers = {
   0: 0
 }
 
-console.log(numbers."0"); // error
+console.log(numbers.
+"0"
+)
+; // error
 console.log(numbers[0]); // 0
 ```
 
@@ -2598,49 +2785,106 @@ observer.observe({ entryTypes: ['longtask'] })
 
 ```css
 动画
-Web Animation API: element.animate() element.getAnimations()
+Web Animation API: element.
+animate
+
+(
+)
+element.
+getAnimations
+
+(
+)
 requestAnimationFrame
-dom.addEventListener('transitionend') transitionstart
+dom.
+addEventListener
+
+(
+'transitionend'
+)
+transitionstart
 animationend
-逐帧动画 step animation: name 1s steps(5)
+逐帧动画 step animation: name
+
+1
+s
+steps
+
+(
+5
+)
 动画的暂停和恢复:animation-play-state paused running
-dom.style.setProperty('--name', 'value')
+dom.style.
+setProperty
+
+(
+'--name'
+,
+'value'
+)
 
 滚动元素到可视区域：scrollIntoView
 平滑滚动
 css:scroll-behavior
-js: window.scrollTo({
-  top:0,
-  behavior:'smooth'
-})
+js: window.
+scrollTo
 
-如何阻止滚动嵌套冒泡 `overscroll-behavior:contain`
+(
+{
+  top: 0,
+  behavior: 'smooth'
+}
+)
 
-/* 设置滚动条样式 */
-scrollbar-face-color: #eaeaea;
-scrollbar-shadow-color: #eaeaea;
-scrollbar-highlight-color: #eaeaea;
-scrollbar-3dlight-color: #eaeaea;
-scrollbar-darkshadow-color: #697074;
-scrollbar-track-color: #f7f7f7;
-scrollbar-arrow-color: #666666;
+如何阻止滚动嵌套冒泡 ` overscroll-behavior:contain`
+  /* 设置滚动条样式 */
+scrollbar-face-color: #eaeaea
+
+;
+scrollbar-shadow-color: #eaeaea
+
+;
+scrollbar-highlight-color: #eaeaea
+
+;
+scrollbar-3dlight-color: #eaeaea
+
+;
+scrollbar-darkshadow-color: #697074
+
+;
+scrollbar-track-color: #f7f7f7
+
+;
+scrollbar-arrow-color: #666666
+
+;
 
 /* 使用CSS实现滚动吸附效果 */
-scroll-snap-type: mandatory;
-scroll-snap-align: center;
-scroll-snap-stop: always;
+scroll-snap-type: mandatory
+
+;
+scroll-snap-align: center
+
+;
+scroll-snap-stop: always
+
+;
 
 /* 纯css实现页面滚动动画 */
 scroll-timelin-name
 animation-timeline
 animation-range
-
 动画库 vueusemotion
 cubic-bezier
 css 动画只支持数值类的属性
-Houdini @property
+Houdini
 
-CSS 剪切函数 clip-path
+@property
+
+CSS
+
+剪切函数 clip-path
 background-clip
 mix-blend-mode background-blend-mode
 ```
@@ -2664,10 +2908,16 @@ dom.style.width DOM树 getComputedStyle(dom).width CSSOM树 layout tree 布局�
 
 ```js
 监听复制事件
-addEventListener {passive:false} copy paste
-e.clipboardData.setData('text/palin','hello world')
-Clipboard API
-navigator.clipboard.readText().then(text=>{})
+addEventListener
+{
+  passive: false
+}
+copy
+paste
+e.clipboardData.setData('text/palin', 'hello world')
+Clipboard
+API
+navigator.clipboard.readText().then((text) => {})
 ```
 
 ```
@@ -2685,15 +2935,23 @@ margin-inline-start
 
 ```js
 属性到底存在不存在
-Object.keys() 对象自有可枚举的属性
-hasOwnProperty() 对象自有属性
+Object.keys()
+对象自有可枚举的属性
+hasOwnProperty()
+对象自有属性
 getOwnPropertyDescriptor()
-defineProperty()  value writable enumerable configurable
+defineProperty()
+value
+writable
+enumerable
+configurable
 使用 in 遍历属性，原型上也会查找
 
 对象属性
-symbol 属性不能被json序列化
-symbol 属性可以删除，configurable:true
+symbol
+属性不能被json序列化
+symbol
+属性可以删除，configurable:true
 ```
 
 ```js
@@ -2729,8 +2987,9 @@ padding 相对于父元素宽度
 ```
 
 ```js
-手动解析 DOM 树:
-removeTag
+手动解析
+DOM
+树: removeTag
 new DOMParser().parseFromString(str, 'text/html')
 ```
 
@@ -2745,7 +3004,8 @@ show,showModel
 > qiankun 是一个基于 single-spa 的微前端实现框架。它的工作原理主要涉及到以下几个方面：
 
 1. **应用加载**：qiankun 通过动态创建 script 标签的方式加载子应用的入口文件。加载完成后，会执行子应用暴露出的生命周期函数。
-2. **生命周期管理**：qiankun 要求每个子应用都需要暴露出 bootstrap、mount 和 unmount 三个生命周期函数。bootstrap 函数在应用加载时被调用，mount 函数在应用启动时被调用，unmount 函数在应用卸载时被调用。
+2. **生命周期管理**：qiankun 要求每个子应用都需要暴露出 bootstrap、mount 和 unmount 三个生命周期函数。bootstrap 函数在应用加载时被调用，mount 函数在应用启动时被调用，unmount
+   函数在应用卸载时被调用。
 3. **沙箱隔离**：qiankun 通过 Proxy 对象创建了一个 JavaScript 沙箱，用于隔离子应用的全局变量，防止子应用之间的全局变量污染。
 4. **样式隔离**：qiankun 通过动态添加和移除样式标签的方式实现了样式隔离。当子应用启动时，会动态添加子应用的样式标签，当子应用卸载时，会移除子应用的样式标签。
 5. **通信机制**：qiankun 提供了一个全局的通信机制，允许子应用之间进行通信。
@@ -2764,11 +3024,11 @@ show,showModel
 
 -
 
-- 1. 对于 HTML 中已有的 img/audio/video 等标签，qiankun 支持重写 getTemplate 函数，可以将入口文件 index.html 中的静态资源路径替换掉。
+- 1.  对于 HTML 中已有的 img/audio/video 等标签，qiankun 支持重写 getTemplate 函数，可以将入口文件 index.html 中的静态资源路径替换掉。
 
 -
 
-- 1. 对于动态插入的 img/audio/video 等标签，劫持 appendChild、innerHTML、insertBefore 等事件，将资源的相对路径替换成绝对路径。
+- 1.  对于动态插入的 img/audio/video 等标签，劫持 appendChild、innerHTML、insertBefore 等事件，将资源的相对路径替换成绝对路径。
 
 例如，我们可以传递一个 getTemplate 函数，将图片的相对路径转为绝对路径，它会在处理模板时使用：
 
@@ -2836,7 +3096,8 @@ beforeMount: (app) => {
 
 > 在使用 `qiankun` 时，处理老项目的资源加载问题可以有多种方案，具体的选择取决于项目的具体情况。以下是一些可能的解决方案：
 
-1. **使用 `qiankun` 的 `getTemplate` 函数重写静态资源路径**：对于 HTML 中已有的 `img/audio/video` 等标签，`qiankun` 支持重写 `getTemplate` 函数，可以将入口文件 `index.html` 中的静态资源路径替换掉。例如：
+1. **使用 `qiankun` 的 `getTemplate` 函数重写静态资源路径**：对于 HTML 中已有的 `img/audio/video` 等标签，`qiankun` 支持重写 `getTemplate` 函数，可以将入口文件 `index.html`
+   中的静态资源路径替换掉。例如：
 
 ```js
 start({
@@ -2847,7 +3108,8 @@ start({
 })
 ```
 
-1. **劫持标签插入函数**：对于动态插入的 `img/audio/video` 等标签，我们可以劫持 `appendChild` 、 `innerHTML` 、`insertBefore` 等事件，将资源的相对路径替换成绝对路径。例如，我们可以劫持 jQuery 的 `html` 方法，将图片的相对路径替换为绝对路径：
+1. **劫持标签插入函数**：对于动态插入的 `img/audio/video` 等标签，我们可以劫持 `appendChild` 、 `innerHTML` 、`insertBefore` 等事件，将资源的相对路径替换成绝对路径。例如，我们可以劫持
+   jQuery 的 `html` 方法，将图片的相对路径替换为绝对路径：
 
 ```js
 beforeMount: (app) => {
@@ -2869,8 +3131,10 @@ beforeMount: (app) => {
 
 `start` 函数接收一个可选的配置对象作为参数，这个对象可以包含以下属性：
 
-- `prefetch`：预加载模式，可选值有 `true`、`false`、`'all'`、`'popstate'`。默认值为 `true`，即在主应用 `start` 之后即刻开始预加载所有子应用的静态资源。如果设置为 `'all'`，则主应用 `start` 之后会预加载所有子应用静态资源，无论子应用是否激活。如果设置为 `'popstate'`，则只有在路由切换的时候才会去预加载对应子应用的静态资源。
-- `sandbox`：沙箱模式，可选值有 `true`、`false`、`{ strictStyleIsolation: true }`。默认值为 `true`，即为每个子应用创建一个新的沙箱环境。如果设置为 `false`，则子应用运行在当前环境下，没有任何的隔离。如果设置为 `{ strictStyleIsolation: true }`，则会启用严格的样式隔离模式，即子应用的样式会被完全隔离，不会影响到其他子应用和主应用。
+- `prefetch`：预加载模式，可选值有 `true`、`false`、`'all'`、`'popstate'`。默认值为 `true`，即在主应用 `start` 之后即刻开始预加载所有子应用的静态资源。如果设置为 `'all'`，则主应用 `start`
+  之后会预加载所有子应用静态资源，无论子应用是否激活。如果设置为 `'popstate'`，则只有在路由切换的时候才会去预加载对应子应用的静态资源。
+- `sandbox`：沙箱模式，可选值有 `true`、`false`、`{ strictStyleIsolation: true }`。默认值为 `true`，即为每个子应用创建一个新的沙箱环境。如果设置为 `false`，则子应用运行在当前环境下，没有任何的隔离。如果设置为
+  `{ strictStyleIsolation: true }`，则会启用严格的样式隔离模式，即子应用的样式会被完全隔离，不会影响到其他子应用和主应用。
 - `singular`：是否为单例模式，可选值有 `true`、`false`。默认值为 `true`，即一次只能有一个子应用处于激活状态。如果设置为 `false`，则可以同时激活多个子应用。
 - `fetch`：自定义的 `fetch` 方法，用于加载子应用的静态资源。
 
@@ -2884,7 +3148,8 @@ start({ prefetch: 'all' })
 
 ## 在使用 `qiankun` 时，你如何处理 `js` 沙箱不能解决的 `js` 污染问题？
 
-> `qiankun` 的 `js` 沙箱机制主要是通过代理 `window` 对象来实现的，它可以有效地隔离子应用的全局变量，防止子应用之间的全局变量污染。然而，这种机制并不能解决所有的 `js` 污染问题。例如，如果我们使用 `onclick` 或 `addEventListener` 给 `<body>` 添加了一个点击事件，`js` 沙箱并不能消除它的影响。
+> `qiankun` 的 `js` 沙箱机制主要是通过代理 `window` 对象来实现的，它可以有效地隔离子应用的全局变量，防止子应用之间的全局变量污染。然而，这种机制并不能解决所有的 `js` 污染问题。例如，如果我们使用
+> `onclick` 或 `addEventListener` 给 `<body>` 添加了一个点击事件，`js` 沙箱并不能消除它的影响。
 
 对于这种情况，我们需要依赖于良好的代码规范和开发者的自觉。在开发子应用时，我们需要避免直接操作全局对象，如 `window` 和 `document`。如果必须要操作，我们应该在子应用卸载时，清理掉这些全局事件和全局变量，以防止对其他子应用或主应用造成影响。
 
@@ -2910,9 +3175,11 @@ function handleClick() {
 
 ## 你能解释一下 `qiankun` 如何实现 `keep-alive` 的需求吗？
 
-> 在 `qiankun` 中，实现 `keep-alive` 的需求有一定的挑战性。这是因为 `qiankun` 的设计理念是在子应用卸载时，将环境还原到子应用加载前的状态，以防止子应用对全局环境造成污染。这种设计理念与 `keep-alive` 的需求是相悖的，因为 `keep-alive` 需要保留子应用的状态，而不是在子应用卸载时将其状态清除。
+> 在 `qiankun` 中，实现 `keep-alive` 的需求有一定的挑战性。这是因为 `qiankun` 的设计理念是在子应用卸载时，将环境还原到子应用加载前的状态，以防止子应用对全局环境造成污染。这种设计理念与
+> `keep-alive` 的需求是相悖的，因为 `keep-alive` 需要保留子应用的状态，而不是在子应用卸载时将其状态清除。
 
-然而，我们可以通过一些技巧来实现 `keep-alive` 的效果。一种可能的方法是在子应用的生命周期函数中保存和恢复子应用的状态。例如，我们可以在子应用的 `unmount` 函数中保存子应用的状态，然后在 `mount` 函数中恢复这个状态：
+然而，我们可以通过一些技巧来实现 `keep-alive` 的效果。一种可能的方法是在子应用的生命周期函数中保存和恢复子应用的状态。例如，我们可以在子应用的 `unmount` 函数中保存子应用的状态，然后在
+`mount` 函数中恢复这个状态：
 
 ```
 
@@ -2947,17 +3214,22 @@ function restoreState(state) {
 
 还有一种就是手动`*loadMicroApp*`+`display:none`，直接隐藏 Dom
 
-另一种可能的方法是使用 `single-spa` 的 `Parcel` 功能。`Parcel` 是 `single-spa` 的一个功能，它允许你在一个应用中挂载另一个应用，并且可以控制这个应用的生命周期。通过 `Parcel`，我们可以将子应用挂载到一个隐藏的 DOM 元素上，从而实现 `keep-alive` 的效果。然而，这种方法需要对 `qiankun` 的源码进行修改，因为 `qiankun` 目前并不支持 `Parcel`。
+另一种可能的方法是使用 `single-spa` 的 `Parcel` 功能。`Parcel` 是 `single-spa` 的一个功能，它允许你在一个应用中挂载另一个应用，并且可以控制这个应用的生命周期。通过 `Parcel`
+，我们可以将子应用挂载到一个隐藏的 DOM 元素上，从而实现 `keep-alive` 的效果。然而，这种方法需要对 `qiankun` 的源码进行修改，因为 `qiankun` 目前并不支持 `Parcel`。
 
 ## 你能解释一下 `qiankun` 和 `iframe` 在微前端实现方式上的区别和优劣吗？在什么情况下，你会选择使用 `iframe` 而不是 `qiankun`？
 
 `qiankun` 和 `iframe` 都是微前端的实现方式，但它们在实现原理和使用场景上有一些区别。
 
-`qiankun` 是基于 `single-spa` 的微前端解决方案，它通过 JavaScript 的 `import` 功能动态加载子应用，然后在主应用的 DOM 中挂载子应用的 DOM。`qiankun` 提供了一种 JavaScript 沙箱机制，可以隔离子应用的全局变量，防止子应用之间的全局变量污染。此外，`qiankun` 还提供了一种样式隔离机制，可以防止子应用的 CSS 影响其他应用。这些特性使得 `qiankun` 在处理复杂的微前端场景时具有很高的灵活性。
+`qiankun` 是基于 `single-spa` 的微前端解决方案，它通过 JavaScript 的 `import` 功能动态加载子应用，然后在主应用的 DOM 中挂载子应用的 DOM。`qiankun` 提供了一种 JavaScript
+沙箱机制，可以隔离子应用的全局变量，防止子应用之间的全局变量污染。此外，`qiankun` 还提供了一种样式隔离机制，可以防止子应用的 CSS 影响其他应用。这些特性使得 `qiankun`在处理复杂的微前端场景时具有很高的灵活性。
 
-`iframe` 是一种较为传统的前端技术，它可以在一个独立的窗口中加载一个 HTML 页面。`iframe` 本身就是一种天然的沙箱，它可以完全隔离子应用的 JavaScript 和 CSS，防止子应用之间的相互影响。然而，`iframe` 的这种隔离性也是它的缺点，因为它使得主应用和子应用之间的通信变得困难。此外，`iframe` 还有一些其他的问题，比如性能问题、SEO 问题等。
+`iframe` 是一种较为传统的前端技术，它可以在一个独立的窗口中加载一个 HTML 页面。`iframe` 本身就是一种天然的沙箱，它可以完全隔离子应用的 JavaScript 和 CSS，防止子应用之间的相互影响。然而，
+`iframe` 的这种隔离性也是它的缺点，因为它使得主应用和子应用之间的通信变得困难。此外，`iframe` 还有一些其他的问题，比如性能问题、SEO 问题等。
 
-在选择 `qiankun` 和 `iframe` 时，需要根据具体的使用场景来决定。如果你的子应用是基于现代前端框架（如 React、Vue、Angular 等）开发的单页应用，那么 `qiankun` 可能是一个更好的选择，因为它可以提供更好的用户体验和更高的开发效率。如果你的子应用是基于 jQuery 或者其他传统技术开发的多页应用，或者你需要在子应用中加载一些第三方的页面，那么 `iframe` 可能是一个更好的选择，因为它可以提供更强的隔离性。
+在选择 `qiankun` 和 `iframe` 时，需要根据具体的使用场景来决定。如果你的子应用是基于现代前端框架（如 React、Vue、Angular 等）开发的单页应用，那么 `qiankun`
+可能是一个更好的选择，因为它可以提供更好的用户体验和更高的开发效率。如果你的子应用是基于 jQuery 或者其他传统技术开发的多页应用，或者你需要在子应用中加载一些第三方的页面，那么 `iframe`
+可能是一个更好的选择，因为它可以提供更强的隔离性。
 
 ## 在使用 `qiankun` 时，你如何处理多个子项目的调试问题？
 
@@ -2989,13 +3261,15 @@ npm install --save-dev npm-run-all
 
 1. 最后，通过执行`npm run start:all`命令，就可以同时启动`app1`和`app2`这两个应用了。
 
-`npm-run-all`不仅可以并行运行多个脚本，还可以串行运行多个脚本。在某些情况下，你可能需要按照一定的顺序启动你的应用，这时你可以使用`npm-run-all`的`-s`选项来串行执行脚本，例如：`npm-run-all -s script1 script2`，这将会先执行`script1`，然后再执行`script2`。
+`npm-run-all`不仅可以并行运行多个脚本，还可以串行运行多个脚本。在某些情况下，你可能需要按照一定的顺序启动你的应用，这时你可以使用`npm-run-all`的`-s`选项来串行执行脚本，例如：
+`npm-run-all -s script1 script2`，这将会先执行`script1`，然后再执行`script2`。
 
 ## qiankun 是如何实现 CSS 隔离的，该方案有什么缺点，还有其它方案么
 
 `qiankun`主要通过使用`Shadow DOM`来实现 CSS 隔离。
 
-1. `Shadow DOM`：`Shadow DOM`是一种浏览器内置的 Web 标准技术，它可以创建一个封闭的 DOM 结构，这个 DOM 结构对外部是隔离的，包括其 CSS 样式。`qiankun`在挂载子应用时，会将子应用的 HTML 元素挂载到`Shadow DOM`上，从而实现 CSS 的隔离。
+1. `Shadow DOM`：`Shadow DOM`是一种浏览器内置的 Web 标准技术，它可以创建一个封闭的 DOM 结构，这个 DOM 结构对外部是隔离的，包括其 CSS 样式。`qiankun`在挂载子应用时，会将子应用的 HTML
+   元素挂载到`Shadow DOM`上，从而实现 CSS 的隔离。
 
 ```
 
@@ -3039,7 +3313,8 @@ return <button className={styles.button}>Click me</button>;
 
 ## qiankun 中如何实现父子项目间的通信？如果让你实现一套通信机制，你该如何实现？
 
-- `Actions` 通信：`qiankun` 官方提供的通信方式，适合业务划分清晰，较简单的微前端应用。这种通信方式主要通过 `setGlobalState` 设置 `globalState`，并通过 `onGlobalStateChange` 和 `offGlobalStateChange` 来注册和取消 `观察者` 函数，从而实现通信。
+- `Actions` 通信：`qiankun` 官方提供的通信方式，适合业务划分清晰，较简单的微前端应用。这种通信方式主要通过 `setGlobalState` 设置 `globalState`，并通过 `onGlobalStateChange` 和
+  `offGlobalStateChange` 来注册和取消 `观察者` 函数，从而实现通信。
 - 自己实现一套通信机制（可以思考一下如何追踪 State 状态，类似 Redux 模式）
 
 1. **全局变量**：在全局（window）对象上定义共享的属性或方法。这种方式简单明了，但有可能导致全局污染，需要注意变量命名以避免冲突。
@@ -3072,14 +3347,19 @@ this.events[event].push(callback);
 
 ### 1.在主项目中使用 qiankun 注册子项目时，如何解决子项目路由的 hash 与 history 模式之争？
 
-### 如果主项目使用 `history` 模式，并且子项目可以使用 `history` 或 `hash` 模式，这是 `qiankun` 推荐的一种形式。在这种情况下，子项目可以选择适合自己的路由模式，而且对于已有的子项目不需要做太多修改。但是子项目之间的跳转需要通过父项目的 `router` 对象或原生的 `history` 对象进行。
+### 如果主项目使用 `history` 模式，并且子项目可以使用 `history` 或 `hash` 模式，这是 `qiankun` 推荐的一种形式。在这种情况下，子项目可以选择适合自己的路由模式，而且对于已有的子项目不需要做太多修改。但是子项目之间的跳转需要通过父项目的
+
+`router` 对象或原生的 `history` 对象进行。
 
 ### 2. 如果主项目和所有子项目都采用 `hash` 模式，可以有两种做法：
 
 - 使用 `path` 来区分子项目：这种方式不需要对子项目进行修改，但所有项目之间的跳转需要借助原生的 `history` 对象。
-- 使用 `hash` 来区分子项目：这种方式可以通过自定义 `activeRule` 来实现，但需要对子项目进行一定的修改，将子项目的路由加上前缀。这样的话，项目之间的跳转可以直接使用各自的 `router` 对象或 `<router-link>`。
+- 使用 `hash` 来区分子项目：这种方式可以通过自定义 `activeRule` 来实现，但需要对子项目进行一定的修改，将子项目的路由加上前缀。这样的话，项目之间的跳转可以直接使用各自的 `router` 对象或
+  `<router-link>`。
 
-### 3. 如果主项目采用 `hash` 模式，而子项目中有些采用 `history` 模式，这种情况下，子项目间的跳转只能借助原生的 `history` 对象，而不使用子项目自己的 `router` 对象。对于子项目，可以选择使用 `path` 或 `hash` 来区分不同的子项目。
+### 3. 如果主项目采用 `hash` 模式，而子项目中有些采用 `history` 模式，这种情况下，子项目间的跳转只能借助原生的 `history` 对象，而不使用子项目自己的 `router` 对象。对于子项目，可以选择使用
+
+`path` 或 `hash` 来区分不同的子项目。
 
 ## 在 qiankun 中，如果实现组件在不同项目间的共享，有哪些解决方案？
 
@@ -3087,7 +3367,8 @@ this.events[event].push(callback);
 
 1. **父子项目间的组件共享**：主项目加载时，将组件挂载到全局对象（如`window`）上，在子项目中直接注册使用该组件。
 2. **子项目间的组件共享（弱依赖）**：通过主项目提供的全局变量，子项目挂载到全局对象上。子项目中的共享组件可以使用异步组件来实现，在加载组件前先检查全局对象中是否存在，存在则复用，否则加载组件。
-3. **子项目间的组件共享（强依赖）**：在主项目中通过`loadMicroApp`手动加载提供组件的子项目，确保先加载该子项目。在加载时，将组件挂载到全局对象上，并将`loadMicroApp`函数传递给子项目。子项目在需要使用共享组件的地方，手动加载提供组件的子项目，等待加载完成后即可获取组件。
+3. **子项目间的组件共享（强依赖）**：在主项目中通过`loadMicroApp`手动加载提供组件的子项目，确保先加载该子项目。在加载时，将组件挂载到全局对象上，并将`loadMicroApp`
+   函数传递给子项目。子项目在需要使用共享组件的地方，手动加载提供组件的子项目，等待加载完成后即可获取组件。
 
 需要注意的是，在使用异步组件或手动加载子项目时，可能会遇到样式加载的问题，可以尝试解决该问题。另外，如果共享的组件依赖全局插件（如`store`和`i18n`），需要进行特殊处理以确保插件的正确初始化。
 
@@ -3097,9 +3378,11 @@ this.events[event].push(callback);
 
 2. 子项目之间的依赖复用可以通过保证依赖的 URL 一致来实现。如果多个子项目都使用同一份 CDN 文件，加载时会先从缓存读取，避免重复加载。
 
-3. 子项目复用主项目的依赖可以通过给子项目的`index.html`中的公共依赖的`script`和`link`标签添加自定义属性`ignore`来实现。在`qiankun`运行子项目时，`qiankun`会忽略这些带有`ignore`属性的依赖，子项目独立运行时仍然可以加载这些依赖。
+3. 子项目复用主项目的依赖可以通过给子项目的`index.html`中的公共依赖的`script`和`link`标签添加自定义属性`ignore`来实现。在`qiankun`运行子项目时，`qiankun`会忽略这些带有`ignore`
+   属性的依赖，子项目独立运行时仍然可以加载这些依赖。
 
-4. 在使用`qiankun`微前端框架时，可能会出现子项目之间和主项目之间的全局变量冲突的问题。这是因为子项目不配置`externals`时，子项目的全局`Vue`变量不属于`window`对象，而`qiankun`在运行子项目时会先找子项目的`window`，再找父项目的`window`，导致全局变量冲突。
+4. 在使用`qiankun`微前端框架时，可能会出现子项目之间和主项目之间的全局变量冲突的问题。这是因为子项目不配置`externals`时，子项目的全局`Vue`变量不属于`window`对象，而`qiankun`
+   在运行子项目时会先找子项目的`window`，再找父项目的`window`，导致全局变量冲突。
 
 5. 解决全局变量冲突的方案有三种：
 
@@ -3154,7 +3437,8 @@ exposes: {
 
 ```
 
-在上述示例中，`main-app` 和 `shared-module` 分别是两个微前端应用的 webpack 配置文件。通过 `ModuleFederationPlugin` 插件，`shared-module` 将 `Button` 组件暴露给其他应用使用，而 `main-app` 则通过 `remotes` 配置引入了 `shared-module`。
+在上述示例中，`main-app` 和 `shared-module` 分别是两个微前端应用的 webpack 配置文件。通过 `ModuleFederationPlugin` 插件，`shared-module` 将 `Button` 组件暴露给其他应用使用，而
+`main-app` 则通过 `remotes` 配置引入了 `shared-module`。
 
 ### 2. 动态加载
 
@@ -3182,29 +3466,30 @@ const Button = module.default;
 
 ## 说说 qiankun 的资源加载机制（import-html-entry）
 
-> `qiankun import-html-entry` 是 qiankun 框架中用于加载子应用的 HTML 入口文件的工具函数。它提供了一种方便的方式来动态加载和解析子应用的 HTML 入口文件，并返回一个可以加载子应用的 JavaScript 模块。
+> `qiankun import-html-entry` 是 qiankun 框架中用于加载子应用的 HTML 入口文件的工具函数。它提供了一种方便的方式来动态加载和解析子应用的 HTML 入口文件，并返回一个可以加载子应用的
+> JavaScript 模块。
 
 具体而言，`import-html-entry` 实现了以下功能：
 
 -
 
-- 1. 加载 HTML 入口文件：`import-html-entry` 会通过创建一个 `<link>` 标签来加载子应用的 HTML 入口文件。这样可以确保子应用的资源得到正确加载，并在加载完成后进行处理。
+- 1.  加载 HTML 入口文件：`import-html-entry` 会通过创建一个 `<link>` 标签来加载子应用的 HTML 入口文件。这样可以确保子应用的资源得到正确加载，并在加载完成后进行处理。
 
 -
 
-- 1. 解析 HTML 入口文件：一旦 HTML 入口文件加载完成，`import-html-entry` 将解析该文件的内容，提取出子应用的 JavaScript 和 CSS 资源的 URL。
+- 1.  解析 HTML 入口文件：一旦 HTML 入口文件加载完成，`import-html-entry` 将解析该文件的内容，提取出子应用的 JavaScript 和 CSS 资源的 URL。
 
 -
 
-- 1. 动态加载 JavaScript 和 CSS 资源：`import-html-entry` 使用动态创建 `<script>` 和 `<link>` 标签的方式，按照正确的顺序加载子应用的 JavaScript 和 CSS 资源。
+- 1.  动态加载 JavaScript 和 CSS 资源：`import-html-entry` 使用动态创建 `<script>` 和 `<link>` 标签的方式，按照正确的顺序加载子应用的 JavaScript 和 CSS 资源。
 
 -
 
-- 1. 创建沙箱环境：在加载子应用的 JavaScript 资源时，`import-html-entry` 会创建一个沙箱环境（sandbox），用于隔离子应用的全局变量和运行环境，防止子应用之间的冲突和污染。
+- 1.  创建沙箱环境：在加载子应用的 JavaScript 资源时，`import-html-entry` 会创建一个沙箱环境（sandbox），用于隔离子应用的全局变量和运行环境，防止子应用之间的冲突和污染。
 
 -
 
-- 1. 返回子应用的入口模块：最后，`import-html-entry` 返回一个可以加载子应用的 JavaScript 模块。这个模块通常是一个包含子应用初始化代码的函数，可以在主应用中调用以加载和启动子应用。
+- 1.  返回子应用的入口模块：最后，`import-html-entry` 返回一个可以加载子应用的 JavaScript 模块。这个模块通常是一个包含子应用初始化代码的函数，可以在主应用中调用以加载和启动子应用。
 
 通过使用 `qiankun import-html-entry`，开发者可以方便地将子应用的 HTML 入口文件作为模块加载，并获得一个可以加载和启动子应用的函数，简化了子应用的加载和集成过程。
 
@@ -3482,7 +3767,8 @@ var 声明的变量被挂到 window
 
 不可以。准确地说，用 v-model 绑定了 computed 的值后，可以在绑定的元素中得到 computed 的结果，但不能实现双向绑定。
 
-v-model 通常用来绑定 input、select 等标签，目的是为了实现双向绑定，当原始属性发生变化时，绑定标签的值也会发生变化；当标签的值发生变化时，原始属性同样变化。而 computed 是通过原始属性计算出的结果，是单向只读的，不能直接修改。
+v-model 通常用来绑定 input、select 等标签，目的是为了实现双向绑定，当原始属性发生变化时，绑定标签的值也会发生变化；当标签的值发生变化时，原始属性同样变化。而 computed
+是通过原始属性计算出的结果，是单向只读的，不能直接修改。
 
 # mutations 和 actions 区别
 
@@ -3961,7 +4247,9 @@ SPA 是什么？单页面应用
 
 1. **预检请求（Preflight Request）**：
 
-   - 对于某些 CORS 请求，浏览器会首先发送一个 OPTIONS 请求作为预检请求，以检查服务器是否允许跨域请求。这通常发生在“非简单请求”中，即那些不符合简单请求条件的请求。简单请求的条件包括：请求方法只能是 HEAD、GET 或 POST，请求头只能包含一些特定的字段（如 Accept、Accept-Language、Content-Language、Content-Type 等），且 Content-Type 的值仅限于`application/x-www-form-urlencoded`、`multipart/form-data`或`text/plain`。
+   - 对于某些 CORS 请求，浏览器会首先发送一个 OPTIONS 请求作为预检请求，以检查服务器是否允许跨域请求。这通常发生在“非简单请求”中，即那些不符合简单请求条件的请求。简单请求的条件包括：请求方法只能是
+     HEAD、GET 或 POST，请求头只能包含一些特定的字段（如 Accept、Accept-Language、Content-Language、Content-Type 等），且 Content-Type 的值仅限于`application/x-www-form-urlencoded`、
+     `multipart/form-data`或`text/plain`。
    - 对于 POST 请求，如果它包含自定义的 HTTP 头或 Content-Type 字段的值不是上述的“简单”值，那么它通常会触发预检请求。而 GET 请求由于其性质（通常只用于检索数据）和简单性，很少会触发预检请求。
 
 2. **缓存**：
@@ -3971,19 +4259,23 @@ SPA 是什么？单页面应用
 
 3. **安全性**：
 
-   - 从安全性的角度来看，POST 请求通常用于提交数据（如表单数据、文件上传等），而 GET 请求则用于检索数据。因此，在跨域场景中，使用 POST 请求提交敏感数据可能更安全一些，因为它不太可能被缓存或记录在浏览器的历史记录中。但是，这并不意味着 POST 请求本身就更安全；它仍然需要适当的安全措施（如 HTTPS、身份验证和授权等）来保护数据。
+   - 从安全性的角度来看，POST 请求通常用于提交数据（如表单数据、文件上传等），而 GET 请求则用于检索数据。因此，在跨域场景中，使用 POST 请求提交敏感数据可能更安全一些，因为它不太可能被缓存或记录在浏览器的历史记录中。但是，这并不意味着
+     POST 请求本身就更安全；它仍然需要适当的安全措施（如 HTTPS、身份验证和授权等）来保护数据。
 
 4. **请求体（Request Body）**：
 
-   - GET 请求通常没有请求体（尽管某些 HTTP 客户端和服务器可能允许在 GET 请求中包含请求体，但这并不是标准做法）。因此，跨域 GET 请求不能用于发送大量数据到服务器。相反，POST 请求可以包含请求体，并用于发送大量数据到服务器。
+   - GET 请求通常没有请求体（尽管某些 HTTP 客户端和服务器可能允许在 GET 请求中包含请求体，但这并不是标准做法）。因此，跨域 GET 请求不能用于发送大量数据到服务器。相反，POST
+     请求可以包含请求体，并用于发送大量数据到服务器。
 
 5. **幂等性**：
 
-   - GET 请求是幂等的，即多次执行相同的 GET 请求不会产生不同的结果（除非有副作用，如数据更新或删除）。这使得 GET 请求在跨域场景中更加可靠和可预测。相比之下，POST 请求通常不是幂等的，因为每次执行 POST 请求都可能会产生不同的结果（例如，创建新的资源或更新现有资源）。
+   - GET 请求是幂等的，即多次执行相同的 GET 请求不会产生不同的结果（除非有副作用，如数据更新或删除）。这使得 GET 请求在跨域场景中更加可靠和可预测。相比之下，POST 请求通常不是幂等的，因为每次执行
+     POST 请求都可能会产生不同的结果（例如，创建新的资源或更新现有资源）。
 
 6. **浏览器限制**：
 
-   - 某些浏览器可能会对 GET 请求的 URL 长度施加限制（尽管这个限制可能因浏览器和版本而异）。如果 URL 超过了这个限制，那么 GET 请求可能会失败。相比之下，POST 请求没有这样的限制，因为数据可以包含在请求体中而不是 URL 中。因此，在需要发送大量数据或复杂查询参数的跨域场景中，POST 请求可能更合适。
+   - 某些浏览器可能会对 GET 请求的 URL 长度施加限制（尽管这个限制可能因浏览器和版本而异）。如果 URL 超过了这个限制，那么 GET 请求可能会失败。相比之下，POST 请求没有这样的限制，因为数据可以包含在请求体中而不是
+     URL 中。因此，在需要发送大量数据或复杂查询参数的跨域场景中，POST 请求可能更合适。
 
 # 解释一下 CSP 与跨域的关系
 
@@ -3992,18 +4284,22 @@ CSP（Content Security Policy）与跨域（Cross-Origin）在 Web 安全领域�
 ### CSP（内容安全策略）
 
 1. **定义**：CSP 是为了缓解跨站脚本（XSS）等安全威胁而引入的一种安全机制。它允许网站开发者创建并强制应用一些规则，以管理网站允许加载的内容。
-2. **工作原理**：CSP 以白名单的机制对网站加载或执行的资源起作用。在网页中，这样的策略通过 HTTP 头信息或者 meta 元素定义。例如，通过设置`Content-Security-Policy` HTTP 头，可以限制哪些外部资源（如脚本、样式表、图片等）可以被加载和执行。
-3. **限制与影响**：CSP 虽然提供了强大的安全保护，但也可能造成一些限制，如 Eval 及相关函数被禁用、内嵌的 JavaScript 代码将不会执行、只能通过白名单来加载远程脚本等。这些限制可能会增加开发者的工作量，需要花费更多时间来分离内嵌的 JavaScript 代码和调整应用逻辑。
+2. **工作原理**：CSP 以白名单的机制对网站加载或执行的资源起作用。在网页中，这样的策略通过 HTTP 头信息或者 meta 元素定义。例如，通过设置`Content-Security-Policy` HTTP
+   头，可以限制哪些外部资源（如脚本、样式表、图片等）可以被加载和执行。
+3. **限制与影响**：CSP 虽然提供了强大的安全保护，但也可能造成一些限制，如 Eval 及相关函数被禁用、内嵌的 JavaScript 代码将不会执行、只能通过白名单来加载远程脚本等。这些限制可能会增加开发者的工作量，需要花费更多时间来分离内嵌的
+   JavaScript 代码和调整应用逻辑。
 
 ### 跨域（Cross-Origin）
 
 1. **定义**：跨域是指一个域下的文档或脚本试图去请求另一个域下的资源。由于浏览器的同源策略（Same-Origin Policy），跨域请求通常会被限制或阻止，以防止恶意脚本攻击和数据泄露。
 2. **同源策略**：同源策略要求协议、域名和端口三者都相同才被认为是同源的。如果其中任何一个不同，则被视为跨域。
-3. **解决方案**：为了实现跨域请求，开发者可以采用一些技术手段，如 CORS（跨来源资源共享）、Proxy（代理）和 JSONP 等。这些技术允许服务器设置特定的响应头（如`Access-Control-Allow-Origin`），以允许来自不同源的请求。
+3. **解决方案**：为了实现跨域请求，开发者可以采用一些技术手段，如 CORS（跨来源资源共享）、Proxy（代理）和 JSONP 等。这些技术允许服务器设置特定的响应头（如`Access-Control-Allow-Origin`
+   ），以允许来自不同源的请求。
 
 ### CSP 与跨域的关系
 
 - **独立性**：CSP 和跨域是两个独立的概念，各自关注不同的安全问题。CSP 关注的是如何限制和管理网站加载的内容，而跨域关注的是如何允许或限制来自不同源的请求。
-- **相互影响**：在某些情况下，CSP 的设置可能会影响跨域请求的实现。例如，在使用 CSP 限制脚本加载时，如果跨域请求需要加载并执行远程脚本，可能会受到 CSP 策略的限制。同样，跨域请求的实现也可能需要考虑 CSP 策略的影响，以确保请求的资源符合 CSP 规则。
+- **相互影响**：在某些情况下，CSP 的设置可能会影响跨域请求的实现。例如，在使用 CSP 限制脚本加载时，如果跨域请求需要加载并执行远程脚本，可能会受到 CSP 策略的限制。同样，跨域请求的实现也可能需要考虑
+  CSP 策略的影响，以确保请求的资源符合 CSP 规则。
 
 综上所述，CSP 和跨域在 Web 安全领域中各自扮演着重要的角色。开发者需要根据实际需求合理配置 CSP 策略和跨域请求的实现方式，以确保 Web 应用的安全性和可用性。

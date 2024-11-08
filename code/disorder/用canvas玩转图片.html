@@ -1,143 +1,136 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>用canvas玩转图片</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      canvas {
-        display: block;
-        margin: 1em auto;
-        border: 2px solid #000;
-      }
-      p {
-        text-align: center;
-      }
-    </style>
-  </head>
-  <body>
-    <p>
-      <input type="color" />
-    </p>
-    <canvas></canvas>
-    <script>
-      const cvs = document.querySelector('canvas')
-      const inpColor = document.querySelector('input[type=color]')
-      const ctx = cvs.getContext('2d', { willReadFrequently: true })
-      function init() {
-        const img = new Image()
-        img.crossOrigin = ''
-        img.src = 'https://picsum.photos/id/60/300/200'
-        img.onload = function () {
-          cvs.width = img.width
-          cvs.height = img.height
-          ctx.drawImage(img, 0, 0)
+<html lang = "en">
+<head>
+  <meta charset = "UTF-8" />
+  <meta content = "width=device-width, initial-scale=1.0" name = "viewport" />
+  <title>用canvas玩转图片</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-          // const imgData = ctx.getImageData(0, 0, cvs.width, cvs.height)
-          // const data = imgData.data
+    canvas {
+      border: 2px solid #000;
+      display: block;
+      margin: 1em auto;
+    }
 
-          // for (let i = 0; i < data.length; i += 4) {
-          //   data[i] = data[i] * inpColor.value.slice(1)
-          // }
-        }
-      }
+    p {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+<p>
+  <label>
+    <input type = "color" />
+  </label>
+</p>
+<canvas></canvas>
+<script>
+  const cvs = document.querySelector('canvas')
+  const inpColor = document.querySelector('input[type=color]')
+  const ctx = cvs.getContext('2d', {willReadFrequently: true})
 
-      init()
+  function init() {
+    const img = new Image()
+    img.crossOrigin = ''
+    img.src = 'https://picsum.photos/id/60/300/200'
+    img.onload = function () {
+      cvs.width = img.width
+      cvs.height = img.height
+      ctx.drawImage(img, 0, 0)
+    }
+  }
 
-      cvs.addEventListener('click', function (e) {
-        const clickX = e.offsetX
-        const clickY = e.offsetY
-        const imgData = ctx.getImageData(0, 0, cvs.width, cvs.height)
-        // 每 4 项为一个像素点的 rgba 值
-        const colors = imgData.data
-        const i = point2Index(clickX, clickY)
-        const clickColor = colors.slice(i, i + 3)
-        // changeColor(clickX, clickY, colors, clickColor)
-        changeColor2(clickX, clickY)
-        ctx.putImageData(imgData, 0, 0)
-      })
+  init()
 
-      function hex2rgba(hex) {
-        const r = parseInt(hex.slice(1, 3), 16)
-        const g = parseInt(hex.slice(3, 5), 16)
-        const b = parseInt(hex.slice(5, 7), 16)
-        return [r, g, b, 255]
-      }
+  cvs.addEventListener('click', function (e) {
+    const clickX = e.offsetX
+    const clickY = e.offsetY
+    const imgData = ctx.getImageData(0, 0, cvs.width, cvs.height)
+    // 每 4 项为一个像素点的 rgba 值
+    const colors = imgData.data
+    const i = point2Index(clickX, clickY)
+    // const clickColor = colors.slice(i, i + 3)
+    // changeColor(clickX, clickY, colors, clickColor)
+    changeColor2(clickX, clickY, imgData)
+    ctx.putImageData(imgData, 0, 0)
+  })
 
-      function changeColor(x, y, colors, clickColor) {
+  function hex2rgba(hex) {
+    const r = parseInt(hex.slice(1, 3), 16)
+    const g = parseInt(hex.slice(3, 5), 16)
+    const b = parseInt(hex.slice(5, 7), 16)
+    return [r, g, b, 255]
+  }
+
+  function changeColor(x, y, colors, clickColor) {
+    if (x < 0 || x >= cvs.width || y < 0 || y >= cvs.height) {
+      return
+    }
+
+    const i = point2Index(x, y)
+    const curColor = colors.slice(i, i + 3)
+    if (diff(curColor, clickColor) > 50) {
+      return
+    }
+    const targetColor = hex2rgba(inpColor.value)
+    if (diff(curColor, targetColor) === 0) {
+      return
+    }
+    colors.set(targetColor, i)
+    // colors[i] = targetColor[0]
+    // colors[i + 1] = targetColor[1]
+    // colors[i + 2] = targetColor[2]
+    // colors[i + 3] = targetColor[3]
+    changeColor(x - 1, y, colors, clickColor)
+    changeColor(x + 1, y, colors, clickColor)
+    changeColor(x, y - 1, colors, clickColor)
+  }
+
+  function diff(color1, color2) {
+    return Math.abs(color1[0] - color2[0]) + Math.abs(color1[1] - color2[1]) + Math.abs(color1[2] - color2[2])
+  }
+
+  function changeColor2(x, y, imgData) {
+    const centerColor = getColor(x, y, imgData)
+    const targetColor = hex2rgba(inpColor.value)
+
+    function _changeColor(x, y, imgData) {
+      const stack = [[x, y]]
+      while(stack.length > 0) {
+        const [x, y] = stack.pop()
+        const i = point2Index(x, y)
+        const color = getColor(x, y, imgData)
         if (x < 0 || x >= cvs.width || y < 0 || y >= cvs.height) {
-          return
+          continue
         }
-
-        const i = point2Index(x, y)
-        const curColor = colors.slice(i, i + 3)
-        if (diff(curColor, clickColor) > 50) {
-          return
+        if (diff(color, targetColor) === 0) {
+          continue
         }
-        const targetColor = hex2rgba(inpColor.value)
-        if (diff(curColor, targetColor) === 0) {
-          return
+        if (diff(color, centerColor) > 50) {
+          continue
         }
-        colors.set(targetColor, i)
-        // colors[i] = targetColor[0]
-        // colors[i + 1] = targetColor[1]
-        // colors[i + 2] = targetColor[2]
-        // colors[i + 3] = targetColor[3]
-        changeColor(x - 1, y, colors, clickColor)
-        changeColor(x + 1, y, colors, clickColor)
-        changeColor(x, y - 1, colors, clickColor)
+        imgData.data.set(targetColor, i)
+        stack.push([x - 1, y], [x + 1, y], [x, y - 1], [x, y + 1])
       }
+      return imgData
+    }
 
-      function diff(color1, color2) {
-        return Math.abs(color1[0] - color2[0]) + Math.abs(color1[1] - color2[1]) + Math.abs(color1[2] - color2[2])
-      }
+    _changeColor(x, y, imgData)
+  }
 
-      function changeColor2(x, y) {
-        const imgData = ctx.getImageData(0, 0, cvs.width, cvs.height)
-        console.log('%c 🍓 imgData', 'font-size:16px;color:#93c0a4', imgData)
-        const centerColor = getColor(x, y, imgData)
-        const targetColor = hex2rgba(inpColor.value)
-        function _changeColor(x, y, imgData) {
-          const stack = [[x, y]]
-          while (stack.length > 0) {
-            const [x, y] = stack.pop()
-            const i = point2Index(x, y)
-            const color = getColor(i, imgData)
-            if (x < 0 || x >= cvs.width || y < 0 || y >= cvs.height) {
-              continue
-            }
-            if (diff(color, targetColor) === 0) {
-              continue
-            }
-            if (diff(color, targetColor) > 50) {
-              continue
-            }
-            imgData.data.set(targetColor, i)
-            stack.push([x - 1, y], [x + 1, y], [x, y - 1], [x, y + 1])
-          }
-        }
-        _changeColor()
-      }
+  function getColor(x, y, imgData) {
+    const i = point2Index(x, y)
+    return imgData.data.slice(i, i + 4)
+  }
 
-      function diff(color1, color2) {
-        return Math.abs(color1[0] - color2[0]) + Math.abs(color1[1] - color2[1]) + Math.abs(color1[2] - color2[2])
-      }
-
-      function getColor(x, y, imgData) {
-        const i = point2Index(x, y)
-        if (imgData) {
-          return imgData.data.slice(i, i + 4)
-        }
-      }
-
-      function point2Index(x, y) {
-        return (y * cvs.width + x) * 4
-      }
-    </script>
-  </body>
+  function point2Index(x, y) {
+    return (y * cvs.width + x) * 4
+  }
+</script>
+</body>
 </html>
