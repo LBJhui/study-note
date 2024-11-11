@@ -10,7 +10,7 @@ import 'virtual:svg-icons-register'
 //引入自定义插件对象:注册整个项目全局组件
 import gloalComponent from '@/components'
 //配置element-plus国际化
-//@ts-expect-error
+//@ts-expect-error 没有类型定义
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 //暗黑模式需要的样式
 import 'element-plus/theme-chalk/dark/css-vars.css'
@@ -18,6 +18,10 @@ import 'element-plus/theme-chalk/dark/css-vars.css'
 import router from './router'
 //引入仓库
 import pinia from './store'
+//引入路由鉴权文件
+import './permisstion'
+//引入自定义指令文件
+import { isHasButton } from '@/directive/has'
 //获取应用实例对象
 const app = createApp(App)
 //安装element-plus插件
@@ -30,10 +34,7 @@ app.use(gloalComponent)
 app.use(pinia)
 //注册模板路由
 app.use(router)
-//引入路由鉴权文件
-import './permisstion'
-//引入自定义指令文件
-import { isHasButton } from '@/directive/has'
+
 isHasButton(app)
 //将应用挂载到挂载点上
 app.mount('#app')

@@ -24,18 +24,27 @@
       const autoScale = (selector, options) => {
         const el = document.querySelector(selector)
         const { width, height } = options
-
+        el.style.transformOrigin = 'top left'
+        el.style.transition = 'transform 0.2s'
         function init() {
           const scale = Math.min(window.innerWidth / width, window.innerHeight / height)
-          el.style.transform = `scale(${scale})`
-          el.style.transformOrigin = 'top left'
-          el.style.position = 'absolute'
-          el.style.left = (window.innerWidth - width * scale) / 2 + 'px'
-          el.style.top = (window.innerHeight - height * scale) / 2 + 'px'
+          const left = (window.innerWidth - width * scale) / 2 + 'px'
+          const top = (window.innerHeight - height * scale) / 2 + 'px'
+          el.style.transform = `translate(${left}, ${top}) scale(${scale})`
         }
 
         init()
-        addEventListener('resize', init)
+        addEventListener('resize', debounce(init, 200))
+      }
+
+      function debounce(fn, delay) {
+        let timer = null
+        return function () {
+          if (timer) clearTimeout(timer)
+          timer = setTimeout(() => {
+            fn()
+          }, delay)
+        }
       }
 
       autoScale('#app', {

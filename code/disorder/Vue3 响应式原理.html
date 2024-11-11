@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <title>Vue3 响应式原理</title>
+</head>
+<body>
+<button id="btn">按钮</button>
+<div id="app"></div>
+<script>
+  let activeEffect = null
+
+  const effect = (fn) => {
+    activeEffect = fn
+    fn()
+    activeEffect = null
+  }
+  // 嵌套对象如何实现？
+  const reactive = (obj) => {
+    const effectMap = {}
+    return new Proxy(obj, {
+      get (target, key) {
+        if (activeEffect) {
+          if (!effectMap[key]) {
+            effectMap[key] = []
+          }
+          effectMap[key].push(activeEffect)
+
+        }
+        console.log('收集依赖', key, activeEffect)
+        return target[key]
+      },
+      set (target, key, val) {
+        target[key] = val
+        console.log('派发更新', key, val)
+        console.log('(demo.html) effectMap[key]', effectMap[key])
+
+        effectMap[key].forEach(fn => {
+          console.log('(demo.html) fn', fn)
+          fn()
+        })
+        return true
+      },
+    })
+  }
+
+  const ref = (value) => {
+    return reactive({ value })
+  }
+</script>
+<script>
+  const app = document.getElementById('app')
+  const btn = document.getElementById('btn')
+
+  const state = reactive({ count: 0 })
+
+  effect(() => {
+    app.textContent = state.count
+  })
+
+  btn.addEventListener('click', () => {
+    state.count++
+    console.log('(demo.html) state.count', state.count)
+  })
+</script>
+</body>
+</html>

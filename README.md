@@ -1,8 +1,10 @@
-```
+```text
+grid-template-rows: masonry;
 vue方法中属性丢失的问题 methods配置的方法与组件实例的方法
 console.log(([][[]] + [])[+!![]] + ([] + {})[+!![] + +!![]])
 展示组件和容器组件
 使用computed拦截v-model https://juejin.cn/post/7338634091397431330
+v-model 父传子值，元素更改后获取值滞后，nextTick
 右键菜单组件的封装 https://blog.csdn.net/DuyiZiChen/article/details/131405493
 SocketIO
 视频文本化 text-image
@@ -52,16 +54,15 @@ font-variant、text-transform
 js 文档注释：jsDoc
 vscode 正则插件：Regex Previewer
 ElementUI 日期选择器时间选择范围限制
-自定义指令控制权限的弊端
+自定义指令控制权限的弊端 https://blog.csdn.net/layonly/article/details/139402930 DOM 元素删除后，生命周期会正常进行，还会请求数据
 组件循环依赖：动态导入
 实现 sleep 函数
 实现 throttle 节流函数
-实现 debounce 防抖函数
 图片调色盘：colorThief
 符号绑定
 css 新单位 vmin vmax
-tesseract.js
-vue-draggable-plus
+前端ocr图片文字提取功能: tesseract.js
+拖拽组件: vue-draggable-plus
 重绘和回流
 防截屏防录制：Encrypted Media Extensions API
 console.log() 打印对象时，点击小三角实时加载
@@ -274,6 +275,50 @@ function deepClone(value) {
   }
   return result
 }
+
+function deepClone(origin, target) {
+  var tar = target || {}
+  var toStr = Object.prototype.toString
+  var arrType = '[object Array]'
+  for (var k in origin) {
+    if (origin.hasOwnProperty(k)) {
+      if (typeof origin[k] === 'object' && origin[k] !== null) {
+        tar[k] = toStr.call(origin[k]) === arrType ? [] : {}
+        deepClone(origin[k], tar[k])
+      } else {
+        tar[k] = origin[k]
+      }
+    }
+  }
+  return tar
+}
+
+function deepClone(origin, hashMap = new WeakMap()) {
+  // undefined null origin == undefined
+  if (origin === undefined || origin === null || typeof origin !== 'object') {
+    return origin
+  }
+  if (origin instanceof Date) {
+    return new Date(origin)
+  }
+  if (origin instanceof RegExp) {
+    return new RegExp(origin)
+  }
+
+  const hasKey = hashMap.get(origin)
+  if (hasKey) {
+    return hasKey
+  }
+
+  const target = new origin.constructor()
+  for (let k in origin) {
+    hashMap.set(origin, target)
+    if (origin.hasOwnProperty(k)) {
+      target[k] = deepClone(origin[k], hashMap)
+    }
+  }
+  return target
+}
 ```
 
 ```ts
@@ -430,12 +475,15 @@ for (const link of links) {
   }
 }
 
+/**
+ * 函数防抖
+ */
 const debounce = (fn, delay) => {
   let timer = null
-  return (...args) => {
+  return function (...args) {
     clearTimeout(timer)
     timer = setTimeout(() => {
-      fn(...args)
+      fn.apply(this, args)
     }, delay)
   }
 }
@@ -457,6 +505,11 @@ const scrollHandler = debounce(() => {
 }, 100)
 
 window.addEventListener('scroll', scrollHandler)
+```
+
+```ts
+// 对防抖函数进行类型标注
+declare function debounce<T extends any[]>(fn: (...args: T) => any, delay: number): (...args: T) => void
 ```
 
 ```javascript
@@ -921,6 +974,41 @@ $_n: 6; // 私有变量
 }
 ```
 
+```scss
+// 使用SASS实现主题切换
+$themes: (
+  light: (
+    textColor: #333,
+    bgColor: #fff,
+  ),
+  dark: (
+    textColor: #fff,
+    bgColor: #333,
+  ),
+);
+$themeMap: ();
+@mixin useTheme() {
+  @each $key, $value in $themes {
+    $themeMap: $value !global;
+    html [data-theme='#{$key}'] & {
+      @content;
+    }
+  }
+}
+
+@function getVar($paramName) {
+  @return map-get($themeMap, $paramName);
+}
+
+.item {
+  font-size: 14px;
+  @include useTheme {
+    background: getVar('bgColor');
+    color: getVar('textColor');
+  }
+}
+```
+
 ```js
 // CommonJS的本质 https://blog.csdn.net/huangpb123/article/details/138473608
 // 2.js
@@ -1116,7 +1204,7 @@ const r3 = add[100][200][300] + 400 // 期望结果 1000
 // 链式调用
 function chain(value) {
   const handler = {
-    get: function (obj, prop) {
+    get: function(obj, prop) {
       if (prop === 'end') {
         return obj.value
       }
@@ -1129,7 +1217,7 @@ function chain(value) {
       return obj[prop]
     }
   }
-  const proxy = new Proxy({value}, handler)
+  const proxy = new Proxy({ value }, handler)
   return proxy
 }
 ```
@@ -1561,8 +1649,8 @@ declare function curry<A extends any[], R>(fn: (...args: A) => R): Curried<A, R>
 区别：组合函数是从右到左执行，而管道函数是从左到右执行
 
 function pipe(...fns) {
-  return function (x) {
-    return fns.reduce(function (acc, fn) {
+  return function(x) {
+    return fns.reduce(function(acc, fn) {
       return fn(acc)
     }, x)
   }
@@ -1898,7 +1986,7 @@ key 的顺序
   5.token验证
 ```
 
-```
+```text
 禁用了js，本地存储还能使用吗
 不能使用
   1.技术依赖
@@ -2369,6 +2457,8 @@ typeof 获取一个变量或者对象的类型
 
 ---
 
+#
+
 ```
 对等依赖 peerDependencies(package.json)
 npm i --legacy-peer-deps
@@ -2511,7 +2601,7 @@ const store = createStore({
 // persistPlugin
 const KEY = 'VUEX"STATE'
 
-export default function (store) {
+export default function(store) {
   // 存
   window.addEventListener('beforeunload', () => {
     localStorage.setItem(KEY, JSON.stringify(store.state))
@@ -2537,7 +2627,7 @@ pinia.use(persistPlugin)
 
 // persistPlugin
 const KEY_PREFIX = 'PINIA:STATE'
-export default function (context) {
+export default function(context) {
   // 存
   window.addEventListener('beforeunload', () => {
     localStorage.setItem(KEY_PREFIX + store.$id, JSON.stringify(store.$state))
@@ -2701,11 +2791,6 @@ import pinyin from 'pinyin';
 判断是不是中文
 ```
 
-```ts
-// 对防抖函数进行类型标注
-declare function debounce<T extends any[]>(fn: (...args: T) => any, delay: number): (...args: T) => void
-```
-
 ```javascript
 typeof null // object
 
@@ -2718,6 +2803,8 @@ console.log(numbers.
 )
 ; // error
 console.log(numbers[0]); // 0
+
+
 ```
 
 ```shell

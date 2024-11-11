@@ -32,7 +32,7 @@ export default [
       // sourceType: "module",
       parser: commpnParser,
       parserOptions: {
-        ecmaVersion: 'latest',
+        ecmaVersion: 2020,
         sourceType: 'module',
         parser: '@typescript-eslint/parser',
         jsxPragma: 'React',
@@ -54,8 +54,8 @@ export default [
       // eslint（https://eslint.bootcss.com/docs/rules/）
       'no-var': 'error', // 要求使用 let 或 const 而不是 var
       'no-multiple-empty-lines': ['warn', { max: 1 }], // 不允许多个空行
-      'no-console': import.meta.env.MODE === 'production' ? 'error' : 'off',
-      'no-debugger': import.meta.env.MODE === 'production' ? 'error' : 'off',
+      'no-console': import.meta.env?.MODE === 'production' ? 'error' : 'off',
+      'no-debugger': import.meta.env?.MODE === 'production' ? 'error' : 'off',
       'no-unexpected-multiline': 'error', // 禁止空余的多行
       'no-useless-escape': 'off', // 禁止不必要的转义字符
 
