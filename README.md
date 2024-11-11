@@ -1,4 +1,5 @@
 ```text
+Math.hypot
 grid-template-rows: masonry;
 vue方法中属性丢失的问题 methods配置的方法与组件实例的方法
 console.log(([][[]] + [])[+!![]] + ([] + {})[+!![] + +!![]])
@@ -2105,7 +2106,7 @@ vue2和3有什么区别
   5.此外大家可以叙述具体标记策略，从而提升自己的印象
 ```
 
-```
+```text
 vue-watch value 更新 → 触发回调函数 → DOM 更新
 {flush:'pre'}
 pre(默认)：回调函数会在 DOM 更新之前执行
@@ -2125,6 +2126,24 @@ watch 的回调函数只有在侦听的数据源发生变化时才会执行，�
 ③
 watch 可以更精细地控制监听行为，如 deep、immediate、flush
 watchEffect 更适合简单的场景，不需要额外的配置。相当于默认开启了 deep、immediate
+```
+
+```vue
+<script>
+// ①
+let clicked = false
+watchEffect(() => {
+  if (clicked) {
+    console.log('更新了 msg', msg.value)
+  }
+})
+
+// ②
+watchEffect(async () => {
+  await fetchData()
+  console.log(`第${count}次请求数据`)
+})
+</script>
 ```
 
 ```js
@@ -2869,93 +2888,42 @@ observer.observe({ entryTypes: ['longtask'] })
   preload
 ```
 
-```css
+```text
 动画
 Web Animation API: element.
-animate
+animate()
 
-(
-)
-element.
-getAnimations
 
-(
-)
+element.getAnimations()
 requestAnimationFrame
-dom.
-addEventListener
-
-(
-'transitionend'
-)
-transitionstart
+dom.addEventListener('transitionend') transitionstart  view transitions API
 animationend
-逐帧动画 step animation: name
-
-1
-s
-steps
-
-(
-5
-)
+逐帧动画 step animation: name 1s steps(5)
 动画的暂停和恢复:animation-play-state paused running
-dom.style.
-setProperty
-
-(
-'--name'
-,
-'value'
-)
+dom.style.setProperty('--name','value')
 
 滚动元素到可视区域：scrollIntoView
 平滑滚动
 css:scroll-behavior
-js: window.
-scrollTo
-
-(
-{
+js: window.scrollTo({
   top: 0,
   behavior: 'smooth'
-}
-)
+})
 
 如何阻止滚动嵌套冒泡 ` overscroll-behavior:contain`
   /* 设置滚动条样式 */
-scrollbar-face-color: #eaeaea
-
-;
-scrollbar-shadow-color: #eaeaea
-
-;
-scrollbar-highlight-color: #eaeaea
-
-;
-scrollbar-3dlight-color: #eaeaea
-
-;
-scrollbar-darkshadow-color: #697074
-
-;
-scrollbar-track-color: #f7f7f7
-
-;
-scrollbar-arrow-color: #666666
-
-;
+scrollbar-face-color: #eaeaea;
+scrollbar-shadow-color: #eaeaea;
+scrollbar-highlight-color: #eaeaea;
+scrollbar-3dlight-color: #eaeaea;
+scrollbar-darkshadow-color: #697074;
+scrollbar-track-color: #f7f7f7;
+scrollbar-arrow-color: #666666;
 
 /* 使用CSS实现滚动吸附效果 */
-scroll-snap-type: mandatory
-
-;
-scroll-snap-align: center
-
-;
-scroll-snap-stop: always
-
-;
+scroll-snap-type: mandatory;
+scroll-snap-align: center;
+scroll-snap-stop: always;
 
 /* 纯css实现页面滚动动画 */
 scroll-timelin-name
