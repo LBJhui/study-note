@@ -1,4 +1,9 @@
 ```text
+HTMLCollection(动态) & NodeList(静态) 伪数组
+CSS文本自定义高亮AP简介 https://www.zhangxinxu.com/wordpress/2024/07/css-custom-highlight-api/
+initial-letter https://www.zhangxinxu.com/wordpress/2024/03/css-initial-letter/
+margin-trim 属性设置在容器元素上，可以让子元素(需边缘接触) margin 设置计算值变成 0 https://www.zhangxinxu.com/wordpress/2023/05/css-margin-trim/
+align-content也适用于普通元素
 Math.hypot
 grid-template-rows: masonry;
 vue方法中属性丢失的问题 methods配置的方法与组件实例的方法
@@ -73,6 +78,91 @@ console.log() 打印对象时，点击小三角实时加载
 禁止用户选中文字：`user-select:none`
 使用data url预览图片 https://blog.csdn.net/u012804440/article/details/136018598
 在 TypeScript 中正确的遍历一个对象
+```
+
+```javascript
+// Web网页 阻止息屏 Screen Wake Lock API https://www.zhangxinxu.com/wordpress/2024/03/js-screen-wake-lock-api/
+navigator.wakeLock.request('screen')
+// 当前页面最小化，或者非当前显示标签页，屏幕的 Wake 锁定行为会被释放
+document.addEventListener('visibility', () => {
+  if (document.visibilityState === 'visible') {
+    navigator.wakeLock.request('screen')
+  }
+})
+
+// wakeLock 是个 WakeLockSentinel 对象
+let wakeLock = null
+navigator.wakeLock.request('screen').then((result) => {
+  wakeLock = result
+})
+
+// 释放锁
+wakeLock.release().then(() => {
+  wakeLock = null
+})
+
+// 知道何时释放
+wakeLock.addEventListener('release', () => {
+  console.log('唤醒锁定已释放')
+})
+```
+
+```css
+/* CSS锚点定位 https://segmentfault.com/a/1190000045077175 */
+
+/* 隐式锚点 适用于 1v1 */
+.trigger {
+  anchor-name: --my-anchor;
+}
+
+.target {
+  position-anchor: --my-anchor;
+  left: anchor(left);
+  /* 居中对齐 */
+  /* justify-self: anchor-center;  */
+  /* inset-area: bottom; */
+}
+
+/* 显示锚点 适用于多元素定位 */
+.trigger1 {
+  anchor-name: --anchor-a;
+}
+
+.trigger2 {
+  anchor-name: --anchor-b;
+}
+
+.target {
+  position: absolute;
+  left: anchor(--anchor-a right);
+  right: anchor(--anchor-b left);
+}
+```
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      /* @scope规则 */
+      @scope (#app) {
+        .box {
+          width: 100px;
+          height: 100px;
+          background-color: red;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="box"></div>
+    </div>
+  </body>
+</html>
 ```
 
 ```text
@@ -173,14 +263,52 @@ t.run()
     transform
 ```
 
-```
-文件上传
-  单文件上传 multiport/form-data
-  二进制格式上传文件 binary/application/octet-stream
+```javascript
+// 文件上传
+//   单文件上传 multiport/form-data
+//   二进制格式上传文件 binary/application/octet-stream
 
-文件下载
+// 文件下载
 // 下载的流式传输
 // 如果前端直接打开文件，没有触发下载 a 元素 download
+
+// 数据的流式获取
+async function getRespnse(content) {
+  const resp = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(content),
+  })
+  // const data = awit resp.text()
+  const reder = resp.body.getReader()
+  const decoder = new TextDecoder()
+  while (true) {
+    const { done, value } = await reader.read()
+    if (done) {
+      break
+    }
+    const txt = decoder.decode(value)
+  }
+}
+
+// 分块加载大数据
+async function loadNovel() {
+  const url = 'https://duyi-static.oss-cn-beijing.aliyuncs.com/files/novel.txt'
+  const res = await fetch(url)
+  const reader = res.body.getReader()
+  const { value, done } = await reader.read()
+  const decoder = new TextDecoder()
+  const text = decoder.decode(value)
+  for (;;) {
+    const { value, done } = await reader.read()
+    if (done) {
+      break
+    }
+    const text = decoder.decode(value) // 可能存在乱码
+  }
+}
 
 // 服务器端：
   res.setHeader('Content-Disposition', 'attachment;filename=es6.pdf')
@@ -538,30 +666,20 @@ function sum(a, b) {
 
 ```ts
 协变和逆变
-https://blog.csdn.net/u014676858/article/details/141826960
-  类型安全
-所有成员可用
+//blog.csdn.net/u014676858/article/details/141826960
+// https: 类型安全 所有成员可用
 
-收：Fans: 父类型
-成员少
-给：Ikun: 子类型
-成员多
+// 收：Fans: 父类型 成员少
+// 给：Ikun: 子类型 成员多
 
-inferface
-Fans
-{
-  call()
-:
-  void
+interface Fans {
+  call(): void
 }
 
 interface IKun extends Fans {
   sing(): void
-
   dance(): void
-
   basketball(): void
-
   rap(): void
 }
 
@@ -921,30 +1039,6 @@ function runTask(task) {
 }
 ```
 
-```js
-// 数据的流式获取
-async function getRespnse(content) {
-  const resp = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(content),
-  })
-  console.log('123')
-  // const data = awit resp.text()
-  const reder = resp.body.getReader()
-  const decoder = new TextDecoder()
-  while (true) {
-    const { done, value } = await reader.read()
-    if (done) {
-      break
-    }
-    const txt = decoder.decode(value)
-  }
-}
-```
-
 ```css
 /* 黏性定位 */
 position: sticky
@@ -976,6 +1070,9 @@ $_n: 6; // 私有变量
 ```
 
 ```scss
+// sass 混合 @mixin @include
+// sass 继承 extends %(抽象类)
+
 // 使用SASS实现主题切换
 $themes: (
   light: (
@@ -1081,14 +1178,8 @@ Array.prototype.customFlatten = function () {
 ```
 
 ```js
-Object
-的
-key
-是字符串， Map
-的
-key
-没有限制
-  [NaN].includes(NaN) // true
+;[NaN]
+  .includes(NaN) // true
   [NaN].indexOf(NaN) // -1
 isNaN(NaN) // true
 isNaN(1) // false
@@ -1182,11 +1273,11 @@ function Product(name, unitPrice, chooseNumber) {
 
 ```js
 // 使用代理拦截动态属性
-function createProxy(values = []) {
+function createProxy (values = []) {
   return new Proxy(
     {},
     {
-      get(target, p) {
+      get (target, p) {
         if (p === Symbol.toPrimitive) {
           return () => values.reduce((a, b) => a + b, 0)
         }
@@ -1203,7 +1294,7 @@ const r2 = add[10][20] + 30 // 期望结果 60
 const r3 = add[100][200][300] + 400 // 期望结果 1000
 
 // 链式调用
-function chain(value) {
+function chain (value) {
   const handler = {
     get: function(obj, prop) {
       if (prop === 'end') {
@@ -1374,7 +1465,7 @@ function idlePerformTasks(tasks) {
 }
 ```
 
-```
+```text
 非严格相等
   两端类型一致
     等同于严格相等
@@ -1486,7 +1577,7 @@ $breakpoints= {
 }
 ```
 
-```
+```text
 https://juejin.cn/post/7362587412067385354
 拖拽API
 <div draggable="true></div>
@@ -1639,7 +1730,7 @@ function request(url, maxCount = 5) {
 // 对柯里化进行类型标注
 type Curried<A extends any[], R> = A extends [] ? () => R : A extends [infer P] ? (x: P) => R : A extends [infer P, ...infer Rest] ? (x: p) => Curried<Rest, R> : never
 
-declare function curry<A extends any[], R>(fn: (...args: A) => R): Curried<A, R>
+declare function curry<A extends any[], R> (fn: (...args: A) => R): Curried<A, R>
 
 柯里化是将接收多个参数的函数转换成接收一个单一参数的函数
 
@@ -1649,7 +1740,7 @@ declare function curry<A extends any[], R>(fn: (...args: A) => R): Curried<A, R>
 共同点：都可以将两个或多个函数组合成一个新的函数，新函数的执行结果等于连续调用多个原函数的执行结果
 区别：组合函数是从右到左执行，而管道函数是从左到右执行
 
-function pipe(...fns) {
+function pipe (...fns) {
   return function(x) {
     return fns.reduce(function(acc, fn) {
       return fn(acc)
@@ -1668,14 +1759,14 @@ C:\Windows\System32\drivers\etc\hosts
 ```js
 // 构造函数内和外的方法有什么区别
 class Person {
-  constructor(name) {
+  constructor (name) {
     this.name = name
     this.say1 = () => {
       console.log('我在里面', this.name)
     }
   }
 
-  say2() {
+  say2 () {
     console.log('我在外面', this.name)
   }
 }
@@ -1722,7 +1813,7 @@ console.log(fun3.length)
 console.log(fun4.length)
 ```
 
-```js
+```text
 parseInt和Math.floor有什么区别
 Math.floor()
 无论正负，Math.floor都只是简单地将一个数向下取整到最接近的整数
@@ -1741,29 +1832,23 @@ parseInt('4.05abc') // 4
 Math.floor('4.05abc') // NaN
 
 parseInt
-处理不同的进制数据
+处理不同的进制数据,将其他进制转换为十进制
 parseInt('11', 2)  // 结果是3，因为在2进制中，11表示的是十进制中的3
 
 ;['1', '2', '3'].map(parseInt) // parseInt(item,index,arr)
 
 parseInt
 第二个参数：
-1.
-不传递、undefined、0
-自动
-1）0
-x
-十六进制
-2）0
-十进制 / 八进制
-3）十进制
-2.
-无效进制（2 - 36
-有效） NaN
-3.
-有效进制
-正常转换
+  1.  不传递、undefined、0  自动
+    1）0x 十六进制
+    2）0 十进制 / 八进制
+    3）十进制
+  2. 无效进制（2 - 36 有效） NaN
+  3. 有效进制
+      正常转换
 
+BigInt('0b' + a)
+num.toString(2) // 十进制转换为二进制
 ```
 
 ```css
@@ -1932,7 +2017,7 @@ obj.innerFunction1()
 obj.innerFunction2()
 ```
 
-```
+```text
 object 和 map 有什么相同点和不同点
 创建方式的区别
   通过字面量创建 Object、通过构造函数创建 Object
@@ -1945,12 +2030,12 @@ key 的顺序
   Map：key的顺序就是插入的顺序
 ```
 
-```
+```text
 高阶函数：可以接收一个或多个函数作为参数，并且返回一个函数的函数称为高阶函数
-1.代码复用
-2.模块化和解耦
-3.延迟执行
-4.函数组合
+  1.代码复用
+  2.模块化和解耦
+  3.延迟执行
+  4.函数组合
 
 用途：
   1.数组操作
@@ -1967,7 +2052,7 @@ key 的顺序
   5.编译器优化
 ```
 
-```
+```text
 如何在不同设备间同步用户的本地存储数据
   1.云同步服务
   2.websockets
@@ -1978,7 +2063,7 @@ key 的顺序
   7.端到端加密
 ```
 
-```
+```text
 如何处理跨域请求中的安全问题
   1.CORS策略
   2.HTTPS
@@ -2067,7 +2152,7 @@ dom.addEventListener('compositionstart', function (e) {})
 dom.addEventListener('compositionend', function (e) {})
 ```
 
-```
+```text
 node 的模块查找策略
   文件查找
   文件夹查找
@@ -2078,7 +2163,7 @@ node 的模块查找策略
     node_modules
 ```
 
-```
+```text
 Reflect
 Proxy 和 DefineProperty
 vue 3.0 使用 proxy 替代了 vue 2.x 中使用的 Object.defineProperty 来实现响应式系统，这种变化有以下几个原因：
@@ -2164,7 +2249,7 @@ function method(key: string) {
 }
 ```
 
-```
+```text
 为什么需要箭头函数
   消除函数二义性
   指令序列
@@ -2225,14 +2310,8 @@ const str = '10000000000'
 const s = str.replace(/\B(?=(\d{3})+$)/g, ',')
 ```
 
-```
-sass 混合 @mixin @include
-sass 继承 extends %(抽象类)
-```
-
 ```scss
 // SASS中的颜色函数
-
 $btnColors: #409eff, #67c23a, #f56c6c, #e6a23c, #909399;
 
 @for $i from 1 through length($btnColors) {
@@ -2256,15 +2335,13 @@ $btnColors: #409eff, #67c23a, #f56c6c, #e6a23c, #909399;
 }
 ```
 
-```css
+```text
 inital: 默认值
-
-;
 unset 清除浏览器样式
 revert 使用浏览器的样式
 ```
 
-```
+```text
 Cookie 中的 SameSite：用于限制跨站请求
 None:不作任何限制，使用该值必须保证 Cookie 为 Secure，否则无效
 lax:阻止发送 Cookie，但对超链接放行，默认值
@@ -2721,7 +2798,7 @@ export default definConfig({
     assetsInlineLimit: 0,
     rollupOptions: {
       // 在vite中手动分包
-      manualChunks(id) {
+      manualChunks (id) {
         if (id.includes('node_modules')) {
           return 'vendor'
         }
@@ -2730,7 +2807,7 @@ export default definConfig({
       output: {
         entryFileNames: 'js/[name]-[hash].js',
         chunkFileNames: 'js/[name]-[hash].js',
-        assetFileNames(assetInfo) {
+        assetFileNames (assetInfo) {
           if (assetInfo.name.endsWith('.css')) {
             return 'css/[name]-[hash].css'
           }
@@ -2897,10 +2974,29 @@ animate()
 element.getAnimations()
 requestAnimationFrame
 dom.addEventListener('transitionend') transitionstart  view transitions API
+document.startViewTransition()
 animationend
-逐帧动画 step animation: name 1s steps(5)
+逐帧动画 step anima
+tion: name 1s steps(5)
 动画的暂停和恢复:animation-play-state paused running
 dom.style.setProperty('--name','value')
+
+
+display none元素也能transition过渡
+transition-behavior:allow-discrete; 隐藏动画
+transition-behavior:normal;
+@starting-style 显示动画
+
+img{
+  transition-duration:.25s;
+  transition-behavior:allow-discrete;
+}
+@starting-style{
+  img{
+    opacity: 0;
+  }
+}
+
 
 滚动元素到可视区域：scrollIntoView
 平滑滚动
@@ -2927,7 +3023,7 @@ scroll-snap-stop: always;
 
 /* 纯css实现页面滚动动画 */
 scroll-timelin-name
-animation-timeline
+animation-timeline /* https://www.zhangxinxu.com/wordpress/2024/08/css-scroll-timeline/ */
 animation-range
 动画库 vueusemotion
 cubic-bezier
@@ -2972,10 +3068,6 @@ e.clipboardData.setData('text/palin', 'hello world')
 Clipboard
 API
 navigator.clipboard.readText().then((text) => {})
-```
-
-```
-HTMLCollection(动态) & NodeList(静态) 伪数组
 ```
 
 ```css
@@ -3964,18 +4056,6 @@ keypress：按下有值的键时触发。即按下 ctrl alt shift meta 这样的
 
 无限适配的核心原理：把屏幕划分为一定的份数（10 份），通过 JS 动态监测屏幕尺寸宽度，实时计算并设置 html 元素的基础字体大小
 
-# 响应式设计
-
-网站在不同的设备和屏幕尺寸上都可以提供一致的用户体验
-
-原理：
-
-1. 弹性和网格布局
-2. 弹性图片：图片会根据屏幕大小进行调整
-3. 媒体查询
-4. 流式布局
-5. 适应图片
-
 # CDN
 
 CDN：内容分发网络，是一组分布在世界各地的服务器网络，可以为全球用户提供快速、安全的内容传送服务
@@ -4110,6 +4190,18 @@ SEO 问题比较严重
 5. flex 布局（弹性布局）
 
 6. 瀑布流
+
+# 响应式设计
+
+网站在不同的设备和屏幕尺寸上都可以提供一致的用户体验
+
+原理：
+
+1. 弹性和网格布局
+2. 弹性图片：图片会根据屏幕大小进行调整
+3. 媒体查询
+4. 流式布局
+5. 适应图片
 
 # 点击穿透
 
