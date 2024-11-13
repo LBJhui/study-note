@@ -1,4 +1,10 @@
 ```text
+tsup
+白板 webassembly+Skia Engine
+免费课合集：https://qmdqi.xetlk.com/s/376rbn
+https://www.zhangxinxu.com/wordpress/2024/09/js-scrollend-event/
+https://www.zhangxinxu.com/wordpress/2024/09/js-object-groupby/
+https://www.zhangxinxu.com/wordpress/2024/09/css-math-round-function/
 HTMLCollection(动态) & NodeList(静态) 伪数组
 CSS文本自定义高亮AP简介 https://www.zhangxinxu.com/wordpress/2024/07/css-custom-highlight-api/
 initial-letter https://www.zhangxinxu.com/wordpress/2024/03/css-initial-letter/
@@ -4365,15 +4371,6 @@ XSS：指攻击者通过在目标网站输入字段中注入恶意脚本代码�
 1. 表现形态不同
 2. 跳转请求，路径不存在时，history 会发送请求，hash 不会发送请求
 3. 打包后前端自测要使用 hash，如果使用 history 会出现空白页
-
-# 介绍一下 SPA 以及 SPA 有什么缺点
-
-SPA 是什么？单页面应用
-
-缺点：
-
-1. SEO 优化不好
-2. 性能不是特别好
 
 # 在处理跨域时，如果考虑安全性因素
 
