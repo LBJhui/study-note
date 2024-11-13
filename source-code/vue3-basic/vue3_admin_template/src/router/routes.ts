@@ -13,7 +13,7 @@ const pageComs = import.meta.glob('@/views/**/index.vue', {
 })
 
 const routes = Object.entries(pages).map(([path, config]) => {
-  let pageJSPath = path
+  const pageJSPath = path
   path = path.replace('/src/views', '').replace('/page.js', '')
   path = path || '/'
   const name = path.split('/').filter(Boolean).join('-') || 'index'

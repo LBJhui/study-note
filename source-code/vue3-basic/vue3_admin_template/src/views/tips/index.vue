@@ -1,11 +1,11 @@
 <template>
   <div>
-    <useResettableRefFn></useResettableRefFn>
+    <useResettableRef></useResettableRef>
   </div>
 </template>
 
 <script setup lang="ts">
-import useResettableRefFn from './useResettableRefFn.vue'
+import useResettableRef from './useResettableRef.vue'
 </script>
 
 <style scoped lang=""></style>
