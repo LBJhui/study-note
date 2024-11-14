@@ -87,6 +87,41 @@ console.log() 打印对象时，点击小三角实时加载
 ```
 
 ```javascript
+Array.prototype.myForEach = async function (callback, thisArg) {
+  const _arr = this,
+    _isArray = Array.isArray(_arr),
+    _thisArg = thisArg ? Object(thisArg) : globalThis
+  if (!_isArray) {
+    throw new TypeError('The caller of myForEach must be the type an array')
+  }
+  for (let i = 0; i < _arr.length; i++) {
+    await callback.call(_thisArg, _arr[i], i, _arr)
+  }
+}
+
+fun([() => console.log('start'), () => sleep(1000), () => console.log('1'), () => sleep(2000), () => console.log('2'), () => sleep(3000), () => console.log('end')])
+
+function sleep(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms)
+  })
+}
+
+async function fun(arr) {
+  arr.myForEach(async (item) => await item())
+  // for (let i = 0; i < arr.length; i++) {
+  //   await arr[i]()
+  // }
+  //
+  /**
+   * arr.forEach(async (item) => await item())
+   *  async (item1)=>await item1()
+   *  async (item2)=>await item2()
+   */
+}
+```
+
+```javascript
 // Web网页 阻止息屏 Screen Wake Lock API https://www.zhangxinxu.com/wordpress/2024/03/js-screen-wake-lock-api/
 navigator.wakeLock.request('screen')
 // 当前页面最小化，或者非当前显示标签页，屏幕的 Wake 锁定行为会被释放
