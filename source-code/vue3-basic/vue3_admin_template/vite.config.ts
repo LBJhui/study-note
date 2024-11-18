@@ -3,16 +3,23 @@ import { defineConfig, loadEnv } from 'vite'
 import { viteMockServe } from 'vite-plugin-mock'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import vue from '@vitejs/plugin-vue'
+import { preLoadImages } from './plugin/preLoadImages.ts'
 import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
   //获取各种环境下的对应的变量
-  let env = loadEnv(mode, process.cwd())
+  const env = loadEnv(mode, process.cwd())
   return {
     publicPath: 'https://gitee.com/jch1011/guiguzhenxuan',
     plugins: [
       vue(),
+      preLoadImages({
+        dir: '*.{jpg,png,svg}',
+        attrs: {
+          rel: 'preload',
+        },
+      }),
       createSvgIconsPlugin({
         iconDirs: [path.resolve(process.cwd(), 'src/assets/icons')],
         symbolId: 'icon-[dir]-[name]',

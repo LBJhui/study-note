@@ -30,8 +30,8 @@ const routes = Object.entries(pages).map(([path, config]) => {
 
 //对外暴露配置路由(常量路由):全部用户都可以访问到的路由
 export const constantRoute = [
+  //登录
   {
-    //登录
     path: '/login',
     component: () => import('@/views/login/index.vue'),
     name: 'login',
@@ -41,6 +41,7 @@ export const constantRoute = [
       icon: 'Promotion', //菜单文字左侧的图标,支持element-plus全部图标
     },
   },
+  // home
   {
     //登录成功以后展示数据的路由
     path: '/',
@@ -64,8 +65,8 @@ export const constantRoute = [
       },
     ],
   },
+  //404
   {
-    //404
     path: '/404',
     component: () => import('@/views/404/index.vue'),
     name: '404',
@@ -75,6 +76,7 @@ export const constantRoute = [
       icon: 'DocumentDelete',
     },
   },
+  // 数据大屏
   {
     path: '/screen',
     component: () => import('@/views/screen/index.vue'),
@@ -90,6 +92,7 @@ export const constantRoute = [
 
 //异步路由
 export const asnycRoute = [
+  // 权限管理
   {
     path: '/acl',
     component: () => import('@/layout/index.vue'),
@@ -129,6 +132,7 @@ export const asnycRoute = [
       },
     ],
   },
+  // 商品管理
   {
     path: '/product',
     component: () => import('@/layout/index.vue'),

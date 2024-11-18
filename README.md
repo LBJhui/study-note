@@ -1,4 +1,5 @@
 ```text
+prefetch preload
 https://www.zhangxinxu.com/wordpress/2024/11/js-selectionchange-event/
 tsup
 白板 webassembly+Skia Engine
@@ -85,6 +86,12 @@ console.log() 打印对象时，点击小三角实时加载
 禁止用户选中文字：`user-select:none`
 使用data url预览图片 https://blog.csdn.net/u012804440/article/details/136018598
 在 TypeScript 中正确的遍历一个对象
+```
+
+```markdown
+- prototype 是函数特有的属性，让某一个构造函数实例化的所有对象可以找到公共的方法和属性
+- **proto**属性是对象特有的属性，表示当前对象的原型对象是谁
+- 每个对象都有一个原型（prototype），并从原型上继承属性和方法。原型对象本身也是一个对象，它也有自己的原型，形成一个链式结构。这种链式结构就被称为原型链
 ```
 
 ```javascript
