@@ -1,4 +1,5 @@
 ```text
+https://www.zhangxinxu.com/wordpress/2024/11/js-selectionchange-event/
 tsup
 白板 webassembly+Skia Engine
 免费课合集：https://qmdqi.xetlk.com/s/376rbn
@@ -1827,7 +1828,17 @@ function pipe (...fns) {
 }
 ```
 
-```
+```text
+# 查询当前使用的镜像源
+npm get registry
+
+# 设置为淘宝镜像源
+npm config set registry https://registry.npmmirror.com/
+
+# 还原为官方镜像源
+npm config set registry https://registry.npmjs.org/
+
+
 github 慢
 C:\Windows\System32\drivers\etc\hosts
 140.82.114.4 github.com
