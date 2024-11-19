@@ -1,4 +1,5 @@
 ```text
+依赖倒置原则
 prefetch preload
 https://www.zhangxinxu.com/wordpress/2024/11/js-selectionchange-event/
 tsup
@@ -86,6 +87,40 @@ console.log() 打印对象时，点击小三角实时加载
 禁止用户选中文字：`user-select:none`
 使用data url预览图片 https://blog.csdn.net/u012804440/article/details/136018598
 在 TypeScript 中正确的遍历一个对象
+```
+
+```javascript
+// 前端实现图片预加载
+const images = ['https://picsum.photos/id/237/400/400.jpg?grayscale&blur=2', 'https://picsum.photos/id/238/400/400.jpg?grayscale&blur=2']
+
+function preloadImages(max = 3) {
+  const _images = [...images]
+  function loadImage() {
+    const src = _images.shift()
+    return new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'preload'
+      link.as = 'image'
+      link.href = src
+      document.head.appendChild(link)
+      link.onload = resolve
+      link.onerror = reject
+      setTimeout(reject, 10000)
+    })
+  }
+
+  function _loadImage() {
+    loadImage().finally(() => {
+      if (_images.length) {
+        loadImage()
+      }
+    })
+  }
+
+  for (let i = 0; i < max; i++) {
+    _loadImage()
+  }
+}
 ```
 
 ```markdown
@@ -313,6 +348,35 @@ t.run()
 ```
 
 ```javascript
+/**
+ * File 对象：它表示一组文件，我们使用 <input type="file"> 选择文件时，这些文件被存储在 File 对象中
+ *
+ * Blob 对象：Blob 对象表示二进制数据，常用来表示大型数据对象（如图片、音频等）。File 对象是 Blob 对象的一个子类，它继承了 Blob 对象的所有属性和方法
+ *
+ * formData 对象：前端先将文件存储在 formData 对象中，才能传给后端
+ *
+ * slice 方法
+ *  File 对象的 slice 方法是从其父类 Blob 对象继承来的。用于从文件中提取一段范围的数据。参数如下：
+ *    - start：开始提取数据的字节偏移量。如果未指定，默认为0
+ *    - end：结束提取数据的字节偏移量。如果未指定，默认为文件或 Blob 对象的总字节数
+ *  slice 方法的返回值是一个新的 Blob 对象，包含从原始文件或 Blob 对象中提取的指定字节范围的数据
+ */
+
+const fileInput = document.getElementById('file')
+const file = fileInput.files[0]
+
+// 创建一个新的 formData 对象
+const formData = new FormData()
+
+// 将 file 对象添加到 FormData 对象中
+formData.append('file', file)
+formData.append('fileName', file.name)
+
+fetch('url', {
+  method: 'POST',
+  body: formData,
+})
+
 // 文件上传
 //   单文件上传 multiport/form-data
 //   二进制格式上传文件 binary/application/octet-stream
@@ -1810,6 +1874,13 @@ function request(url, maxCount = 5) {
     maxCount <= 0 ? Promise.reject(err) : request(url, maxCount - 1)
   })
 }
+
+// 请求的取消
+const controller = new AbortController()
+
+const list = await fetch('url', { signal: controller.signal }).then((res) => {})
+
+controller.abort()
 ```
 
 ```ts
@@ -2343,13 +2414,6 @@ const obj = {
 function method(key: string) {
   const v = obj[key as keyof typeof obj]
 }
-```
-
-```text
-为什么需要箭头函数
-  消除函数二义性
-  指令序列
-  创建实例
 ```
 
 ```js
@@ -2933,11 +2997,6 @@ export default definConfig({
     watchEffect
   2. 函数运行期间用到了响应式数据
   3. 响应式数据变化会导致函数重新运行
-```
-
-```css
-: 伪类
-:: 伪元素
 ```
 
 ```txt
@@ -3952,20 +4011,6 @@ function readBlob(blob) {
 ```javascript
 const readBlob = (blob) => new Response(blob).text()
 ```
-
-# 箭头函数
-
-1. 不能使用 new 调用（不能当作构造函数）
-
-2. 没有原型， 即没有 `prototype` 属性
-
-3. 没有 arguments
-
-4. 没有 this
-
-   箭头函数中的 this 是在箭头函数定义时就决定的，而且不可修改的（call、apply、bind）
-
-   箭头函数的 this 指向定义时，外层中第一个普通函数的 this
 
 # computed、methods、watch 有什么区别？
 
