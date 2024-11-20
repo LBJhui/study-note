@@ -22,6 +22,9 @@ import pinia from './store'
 import './permisstion'
 //引入自定义指令文件
 import { isHasButton } from '@/directive/has'
+
+import myUI from '../modules/UI'
+
 //获取应用实例对象
 const app = createApp(App)
 //安装element-plus插件
@@ -34,6 +37,8 @@ app.use(gloalComponent)
 app.use(pinia)
 //注册模板路由
 app.use(router)
+
+app.use(myUI)
 
 isHasButton(app)
 //将应用挂载到挂载点上

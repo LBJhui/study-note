@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>弹性盒的异形布局</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .container {
+        width: 90%;
+        margin: 2em auto;
+        display: flex;
+        gap: 2vw;
+        justify-content: space-between;
+      }
+      .column {
+        flex: 1 1 0;
+        display: flex;
+        align-items: center;
+      }
+      .column img {
+        width: 100%;
+      }
+
+      .content {
+        display: flex;
+        flex-direction: column;
+        gap: 2vw;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="column">
+        <div class="content">
+          <img src="https://picsum.photos/id/1/200/100" alt="" />
+          <img src="https://picsum.photos/id/2/200/250" alt="" />
+        </div>
+      </div>
+      <div class="column">
+        <div class="content">
+          <img src="https://picsum.photos/id/133/200/70" alt="" />
+          <img src="https://picsum.photos/id/43/200/120" alt="" />
+        </div>
+      </div>
+      <div class="column">
+        <div class="content">
+          <img src="https://picsum.photos/id/232/200/150" alt="" />
+          <img src="https://picsum.photos/id/200/200/80" alt="" />
+        </div>
+      </div>
+      <div class="column">
+        <div class="content">
+          <img src="https://picsum.photos/id/20/200/110" alt="" />
+          <img src="https://picsum.photos/id/210/200/190" alt="" />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

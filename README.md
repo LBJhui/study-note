@@ -1,4 +1,9 @@
 ```text
+vue3 h函数
+effectScope 嵌套 https://www.jianshu.com/p/1a1731806e19
+box-shadow
+协同处理 yjs+crdt算法+oj
+assemblyscript+skia
 依赖倒置原则
 prefetch preload
 https://www.zhangxinxu.com/wordpress/2024/11/js-selectionchange-event/
@@ -80,13 +85,50 @@ css 新单位 vmin vmax
 拖拽组件: vue-draggable-plus
 重绘和回流
 防截屏防录制：Encrypted Media Extensions API
-console.log() 打印对象时，点击小三角实时加载
+console.log() 打印对象时，点击小三角实时加载，打印一个对象/数组时，我们在控制台看到的是它的最终状态，而不是打印时的状态，我们要打印对象/数组时，最后JSON.stringify 打印，或者打印里面具体的值
+console.log 输出的是内存地址上的东西
 元素倒影:-webkit-box-reflect
 页面可见度 API page visibility
 禁止触发系统菜单和长按选中：`touch-callout:none` contextmenu
 禁止用户选中文字：`user-select:none`
 使用data url预览图片 https://blog.csdn.net/u012804440/article/details/136018598
 在 TypeScript 中正确的遍历一个对象
+```
+
+```markdown
+**技能描述**
+
+- 熟悉掌握 HTML、CSS、JavaScript、Typescript 以及 OOP、FP、AOP 设计思想
+- 掌握样式体系构建与落地、对 css 预编译、css in js、module css 以及 utility-first CSS 有深入研究，并从零改良过样式体系以支持 SSR、SSG
+- 熟悉 React、Vue 相关技术栈，熟悉 React、Vue 及相关技术框架的视线原理
+- 掌握构建工具 Webpack、Vite 等，掌握编译工具 Babel，并深入理解其原理，并参与 Rspack 构建
+- 丰富的数据可视化经验，熟悉 Canvas、svg 开发范式，理解 Echarts、Antv 原理，能根据业务需求基于 d3、zreender 开发自定义渲染引擎
+- 丰富的跨端开发经验，熟练使用 Taro、Flutter、React-Native 开发跨端应用，对构建 hybird App 有丰富经验，深入理解跨端开发编译原理
+- 基于 Node.js 开发脚手架、打包构建优化工具及中间件服务
+- 掌握常用设计模式、算法与安全知识，追求开发高质量、高可维护性代码，追求极致产品体验
+- 团队管理经验，并在项目架构设计与性能优化方面具有丰富经验
+- 算法与编程技术
+  - 精通各种算法题的分类及解决办法，包括排序与查找、数据结构、动态规划、贪心算法、回溯算法、分治算法、图论算法、数学算法等
+  - 重点掌握动态规划的基本概念、解题步骤和经典题目
+- 3D 数字孪生平台开发经验
+  - 熟练使用 WebGL 和 WebAssembly 技术，开发高效的 3D 渲染引擎
+  - 精通正射影像和倾斜摄影技术，具备 Tile 和模型（包括白膜和精模）的处理经验，能够使用 Blender 进行模型制作
+  - 熟悉材质、光效和粒子系统的实现与优化
+- 全面性能优化能力
+  - 具备打包构建优化经验，熟练使用 Webpack 进行模块打包，掌握 chunk、treeshaking、happypack、cache-loader 等优化技巧，并使用 Webpack Module Federation 进行模块联邦管理
+  - 精通资源优化，能够有效进行图片、字体压缩，管理请求队列，并通过 OSS 和 CDN 提升资源加载速度
+  - 具有应用性能优化经验，包括数据结构优化和应用模块更新
+  - 深入了解缓存机制，熟悉强缓存（Expiration，Cache-Control）、协商缓存（Etag）和策略缓存（Service-Worker）的配置与管理
+
+**项目描述**
+
+- 【架构设计】参与智慧管理平台整体架构设计、技术选型与方案评审，担任全栈开发，完成相关核心模块
+- 【企微开发】对接企业微信生态，基于企微 SDK 完成平台支付、消息推送、机器人等功能开发
+- 【可视化】主导完成平台可视化渲染引擎（可视化图表的组件、数据协议）设计与开发，基于 echarts（svgRenderer、canvasRenderer 一千万行数据的表格渲染【不能使用虚拟滚动】canvas table，chunk）封装业务图表库，服务于平台可视化场景
+- 【地图开发】使用百度地图 SDK，封装业务地图渲染器（MaoRenderer），包含：地图撒点、地区数据下钻等功能
+- 【小程序与 App】基于 uniapp 实现智慧党建用户端多端开发落地，产物编译为 H5、微信小程序两端应用
+- 【团队基建】推进团队业务组件库、图标库与基础库沉淀，完成 10+ 个业务组件沉淀，以此提升了团队协同开发的效率
+- 【优化】设计产品响应式系统，基于 media query 设计响应式端点规则，适配不同端应用的展示
 ```
 
 ```javascript
@@ -801,6 +843,11 @@ let ikun: IKun
 
 fans = ikun
 ikun = fans // 不能赋值
+
+// 联合类型转交叉类型
+type UnionToIntersection<T> = (T extends any ? (x: T) => any : never) extends (x: infer R) => any ? R : never
+
+type Test = UnionToIntersection<{ a: 1; b: 2 } | { c: 3; d: 4 }>
 ```
 
 ```javascript
