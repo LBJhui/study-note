@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>元素的函数式排列</title>
+    <style>
+      .container {
+        width: 100vw;
+        height: 100vh;
+        background-color: aquamarine;
+        position: relative;
+      }
+      img {
+        width: 50px;
+        border-radius: 50%;
+        margin-left: 50vw;
+        margin-top: 50vh;
+        position: absolute;
+        left: var(--dx);
+        top: var(--dy);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <img src="https://picsum.photos/100?1" />
+      <img src="https://picsum.photos/100?2" />
+      <img src="https://picsum.photos/100?3" />
+      <img src="https://picsum.photos/100?4" />
+      <img src="https://picsum.photos/100?5" />
+      <img src="https://picsum.photos/100?6" />
+      <img src="https://picsum.photos/100?7" />
+      <img src="https://picsum.photos/100?8" />
+      <img src="https://picsum.photos/100?9" />
+      <img src="https://picsum.photos/100?10" />
+      <img src="https://picsum.photos/100?11" />
+      <img src="https://picsum.photos/100?12" />
+      <img src="https://picsum.photos/100?13" />
+      <img src="https://picsum.photos/100?14" />
+      <img src="https://picsum.photos/100?15" />
+      <img src="https://picsum.photos/100?16" />
+      <img src="https://picsum.photos/100?17" />
+      <img src="https://picsum.photos/100?18" />
+      <img src="https://picsum.photos/100?19" />
+    </div>
+
+    <script>
+      class Curve {
+        constructor(curveFunc, xRange, yRange) {
+          this.curveFunc = curveFunc
+          this.xRange = xRange
+          this.yRange = yRange
+        }
+
+        getY(x) {
+          let y = this.curveFunc(x)
+          if (x < this.xRange[0]) {
+            y = this.curveFunc(this.xRange[0])
+          } else if (x > this.xRange[1]) {
+            y = this.curveFunc(this.xRange[1])
+          }
+
+          if (y < this.yRange[0]) {
+            y = this.yRange[0]
+          } else if (y > this.yRange[1]) {
+            y = this.yRange[1]
+          }
+
+          return y
+        }
+      }
+
+      function layout(curve, doms, width, height) {
+        const [xmin, xmax] = curve.xRange
+        const [ymin, ymax] = curve.yRange
+
+        const cx = (xmin + xmax) / 2
+        const cy = (ymin + ymax) / 2
+
+        const scaleX = width / (xmax - xmin)
+        const scaleY = height / (ymin - ymax)
+
+        const step = (xmax - xmin) / doms.length
+        for (let i = 0; i < doms.length; i++) {
+          const dom = doms[i]
+          const x = xmin + i * step
+          const y = curve.getY(x)
+
+          const dx = (x - cx) * scaleX
+          const dy = (y - cy) * scaleY
+
+          dom.style.setProperty('--dx', dx + 'px')
+          dom.style.setProperty('--dy', dy + 'px')
+        }
+      }
+
+      const layouts = {
+        wave() {
+          const wave = new Curve((x) => Math.sin(x), [0, Math.PI * 3], [-1, 1])
+          layout(wave, doms, container.clientWidth - 100, container.clientHeight / 2)
+        },
+        line() {
+          const line = new Curve((x) => 1, [0, 1], [0, 2])
+          layout(line, doms, container.clientWidth - 100, container.clientHeight / 2)
+        },
+        corssLine() {
+          const curve1 = new Curve((x) => x, [-1, 1], [-1, 1])
+          const curve2 = new Curve((x) => -x, [-1, 1], [-1, 1])
+          const midIndex = Math.floor(doms.length / 2)
+          const doms1 = Array.from(doms).slice(0, midIndex)
+          const doms2 = Array.from(doms).slice(midIndex)
+          layout(curve1, doms1, container.clientWidth - 100, container.clientHeight / 2)
+          layout(curve2, doms2, container.clientWidth - 100, container.clientHeight / 2)
+        },
+        corssWave() {
+          const curve1 = new Curve((x) => Math.sin(x), [0, Math.PI * 3], [-1, 1])
+          const curve2 = new Curve((x) => -Math.sin(x), [0, Math.PI * 3], [-1, 1])
+          const midIndex = Math.floor(doms.length / 2)
+          const doms1 = Array.from(doms).slice(0, midIndex)
+          const doms2 = Array.from(doms).slice(midIndex)
+          layout(curve1, doms1, container.clientWidth - 100, container.clientHeight / 3)
+          layout(curve2, doms2, container.clientWidth - 100, container.clientHeight / 3)
+        },
+      }
+      const container = document.querySelector('.container')
+      const doms = document.querySelectorAll('.container img')
+      layouts.corssLine()
+    </script>
+  </body>
+</html>

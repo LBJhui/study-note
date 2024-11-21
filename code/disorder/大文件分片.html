@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>大文件分片</title>
+  </head>
+  <body>
+    <div>
+      <input type="file" />
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/spark-md5/3.0.2/spark-md5.js"></script>
+    <script>
+      const createChunk = (file, index, chunkSize) => {
+        return new Promise((resolve) => {
+          const start = index * chunkSize
+          const end = start + chunkSize
+          const spark = new SparkMD5.ArrayBuffer()
+          const fileReader = new FileReader()
+          const blob = file.slice(start, end)
+          fileReader.onload = (e) => {
+            spark.append(e.target.result)
+            resolve({
+              start,
+              end,
+              index,
+              hash: spark.end(), // hash 为同步 CPU 密集型任务
+              blob,
+            })
+          }
+          fileReader.readAsArrayBuffer(blob)
+        })
+      }
+
+      const CHUNKS_SIZE = 1024 * 1024 * 5
+      const THREAD_COUNT = navigator.hardwareConcurrency || 4
+
+      // 单一线程，
+      // const cutFile = async (file) => {
+      //   const chunkCount = Math.ceil(file.size / CHUNKS_SIZE)
+      //   const result = []
+      //   for (let i = 0; i < chunkCount; i++) {
+      //     const prom = createChunk(file, i, CHUNKS_SIZE)
+      //     result.push(prom)
+      //   }
+      //   return await Promise.all(result)
+      // }
+      const cutFile = async (file) => {
+        return new Promise((resolve) => {
+          const chunkCount = Math.ceil(file.size / CHUNKS_SIZE)
+          const threadChunkCount = Math.ceil(chunkCount / THREAD_COUNT)
+          const result = []
+          let finishCount = 0
+          for (let i = 0; i < THREAD_COUNT; i++) {
+            // 分配线程任务
+            const worker = new Worker('./worker.js', {
+              type: 'module',
+            })
+            const start = i * threadChunkCount
+            let end = (i + 1) * threadChunkCount
+            if (end > chunkCount) {
+              end = chunkCount
+            }
+            worker.postMessage({
+              file,
+              start,
+              end,
+              CHUNKS_SIZE,
+            })
+            worker.onmessage = (e) => {
+              result[i] = e.data
+              worker.terminate()
+              finishCount++
+              if (finishCount === THREAD_COUNT) {
+                resolve(result.flat())
+              }
+            }
+          }
+        })
+      }
+
+      const inpFile = document.querySelector('input[type=file]')
+
+      inpFile.onchange = async (e) => {
+        const file = e.target.files[0]
+        console.time('cutFile')
+        const chunks = await cutFile(file)
+        console.timeEnd('cutFile')
+        console.log(chunks)
+      }
+
+      /**
+       * worker.js
+       */
+      onmessage = async (e) => {
+        const { file, CHUNK_SIZE, start, end } = e.data
+        const result = []
+        for (let i = 0; i < end; i++) {
+          const prom = createChunk(file, i, CHUNK_SIZE)
+          result.push(prom)
+        }
+        const chunks = await Promise.all(result)
+        postMessage(chunks)
+      }
+    </script>
+  </body>
+</html>

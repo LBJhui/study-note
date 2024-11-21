@@ -1,4 +1,5 @@
 ```text
+函数管道
 vue3 h函数
 effectScope 嵌套 https://www.jianshu.com/p/1a1731806e19
 box-shadow
@@ -93,6 +94,61 @@ console.log 输出的是内存地址上的东西
 禁止用户选中文字：`user-select:none`
 使用data url预览图片 https://blog.csdn.net/u012804440/article/details/136018598
 在 TypeScript 中正确的遍历一个对象
+```
+
+```javascript
+// 值和引用的终极面试题
+var foo = { bar: 1 }
+var arr1 = [1, 2, foo]
+var arr2 = arr1.slice(1)
+arr2[0]++
+arr2[1].bar++
+foo.bar++
+arr1[2].bar++
+console.log(arr1[1] === arr2[0])
+console.log(arr1[2] === arr2[1])
+console.log(foo.bar)
+```
+
+```Typescript
+// 使用泛型和keyof约束参数
+function getProperty<T, K extends keyof T>(obj: T, name: K) {
+  return obj[name] // 这里的name是K类型，所以是字符串
+}
+
+// 用TS构建长属性列表
+// type Result = ['p0', 'p1', 'p2']
+type ResultField<Count extends number, Result extends string[] = []> = Result['length'] extends Count ? Result[number] : ResultField<Count, [...Result, `p${Result['length']}`]>
+
+type GenerateObject<Count extends number> = {
+  [key in ResultField<Count>]: string
+}
+
+type MyObject = Omit<GenerateObject<99>, 'p0'> & { type: number }
+
+```
+
+```Typescript
+// 用发布订阅模式解耦
+const eventNames = ['API:UN_AUTH', 'API:INVALID']
+type EventNames = (typeof eventNames)[number]
+
+class EventEmitter {
+  private listeners: Record<string, Set<Function>> = {
+    'API:UN_AUTH': new Set(),
+    'API:INVALID': new Set(),
+  }
+
+  on(eventName: EventNames, listener: Function) {
+    this.listeners[eventName].add(listener)
+  }
+
+  emit(eventName: EventNames, ...args: any[]) {
+    this.listeners[eventName].forEach((listener) => listener(...args))
+  }
+}
+
+export default new EventEmitter()
 ```
 
 ```markdown
@@ -3230,11 +3286,7 @@ animation-range
 动画库 vueusemotion
 cubic-bezier
 css 动画只支持数值类的属性
-Houdini
-
-@property
-
-CSS
+Houdini Houdini API @property https://developer.mozilla.org/zh-CN/docs/Web/API/Houdini_APIs
 
 剪切函数 clip-path
 background-clip
