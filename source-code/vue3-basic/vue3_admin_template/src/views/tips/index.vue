@@ -1,11 +1,9 @@
 <template>
   <div>
-    <my-watch></my-watch>
-    <useResettableRef></useResettableRef>
+    <slide-in></slide-in>
   </div>
 </template>
 
-<script setup lang="ts">
-import useResettableRef from './useResettableRef.vue'
-import myWatch from './watch.vue'
+<script lang="ts" setup>
+import slideIn from './slideIn.vue'
 </script>

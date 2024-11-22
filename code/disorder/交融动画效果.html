@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>交融动画效果</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      .footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 400px;
+        background: red;
+      }
+
+      .bubbles {
+        width: 100%;
+        height: 40px;
+        background-color: red;
+        filter: url(#blob);
+      }
+
+      .bubble {
+        position: absolute;
+        border-radius: 50%;
+        --x: 200px;
+        --s: 50px;
+        --d: 2s;
+        width: var(--s);
+        height: var(--s);
+        left: var(--x);
+        top: 30px;
+        background-color: red;
+        animation: bubbling var(--d) ease-in forwards;
+      }
+
+      @keyframes bubbling {
+        75% {
+          transform: scale(1);
+        }
+        to {
+          transform: scale(0);
+          top: -200px;
+        }
+      }
+
+      .content {
+        display: flex;
+        filter: url(#blob);
+      }
+
+      .box {
+        width: 100px;
+        height: 100px;
+        background-color: blue;
+        border-radius: 50%;
+      }
+
+      .box1 {
+        position: absolute;
+        top: 80px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content">
+      <div class="box"></div>
+      <div class="box box1"></div>
+    </div>
+    <div class="footer">
+      <div id="bubbles" class="bubbles">
+        <div class="bubble"></div>
+      </div>
+    </div>
+    <svg style="display: none">
+      <defs>
+        <filter id="blob">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"></feGaussianBlur>
+          <feColorMatrix
+            in="blur"
+            mode="matrix"
+            values="
+              1 0 0 0 0
+              0 1 0 0 0
+              0 0 1 0 0
+              0 0 0 20 -10"
+          ></feColorMatrix>
+        </filter>
+      </defs>
+    </svg>
+    <script>
+      const n = 7
+      const bubbles = document.getElementById('bubbles')
+
+      // 动画结束删除小时的元素
+      bubbles.addEventListener('animationend', (e) => {
+        console.log(e.target)
+        e.target.remove()
+      })
+
+      function createBubble() {
+        const vw = document.documentElement.clientWidth
+
+        for (let i = 0; i < n; i++) {
+          // 创建泡泡
+          const bubble = document.createElement('div')
+          bubble.className = 'bubble'
+          let s = Math.random() * 100 + 50
+          let x = Math.random() * (vw - s)
+          let d = Math.random() * 2 + 1
+          bubble.style.setProperty('--x', x + 'px')
+          bubble.style.setProperty('--s', s + 'px')
+          bubble.style.setProperty('--d', d + 's')
+          bubbles.appendChild(bubble)
+        }
+      }
+      setInterval(createBubble, 1000)
+
+      /**
+       *  <filter id="blob">
+                  <feGaussianBlur    // 可以理解成一个函数 func1
+                  in="SourceGraphic"   // 返回原本颜色
+                  stdDeviation="10"     // 模糊程度 10
+                  result="blur">        // 返回这个值  blur 相当于函数的ruturn
+                  </feGaussianBlur>
+                  <feColorMatrix     // 可以理解成一个函数 func2
+                  in="blur"           // 接受 blur
+                  mode="matrix"       // 模式 是矩阵
+                  values="
+                  1 0 0 0 0       R
+                  0 1 0 0 0       G
+                  0 0 1 0 0       B
+                  0 0 0 20 -10"   A   // 在原来模糊的情况下 把那些模糊的点变成实体， 让边缘透明度变成20倍颜色  -10是让透明的颜色去除
+                  ></feColorMatrix>
+              </filter>
+              */
+    </script>
+  </body>
+</html>

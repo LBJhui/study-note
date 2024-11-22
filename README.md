@@ -1,4 +1,8 @@
+https://fe.duyiedu.com/p/t_pc/goods_pc_detail/goods_detail/course_2VKbErGXkTSzvbl9aQ9HgndEtIz?type=2
+
 ```text
+前端打印 printjs
+对等依赖 peerDependencies(package.json) npm i --legacy-peer-deps
 函数管道
 vue3 h函数
 effectScope 嵌套 https://www.jianshu.com/p/1a1731806e19
@@ -9,6 +13,7 @@ assemblyscript+skia
 prefetch preload
 https://www.zhangxinxu.com/wordpress/2024/11/js-selectionchange-event/
 tsup
+https://www.zhangxinxu.com/wordpress/2022/07/css-font-palette/
 白板 webassembly+Skia Engine
 免费课合集：https://qmdqi.xetlk.com/s/376rbn
 https://www.zhangxinxu.com/wordpress/2024/09/js-scrollend-event/
@@ -94,6 +99,108 @@ console.log 输出的是内存地址上的东西
 禁止用户选中文字：`user-select:none`
 使用data url预览图片 https://blog.csdn.net/u012804440/article/details/136018598
 在 TypeScript 中正确的遍历一个对象
+```
+
+```javascript
+async function asy1() {
+  console.log(1)
+  await asy2()
+  console.log(2)
+}
+
+const asy2 = async () => {
+  await setTimeout(() => {
+    Promise.resolve().then(() => {
+      console.log(3)
+    })
+    console.log(4)
+  }, 0)
+}
+
+const asy3 = async () => {
+  Promise.resolve().then(() => {
+    console.log(6)
+  })
+}
+
+asy1()
+console.log(7)
+asy3()
+```
+
+```javascript
+async function asy1() {
+  console.log(1)
+  await asy2()
+  console.log(2)
+}
+
+const asy2 = async () => {
+  await (() => {
+    console.log(3)
+  })()
+  console.log(4)
+}
+
+const asy3 = async () => {
+  Promise.resolve().then(() => {
+    console.log(6)
+  })
+}
+
+asy1()
+console.log(7)
+asy3()
+```
+
+```javascript
+/**
+ * 依次顺序执行一系列任务
+ * 所有任务全部完成后可以得到每个任务的执行结果
+ * 需要返回两个方法，start用于启动任务，pause用于暂停任务
+ * 每个任务具有原子性，即不可中断，只能在两个任务之间中断
+ * @param {...Function} tasks 任务列表，每个任务无参、异步
+ */
+function processTasks(...tasks) {
+  let isRunning = false
+  const result = []
+  let i = 0 // 当前执行的任务索引
+  return {
+    start() {
+      return new Promise(async (resolve, reject) => {
+        if (isRunning) {
+          return
+        }
+        isRunning = true
+        // 依次执行任务
+        while (i < tasks.length) {
+          result.push(await tasks[i]())
+          i++
+          if (!isRunning) {
+            return
+          }
+        }
+        // 所有任务均已完成
+        isRunning = false
+        resolve(result)
+      })
+    },
+    pause() {
+      isRunning = false
+    },
+  }
+}
+```
+
+```text
+为什么要用到虚拟DOM
+
+首先，肯定是为了效率。但并不一定用了虚拟dom就能提升效率，就比如svelet框架，没用虚拟dom反而效率更高。
+
+第一点，由于vue或者是react能做到的最小程度的重新渲染程度范围是‘组件’，所以虚拟dom的出现是为了降低重新渲染颗粒度。当数据发生变化时，重新调用Render函数，如果里面写的是真实dom元素就会大大降低效率。而用虚拟dom，就会先生成一个虚拟dom树，使用diff算法，将之前的dom树与新的虚拟dom树去做对比，只重新渲染发生变化的部分。
+
+第二点就是，解耦运行环境。因为不同的运行环境如移动段或者pc端，只有浏览器才有真实dom，移动端就用不了真实dom。虚拟dom的本质就是一个js对象，里面有props，childrens，children里面又有props和childrens，像是标签一样嵌套。不同的运行环境就可以来解析这个对象实现页面展示（跨平台性）。
+
 ```
 
 ```javascript
@@ -2809,21 +2916,11 @@ declare global {
 }
 ```
 
-# keypf 和 typedof 关键字的作用
-
-keyof 索引类型查询操作符 获取某种类型的所有键，其返回类型是联合类型
-typeof 获取一个变量或者对象的类型
-
 ---
 
 #
 
-```
-对等依赖 peerDependencies(package.json)
-npm i --legacy-peer-deps
-```
-
-```
+```text
 CSS属性值的计算过程
 getComputedStyle
 1.确定声明值
@@ -2917,13 +3014,13 @@ while (1) {
 
 ```
 如何优化js代码的执行效率
-1.代码压缩与合并
-2.模块化和懒加载
-3.缓存和持久化
-4.优化循环和数组操作
-5.减少 DOM 操作
-6.避免阻塞 UI 线程
-7.减少重绘和回流
+  1.代码压缩与合并
+  2.模块化和懒加载
+  3.缓存和持久化
+  4.优化循环和数组操作
+  5.减少 DOM 操作
+  6.避免阻塞 UI 线程
+  7.减少重绘和回流
 ```
 
 ```css
@@ -2936,11 +3033,11 @@ while (1) {
 
 ```
 什么是WebSocket，以及它与传统的HTTP长轮询相比的优势
-1.持久链接
-2.双向通信
-3.低延迟
-4.减少资源消耗
-5.消息帧格式
+  1.持久链接
+  2.双向通信
+  3.低延迟
+  4.减少资源消耗
+  5.消息帧格式
 ```
 
 ```js
@@ -3131,14 +3228,6 @@ if (process.env.NODE_ENV === 'production') {
 ```
 
 ```
-let 和 var 的区别
-1.全局污染，可以跨标签
-2.块级作用域  var 全局作用域，函数作用域，let 块级作用域
-3.TDZ 暂时性死区
-4.重复声明  var 可以重新声明，let 不可以重新声明
-```
-
-```
 拼音标注
 <ruby></ruby>
 import pinyin from 'pinyin';
@@ -3152,16 +3241,12 @@ let numbers = {
   0: 0
 }
 
-console.log(numbers.
-"0"
-)
-; // error
+console.log(numbers."0"); // error
 console.log(numbers[0]); // 0
-
-
 ```
 
 ```shell
+# git 子模块
 git clone <repository> --recursive 递归的方式克隆整个项目
 git submodule add <repository> <path> 添加子模块
 git submodule init 初始化子模块
@@ -3170,7 +3255,7 @@ git submodule foreach git pull 拉取所有子模块
 ```
 
 ```js
-监控页面是否出现卡顿
+// 监控页面是否出现卡顿 performance API
 const observer = new PerformanceObserver((list) => {
   for (const entry of list.getEntries()) {
   }
@@ -3311,16 +3396,13 @@ dom.style.width DOM树 getComputedStyle(dom).width CSSOM树 layout tree 布局�
 ```
 
 ```js
-监听复制事件
-addEventListener
-{
-  passive: false
-}
-copy
-paste
+// 监听复制事件
+addEventListener('onerror', {
+  passive: false,
+})
+copy, paste
 e.clipboardData.setData('text/palin', 'hello world')
-Clipboard
-API
+// Clipboard API
 navigator.clipboard.readText().then((text) => {})
 ```
 
@@ -3334,24 +3416,18 @@ margin-inline-start
 ```
 
 ```js
-属性到底存在不存在
+// 属性到底存在不存在
 Object.keys()
-对象自有可枚举的属性
+// 对象自有可枚举的属性
 hasOwnProperty()
-对象自有属性
+// 对象自有属性
 getOwnPropertyDescriptor()
-defineProperty()
-value
-writable
-enumerable
-configurable
+defineProperty() // value,writable,enumerable,configurable
 使用 in 遍历属性，原型上也会查找
 
 对象属性
-symbol
-属性不能被json序列化
-symbol
-属性可以删除，configurable:true
+symbol 属性不能被json序列化
+symbol 属性可以删除，configurable:true
 ```
 
 ```js
@@ -3387,9 +3463,7 @@ padding 相对于父元素宽度
 ```
 
 ```js
-手动解析
-DOM
-树: removeTag
+// 手动解析 DOM 树: removeTag
 new DOMParser().parseFromString(str, 'text/html')
 ```
 
@@ -3952,16 +4026,16 @@ const Button = module.default;
 
 ---
 
+#
+
+```markdown
 **小程序 已被代码依赖分析忽略，无法被其他模块引用。你可根据控制台中的【代码依赖分析】告警信息修改代码，或关闭【过滤无依赖文件】功能**
 
 只需在“project.config.json”=>“setting”里面将"ignoreDevUnusedFiles"和"ignoreUploadUnusedFiles"都设置为 false，然后保存，重新编译即可。
 
-```json
 "ignoreDevUnusedFiles": false,
 "ignoreUploadUnusedFiles": false,
 ```
-
----
 
 ```js
 // js将大数字单位转化成 千、万、千万、亿
@@ -4021,8 +4095,6 @@ paint-order 配合 -webkit-text-stroke 使用，值为 stroke 时，外描边
 paint-order:markers|stroke|fill
 text-shadow：只适合小的外描边
 ```
-
-前端打印 printjs
 
 # 【阿里】如何实现页面文本不可复制
 
@@ -4127,25 +4199,22 @@ const readBlob = (blob) => new Response(blob).text()
 
 # var let const
 
+1. 全局污染，可以跨标签
+2. 块级作用域 var 全局作用域，函数作用域，let 块级作用域
+3. TDZ 暂时性死区
+4. 重复声明 var 可以重新声明，let 不可以重新声明
+
 都是用来声明变量
 
-区别一：
+区别一：var 具有变量提升机制，let 和 const 没有变量提升的机制
 
-var 具有变量提升机制，let 和 const 没有变量提升的机制
+区别二：var 可以多次声明同一个变量，let 和 const 不可以多次声明同一个变量
 
-区别二：
-
-var 可以多次声明同一个变量，let 和 const 不可以多次声明同一个变量
-
-区别三：
-
-var、let 声明变量的，const 声明常量
+区别三：var、let 声明变量的，const 声明常量
 
 var 和 let 声明的变量可以再次赋值，但是 const 不可以再次赋值
 
-区别四：块级作用域
-
-var 声明的变量没有自身作用域，let 和 const 声明的变量有自身的作用域
+区别四：块级作用域 var 声明的变量没有自身作用域，let 和 const 声明的变量有自身的作用域
 
 var 声明的变量被挂到 window
 
@@ -4165,17 +4234,11 @@ action 可以包含任意异步操作
 # JS 中的计时器是否能精确计时？为什么？
 
 1. 硬件
-
    原子钟
-
 2. 系统
-
    操作系统的计时
-
 3. 标准 w3c
-
    setTimeout `>=5` 的嵌套层级，最小 4ms
-
 4. 事件循环
 
 # ref 与 toRef 的区别是什么？

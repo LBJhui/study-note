@@ -32,17 +32,36 @@ const useResettableRefFn = <T,>(value: () => T) => {
   return { state, reset }
 }
 
-const useResettableReactive = <T extends object>(value: T, clone = defaultClone) => {
+// 函数重载
+// function useResettableReactive<T extends object>(value: T, returnType: 'object', clone = defaultClone): { state: T; reset: () => void }
+// function useResettableReactive<T extends object>(value: T, returnType: 'array', clone = defaultClone): [T, () => void]
+// function useResettableReactive<T extends object>(value: T, returnType: 'array' | 'object', clone = defaultClone) {
+//   const state = reactive(clone(value)) as T
+
+//   const reset = () => {
+//     Object.keys(state).forEach((key) => {
+//       delete state[key as keyof typeof state]
+//     })
+//     Object.assign(state, clone(value))
+//   }
+//   if (returnType === 'object') {
+//     return { state, reset }
+//   }
+//   return [state, reset]
+// }
+
+type Resettable<T> = [T, () => void] & { state: T; reset: () => void }
+
+function useResettableReactive<T extends object>(value: T, clone = defaultClone): Resettable<T> {
   const state = reactive(clone(value)) as T
 
   const reset = () => {
     Object.keys(state).forEach((key) => {
-      delete state[key]
+      delete state[key as keyof typeof state]
     })
     Object.assign(state, clone(value))
   }
-
-  return [state, reset]
+  return Object.assign([state, reset], { state, reset }) as unknown as Resettable<T>
 }
 
 const [obj, resetObj] = useResettableReactive({
