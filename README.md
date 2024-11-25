@@ -1,6 +1,8 @@
 https://fe.duyiedu.com/p/t_pc/goods_pc_detail/goods_detail/course_2VKbErGXkTSzvbl9aQ9HgndEtIz?type=2
 
 ```text
+padding-bottom: constant(safe-area-inset-bottom);
+padding-bottom:env(safe-area-inset-bottom);
 前端打印 printjs
 对等依赖 peerDependencies(package.json) npm i --legacy-peer-deps
 函数管道
