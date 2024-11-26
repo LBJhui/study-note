@@ -1,6 +1,9 @@
 https://fe.duyiedu.com/p/t_pc/goods_pc_detail/goods_detail/course_2VKbErGXkTSzvbl9aQ9HgndEtIz?type=2
 
 ```text
+前端监控 sentry  上报方式 img标签（src为上报地址，跨域，gif），fetch，navigator.sendBeacon
+window.addeventlistener("onerror")
+纯前端图片压缩 图转base64读出宽高，canvas画图
 padding-bottom: constant(safe-area-inset-bottom);
 padding-bottom:env(safe-area-inset-bottom);
 前端打印 printjs

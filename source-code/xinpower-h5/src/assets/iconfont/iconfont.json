@@ -1,0 +1,44 @@
+{
+  "id": "3468631",
+  "name": "中心营业厅系统",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "240127",
+      "name": "back_delete",
+      "font_class": "backdelete",
+      "unicode": "e756",
+      "unicode_decimal": 59222
+    },
+    {
+      "icon_id": "2071351",
+      "name": "angle-right",
+      "font_class": "angle-right",
+      "unicode": "e637",
+      "unicode_decimal": 58935
+    },
+    {
+      "icon_id": "4766773",
+      "name": "money collect",
+      "font_class": "moneycollect",
+      "unicode": "e7cd",
+      "unicode_decimal": 59341
+    },
+    {
+      "icon_id": "4767044",
+      "name": "swap",
+      "font_class": "swap",
+      "unicode": "e7f2",
+      "unicode_decimal": 59378
+    },
+    {
+      "icon_id": "4767093",
+      "name": "check",
+      "font_class": "check",
+      "unicode": "e7fc",
+      "unicode_decimal": 59388
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-store, must-revalidate" />
+    <meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT" />
+    <link rel="icon" href="/favicon.ico" />
+    <!-- 开启顶部安全区适配 -->
+    <van-nav-bar safe-area-inset-top />
+
+    <!-- 开启底部安全区适配 -->
+    <van-number-keyboard safe-area-inset-bottom />
+    <title></title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+    <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>
+    <script>
+      // VConsole 默认会挂载到 `window.VConsole` 上
+      var vConsole = new window.VConsole()
+    </script>
+  </body>
+</html>
+

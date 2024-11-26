@@ -1,0 +1,26 @@
+@topicColor:#6D3DCC;
+
+.container{
+  width: 750px;
+  background: #F8F9FB;
+  min-height: 1449px;
+  height: 100vh;
+  position: relative;
+  .bg-color-top {
+    width: 0px;
+    height: 338px;
+    border-width: 0px 0px 148px 750px;
+    border-color: transparent transparent transparent #535B6A;
+    border-style: none none solid solid;
+  }
+
+  .bg-color-bottom {
+    position: absolute;
+    top: 262px;
+    right: 0;
+    width: 100%;
+    height: 92px;
+    background-color: @topicColor;
+    transform: skewY(-11deg);
+  }
+}

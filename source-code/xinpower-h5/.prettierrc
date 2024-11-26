@@ -1,0 +1,10 @@
+{
+  "semi": false,
+  "endOfLine": "auto",
+  "singleQuote": true,
+  "trailingComma": "none",
+  "printWidth": 120,
+  "quoteProps": "as-needed",
+  "bracketSpacing": true,
+  "htmlWhitespaceSensitivity": "css"
+}

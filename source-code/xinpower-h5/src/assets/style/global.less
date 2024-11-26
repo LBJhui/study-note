@@ -1,0 +1,47 @@
+.bg-color {
+  position: relative;
+
+  .bg-color-top {
+    width: 0px;
+    height: 338px;
+    border-width: 0px 0px 148px 750px;
+    border-color: transparent transparent transparent #164392;
+    border-style: none none solid solid;
+  }
+
+  .bg-color-bottom {
+    position: absolute;
+    top: 262px;
+    right: 0;
+    width: 100%;
+    height: 92px;
+    background-color: #F3BB1B;
+    transform: skewY(-11deg);
+  }
+}
+
+.space-bottom-logo{
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  img{
+    width: 160px;
+  }
+}
+
+.loading-container {
+  width: 750px;
+  height: 100vh;
+  background-image: url('@/assets/img/bg-skeleton.png');
+  background-size: contain;
+}
+
+.one-row-text {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
