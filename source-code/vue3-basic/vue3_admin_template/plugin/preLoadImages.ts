@@ -14,7 +14,6 @@ export const preLoadImages = (options: PreLoadImagesOptions): Plugin => {
   return {
     name: 'vite-plugin-image-prefetch',
     transformIndexHtml(html, ctx) {
-      console.log('%c 🍋 html', 'font-size:16px;color:#42b983', html)
       const files = fg.sync(dir, {
         cwd: ctx.server?.config.publicDir,
       })
