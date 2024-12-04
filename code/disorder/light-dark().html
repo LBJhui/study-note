@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Minimalist Home Page</title>
+    <style>
+      body {
+        color-scheme: light dark;
+        color: light-dark(#333, #fff); /* 浅色模式下文本颜色为#333，深色模式下为#fff */
+        background-color: light-dark(#fff, #222); /* 浅色模式下背景颜色为#fff，深色模式下为#222 */
+        --text-default: light-dark(#333333, #f0f0f0);
+        --text-alt: light-dark(#555555, #e0e0e0);
+        --text-button: light-dark(#ffffff, #e3e3e3);
+        --text-link: light-dark(#1a73e8, #8ab4f8);
+
+        --bg-default: light-dark(#ffffff, #6f0000);
+        --bg-alt: light-dark(#fffef3, #1a1913);
+        --bg-button: light-dark(#1a73e8, #056413);
+        --bg-logo: light-dark(#333333, #f5f5f5);
+      }
+
+      nav {
+        background-color: var(--bg-alt);
+        margin: 0;
+        padding: 16px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .logo {
+        width: 32px;
+        height: 32px;
+        background-color: var(--bg-logo);
+      }
+
+      .row {
+        background-color: var(--bg-default);
+        display: flex;
+        padding: 20px;
+        gap: 16px;
+      }
+
+      .always-light {
+        color-scheme: light;
+      }
+
+      a {
+        color: var(--text-link);
+      }
+
+      button {
+        height: 32px;
+        background-color: var(--bg-button);
+        color: var(--text-button);
+      }
+
+      h1 {
+        color: var(--text-default);
+      }
+
+      p {
+        color: var(--text-default);
+      }
+
+      main {
+        padding: 24px;
+      }
+
+      .left-column {
+        flex: 1;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .right-column {
+        flex: 1;
+      }
+
+      .right-column img {
+        max-width: 100%;
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--bg-alt);
+        color: var(--text-alt);
+        text-align: center;
+        padding: 10px 0;
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav>
+      <div class="logo"></div>
+      <h1>CSS only Light/Dark Mode</h1>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+      <div class="row">
+        <div class="left-column">
+          <h1>The page's color adapts to your system setting</h1>
+          <p>Here are some paragraph text. <a>Here is a link</a></p>
+          <button class="cta-button">Here is a button</button>
+        </div>
+        <div class="right-column">
+          <img src="https://placehold.co/600x400" alt="Image" />
+        </div>
+      </div>
+      <div class="row always-light">
+        <div class="left-column">
+          <h1>This section is always light mode</h1>
+          <p>Here are some paragraph text. <a>Here is a link</a></p>
+          <button class="cta-button">Here is a button</button>
+        </div>
+        <div class="right-column">
+          <img src="https://placehold.co/600x400" alt="Image" />
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2023 Your Company</p>
+    </footer>
+  </body>
+</html>

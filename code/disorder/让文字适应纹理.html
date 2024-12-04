@@ -1,4 +1,3 @@
-<!-- bug -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,10 +9,10 @@
     <svg viewBox="0 0 600 330">
       <defs>
         <filter id="conform">
-          <feImage height="100%" href="https://img95.699pic.com/xsj/2o/1j/a0.jpg%21/fh/300" preserveAspectRatio="none" result="ORIGIN_IMAGE" width="100%" x="0" y="0"></feImage>
+          <feImage height="100%" href="./1.webp" preserveAspectRatio="none" result="ORIGIN_IMAGE" width="100%" x="0" y="0"></feImage>
           <feColorMatrix in="ORIGIN_IMAGE" result="GRAY_IMAGE" type="saturate" values="0"></feColorMatrix>
           <feDisplacementMap in="SourceGraphic" in2="GRAY_IMAGE" result="TEXTURED_TEXT" scale="15" xChannelSelector="R" yChannelSelector="R"></feDisplacementMap>
-          <feImage height="100%" href="https://img95.699pic.com/xsj/2o/1j/a0.jpg%21/fh/300" preserveAspectRatio="none" result="BG" width="100%" x="0" y="0"></feImage>
+          <feImage height="100%" href="./1.webp" preserveAspectRatio="none" result="BG" width="100%" x="0" y="0"></feImage>
           <feColorMatrix
             in="TEXTURED_TEXT"
             result="OPACITY_TEXT"
@@ -26,7 +25,7 @@
           <feBlend in="BG" in2="OPACITY_TEXT" mode="multiply"></feBlend>
         </filter>
       </defs>
-      <Image height="100%" href="https://img95.699pic.com/xsj/2o/1j/a0.jpg%21/fh/300" preserveAspectRatio="none" width="100%" x="0" y="0"></Image>
+      <Image height="100%" href="./1.webp" preserveAspectRatio="none" width="100%" x="0" y="0"></Image>
       <text alignment-baseline="middle" fill="#000" filter="url(#conform)" font-size="10em" font-weight="bold" text-anchor="middle" x="50%" y="50%">LOGO</text>
     </svg>
   </body>

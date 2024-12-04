@@ -6,7 +6,6 @@ bin-release/
 node_modules
 dist
 __pycache__
-.idea
 
 # Other files and folders
 .settings/

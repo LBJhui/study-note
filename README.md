@@ -59,7 +59,6 @@ CSS文本自定义高亮AP简介 https://www.zhangxinxu.com/wordpress/2024/07/cs
 initial-letter https://www.zhangxinxu.com/wordpress/2024/03/css-initial-letter/
 margin-trim 属性设置在容器元素上，可以让子元素(需边缘接触) margin 设置计算值变成 0 https://www.zhangxinxu.com/wordpress/2023/05/css-margin-trim/
 align-content也适用于普通元素
-Math.hypot
 grid-template-rows: masonry;
 vue方法中属性丢失的问题 methods配置的方法与组件实例的方法
 console.log(([][[]] + [])[+!![]] + ([] + {})[+!![] + +!![]])
@@ -18305,8 +18304,6 @@ rem 和 em 单位一样，都是一个相对单位，不同的是 em 是相对�
 - 什么是作用域？
 
 - 什么是作用域链？
-
-- NaN 是什么，用 typeof 会输出什么？
 
 - JS 隐式转换，显示转换
 
