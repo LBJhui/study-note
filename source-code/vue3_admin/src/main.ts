@@ -9,10 +9,13 @@ import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import 'virtual:svg-icons-register'
 import gloablComponent from './components/index'
 import '@/styles/index.scss'
+import router from '@/router'
 const app = createApp(App)
 
 app.use(ElementPlus, {
   locale: zhCn,
 })
+//注册模板路由
+app.use(router)
 app.use(gloablComponent)
 app.mount('#app')
