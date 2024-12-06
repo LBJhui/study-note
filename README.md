@@ -34,8 +34,6 @@ https://fe.duyiedu.com/p/t_pc/goods_pc_detail/goods_detail/course_2VKbErGXkTSzvb
 前端监控 sentry  上报方式 img标签（src为上报地址，跨域，gif），fetch，navigator.sendBeacon
 window.addeventlistener("onerror")
 纯前端图片压缩 图转base64读出宽高，canvas画图
-padding-bottom: constant(safe-area-inset-bottom);
-padding-bottom:env(safe-area-inset-bottom);
 前端打印 printjs
 对等依赖 peerDependencies(package.json) npm i --legacy-peer-deps
 函数管道
@@ -60,7 +58,7 @@ initial-letter https://www.zhangxinxu.com/wordpress/2024/03/css-initial-letter/
 margin-trim 属性设置在容器元素上，可以让子元素(需边缘接触) margin 设置计算值变成 0 https://www.zhangxinxu.com/wordpress/2023/05/css-margin-trim/
 align-content也适用于普通元素
 grid-template-rows: masonry;
-vue方法中属性丢失的问题 methods配置的方法与组件实例的方法
+vue方法中属性丢失的问题 methods配置的方法与组件实例的方法 https://blog.csdn.net/xiaotangyu7dong/article/details/131713991
 console.log(([][[]] + [])[+!![]] + ([] + {})[+!![] + +!![]])
 展示组件和容器组件
 使用computed拦截v-model https://juejin.cn/post/7338634091397431330
@@ -68,8 +66,6 @@ v-model 父传子值，元素更改后获取值滞后，nextTick
 右键菜单组件的封装 https://blog.csdn.net/DuyiZiChen/article/details/131405493
 SocketIO
 视频文本化 text-image
-使用冻结对象提升效率 Object.freeze() 冻结对象在vue中不会变为响应式
-
 backface-visibility
 行盒的截断样式：box-decoration-break
 CSS实现奥林匹克五环
@@ -301,20 +297,6 @@ function processTasks(...tasks) {
 
 第二点就是，解耦运行环境。因为不同的运行环境如移动段或者pc端，只有浏览器才有真实dom，移动端就用不了真实dom。虚拟dom的本质就是一个js对象，里面有props，childrens，children里面又有props和childrens，像是标签一样嵌套。不同的运行环境就可以来解析这个对象实现页面展示（跨平台性）。
 
-```
-
-```javascript
-// 值和引用的终极面试题
-var foo = { bar: 1 }
-var arr1 = [1, 2, foo]
-var arr2 = arr1.slice(1)
-arr2[0]++
-arr2[1].bar++
-foo.bar++
-arr1[2].bar++
-console.log(arr1[1] === arr2[0])
-console.log(arr1[2] === arr2[1])
-console.log(foo.bar)
 ```
 
 ```Typescript
@@ -942,39 +924,6 @@ function memoize(fn, resolver) {
 }
 ```
 
-```js
-// JSLabel语法
-outer: for (let i = 0; i < 10; i++) {
-  console.log('顶层循环')
-  for (let j = 0; j < 10; j++) {
-    console.log('内层循环', i, j)
-    if (i * j > 30) {
-      console.log('退出顶层循环')
-      break outer
-    }
-  }
-}
-```
-
-```js
-/**
- * nums 数组中包含 1 个或多个正整数
- * 其他的数字都出现 2 次
- * 只有一个数字出现了 1 次
- * 找出只出现了 1 次的数字
- */
-function uniqueNumber(nums) {
-  // 0 异或 别的数等于数本身
-  // 相同的数异或结果为 0
-  var result = 0
-  for (const n of nums) {
-    result ^= n
-  }
-  return result
-  // return nums.reduce((a, b) => a ^ b, 0)
-}
-```
-
 ```javascript
 // 目录的自动高亮
 function highlight(id) {
@@ -1589,21 +1538,6 @@ function useComputed(fn) {
 ```
 
 ```js
-// 标签化模板 styled components
-function tag(strings, ...values) {
-  console.log(strings)
-  console.log(values)
-}
-
-const user = {
-  name: 'LBJhui',
-  age: 18,
-}
-
-const hi = tag`My name is ${user.name}, I'm ${user.age} years old.`
-```
-
-```js
 // 数组扁平化
 Array.prototype.customFlatten = function () {
   // 转化结果
@@ -1639,6 +1573,9 @@ console.log(person) // {c: '3'}
  *
  * Object.freeze 只能冻结当前对象
  *  Object.freeze 仅能冻结对象的当前层级属性，换而言之，如果对象的某个属性本身也是一个对象，那么这个内部对象并不会被 Object.freeze 冻结
+ * 
+使用冻结对象提升效率 Object.freeze() 冻结对象在vue中不会变为响应式
+ * 
  */
 
 // 深冻结
@@ -13271,7 +13208,7 @@ mysql
   1\.
   实现一下 some, every
 
-  1.                                                                                   flatten实现
+  1.                                                                                              flatten实现
 
   2.  const promise = new Promise(resolve => {
 
@@ -16554,7 +16491,7 @@ webpack 也基本上成了必考的内容，一般会问是否配置过 webpack�
 1\.
 实现一下 some, every
 
-1.                                                                                   flatten实现
+1.                                                                                              flatten实现
 
 2.  const promise = new Promise(resolve => {
 
@@ -21010,41 +20947,9 @@ splice 表示删除，splice(start,length,item)，会改变原数组，从某个
 ## CSS 清除浮动有哪些方法
 
 - 父级元素设置高度，手动撑开
-- 浮动元素结尾增加空标签，设置 clear\:both
-- 父元素设置 overflow\:hidden
-- 父元素添加伪类\:after 和 zoom
-
-## CSS 选择器优先级
-
-!import > 内联样式(style) > ID 选择器 > 类/属性/伪类 > 元素/关系
-
-## CSS 实现三列布局（左右固定宽度，中间自适应）
-
-- CSS 浮动
-
-第一个 float\:left，第二个 float\:right，第三个设置 margin-left 和 margin-right
-
-- 绝对定位法
-
-第一个定位到 left，第二个定位到 right，第三个设置 margin-left 和 margin-right
-
-- flex 布局
-
-  .left{
-  width:200px;
-  或者
-  flex:0 0 200px;
-  }
-  .right{
-  width:200px;
-  或者
-  flex:0 0 200px;
-  }
-  .center{
-  flex:1;
-  }
-
-- 阿里圣杯布局（忽略）
+- 浮动元素结尾增加空标签，设置 clear:both
+- 父元素设置 overflow:hidden
+- 父元素添加伪类:after 和 zoom
 
 ## 谈一下 flex 布局
 
@@ -21167,111 +21072,11 @@ JavaScript 本身是单线程，也就是同一时刻只能干一件事，JS 任
 - indexOf 去重
 - sort 排序，再单层循环前后对比
 
-## 数组如何排序
-
-- 数组 sort 排序
-
-- 冒泡排序（两层循环，两两互换）
-
-  //冒泡排序
-  function bubbleSort ( data ) {
-  var temp = 0;
-  for ( var i = data.length ; i > 0 ; i -- ){
-  for( var j = 0 ; j < i - 1 ; j++){
-  if( data\[j] > data\[j + 1] ){
-  temp = data\[j];
-  data\[j] = data \[j+1];
-  data\[j+1] = temp;
-  }
-  }
-  }
-  return data;
-  }
-
-- 选择排序
-
-  //选择排序
-  function selectionSort( data ) {
-  for( var i = 0; i< data.length ; i++){
-  var min = data\[i];
-  var temp;
-  var index = i;
-  for( var j = i + 1; j< data.length; j++){
-  if( data\[j] < min ){
-  min = data\[j];
-  index = j;
-  }
-  }
-
-          temp = data[i];
-          data[i] = min;
-          data[index]= temp;
-      }
-      return data;
-
-  }
-
-- 插入排序
-
-  //插入排序
-  function insertionSort( data ) {
-  var len = data.length;
-  for (var i = 1; i < len; i++) {
-  var key = data\[i];
-  var j = i - 1;
-  while ( j >= 0 && data\[j] > key) {
-  data\[j + 1] = data\[j];
-  j--;
-  }
-  data\[j + 1] = key;
-  }
-  return data;
-  }
-
-## 谈一下常用设计模式，并选择一个进行场景分析
-
-- 单例模式
-- 工厂模式
-- 观察者模式
-- 适配器模式
+- 谈一下常用设计模式，并选择一个进行场景分析 单例模式 工厂模式 观察者模式 适配器模式
 
 在 Vue 中通过观察者模式触发视图更新。Vue2.x 通过 Object.defineProperty 劫持 data 数据，当数据变化后触发 setter，setter 内部通过订阅器来 notify 消息，notify 会调用 watcher 更新视图。
 
 当一套前端对接不同后端服务时，会出现数据解构不一致情况，这个时候可以使用适配器模式来兼容不同后端，使他以统一的数据解构对接前端。
-
-## 谈一下 for...of
-
-for...of 是 ES2015 版本引入的语法，它可以遍历数组、类数组、以及 Map/set/字符串等
-
-- 数组迭代
-
-  for (const number of \[1,2,5]) { }
-
-- 类数组迭代
-
-  for (const number of arguments) { }
-
-- 字符串迭代
-
-  const message = 'hello';
-
-  for (const character of message) { }
-
-- map 迭代
-
-  const map = new Map();
-  map.set("name", '前端未来');
-  map.set("author", '河畔一角');
-  for(const item of map){ }
-  // 或者
-  for(const \[key,val] of map){ }
-
-- Set 迭代
-
-  const names = new Set(\['Tom', 'Jack', 'Lily']);
-  for (let name of names) { }
-
-> for...of 非常灵活，还有其它例子，我这儿不再列出。
 
 - XSS 攻击
 - CSRF 攻击
@@ -21560,18 +21365,7 @@ for...of 是 ES2015 版本引入的语法，它可以遍历数组、类数组、
 - vue 父组件先 mounted 还是子组件 mounted
 - Vue 中的 nextTick 了解吗？
 - vue 里面的 key 有什么作用
-- 介绍一下 react 生命周期
-- react diff 有了解么
-- 介绍一下 redux
-- react 数据流传递
-- react 父组件子组件兄弟组件传递信息
-- react16 新特性
-- this.setState 执行后干了什么
-- 为什么引进 redux
-- react 事件机制
-- render 在什么时候被调用
 - js 和 react 垃圾处理机制和回收
-- 为什么要用到 redux，redux 的原理
 - 登录功能，从前端到后台是怎么处理的
 - 用户登录怎么实现的，怎么知道是同一个用户（用 userId，那手机号不就没用了吗）
 - 手机号验证怎么做的，正则表达式的方法
@@ -22301,19 +22095,13 @@ https 就是对上面三点不足的解决，可以认为：
 
 ![图片](https://mmbiz.qpic.cn/mmbiz_png/2FMs2KmmepgVbJ6Eb4icspSsOS7hUd9hFVgYcTUz2rp2Xw233jrFiaFphw6P0IlufAhDpiczbJvzwKo0J7Gicsv8Tg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
 
-### **5. HTTPS 握手过程中，客户端如何验证证书的合法性**
-
-CA 证书中会包含颁发机构信息、公钥、公司信息、域名、有效期等信息，浏览器验证证书：
-
-1.  首先就是要验证域名、有效期等信息是否正确
-2.  然后判断证书来源的合法性。每份签发证书都可以根据验证链查找到对应的根证书，操作系统、浏览器会在本地存储权威机构的根证书，利用本地根证书可以对对应机构签发证书完成来源验证
-3.  判断证书是否被篡改。需要与 CA 服务器进行校验
-4.  判断证书是否已吊销
-
-以上任意一步都满足的情况下浏览器才认为证书是合法的。
-
-# tips
-
+- HTTPS 握手过程中，客户端如何验证证书的合法性
+  CA 证书中会包含颁发机构信息、公钥、公司信息、域名、有效期等信息，浏览器验证证书：
+  1.  首先就是要验证域名、有效期等信息是否正确
+  2.  然后判断证书来源的合法性。每份签发证书都可以根据验证链查找到对应的根证书，操作系统、浏览器会在本地存储权威机构的根证书，利用本地根证书可以对对应机构签发证书完成来源验证
+  3.  判断证书是否被篡改。需要与 CA 服务器进行校验
+  4.  判断证书是否已吊销
+      以上任意一步都满足的情况下浏览器才认为证书是合法的。
 - 有关 gzip 压缩、cdn、dns 解析等，将在系列文章的「性能优化篇」介绍，欢迎持续关注。
 - window.performance.now()
 - -webkit-tap-highlight-color
