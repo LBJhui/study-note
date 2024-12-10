@@ -2,9 +2,11 @@
   "singleQuote": true,
   "semi": false,
   "bracketSpacing": true,
-  "htmlWhitespaceSensitivity": "ignore",
   "endOfLine": "auto",
   "trailingComma": "all",
   "tabWidth": 2,
-  "printWidth": 180
+  "printWidth": 180,
+  // 添加以下配置强制属性在同一行内显示
+  "proseWrap": "preserve",
+  "htmlWhitespaceSensitivity": "strict"
 }
