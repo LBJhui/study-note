@@ -116,7 +116,7 @@ ElementUI 日期选择器时间选择范围限制
 实现 throttle 节流函数
 图片调色盘：colorThief
 符号绑定
-css 新单位 vmin vmax
+css 新单位 vmin vmax  ch
 前端ocr图片文字提取功能: tesseract.js
 拖拽组件: vue-draggable-plus
 重绘和回流
