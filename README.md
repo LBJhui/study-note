@@ -72,7 +72,6 @@ CSS实现奥林匹克五环
 全局导入和局部导入的区别
 ESModule 的工作原理
 transform 从右到左 translate3d
-localeCompare 字典顺序
 依赖检查工具 depcheck
 mask-image
 vue3 expose defineExpose
