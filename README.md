@@ -84,7 +84,6 @@ BFF 层 backends for frontends
 改变 webkit 表单输入框 placeholder 的颜色值：input::-webkit-input-placehold
 去掉 ios 系统中元素被触摸时产生的半透明灰色遮罩：tip-highlight-color:rgba(0,0,0,0)
 http accept-lang/navigator.lang
-git 忽略文件名大小写 git config core.ignorecase false
 content-type
 showDirectoryPicker FileSystem API
 insertBefore
@@ -2067,12 +2066,6 @@ npm config set registry https://registry.npmmirror.com/
 
 # 还原为官方镜像源
 npm config set registry https://registry.npmjs.org/
-
-
-github 慢
-C:\Windows\System32\drivers\etc\hosts
-140.82.114.4 github.com
-199.232.69.194 github.global.ssl.fastly.net
 ```
 
 ```js
@@ -3138,15 +3131,6 @@ let numbers = {
 
 console.log(numbers."0"); // error
 console.log(numbers[0]); // 0
-```
-
-```shell
-# git 子模块
-git clone <repository> --recursive 递归的方式克隆整个项目
-git submodule add <repository> <path> 添加子模块
-git submodule init 初始化子模块
-git submodule update 更新子模块
-git submodule foreach git pull 拉取所有子模块
 ```
 
 ```js
@@ -8776,10 +8760,6 @@ nodejs 事件循环略有不同...多了 process.nextTick 等
 
 1.  如何统一对错误进行捕获的？vue 的异步错误如何捕获？
 
-- 自己写的 JS 错误捕获 SDK Git 地址
-
-顺便求个 git 小 🌟🌟
-
 ### 浏览器及常见安全问题相关
 
 1.  浏览器页面加载过程，越详细越好 🌟
@@ -8816,27 +8796,6 @@ nodejs 事件循环略有不同...多了 process.nextTick 等
 - 冒泡，快排 🌟
 - 二分查找 🌟
 - 动态规划 （没遇到考这个的，可能难度太高，面试官看我简单的半天才拿下，这个直接不考虑了，大佬可以关注一下）
-
-## 面试中的项目题
-
-大概就是让你去设计一个系统的技术选型，或者是如何设计组件库，设计一个系统。个人猜测对于渣渣的我，这种题就是看看有没有 owner 意识，而且也可以看一下我对哪些技术更感兴趣？
-
-除了系统，还有某些场景的设计方案，比如如何用鉴权控制登陆时间设计**保持七天登录状态**。
-
-因为我简历中几乎没有涉及 nodejs 服务端的东西，但面试官总想问一问...
-
-只能说做过自己博客的服务端...
-
-服务端代码 Git 地址
-
-但是很简陋...只能说开发过 😂
-
-## 总结
-
-- 对于框架原理只能说个大概，真的深入某一部分具体的代码和实现方式就只能写出一个框架，许多细节注意不到。
-- 算法方面还是很薄弱，好在面试官都很和蔼可亲，擅长发现人的美哈哈哈...（最好多刷一刷，不然影响你的工资和成功率 😯）
-- 在投递简历之前，最好通过各种渠道找到公司内部的人，先提前了解业务，也可以帮助后期优秀 offer 的决策。
-- 要勇于说不，对于某些 offer 待遇不满意、业务不喜欢，应该相信自己，不要因为当下没有更好的 offer 而投降，一份工作短则一年长则 N 年，为了幸福生活要慎重选择！！！
 
 ---
 
