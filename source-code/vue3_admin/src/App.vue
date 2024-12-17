@@ -1,78 +1,100 @@
 <template>
   <div id="app">
-    <!-- 左侧导航栏 -->
-    <div class="left-nav">
-      <div class="logo-container">
-        <img src="/logo.svg" />
-        <span>LBJ辉Vue3后台管理项目</span>
-      </div>
-      <el-menu background-color="#001529" active-text-color="yellowgreen" class="el-menu-vertical-demo" default-active="2" text-color="#fff" @open="handleOpen" @close="handleClose">
-        <el-sub-menu index="1">
-          <template #title>
-            <el-icon><location /></el-icon>
-            <span>Navigator One</span>
+    <template v-if="!hidden">
+      <!-- 左侧导航栏 -->
+      <div class="left-nav">
+        <div class="logo-container">
+          <img src="/logo.svg" />
+          <span>LBJ辉Vue3后台管理项目</span>
+        </div>
+        <el-menu background-color="#001529" class="menu-container" active-text-color="yellowgreen" text-color="#fff" :router="true">
+          <template v-for="item in menuList" :key="item.path">
+            <el-menu-item :index="item.path" v-if="!item.children && !item.meta.hidden">
+              <template #title>
+                <el-icon><House /></el-icon>
+                <span>{{ item.meta.title }}</span>
+              </template>
+            </el-menu-item>
+            <el-sub-menu :index="item.path" v-if="item.children && !item.meta.hidden">
+              <template #title>
+                <el-icon>
+                  <component :is="item.meta.icon"></component>
+                </el-icon>
+                <span>{{ item.meta.title }}</span>
+              </template>
+              <el-menu-item v-for="child in item.children" :index="item.path + '/' + child.path" :key="child.path">
+                <template #title>
+                  <el-icon>
+                    <component :is="child.meta.icon"></component>
+                  </el-icon>
+                  <span>{{ child.meta.title }}</span>
+                </template>
+              </el-menu-item>
+            </el-sub-menu>
           </template>
-          <el-menu-item-group title="Group One">
-            <el-menu-item index="1-1">item one</el-menu-item>
-            <el-menu-item index="1-2">item two</el-menu-item>
-          </el-menu-item-group>
-          <el-menu-item-group title="Group Two">
-            <el-menu-item index="1-3">item three</el-menu-item>
-          </el-menu-item-group>
-          <el-sub-menu index="1-4">
-            <template #title>item four</template>
-            <el-menu-item index="1-4-1">item one</el-menu-item>
-          </el-sub-menu>
-        </el-sub-menu>
-        <el-menu-item index="2">
-          <el-icon><icon-menu /></el-icon>
-          <span>Navigator Two</span>
-        </el-menu-item>
-        <el-menu-item index="3" disabled>
-          <el-icon><document /></el-icon>
-          <span>Navigator Three</span>
-        </el-menu-item>
-        <el-menu-item index="4">
-          <el-icon><setting /></el-icon>
-          <span>Navigator Four</span>
-        </el-menu-item>
-      </el-menu>
-    </div>
-    <div class="right-container">
-      <!-- 顶部导航栏 -->
-      <div class="top-nav"></div>
-      <!-- 内容区域 -->
-      <div class="main-container">
-        <router-view></router-view>
+        </el-menu>
       </div>
-    </div>
+      <div class="right-container">
+        <!-- 顶部导航栏 -->
+        <div class="top-nav"></div>
+        <!-- 内容区域 -->
+        <div class="main-container">
+          <router-view></router-view>
+        </div>
+      </div>
+    </template>
+    <template v-else> <router-view></router-view> </template>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import routes from '@/router/routes'
+
+const hidden = false
+const menuList = routes
+</script>
 
 <style scoped lang="scss">
 #app {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
   display: flex;
+
   .left-nav {
     width: $leftnavwidth;
     height: 100vh;
     background-color: #001529;
+
     .logo-container {
       width: 100%;
-      line-height: 60px;
+      line-height: $logoHeight;
       color: #fff;
       display: flex;
       align-items: center;
       padding-left: 10px;
+      border-bottom: 1px solid #333;
+
       img {
         width: 40px;
         margin-right: 5px;
       }
     }
+
+    .menu-container {
+      width: 100%;
+      height: calc(100vh - $logoHeight);
+      border: none;
+    }
   }
+
   .right-container {
     flex: 1;
+
+    ::-webkit-scrollbar {
+      width: 0;
+    }
+
     .top-nav {
       width: 100%;
       height: $topNavHeight;

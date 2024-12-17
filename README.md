@@ -31,6 +31,7 @@ https://fe.duyiedu.com/p/t_pc/goods_pc_detail/goods_detail/course_2VKbErGXkTSzvb
 [阮一峰的网络日志](https://www.ruanyifeng.com/blog/)
 
 ```text
+https://developer.mozilla.org/zh-CN/docs/Web/HTML/Global_attributes/popover
 前端监控 sentry  上报方式 img标签（src为上报地址，跨域，gif），fetch，navigator.sendBeacon
 window.addeventlistener("onerror")
 纯前端图片压缩 图转base64读出宽高，canvas画图
@@ -110,7 +111,6 @@ vscode 正则插件：Regex Previewer
 ElementUI 日期选择器时间选择范围限制
 自定义指令控制权限的弊端 https://blog.csdn.net/layonly/article/details/139402930 DOM 元素删除后，生命周期会正常进行，还会请求数据
 组件循环依赖：动态导入
-实现 sleep 函数
 实现 throttle 节流函数
 图片调色盘：colorThief
 符号绑定
@@ -12960,7 +12960,7 @@ mysql
   1\.
   实现一下 some, every
 
-  1.                                                                                                   flatten实现
+  1.                                                                                                    flatten实现
 
   2.  const promise = new Promise(resolve => {
 
@@ -14184,7 +14184,6 @@ css 基本上每个公司也都会问，但是问的不会很深，都是一些�
 - 数组去重、数组乱序
 - 手写 call、apply、bind
 - 继承（ES5/ES6）
-- sleep 函数
 - 实现 promise
 - 实现 promise.all
 - 实现 promise.retry
@@ -14288,7 +14287,6 @@ css 基本上每个公司也都会问，但是问的不会很深，都是一些�
 - 数组去重、数组乱序
 - 手写 call、apply、bind
 - 继承（ES5/ES6）
-- sleep 函数
 - 实现 promise
 - 实现 promise.all
 - 实现 promise.retry
@@ -16228,7 +16226,7 @@ webpack 也基本上成了必考的内容，一般会问是否配置过 webpack�
 1\.
 实现一下 some, every
 
-1.                                                                                                   flatten实现
+1.                                                                                                    flatten实现
 
 2.  const promise = new Promise(resolve => {
 

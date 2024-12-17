@@ -188,9 +188,9 @@ package.json 新增两个运行脚本
 pnpm add -D eslint-plugin-prettier prettier eslint-config-prettier
 ```
 
-#### .prettierrc.json 添加规则
+#### .prettierrc 添加规则
 
-```json
+```.prettierrc
 {
   "singleQuote": true,
   "semi": false,

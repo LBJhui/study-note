@@ -6,165 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="f2813ec6-06c4-4670-81c4-6a37fde78d10" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/demo.js" beforeDir="false" afterPath="$PROJECT_DIR$/demo/demo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/space-screen/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/space-screen/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/space-screen/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/space-screen/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/space-screen/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/space-screen/public/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/space-screen/public/flexs.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/space-screen/src/App.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/space-screen/src/assets/css/index.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/space-screen/src/assets/img/bg-blue.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/space-screen/src/assets/img/bg-yellow.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/space-screen/src/assets/img/circle-blue.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/space-screen/src/assets/img/logo-upleft-white.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/space-screen/src/assets/logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/space-screen/src/env.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/space-screen/src/main.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/space-screen/src/router/index.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/space-screen/src/views/index/index.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/space-screen/src/views/introduction/index.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/space-screen/tsconfig.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/space-screen/tsconfig.node.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/space-screen/vite.config.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/vue3-basic/vue3_admin_template/.stylelintrc.cjs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/vue3-basic/vue3_admin_template/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/source-code/vue3-basic/vue3_admin_template/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/vue3-basic/vue3_admin_template/plugin/preLoadImages.ts" beforeDir="false" afterPath="$PROJECT_DIR$/source-code/vue3-basic/vue3_admin_template/plugin/preLoadImages.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/vue3-project/pc/.env.development" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/vue3-project/pc/.env.production" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/vue3-project/pc/.env.test" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/vue3-project/pc/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/vue3-project/pc/.prettierignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/vue3-project/pc/.prettierrc.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/vue3-project/pc/.stylelintignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/vue3-project/pc/.stylelintrc.cjs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/vue3-project/pc/eslint.config.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/vue3-project/pc/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/vue3-project/pc/mock/user.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/vue3-project/pc/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/vue3-project/pc/pnpm-lock.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/vue3-project/pc/public/logo.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/vue3-project/pc/scritps/preinstall.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/vue3-project/pc/src/App.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/vue3-project/pc/src/main.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/vue3-project/pc/src/router/index.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/vue3-project/pc/src/styles/index.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/vue3-project/pc/src/styles/reset.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/vue3-project/pc/src/styles/variables.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/vue3-project/pc/src/vite-env.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/vue3-project/pc/tsconfig.app.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/vue3-project/pc/tsconfig.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/vue3-project/pc/tsconfig.node.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/vue3-project/pc/vite.config.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/.env" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/.env.development" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/.env.production" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/.eslintignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/.eslintrc.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/.prettierrc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/README.en.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/pnpm-lock.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/postcss.config.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/public/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/App.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/api/sendMsg.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/api/space/coupon.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/api/space/record.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/api/space/reservation.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/api/space/user.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/api/upload.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/api/weixin.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/iconfont/demo.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/iconfont/demo_index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/iconfont/iconfont.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/iconfont/iconfont.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/iconfont/iconfont.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/iconfont/iconfont.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/iconfont/iconfont.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/iconfont/iconfont.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/iconfont/iconfont.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/img/bg-skeleton.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/img/space/logo-bottom.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/img/space/n币.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/img/space/space/Ncoin.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/img/space/space/avatar.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/img/space/space/check-circle-fill.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/img/space/space/coffee-invalue.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/img/space/space/coffee.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/img/space/space/empty.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/img/space/space/gift-invalue.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/img/space/space/gift.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/img/space/space/i.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/img/space/space/lock.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/img/space/space/login-logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/img/space/space/mail.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/img/space/space/mobile.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/img/space/space/no-reservation.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/img/space/space/reservation-check.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/img/space/space/seat-h.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/img/space/space/seat-v.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/img/space/space/snack-invalue.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/img/space/space/snack.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/img/space/space/space-bottom-logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/img/space/space/sync.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/img/space/space/user.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/img/space/space/warning-circle-fill.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/img/space/之码.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/img/space/大楼门禁.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/img/space/座位预约.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/img/space/我的记录.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/img/space/茶码.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/style/center.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/style/global.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/assets/style/reset.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/components/Dialog/index.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/env.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/main.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/router/index.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/store/user.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/template/index.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/types/crypto-js.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/types/lodash.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/types/vite.env.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/utils/axios/axios.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/utils/axios/index.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/utils/index.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/utils/login/index.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/views/empty.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/views/index.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/views/map/index.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/views/ncoin/buy/index.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/views/ncoin/earn/index.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/views/ncoin/index/index.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/views/ncoin/remain/index.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/views/space/Ncoin/index.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/views/space/index/index.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/views/space/login/index.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/views/space/mine/index.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/views/space/record/index.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/views/space/register/index.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/views/space/reservation/cancel/index.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/views/space/reservation/index/index.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/views/space/reservation/list/index.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/views/space/reservation/reservation/index.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/views/space/reservation/status/index.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/views/space/reservation/success/index.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/views/space/resetPassword/index.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/views/space/teaCode/code/index.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/views/space/teaCode/index/index.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/views/space/teaCode/list/index.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/src/views/space/zhiCode/index.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/tsconfig.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/tsconfig.node.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/xinpower-h5/vite.config.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LBJhui-blog" beforeDir="false" afterPath="$PROJECT_DIR$/LBJhui-blog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LBJhui-blog/docs/website/language/JavaScript/High-Performance JavaScript/第11章 期约(promise)与异步函数.md" beforeDir="false" afterPath="$PROJECT_DIR$/LBJhui-blog/docs/website/language/JavaScript/High-Performance JavaScript/第11章 期约(promise)与异步函数.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/demo.html" beforeDir="false" afterPath="$PROJECT_DIR$/demo/demo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source-code/vue3_admin/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/source-code/vue3_admin/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source-code/vue3_admin/src/styles/variable.scss" beforeDir="false" afterPath="$PROJECT_DIR$/source-code/vue3_admin/src/styles/variable.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source-code/vue3_admin/src/views/login/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/source-code/vue3_admin/src/views/login/index.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -194,26 +42,26 @@
     <option name="openDirectoriesWithSingleClick" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.rainbow.brackets.disable.when&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\dell\\Desktop\\study-note\\source-code\\vue3-basic\\vue3_admin_template\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.standard": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.standard": "",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.rainbow.brackets.disable.when",
+    "ts.external.directory.path": "D:\\Desktop\\study-note\\source-code\\vue3-basic\\vue3_admin_template\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-WS-242.23726.96" />
+        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-WS-243.21565.180" />
       </set>
     </attachedChunks>
   </component>
@@ -230,6 +78,8 @@
       <workItem from="1733319854160" duration="139000" />
       <workItem from="1733320395653" duration="1027000" />
       <workItem from="1733321535220" duration="3462000" />
+      <workItem from="1734416482519" duration="67000" />
+      <workItem from="1734416557518" duration="55000" />
     </task>
     <servers />
   </component>
