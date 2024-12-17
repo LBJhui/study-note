@@ -1,11 +1,21 @@
 <template>
   <div class="login-container">
     <div class="login-title">LBJ辉</div>
-    <div class="login-form"></div>
+    <div class="login-form">
+      <button @click="login">登录</button>
+    </div>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+const login = () => {
+  localStorage.setItem('token', '1')
+  router.push('/')
+}
+</script>
 
 <style scoped lang="scss">
 .login-container {

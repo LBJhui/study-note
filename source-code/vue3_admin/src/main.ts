@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import './style.css'
 import App from './App.vue'
+import pinia from '@/store'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 //@ts-ignore忽略当前文件ts类型的检测否则有红色提示(打包会失败)
@@ -20,5 +21,6 @@ app.use(ElementPlus, {
 })
 //注册模板路由
 app.use(router)
+app.use(pinia)
 app.use(gloablComponent)
 app.mount('#app')

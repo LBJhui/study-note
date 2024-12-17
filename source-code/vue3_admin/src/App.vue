@@ -48,9 +48,15 @@
 </template>
 
 <script setup lang="ts">
+import { toRef } from 'vue'
+import { useRoute } from 'vue-router'
+import { settingStore } from './store'
 import routes from '@/router/routes'
 
-const hidden = false
+const route = useRoute()
+const setting = settingStore()
+const hidden = setting.hidden
+
 const menuList = routes
 </script>
 
