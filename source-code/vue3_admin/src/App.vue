@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <template v-if="!hidden">
+    <template v-if="!setting.hidden">
       <!-- 左侧导航栏 -->
       <div class="left-nav">
         <div class="logo-container">
@@ -48,14 +48,10 @@
 </template>
 
 <script setup lang="ts">
-import { toRef } from 'vue'
-import { useRoute } from 'vue-router'
 import { settingStore } from './store'
 import routes from '@/router/routes'
 
-const route = useRoute()
 const setting = settingStore()
-const hidden = setting.hidden
 
 const menuList = routes
 </script>
