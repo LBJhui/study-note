@@ -281,7 +281,7 @@ function processTasks(...tasks) {
     },
     pause() {
       isRunning = false
-    },
+    }
   }
 }
 ```
@@ -1048,7 +1048,7 @@ const matrix = [
   [0, 2, 2, 0],
   [0, 0, 2, 2],
   [2, 4, 4, 2],
-  [2, 4, 4, 4],
+  [2, 4, 4, 4]
 ]
 
 function move(matrix, direction) {
@@ -1063,7 +1063,7 @@ function move(matrix, direction) {
     up: (i, j) => [i + 1, j],
     down: (i, j) => [i - 1, j],
     left: (i, j) => [i, j + 1],
-    right: (i, j) => [i, j - 1],
+    right: (i, j) => [i, j - 1]
   }
 
   // 得到下一个非零的位置 [r, c, value]
@@ -1168,7 +1168,7 @@ function run(func) {
   const oldFetch = window.fetch
   const cache = {
     status: 'pending',
-    value: null,
+    value: null
   }
 
   function newFetch(...args) {
@@ -1466,12 +1466,12 @@ $_n: 6; // 私有变量
 $themes: (
   light: (
     textColor: #333,
-    bgColor: #fff,
+    bgColor: #fff
   ),
   dark: (
     textColor: #fff,
-    bgColor: #333,
-  ),
+    bgColor: #333
+  )
 );
 $themeMap: ();
 @mixin useTheme() {
@@ -1502,10 +1502,10 @@ $themeMap: ();
 this.a = 1
 exports.b = 2
 exports = {
-  c: 3,
+  c: 3
 }
 module.exports = {
-  d: 4,
+  d: 4
 }
 exports.e = 5
 this.f = 6
@@ -1555,13 +1555,13 @@ Array.prototype.customFlatten = function () {
 Object.freeze(obj)
 let person = {
   a: '1',
-  b: '2',
+  b: '2'
 }
 Object.freeze(person)
 person.a = '3'
 console.log(person) // {a: '1', b: '2'}
 person = {
-  c: '3',
+  c: '3'
 }
 console.log(person) // {c: '3'}
 
@@ -1597,7 +1597,7 @@ function Product(name, unitPrice, chooseNumber) {
   Object.defineProperty(this, 'totalPrice', {
     get() {
       return this.unitPrice * this.chooseNumber
-    },
+    }
   })
   // ES6
   get
@@ -1894,12 +1894,12 @@ dragenter
 const o = (function () {
   const obj = {
     a: 1,
-    b: 2,
+    b: 2
   }
   return {
     get: function (k) {
       return obj[k]
-    },
+    }
   }
 })()
 // 闭包代码的提权漏洞
@@ -1907,7 +1907,7 @@ const o = (function () {
 Object.defineProperty(Object.prototype, 'abc', {
   get() {
     return this
-  },
+  }
 })
 console.log(o.get('abc'))
 
@@ -1916,7 +1916,7 @@ const o = (function () {
   // var obj = Object.create(null)
   const obj = {
     a: 1,
-    b: 2,
+    b: 2
   }
   // Object.setPropertytypeOf(obj, null)
   return {
@@ -1924,7 +1924,7 @@ const o = (function () {
       if (obj.hasOwnProperty(k)) {
         return obj[k]
       }
-    },
+    }
   }
 })()
 ```
@@ -1961,7 +1961,7 @@ Function.prototype.myCall = function (ctx, ...args) {
   const key = Symbol()
   Object.defineProperty(ctx, key, {
     value: fn,
-    enumerable: false,
+    enumerable: false
   })
   const r = ctx[key](...args)
   delete ctx[key]
@@ -2167,7 +2167,7 @@ Object.defineProperty(Example.prototype, 'func', {
     }
     console.log(this.name)
   },
-  enumerable: false,
+  enumerable: false
 })
 ```
 
@@ -2246,7 +2246,7 @@ const obj = {
   },
   fun2: () => {
     console.log(this.name)
-  },
+  }
 }
 obj.fun1()
 obj.fun2()
@@ -2269,7 +2269,7 @@ let obj = {
   name: 'objLBJhui',
   say: function () {
     console.log(this.name)
-  },
+  }
 }
 obj.say()
 setTimeout(obj.say, 10)
@@ -2289,7 +2289,7 @@ const obj = {
   innerFunction1: outerFunction(),
   innerFunction2: () => {
     console.log(this.name)
-  },
+  }
 }
 obj.innerFunction1()
 obj.innerFunction2()
@@ -2506,7 +2506,7 @@ const result = [...str].reduce((a, b) => (a[b]++ || (a[b] = 1), a), {})
 // TS中字符串索引带来的类型问题
 const obj = {
   name: 'LBJhui',
-  age: 18,
+  age: 18
 }
 
 function method(key: string) {
@@ -2741,7 +2741,7 @@ enum str {
   A,
   B,
   C,
-  D,
+  D
 }
 
 type strUnion = keyof typeof str // 'A'|'B'|'C'|'D'
@@ -2854,7 +2854,7 @@ xhr.addEventListener('progress', (e) => {
   onProgress &&
     onProgress({
       loaded: e.loaded,
-      total: e.total,
+      total: e.total
     })
 })
 xhr.open(method, url)
@@ -2863,7 +2863,7 @@ xhr.send(data)
 // fetch 响应进度监控
 const resp = await fetch(url, {
   method,
-  body: data,
+  body: data
 })
 const total = +resp.headers.get('content-length')
 const decoder = new TextDecoder()
@@ -2880,7 +2880,7 @@ while (1) {
   onProgress &&
     onProgress({
       loaded: e.loaded,
-      total: e.total,
+      total: e.total
     })
 }
 ```
@@ -3109,8 +3109,8 @@ if (process.env.NODE_ENV === 'production') {
     plugins: [aPlugin],
     externals: {
       // 公共库通过 cdn 引入，浏览器会缓存
-      vue: 'Vue',
-    },
+      vue: 'Vue'
+    }
   }
 }
 ```
@@ -3267,8 +3267,7 @@ mix-blend-mode background-blend-mode
     (max-width: 300px)50vw,
     (max-width: 600px) 50vw,
     50vw
-  "
-/>
+  " />
 
 原始尺寸=样式尺寸*缩放倍率 元素尺寸： - clientWidth：content + padding - offsetWidth：content + padding + scroll(滚动条) + border - scrollWidth：visible + invisible - 可见尺寸 getBoundingClientRect()
 dom.style.width DOM树 getComputedStyle(dom).width CSSOM树 layout tree 布局树 几何信息
@@ -3277,7 +3276,7 @@ dom.style.width DOM树 getComputedStyle(dom).width CSSOM树 layout tree 布局�
 ```js
 // 监听复制事件
 addEventListener('onerror', {
-  passive: false,
+  passive: false
 })
 copy, paste
 e.clipboardData.setData('text/palin', 'hello world')
@@ -3303,11 +3302,11 @@ module.exports = defineConfig({
       rules: [
         {
           test: /\.dataurl$/,
-          loader: 'raw-loader',
-        },
-      ],
-    },
-  },
+          loader: 'raw-loader'
+        }
+      ]
+    }
+  }
 })
 
 // vite: ?raw
@@ -3316,7 +3315,7 @@ import data from './data.dataurl?raw'
 // vite 寻找 views 文件夹中所有的 page.js
 import.meta.glob('../views/**/page.js', {
   eager: true,
-  import: 'default',
+  import: 'default'
 })
 ```
 
@@ -3442,7 +3441,7 @@ start({
   getTemplate(tpl, ...rest) {
     // 为了直接看到效果，所以写死了，实际中需要用正则匹配
     return tpl.replace('<img src="./img/my-image.png">', '<img src="http://localhost:8080/img/my-image.png">')
-  },
+  }
 })
 ```
 
@@ -3999,7 +3998,7 @@ window.requestIdleCallback =
         didTimeout: false,
         timeRemaining: function () {
           return Math.max(0, 50.0 - (Date.now() - startTime))
-        },
+        }
       })
     }, 1)
   }
@@ -4857,11 +4856,11 @@ CSP（Content Security Policy）与跨域（Cross-Origin）在 Web 安全领域�
 
   var obj1 = {
     bar: 'obj1',
-    foo: foo,
+    foo: foo
   }
 
   var obj2 = {
-    bar: 'obj2',
+    bar: 'obj2'
   }
 
   foo() // "global"
@@ -4937,7 +4936,7 @@ CSP（Content Security Policy）与跨域（Cross-Origin）在 Web 安全领域�
 
     return {
       first: methodToExpose,
-      second: otherMethodIWantToExpose,
+      second: otherMethodIWantToExpose
     }
   })()
 
@@ -12960,7 +12959,7 @@ mysql
   1\.
   实现一下 some, every
 
-  1.                                                                                                    flatten实现
+  1.                                                                                                                      flatten实现
 
   2.  const promise = new Promise(resolve => {
 
@@ -16226,7 +16225,7 @@ webpack 也基本上成了必考的内容，一般会问是否配置过 webpack�
 1\.
 实现一下 some, every
 
-1.                                                                                                    flatten实现
+1.                                                                                                                      flatten实现
 
 2.  const promise = new Promise(resolve => {
 
@@ -21973,3 +21972,100 @@ https 就是对上面三点不足的解决，可以认为：
 - 闭包？使用场景？缺点？
 - 继承，几种继承方法
 - 原型，原型链最顶层是什么?
+
+```markdown
+# window 对象上频繁绑定内容，有什么风险？
+
+微前端，快照沙箱
+
+## 风险分析
+
+1. 命名冲突
+2. 全局污染
+3. 安全风险
+4. 性能问题，增加内存开销
+
+## 解决方案
+
+1. 模块化
+2. 命名空间
+3. IIFE（形成闭包，形成独立作用域）
+4. 开启严格模式
+
+了解 qiankun 的快照沙箱实现原理
+```
+
+```markdown
+什么是多态？
+
+在父类中定义的属性和方法被子类继承后，可以有不同的实现
+```
+
+```javascript
+// 手写 call
+function method(a, b) {
+  console.log('args:', a, b)
+  console.log('this:', a, b)
+}
+
+method.call(1, 2, 3)
+
+Function.prototype.myCall = function (ctx, ...args) {
+  ctx = ctx === null || ctx === undefined ? globalThis : Object(ctx)
+  const fn = this
+  Object.defineProperty(ctx, key, {
+    value: fn,
+    enumerable: false
+  })
+  const r = ctx[key](...args)
+  delete ctx[key]
+  return r
+}
+```
+
+```markdown
+# 请说说你对 DNS 协议的理解
+
+将域名映射到 IP 上
+
+## 域名解析整个过程
+
+浏览器渲染原理，从地址栏输入到页面渲染完成，经理的所有阶段，详细说明？
+
+1. 用户输入域名
+2. 检查自身 DNS 缓存
+3. 操作系统 DNS 缓存
+4. 本地域名服务器
+5. 根据本地 DNS 服务器去查找根 DNS 服务器、顶级域名服务器（TLD）、权威 DNS 服务器
+6. 返回结果，浏览器缓存并向 IP 发送请求
+
+## DNS 记录类型
+
+1. A 记录：将域名解析为 IPv4 地址
+2. AAAA 记录：将域名解析为 IPv6 地址
+3. CNAME 记录：将域名解析为 CNAME 记录指向的域名
+4. MX 记录：将域名解析为邮件服务器地址
+5. TXT：文本信息存储，域名验证， SPF 记录
+
+## DNS 常见问题
+
+### DNS 解析慢
+
+1. DNS 预解析
+2. 使用 CDN，CDN 节点用户就近
+3. 减少外部资源请求
+
+### DNS 劫持
+
+1. HTTPS，证书保证传输安全性
+2. DNSSEC，DNS 安全扩展
+
+## 优化
+
+1. DNS 缓存
+2. nslookup
+3. dig
+4. 在线 dns.google.com, dnschecker.org
+```
+
+

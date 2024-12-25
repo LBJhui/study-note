@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>电影票选座</title>
+    <style>
+      canvas {
+        border: 1px solid #000;
+        display: block;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="cinemaCanvas" width="800" height="600"></canvas>
+    <script>
+      const canvas = document.getElementById('cinemaCanvas')
+      const ctx = canvas.getContext('2d')
+
+      const rows = 10
+      const cols = 15
+      const seatSize = 40
+      const seatSpacing = 10
+      const seats = []
+
+      for (let row = 0; row < rows; row++) {
+        const seatRow = []
+        for (let col = 0; col < cols; col++) {
+          const status = Math.random() > 0.5 ? 'available' : 'unavailable'
+          seatRow.push({
+            x: col * (seatSize + seatSpacing),
+            y: row * (seatSize + seatSpacing),
+            status: status
+          })
+        }
+        seats.push(seatRow)
+      }
+
+      function drawSeats() {
+        seats.forEach((row) => {
+          row.forEach((seat) => {
+            ctx.fillStyle = getSeatColor(seat.status)
+            ctx.fillRect(seat.x, seat.y, seatSize, seatSize)
+          })
+        })
+      }
+
+      function getSeatColor(status) {
+        switch (status) {
+          case 'available':
+            return 'green'
+          case 'selected':
+            return 'blue'
+          case 'unavailable':
+            return 'red'
+          default:
+            return 'grey'
+        }
+      }
+      drawSeats()
+
+      canvas.addEventListener('click', (e) => {
+        const rect = canvas.getBoundingClientRect()
+        const x = e.clientX - rect.left
+        const y = e.clientY - rect.top
+
+        seats.forEach((row) => {
+          row.forEach((seat) => {
+            if (x >= seat.x && x <= seat.x + seatSize && y >= seat.y && y <= seat.y + seatSize) {
+              if (seat.status === 'available') {
+                seat.status = 'selected'
+              } else if (seat.status === 'selected') {
+              }
+              drawSeats()
+            }
+          })
+        })
+      })
+    </script>
+  </body>
+</html>
+
+<!--
+
+```markdown
+# 我们是美团电影的，请问怎么实现一个电影票选座功能
+
+使用 canvas 来实现选座功能
+
+## 实现思路
+
+1. canvas 基础处理
+2. 座位绘制
+3. 交互添加
+4. 座位状态管理，数据结构设计
+5. 优化与美化
+
+## 具体实现
+
+### 初始化 canvas
+
+### 绘制座位
+
+### 添加交互
+
+### 管理座位状态
+
+### 用户体验升级
+
+```
+
+-->
