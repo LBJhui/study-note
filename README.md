@@ -33,9 +33,7 @@ https://fe.duyiedu.com/p/t_pc/goods_pc_detail/goods_detail/course_2VKbErGXkTSzvb
 ```
 
 ```text
-https://developer.mozilla.org/zh-CN/docs/Web/HTML/Global_attributes/popover
 前端监控 sentry  上报方式 img标签（src为上报地址，跨域，gif），fetch，navigator.sendBeacon
-window.addeventlistener("onerror")
 纯前端图片压缩 图转base64读出宽高，canvas画图
 前端打印 printjs
 对等依赖 peerDependencies(package.json) npm i --legacy-peer-deps
@@ -370,6 +368,12 @@ export default new EventEmitter()
 - 【架构设计】参与智慧管理平台整体架构设计、技术选型与方案评审，担任全栈开发，完成相关核心模块
 - 【企微开发】对接企业微信生态，基于企微 SDK 完成平台支付、消息推送、机器人等功能开发
 - 【可视化】主导完成平台可视化渲染引擎（可视化图表的组件、数据协议）设计与开发，基于 echarts（svgRenderer、canvasRenderer 一千万行数据的表格渲染【不能使用虚拟滚动】canvas table，chunk）封装业务图表库，服务于平台可视化场景
+  - 用库
+  - 初级：table dom
+  - 中级：虚拟表格
+  - 高级： canvas table
+  - 专家：canvas+tile 技术
+  - 高级专家：skia+webassembly
 - 【地图开发】使用百度地图 SDK，封装业务地图渲染器（MaoRenderer），包含：地图撒点、地区数据下钻等功能
 - 【小程序与 App】基于 uniapp 实现智慧党建用户端多端开发落地，产物编译为 H5、微信小程序两端应用
 - 【团队基建】推进团队业务组件库、图标库与基础库沉淀，完成 10+ 个业务组件沉淀，以此提升了团队协同开发的效率
@@ -617,14 +621,14 @@ t.addTask((next) => {
 t.run()
 ```
 
-```
+```text
 打包结果分析工具
   Webpack:webpack-bundle-analyzer
   vite:vite-bundle-visualizer
        rollup-bundle-visualizer
 ```
 
-```
+```text
 元素的绘制顺序
   可替换元素
     元素本身
@@ -4488,41 +4492,27 @@ XSS：指攻击者通过在目标网站输入字段中注入恶意脚本代码�
 8. 实施速率限制
 9. 日志和监控
 
-# post 请求和 get 请求在跨域时有何不同？
-
-当涉及到跨域请求（Cross-Origin Requests）时，POST 请求和 GET 请求之间存在一些关键的不同点，特别是在处理浏览器中的 CORS（跨来源资源共享）策略时。以下是它们之间的主要差异：
-
-1. **预检请求（Preflight Request）**：
-
-   - 对于某些 CORS 请求，浏览器会首先发送一个 OPTIONS 请求作为预检请求，以检查服务器是否允许跨域请求。这通常发生在“非简单请求”中，即那些不符合简单请求条件的请求。简单请求的条件包括：请求方法只能是
-     HEAD、GET 或 POST，请求头只能包含一些特定的字段（如 Accept、Accept-Language、Content-Language、Content-Type 等），且 Content-Type 的值仅限于`application/x-www-form-urlencoded`、
-     `multipart/form-data`或`text/plain`。
-   - 对于 POST 请求，如果它包含自定义的 HTTP 头或 Content-Type 字段的值不是上述的“简单”值，那么它通常会触发预检请求。而 GET 请求由于其性质（通常只用于检索数据）和简单性，很少会触发预检请求。
-
-2. **缓存**：
-
-   - 浏览器可能会对 GET 请求的响应进行缓存，这意味着对于相同的 URL 和请求头，浏览器可能会从缓存中加载响应而不是重新发送请求到服务器。但是，POST 请求通常不会被缓存，因为它们是用于提交数据的，而数据可能会经常变化。
-   - 在跨域场景中，这种缓存行为可能会影响请求的性能和结果。如果 GET 请求的响应被缓存，并且服务器上的数据已经更改，那么客户端可能会获取到旧的、不准确的数据。
-
-3. **安全性**：
-
-   - 从安全性的角度来看，POST 请求通常用于提交数据（如表单数据、文件上传等），而 GET 请求则用于检索数据。因此，在跨域场景中，使用 POST 请求提交敏感数据可能更安全一些，因为它不太可能被缓存或记录在浏览器的历史记录中。但是，这并不意味着
-     POST 请求本身就更安全；它仍然需要适当的安全措施（如 HTTPS、身份验证和授权等）来保护数据。
-
-4. **请求体（Request Body）**：
-
-   - GET 请求通常没有请求体（尽管某些 HTTP 客户端和服务器可能允许在 GET 请求中包含请求体，但这并不是标准做法）。因此，跨域 GET 请求不能用于发送大量数据到服务器。相反，POST
-     请求可以包含请求体，并用于发送大量数据到服务器。
-
-5. **幂等性**：
-
-   - GET 请求是幂等的，即多次执行相同的 GET 请求不会产生不同的结果（除非有副作用，如数据更新或删除）。这使得 GET 请求在跨域场景中更加可靠和可预测。相比之下，POST 请求通常不是幂等的，因为每次执行
-     POST 请求都可能会产生不同的结果（例如，创建新的资源或更新现有资源）。
-
-6. **浏览器限制**：
-
-   - 某些浏览器可能会对 GET 请求的 URL 长度施加限制（尽管这个限制可能因浏览器和版本而异）。如果 URL 超过了这个限制，那么 GET 请求可能会失败。相比之下，POST 请求没有这样的限制，因为数据可以包含在请求体中而不是
-     URL 中。因此，在需要发送大量数据或复杂查询参数的跨域场景中，POST 请求可能更合适。
+- post 请求和 get 请求在跨域时有何不同？
+  当涉及到跨域请求（Cross-Origin Requests）时，POST 请求和 GET 请求之间存在一些关键的不同点，特别是在处理浏览器中的 CORS（跨来源资源共享）策略时。以下是它们之间的主要差异：
+  1. **预检请求（Preflight Request）**：
+  - 对于某些 CORS 请求，浏览器会首先发送一个 OPTIONS 请求作为预检请求，以检查服务器是否允许跨域请求。这通常发生在“非简单请求”中，即那些不符合简单请求条件的请求。简单请求的条件包括：请求方法只能是
+    HEAD、GET 或 POST，请求头只能包含一些特定的字段（如 Accept、Accept-Language、Content-Language、Content-Type 等），且 Content-Type 的值仅限于`application/x-www-form-urlencoded`、
+    `multipart/form-data`或`text/plain`。
+  - 对于 POST 请求，如果它包含自定义的 HTTP 头或 Content-Type 字段的值不是上述的“简单”值，那么它通常会触发预检请求。而 GET 请求由于其性质（通常只用于检索数据）和简单性，很少会触发预检请求。
+  2. **缓存**：
+  - 浏览器可能会对 GET 请求的响应进行缓存，这意味着对于相同的 URL 和请求头，浏览器可能会从缓存中加载响应而不是重新发送请求到服务器。但是，POST 请求通常不会被缓存，因为它们是用于提交数据的，而数据可能会经常变化。
+  - 在跨域场景中，这种缓存行为可能会影响请求的性能和结果。如果 GET 请求的响应被缓存，并且服务器上的数据已经更改，那么客户端可能会获取到旧的、不准确的数据。
+  3. **安全性**：
+  - 从安全性的角度来看，POST 请求通常用于提交数据（如表单数据、文件上传等），而 GET 请求则用于检索数据。因此，在跨域场景中，使用 POST 请求提交敏感数据可能更安全一些，因为它不太可能被缓存或记录在浏览器的历史记录中。但是，这并不意味着
+    POST 请求本身就更安全；它仍然需要适当的安全措施（如 HTTPS、身份验证和授权等）来保护数据。
+  4. **请求体（Request Body）**：
+  - GET 请求通常没有请求体（尽管某些 HTTP 客户端和服务器可能允许在 GET 请求中包含请求体，但这并不是标准做法）。因此，跨域 GET 请求不能用于发送大量数据到服务器。相反，POST
+    请求可以包含请求体，并用于发送大量数据到服务器。
+  5. **幂等性**：
+  - GET 请求是幂等的，即多次执行相同的 GET 请求不会产生不同的结果（除非有副作用，如数据更新或删除）。这使得 GET 请求在跨域场景中更加可靠和可预测。相比之下，POST 请求通常不是幂等的，因为每次执行
+  - POST 请求都可能会产生不同的结果（例如，创建新的资源或更新现有资源）。
+  6. **浏览器限制**：
+  - 某些浏览器可能会对 GET 请求的 URL 长度施加限制（尽管这个限制可能因浏览器和版本而异）。如果 URL 超过了这个限制，那么 GET 请求可能会失败。相比之下，POST 请求没有这样的限制，因为数据可以包含在请求体中而不是 URL 中。因此，在需要发送大量数据或复杂查询参数的跨域场景中，POST 请求可能更合适。
 
 # 解释一下 CSP 与跨域的关系
 
@@ -4536,20 +4526,15 @@ CSP（Content Security Policy）与跨域（Cross-Origin）在 Web 安全领域�
 3. **限制与影响**：CSP 虽然提供了强大的安全保护，但也可能造成一些限制，如 Eval 及相关函数被禁用、内嵌的 JavaScript 代码将不会执行、只能通过白名单来加载远程脚本等。这些限制可能会增加开发者的工作量，需要花费更多时间来分离内嵌的
    JavaScript 代码和调整应用逻辑。
 
-### 跨域（Cross-Origin）
-
-1. **定义**：跨域是指一个域下的文档或脚本试图去请求另一个域下的资源。由于浏览器的同源策略（Same-Origin Policy），跨域请求通常会被限制或阻止，以防止恶意脚本攻击和数据泄露。
-2. **同源策略**：同源策略要求协议、域名和端口三者都相同才被认为是同源的。如果其中任何一个不同，则被视为跨域。
-3. **解决方案**：为了实现跨域请求，开发者可以采用一些技术手段，如 CORS（跨来源资源共享）、Proxy（代理）和 JSONP 等。这些技术允许服务器设置特定的响应头（如`Access-Control-Allow-Origin`
-   ），以允许来自不同源的请求。
-
-### CSP 与跨域的关系
-
-- **独立性**：CSP 和跨域是两个独立的概念，各自关注不同的安全问题。CSP 关注的是如何限制和管理网站加载的内容，而跨域关注的是如何允许或限制来自不同源的请求。
-- **相互影响**：在某些情况下，CSP 的设置可能会影响跨域请求的实现。例如，在使用 CSP 限制脚本加载时，如果跨域请求需要加载并执行远程脚本，可能会受到 CSP 策略的限制。同样，跨域请求的实现也可能需要考虑
-  CSP 策略的影响，以确保请求的资源符合 CSP 规则。
-
-综上所述，CSP 和跨域在 Web 安全领域中各自扮演着重要的角色。开发者需要根据实际需求合理配置 CSP 策略和跨域请求的实现方式，以确保 Web 应用的安全性和可用性。
+- 跨域（Cross-Origin）
+  1. **定义**：跨域是指一个域下的文档或脚本试图去请求另一个域下的资源。由于浏览器的同源策略（Same-Origin Policy），跨域请求通常会被限制或阻止，以防止恶意脚本攻击和数据泄露。
+  2. **同源策略**：同源策略要求协议、域名和端口三者都相同才被认为是同源的。如果其中任何一个不同，则被视为跨域。
+  3. **解决方案**：为了实现跨域请求，开发者可以采用一些技术手段，如 CORS（跨来源资源共享）、Proxy（代理）和 JSONP 等。这些技术允许服务器设置特定的响应头（如`Access-Control-Allow-Origin`），以允许来自不同源的请求。
+- CSP 与跨域的关系
+  - **独立性**：CSP 和跨域是两个独立的概念，各自关注不同的安全问题。CSP 关注的是如何限制和管理网站加载的内容，而跨域关注的是如何允许或限制来自不同源的请求。
+  - **相互影响**：在某些情况下，CSP 的设置可能会影响跨域请求的实现。例如，在使用 CSP 限制脚本加载时，如果跨域请求需要加载并执行远程脚本，可能会受到 CSP 策略的限制。同样，跨域请求的实现也可能需要考虑
+    CSP 策略的影响，以确保请求的资源符合 CSP 规则。
+    综上所述，CSP 和跨域在 Web 安全领域中各自扮演着重要的角色。开发者需要根据实际需求合理配置 CSP 策略和跨域请求的实现方式，以确保 Web 应用的安全性和可用性。
 
 # keyword
 
@@ -4607,7 +4592,6 @@ CSP（Content Security Policy）与跨域（Cross-Origin）在 Web 安全领域�
 - EyeDropper
 - 购物车
 - terser
-- requestAnimationFrame
 - 属性描述符
 - Object.freeze .seal isFrozen
 - addEventListener passive：false
@@ -5252,7 +5236,6 @@ CSP（Content Security Policy）与跨域（Cross-Origin）在 Web 安全领域�
 - JS 继承方案
 - 如何判断一个变量是不是数组
 - 变量 a 和 b，如何交换
-- 事件委托
 - 多个<li>标签生成的 Dom 结构是一个类数组
 - 类数组和数组的区别
 - dom 的类数组如何转成数组
@@ -6953,22 +6936,17 @@ CSS Modules 使用特点:
       return ret
     }
 
-## 字节（北京）
-
-### 一面
-
-1.  HTTPS 建立连接过程
-    ![图片](https://mmbiz.qpic.cn/sz_mmbiz_png/2wV7LicL762Ym8XMXlVCQuYt9NB2ZQOCzmjW2I6ffG1c44PyPcMn6kia6qGaCoicmX12F9LGuAUgU8AxXOBhu291A/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
-2.  http 缓存，强缓存时 cache-control 字符集是什么 publichttps\://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Cache-Control
-3.  深拷贝的实现，如果遇到 function 怎么办
-    需要判断类型，对于基础类型，直接赋值，对于复杂类型则需要递归处理，并同时设置 map，避免嵌套。对于 function 可以通过 new Function(' return '+ fn.toString())的方式拷贝
-4.  webpack 有用过哪些 loader、webpack 做过哪些优化
-    loader：babel-loader、ts-loader、style-loader、css-loader、less-loader
-    优化：提取公共代码、代码分割、代码压缩、按需加载、预加载
-5.  微前端的问题，设计思路，有遇到哪些问题，如何做样式隔离。
-    公用路由的设计
-    采用路由分层的方式，将路由划分为 4 层，第一层用来区分是 iframe 还是微应用，第二层用来区分具体的 app 页面名称由此在配置表中拿到具体的配置信息，第三层为子应用的路由，第 4 层为子应用的参数。由此实现基座与微应用的路由共享。
-
+- HTTPS 建立连接过程
+  ![图片](https://mmbiz.qpic.cn/sz_mmbiz_png/2wV7LicL762Ym8XMXlVCQuYt9NB2ZQOCzmjW2I6ffG1c44PyPcMn6kia6qGaCoicmX12F9LGuAUgU8AxXOBhu291A/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+- http 缓存，强缓存时 cache-control 字符集是什么 publichttps\://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Cache-Control
+- 深拷贝的实现，如果遇到 function 怎么办
+  需要判断类型，对于基础类型，直接赋值，对于复杂类型则需要递归处理，并同时设置 map，避免嵌套。对于 function 可以通过 new Function(' return '+ fn.toString())的方式拷贝
+- webpack 有用过哪些 loader、webpack 做过哪些优化
+  loader：babel-loader、ts-loader、style-loader、css-loader、less-loader
+  优化：提取公共代码、代码分割、代码压缩、按需加载、预加载
+- 微前端的问题，设计思路，有遇到哪些问题，如何做样式隔离。
+  公用路由的设计
+  采用路由分层的方式，将路由划分为 4 层，第一层用来区分是 iframe 还是微应用，第二层用来区分具体的 app 页面名称由此在配置表中拿到具体的配置信息，第三层为子应用的路由，第 4 层为子应用的参数。由此实现基座与微应用的路由共享。
 - 样式隔离，一是通过 qiankun 自身提供的样式沙箱 `{ sandbox : { experimentalStyleIsolation: true } }` ，二是 vue 组件样式使用 scoped，三是顶层样式增加私有类名
   面试官反馈说，iframe 还是微应用对于用户来说是无感的，配置表区分 iframe 还是微应用即可，不必多占一层路由
 
@@ -7557,140 +7535,54 @@ setTimeout 的第一个参数使用字符串而非函数的话，会引发内存
 
 这个题，难易程度其实相差很多的。有的题很简单，有的题很难。不过碰到的最难的也就是滑动窗口了。因为之前没碰到过类似的题，没有用双指针，磕磕绊绊做出来了，但是挺吃力的。
 
-#### 6.promise 的使用
-
-比如把 callback 的函数改造成使用 promise 的。或者使用 promise 实现输出。这种题真挺烦的，要么不出，一出就挺搞脑子的，主要是绕。
-
-字节对 promise 真的有偏爱，每个面试官绝对都会问。
-
-#### 笔试总结
-
-虽然每个厂都会考算法，但是总体来说真的不难。最看重算法的应该是华为跟字节吧。
-
-### 技术面试
-
-技术的内容遇到的题目就很五花八门的，因为每个岗位需要的技能可能也不一样，但是高频出现的题目也是有很多的。
-
-#### 1 webpack 的 plugin 和 loader 有啥区别，有写过什么 loader 和 plugin 吗
-
-这个题真的是被问到无数次了，但是我依旧不知悔改，每次都是，了解过，没写过。不清楚区别，你敢问，我就敢说不知道。
-
-#### 2 打包优化，性能提升
-
-这个也是，我永远都是回答那几个实际会用到的，多了就是不会，我特别反感背面试题，我高考古诗词填空都懒得背，滕王阁序永远只会那一句 _落霞与孤鹜齐飞，秋水共长天一色_ ，反正高考时候诗词填空错了好几个，让我为了面试去背这种东西 ？
-
-如果是实际中用到了，肯定会记得，但是去硬记，不存在的。
-
-#### 3 promise
-
-没错，promise，永远的噩梦。还有 async await。
-
-#### 4 import 和 require
-
-#### 5 原型链, new
-
-#### 6 跨域(cors), http 请求
-
-#### 7 XSS 和 CSRF
-
-#### 8 框架原理
-
-### 一面
-
+- webpack 的 plugin 和 loader 有啥区别，有写过什么 loader 和 plugin 吗
+- 打包优化，性能提升
+- promise async await。
+- import 和 require
+- 原型链, new
+- 跨域(cors), http 请求
+- XSS 和 CSRF
+- 框架原理
 - setTimeout 为什么最小只能设置 4ms，怎么实现一个 0ms 的 setTimeout?
-
 - 看你简历上有写到 rem 和 vw，能讲讲吗？为什么你选择使用 rem 而不是 vw？
-
-- - 当时回答是 rem 兼容性更好，且 px 转 rem 后可以避免过长小数。
-
+  - 当时回答是 rem 兼容性更好，且 px 转 rem 后可以避免过长小数。
 - 浏览器对于小数单位是怎么计算的？
-
-- - 当时没答上来，只说了句四舍五入，后续查阅相关资料得知不同浏览器策略不同，有的会四舍五入，有的会直接取整。不管什么单位，浏览器最后都会 Computed 为 px 后再进行渲染。
-
 - interface 和 type 的区别是什么？你日常工作中是用 interface 还是 type？
-
 - ts 的逆变和协变有没有了解过？
-
-- - 没有
-
 - 能不能讲讲小程序的原理？
-
-- - 网上很多相关文章，把双线程讲出来就行。
-
-- 看你之前有做过 Taro，能不能讲讲 React 是怎么跑在小程序里面的？
-
-- - 大概把 Taro3 的原理讲了一遍，主要是 jsx->vdom->json->wxml，具体可以看这里 **Taro 预渲染**\[10] 和 **Remax 实现原理**\[11] ，之前写过 demo，所以对这块还是比较了解。
-
-- 你刚才讲到 json->wxml 这一步可以有两种方式(template 递归和自定义组件递归)，能不能讲讲两种方式的优劣？
-
-- - 简单讲了一下，template 递归是纯视图层的操作，性能肯定更好，但是由于微信小程序 wxml 编译器的限制，template 不能递归调用自己(支付宝小程序无此限制)，所以 Taro 在微信环境中把同一个 template 写了 n 份，只有 id 不同，就是为了递归渲染。
-  - 而自定义组件递归还要涉及到逻辑层，例如生命周期等，性能会差一些，同时还有 Shadow DOM 引起的样式问题，目前 kbone 使用的是自定义组件递归。
-
 - 小程序有没有 HMR，能不能讲讲 HMR 的原理？
-
-- - 小程序没有 HMR，当时只讲出来了保存代码小程序是怎么刷新的，HMR 没有讲出来。
-
+  小程序没有 HMR，当时只讲出来了保存代码小程序是怎么刷新的，HMR 没有讲出来。
 - 讲讲 z-index
-
 - 讲讲 position
-
 - 实现一个 ts Include
-
-- - 不会
-
 - 实现一个 useInterval
-
-- - 写的不是太对
-
 - js event loop 执行顺序
-
 - 实现一个 immutable
-
-      function immutable(obj) {
-        return {
-          set(path, val) {
-            const paths = path.split('.')
-            const lastK = paths.pop()
-            this.get(paths.join('.'))[lastK] = val
-            return this
-          },
-          get(path) {
-            const paths = path.split('.')
-            return paths.reduce((a, k) => a[k], obj)
-          }
-        }
+  ```javascript
+  function immutable(obj) {
+    return {
+      set(path, val) {
+        const paths = path.split('.')
+        const lastK = paths.pop()
+        this.get(paths.join('.'))[lastK] = val
+        return this
+      },
+      get(path) {
+        const paths = path.split('.')
+        return paths.reduce((a, k) => a[k], obj)
       }
-
-- - 这里给一个大佬的实现，我实现的太菜
-
-一面到这里就结束了，可以感受出来，字节对于前沿技术和底层还是很看重的。当时手写题部分确实写的不太好，甚至以为自己凉凉了，结果还是给过了。
-
-### 二面
-
-一面结束后第二天就收到了 hr 打来的约二面的电话，当时心里还是很开心的，二面是交叉面试，面试官年纪稍微大一点。因为是在晚上，所以很多问题记不太清楚了。
-
-不同于一面面试官，和二面面试官聊了一段时间的项目相关的问题，根据自己情况有啥说啥就行。
-
+    }
+  }
+  ```
 - options 请求是什么？有什么作用？
-
 - cdn 的原理是什么，是在网络哪一层起的作用？
-
 - 项目性能是如何做优化的？
-
-- - 我主要从网络，缓存，js，css，接口合并等几个方面讲的，该题比较宽泛，可自行发挥。
-
+  - 我主要从网络，缓存，js，css，接口合并等几个方面讲的，该题比较宽泛，可自行发挥。
 - 动态创建 script 标签并插入到页面上，说执行时机
-
 - 给你一个“A2B3”这样的字符串，输出“AABBB”
-
 - 接上题“C4(A(A3B)2)2”，带嵌套的，这两题都不是原题，但是类似
-
 - 写一个 curry，要求 add(1)(2)(3)(4) 打印 10
-
-- - 一开始我洗的 add(1)(2)(3)(4)()，面试官问我能不能把最后的()去掉，最后寻求提示，他说 console.log 是怎么打印函数的，豁然开朗，复写 toString 即可。
-
-### 三面(凉凉)
-
+  - 一开始我洗的 add(1)(2)(3)(4)()，面试官问我能不能把最后的()去掉，最后寻求提示，他说 console.log 是怎么打印函数的，豁然开朗，复写 toString 即可。
 - loader 和 plugin 的区别是什么？
 - webpack 打包优化，我还提到了 vite，顺便讲了下 vite
 - 小程序原理，以及 Taro 原理
@@ -12828,7 +12720,7 @@ mysql
   1\.
   实现一下 some, every
 
-  1.                                                                                                                                   flatten实现
+  1.                                                                                                                                                 flatten实现
 
   2.  const promise = new Promise(resolve => {
 
@@ -13016,435 +12908,210 @@ mysql
 - node 中 cluster 是怎样开启多进程的，并且一个端口可以被多个进程监听吗
 
 - 实现原生 ajax
-
 - vue-router 源码
-
 - vue 原理（手写代码，实现数据劫持）
-
 - 算法：树的遍历有几种方式，实现下层次遍历
-
 - 介绍一下项目中的难点
-
-- let var const 有什么区别
-
 - 你知道哪些 http 头部
-
 - 怎么与服务端保持连接
-
 - http 请求跨域问题，你都知道哪些解决跨域的方法
-
 - webpack 怎么优化
-
 - 你了解哪些请求方法，分别有哪些作用和不同
-
 - 你觉得 typescript 和 javascript 有什么区别
-
 - typescript 你都用过哪些类型
-
 - typescript 中 type 和 interface 的区别
-
-- react 怎么优化
-
 - 算法题：合并乱序区间
-
 - 你了解 node 多进程吗
-
 - node 进程中怎么通信
-
 - node 可以开启多线程吗
-
 - 算法题：老师分饼干，每个孩子只能得到一块饼干，但每个孩子想要的饼干大小不尽相同。
-
-- 目标是尽量让更多的孩子满意。如孩子的要求是 1, 3, 5, 4, 2，饼干是 1, 1，
-
-- 最多能让 1 个孩子满足。如孩子的要求是 10, 9, 8, 7, 6，饼干是 7, 6, 5，最多能
-
-- 让 2 个孩子满足。
-
+  - 目标是尽量让更多的孩子满意。如孩子的要求是 1, 3, 5, 4, 2，饼干是 1, 1，
+  - 最多能让 1 个孩子满足。如孩子的要求是 10, 9, 8, 7, 6，饼干是 7, 6, 5，最多能
+  - 让 2 个孩子满足。
 - 算法题：给定一个正整数数列 a, 对于其每个区间, 我们都可以计算一个 X 值;
-
-- X 值的定义如下: 对于任意区间, 其 X 值等于区间内最小的那个数乘上区间内所有数和;
-
-- 现在需要你找出数列 a 的所有区间中, X 值最大的那个区间;
-
-- 如数列 a 为: 3 1 6 4 5 2; 则 X 值最大的区间为 6, 4, 5, X = 4 \* (6+4+5) = 60;
-
+  - X 值的定义如下: 对于任意区间, 其 X 值等于区间内最小的那个数乘上区间内所有数和;
+  - 现在需要你找出数列 a 的所有区间中, X 值最大的那个区间;
+  - 如数列 a 为: 3 1 6 4 5 2; 则 X 值最大的区间为 6, 4, 5, X = 4 \* (6+4+5) = 60;
 - 算法题：两个有序链表和并成一个有序链表
-
 - https 与 http 有什么区别(一面刚好也被问到)
-
 - cookie 有哪些属性
-
 - cookie,session,localstorage,sessionstorage 有什么区别
-
 - 怎么禁止 js 访问 cookie
-
 - position 有哪些属性
-
 - 你知道哪些状态码
-
 - options 请求方法有什么用
-
 - less,sass 它们的作用是什么
-
-- 平时怎么学习
-
-- 你什么时候可以来实现
-
-- 能实习多久
-
 - promise 的状态和现象
-
 - 项目中生成 PDF 的会占用 CPU 很多吧，如果大量访问怎么处理
-
 - 有什么通知用户的方法
-
 - ES 6 箭头函数
-
-- React diff
-
-- React 和之前的 Web 开发方法有什么不同和感受
-
-- React 开发中，把 DOM 结构、样式和逻辑混杂在一起，你的感受是
-
 - HTTPS 原理
-
 - 浏览器的同源策略，不做限制会造成什么影响
-
 - XSS
-
 - CSRF
-
 - GET 和 POST 的区别
-
 - HTTP OPTIONS 请求
-
 - 304 状态码
-
 - HTTP/2 有什么新特性
-
 - 前端性能优化都有哪些方法
-
 - 平时用到的数据结构和算法有哪些
-
 - 哈希的原理
-
 - 如何反转链表
-
 - 二叉搜索树的原理
-
 - 给定两个文本文件，找出他们中相同的行都有哪些
-
 - 对 JS 单线程的理解
-
 - 事件循环
-
 - 页面间共享数据的方法有哪些
-
 - 点击链接到打开页面之间发生了什么
-
 - 大文本文件排序用什么算法好
-
 - 三次握手和四次挥手详细介绍
-
 - TCP 有哪些手段保证可靠交付
-
 - URL 从输入到页面渲染全流程
-
 - 如何预防中间人攻击
-
 - ES6 的 Set 内部实现
-
 - 如何应对流量劫持
-
 - 跨域
-
 - webpack 的 plugins 和 loaders 的实现原理
-
 - vue 和 react 谈谈区别和选型考虑
-
 - webpack 如何优化编译速度
-
 - 事件循环机制，node 和浏览器的事件循环机制区别
-
 - 单元测试编写有哪些原则
-
 - 一个大型项目如何分配前端开发的工作
-
 - typescript 有什么好处
-
 - vue 项目中如何约束 rxjs 数据的类型
-
-- rxjs 高阶数据流定义，常用高阶数据流操作符
-
 - JWT 优缺点
-
 - 选择器优先级
-
-- RxJS 冷热流区别
-
-- RxJS 调试方法
-
 - nginx 负载均衡配置
-
 - 前端性能优化手段
-
-- 针对 React 的性能优化手段
-
 - 301 302 307 308 401 403
-
 - vue 组件间通信
-
 - 谈谈 XSS 防御，以及 Content-Security-Policy 细节
-
 - 场景题：一个气球从右上角移动到中间，然后抖动，如何实现
-
 - 场景题：一个关于外边距合并的高度计算
-
-- mobx-react 如何驱动 react 组件重渲染
-
-- forceUpdate 经历了哪些生命周期，子组件呢?
-
-- React key 场景题：列表使用 index 做 key，删除其中一个后，如何表现？
-
 - 算法：实现 setter(obj, 'a.b.c' ,val)
-
-- RxJS 相对于其他状态管理方案的优势？
-
 - 手写冒泡排序
-
 - JWT 细节，适用场景
-
 - 跨域
-
 - 方案题：不同前端技术栈的项目，如何实现一套通用组件方案？
-
 - ES6 特性
-
 - 闭包和 this 一起谈谈
-
 - postcss 配置
-
 - Promise 内部实现原理
-
 - vuex, mobx, redux 各自的特点和区别
-
-- react 生命周期
-
 - 各方面谈谈性能优化
-
 - serviceworker 如何保证离线缓存资源更新
-
 - virtual dom 有哪些好处
-
 - Vue3 proxy 解决了哪些问题？
-
 - Vue 响应式原理
-
 - 发布订阅模式和观察者模式的异同
-
 - 图片懒加载实现
-
 - css 垂直居中
-
 - CI/CD 流程
-
 - 谈谈性能优化
-
-- react 生命周期
-
-- key 的作用
-
-- hooks
-
-- vue 和 react 区别，选型考虑
-
 - canvas 优化绘制性能
-
 - webpack 性能优化手段
-
 - 事件循环
-
 - 如何解决同步调用代码耗时太高的问题
-
 - 手写 Promise 实现
-
 - 场景题：如何实现登录功能
-
 - Promise 实现原理
-
 - vue 组件间通信
-
 - 性能优化
-
 - vuex 数据流动过程
-
 - 谈谈 css 预处理器机制
-
 - 算法：Promise 串行
-
 - CI/CD 整体流程
-
 - 性能优化
-
 - SSR 对性能优化的提升在哪里
-
 - vue 组件间通信
-
 - react 和 vue 更新机制的区别
-
 - Vue3 proxy 的优劣
-
 - 性能优化
-
 - 深拷贝
-
 - 跨域
-
-- 对着简历问一遍
-
 - rem, 计算出 375 的屏幕，1rem,单位出现小数怎么处理
-
 - javascript 精度问题的原因
-
 - axios 用途
-
 - 性能优化的点，webpack 分包，首页资源大小，请求优化，gzip 之前还是之后，React 重新渲染
-
 - 国际化站点，cdn, 在页面什么阶段加载国际化文件，如果有 20 多个语言该怎么做
-
 - ssr 有没有用过
-
 - 项目中 websocket 是解决了什么问题
-
 - DOM, BOM, js 的关系
-
 - React dom 绑定事件，与原生事件有什么区别
-
 - http2 多路复用
-
-- 性能优化
-
 - vue 和 react 选型和比较
-
 - ssr 优缺点
-
 - 贝塞尔曲线
-
 - Vue3 proxy 优缺点
-
 - ES6 特性
-
 - Vue 组件间通信
-
-- 性能优化
-
 - ssr 性能优化，node 中间层细节处理
-
 - 如何编写 loaders 和 plugins
-
 - 性能优化
-
 - webpack 热更新原理
-
 - vue 和 react 组件通信
-
-- 谈谈 eleme 框架源码
-
 - 说下你常用的几种布局方式，集中往盒模型、flex 布局说(至于 grid 布局，这个我看过没有用到过)
-
 - 实现水平居中的几种方法？
-
 - animate 和 translate 有没有用过，一些常见的属性说下？
-
 - CSS 实现宽度自适应 100%，宽高 16:9 的比例的矩形。
-
 - 如何实现左边两栏一定比例，左栏高度随右栏高度自适应？
-
-- 变量提升遇到的一些简单 code 题
-
 - 说一下对闭包的理解，以及你在什么场景下会用到闭包？
-
 - 说一下你对原型与原型链的了解度，有几种方式可以实现继承，用原型实现继承有什么缺点，怎么解决？
-
 - iframe 的缺点有哪些？
-
 - Ajax 的原生写法
-
 - 为什么会有同源策略？
-
 - 前端处理跨域有没有遇到过，处理跨域的方式有哪几种方式去解决
-
 - 怎么判断两个对象是否相等
-
 - 代码实现一个对象的深拷贝
-
 - 从发送一个 url 地址到返回页面，中间发生了什么
-
 - 说下工作中你做过的一些性能优化处理
-
 - 箭头函数中的 this 指向谁？
-
--
-
-<!---->
-
-    ## 1.HTML
-
-<!---->
-
-    *   HTML5 新特性，语义化
-    *   浏览器的标准模式和怪异模式
-    *   xhtml 和 html 的区别
-    *   使用 data-的好处
-    *   meta 标签
-    *   canvas
-    *   HTML 废弃的标签
-    *   IE6 bug，和一些定位写法
-    *   css js 放置位置和原因
-    *   什么是渐进式渲染
-    *   html 模板语言
-    *   meta viewport 原理-
-
-    ## 2.CSS
-
-    *   盒模型，box-sizing
-    *   CSS3 新特性，伪类，伪元素，锚伪类
-    *   CSS 实现隐藏页面的方式
-    *   如何实现水平居中和垂直居中。
-    *   说说 position，display
-    *   请解释\*{box-sizing\:border-box;}的作用，并说明使用它的好处
-    *   浮动元素引起的问题和解决办法？绝对定位和相对定位，元素浮动后的 display 值
-    *   link 和@import 引入 css 的区别
-    *   解释一下 css3 的 flexbox，以及适用场景
-    *   inline 和 inline-block 的区别
-    *   哪些是块级元素那些是行级元素，各有什么特点
-    *   grid 布局
-    *   table 布局的作用
-    *   实现两栏布局有哪些方法？
-    *   css dpi
-    *   你知道 attribute 和 property 的区别么
-    *   css 布局问题？css 实现三列布局怎么做？如果中间是自适应又怎么做？
-    *   流式布局如何实现，响应式布局如何实现
-    *   移动端布局方案
-    *   实现三栏布局（圣杯布局，双飞翼布局，flex 布局）
-    *   清除浮动的原理
-    *   overflow\:hidden 有什么缺点？
-    *   padding 百分比是相对于父级宽度还是自身的宽度
-    *   css3 动画，transition 和 animation 的区别，animation 的属性，加速度，重力的模拟实现
-    *   CSS 3 如何实现旋转图片（transform: rotate）
-    *   sass less
-    *   对移动端开发了解多少？（响应式设计、Zepto；@media、viewport、JavaScript 正则表达式判断平台。）
-    *   什么是 bfc，如何创建 bfc？解决什么问题？
-    *   CSS 中的长度单位（px,pt,rem,em,ex,vw,vh,vh,vmin,vmax）
-    *   CSS 选择器的优先级是怎样的？
-    *   雪碧图
-    *   svg
-    *   媒体查询的原理是什么？
-    *   CSS 的加载是异步的吗？表现在什么地方？
-    *   常遇到的浏览器兼容性问题有哪些？常用的 hack 的技巧
-    *   外边距合并
-
+- HTML5 新特性，语义化
+- 浏览器的标准模式和怪异模式
+- xhtml 和 html 的区别
+- 使用 data-的好处
+- meta 标签
+- canvas
+- HTML 废弃的标签
+- css js 放置位置和原因
+- 什么是渐进式渲染
+- html 模板语言
+- meta viewport 原理-
+- 盒模型，box-sizing
+- CSS3 新特性，伪类，伪元素，锚伪类
+- CSS 实现隐藏页面的方式
+- 如何实现水平居中和垂直居中。
+- 说说 position，display
+- 请解释{box-sizing\:border-box;}的作用，并说明使用它的好处
+- 浮动元素引起的问题和解决办法？绝对定位和相对定位，元素浮动后的 display 值
+- 解释一下 css3 的 flexbox，以及适用场景
+- inline 和 inline-block 的区别
+- 哪些是块级元素那些是行级元素，各有什么特点
+- grid 布局
+- table 布局的作用
+- 实现两栏布局有哪些方法？
+- css dpi
+- 你知道 attribute 和 property 的区别么
+- css 布局问题？css 实现三列布局怎么做？如果中间是自适应又怎么做？
+- 流式布局如何实现，响应式布局如何实现
+- 移动端布局方案
+- 实现三栏布局（圣杯布局，双飞翼布局，flex 布局）
+- 清除浮动的原理
+- overflow\:hidden 有什么缺点？
+- padding 百分比是相对于父级宽度还是自身的宽度
+- css3 动画，transition 和 animation 的区别，animation 的属性，加速度，重力的模拟实现
+- CSS 3 如何实现旋转图片（transform: rotate）
+- sass less
+- 对移动端开发了解多少？（响应式设计、Zepto；@media、viewport、JavaScript 正则表达式判断平台。）
+- 什么是 bfc，如何创建 bfc？解决什么问题？
+- CSS 中的长度单位（px,pt,rem,em,ex,vw,vh,vh,vmin,vmax）
+- CSS 选择器的优先级是怎样的？
+- 雪碧图
+- svg
+- 媒体查询的原理是什么？
+- CSS 的加载是异步的吗？表现在什么地方？
+- 常遇到的浏览器兼容性问题有哪些？常用的 hack 的技巧
+- 外边距合并
 - Object 是引用类型嘛？引用类型和基本类型有什么区别？哪个是存在堆哪一个是存在栈上面的？
 - JS 常见的 dom 操作 api
 - 解释一下事件冒泡和事件捕获
@@ -13652,10 +13319,7 @@ mysql
 - ES6 数组新增方法
 - ES6 箭头函数和普通函数区别
 - promise、generator、async/await
-- react 父子组件传参
 - PureComponent 知道吗
-- React 性能优化
-- Redux 原理，Redux 源码看过吗？Redux 中间件呢？
 - JS 垃圾回收
 - JS EventLoop
 - ES6 新特性
@@ -13948,16 +13612,15 @@ mysql
 15. 判断是否为数组
 16. typeof arr === 'object'
 17. 浏览器事件循环，node 事件循环
-18. 事件委托
-19. webpack 流程，插件
-20. koa 源码
-21. koa 洋葱模型
-22. mobx 原理
-23. 首屏优化
-24. async/await Promise
-25. 盒模型
-26. babel 原理
-27. Taro 原理
+18. webpack 流程，插件
+19. koa 源码
+20. koa 洋葱模型
+21. mobx 原理
+22. 首屏优化
+23. async/await Promise
+24. 盒模型
+25. babel 原理
+26. Taro 原理
 
 - react 中 props 和 state 的区别
 - 组件怎么拿到 redux 的数据
@@ -16081,7 +15744,7 @@ webpack 也基本上成了必考的内容，一般会问是否配置过 webpack�
 1\.
 实现一下 some, every
 
-1.                                                                                                                                   flatten实现
+1.                                                                                                                                                 flatten实现
 
 2.  const promise = new Promise(resolve => {
 
@@ -20498,94 +20161,55 @@ H5 自适应方案大家在网速能找到很多，我个人推荐一种我非�
 
 大家可参考我另一篇公众号文章。
 
-## 浏览器解析渲染页面过程
-
-![图片](https://mmbiz.qpic.cn/mmbiz_png/YItGPcJZoxlJEp6zdYzg4QSBa8EnZuibaKDPIIVW28DgZREYxJpG6TPgMNt1HP8O7TwksdGWLiculnibrZx6onwJw/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
-
-- 解析 HTML，生成 DOM 树
-- 解析 CSS，生成 CSSOM 树
-- 将 DOM 树和 CSSOM 树关联，生成渲染树(Render Tree)
-- 布局 render 树（Layout/reflow），负责各元素尺寸、位置的计算
-- 绘制 render 树（paint），绘制页面像素信息
-- 将像素发送给 GPU，展示在页面上。(Display)
-
-## 谈一下 EventLoop
-
-![图片](https://mmbiz.qpic.cn/mmbiz_png/YItGPcJZoxlJEp6zdYzg4QSBa8EnZuiba9oD1lTooG6MUCVmDEKaflwaydO3FROepECzaPdxhdhfVNkzkrYvIPw/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
-
-这其中大家需要了解几个概念：调用栈、同步/异步任务、宏任务/微任务
-
-JavaScript 本身是单线程，也就是同一时刻只能干一件事，JS 任务包含了同步任务和异步任务，遇到执行函数会将其放入**调用栈**(先进后出)中，遇到 setTimeout/setInterval 等异步任务时，会把它放入到消息队列中，等主线程的任务执行完成以后，再回过头执行消息队列中的异步任务，如果异步任务中仍然有异步任务，会继续放入消息队列，以此类推，便形成了一个事件循环。
-
-异步任务：
-
-- setTimeout
-- setInterval
-
-异步任务又分为宏任务和微任务，promise 就属于微任务.
-
-## GET 和 POST 有什么区别
-
-- 大小方面
-
-- - GET 传输一般 2K-8K，IE 限制 2K，，POST 没有大小限制
-
-- 安全方面
-
-- - GET 通过 url 明文传输，POST 通过 body 传输，本身都不安全，因为 HTTP 就是明文传输。
-
-- 浏览器记录
-
-- - GET 请求浏览器会记录，POST 不会
-
-- 浏览器后退
-
-- - GET 无害，POST 会再次提交
-
-- 浏览器收藏
-
-- - GET 可以收藏，POST 不可以
-
-- 浏览器缓存
-
-- - GET 可以缓存，POST 不会
-
-- 编码方式
-
-- - GET 通过 url 编码，POST 支持多种编码
-
-- TCP 数据包
-
-- - GET 产生一个数据包，POST 产生 2 个数据包
-
-- 使用方式(习惯上讲)
-
-- - GET 主要拉取数据，POST 主要提交保存数据
-
-## 谈一下防抖和节流
-
-防抖和节流都是希望在同一时间内，不要重复触发请求。一般场景用在搜索和网页滚动事件中。
-
-区别：
-
-防抖主要是在规定时间内只触发一次，如果再次调用，时间从新计算。
-
-节流主要是在固定时间内只触发一次。比如每间隔 1 秒触发一次。
-
-## 数组如何去重
-
-- ES6 Set 去重
-- 利用 Object key 去重
-- 两层循环逐一对比，生成新数组
-- indexOf 去重
-- sort 排序，再单层循环前后对比
-
+- 浏览器解析渲染页面过程
+  ![图片](https://mmbiz.qpic.cn/mmbiz_png/YItGPcJZoxlJEp6zdYzg4QSBa8EnZuibaKDPIIVW28DgZREYxJpG6TPgMNt1HP8O7TwksdGWLiculnibrZx6onwJw/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+  - 解析 HTML，生成 DOM 树
+  - 解析 CSS，生成 CSSOM 树
+  - 将 DOM 树和 CSSOM 树关联，生成渲染树(Render Tree)
+  - 布局 render 树（Layout/reflow），负责各元素尺寸、位置的计算
+  - 绘制 render 树（paint），绘制页面像素信息
+  - 将像素发送给 GPU，展示在页面上。(Display)
+- 谈一下 EventLoop
+  ![图片](https://mmbiz.qpic.cn/mmbiz_png/YItGPcJZoxlJEp6zdYzg4QSBa8EnZuiba9oD1lTooG6MUCVmDEKaflwaydO3FROepECzaPdxhdhfVNkzkrYvIPw/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+  这其中大家需要了解几个概念：调用栈、同步/异步任务、宏任务/微任务
+  JavaScript 本身是单线程，也就是同一时刻只能干一件事，JS 任务包含了同步任务和异步任务，遇到执行函数会将其放入**调用栈**(先进后出)中，遇到 setTimeout/setInterval 等异步任务时，会把它放入到消息队列中，等主线程的任务执行完成以后，再回过头执行消息队列中的异步任务，如果异步任务中仍然有异步任务，会继续放入消息队列，以此类推，便形成了一个事件循环。
+  异步任务：
+  - setTimeout
+  - setInterval
+    异步任务又分为宏任务和微任务，promise 就属于微任务.
+- GET 和 POST 有什么区别
+  - 大小方面
+    - GET 传输一般 2K-8K，IE 限制 2K，，POST 没有大小限制
+  - 安全方面
+    - GET 通过 url 明文传输，POST 通过 body 传输，本身都不安全，因为 HTTP 就是明文传输。
+  - 浏览器记录
+    - GET 请求浏览器会记录，POST 不会
+  - 浏览器后退
+    - GET 无害，POST 会再次提交
+  - 浏览器收藏
+    - GET 可以收藏，POST 不可以
+  - 浏览器缓存
+    - GET 可以缓存，POST 不会
+  - 编码方式
+    - GET 通过 url 编码，POST 支持多种编码
+  - TCP 数据包
+    - GET 产生一个数据包，POST 产生 2 个数据包
+  - 使用方式(习惯上讲)
+    - GET 主要拉取数据，POST 主要提交保存数据
+- 谈一下防抖和节流
+  防抖和节流都是希望在同一时间内，不要重复触发请求。一般场景用在搜索和网页滚动事件中。
+  区别：
+  防抖主要是在规定时间内只触发一次，如果再次调用，时间从新计算。
+  节流主要是在固定时间内只触发一次。比如每间隔 1 秒触发一次。
+- 数组如何去重
+  - ES6 Set 去重
+  - 利用 Object key 去重
+  - 两层循环逐一对比，生成新数组
+  - indexOf 去重
+  - sort 排序，再单层循环前后对比
 - 谈一下常用设计模式，并选择一个进行场景分析 单例模式 工厂模式 观察者模式 适配器模式
-
-在 Vue 中通过观察者模式触发视图更新。Vue2.x 通过 Object.defineProperty 劫持 data 数据，当数据变化后触发 setter，setter 内部通过订阅器来 notify 消息，notify 会调用 watcher 更新视图。
-
-当一套前端对接不同后端服务时，会出现数据解构不一致情况，这个时候可以使用适配器模式来兼容不同后端，使他以统一的数据解构对接前端。
-
+  在 Vue 中通过观察者模式触发视图更新。Vue2.x 通过 Object.defineProperty 劫持 data 数据，当数据变化后触发 setter，setter 内部通过订阅器来 notify 消息，notify 会调用 watcher 更新视图。
+  当一套前端对接不同后端服务时，会出现数据解构不一致情况，这个时候可以使用适配器模式来兼容不同后端，使他以统一的数据解构对接前端。
 - XSS 攻击
 - CSRF 攻击
 - Sql 注入
@@ -20593,11 +20217,8 @@ JavaScript 本身是单线程，也就是同一时刻只能干一件事，JS 任
 - JSONP 跨域（本质是 JS 调用）
 - CORS（后台设置）
 - Nginx 反向代理（运维配置）
-
-跨域是浏览器做出的安全限制，必须同协议、同域名、同端口否则会被浏览器 block
-
-优化策略：减少请求次数、减小资源大小、提高响应和加载速度、优化资源加载时机、优化加载方式
-
+  跨域是浏览器做出的安全限制，必须同协议、同域名、同端口否则会被浏览器 block
+  优化策略：减少请求次数、减小资源大小、提高响应和加载速度、优化资源加载时机、优化加载方式
 - 合并、压缩、混淆 html/css/js 文件（webpack 实现，减小资源大小）
 - Nginx 开启 Gzip，进一步压缩资源（减小资源大小）
 - 图片资源使用 CDN 加速（提高加载速度）
@@ -20706,7 +20327,6 @@ JavaScript 本身是单线程，也就是同一时刻只能干一件事，JS 任
 - 浏览器事件模型, IE 的有什么特殊, 如何兼容(attachEvent 与 addEventListener)
 - js 宏任务和微任务
 - 数组查找的方法
-- 了解过 for...of 吗
 - class 继承和 js 继承的区别
 - {}的原型链
 - typeof null 是什么，为什么是这个结果。
@@ -20716,8 +20336,6 @@ JavaScript 本身是单线程，也就是同一时刻只能干一件事，JS 任
 - 如何判断 Array 和 Object
 - js 精度问题（0.1+0.2==0.3 的问题）
 - 讲一下 generator 生成器
-- 讲一下声明提升
-- 讲一下块作用域
 - 原型对象的 constructor 指向谁
 - dom 规范跟 js 规范有什么区别？
 - js 定时器，设置一个时间，会在那个时间之后准时执行吗？
@@ -20795,7 +20413,7 @@ JavaScript 本身是单线程，也就是同一时刻只能干一件事，JS 任
 - 怎么使两个 div 并列
 - 父元素和子元素宽高不知道的情况如何居中子元素（这个问题其实和父元素高度知不知道无关，因为文档流中父元素默认包裹子元素，高度是由子元素撑开的。）
 - CSS 基础好么，知道 DEN 么？
-- css 中隐藏元素的方法，display\:none, visibility\:hidden,区别？还有什么方式
+- css 中隐藏元素的方法，display:none, visibility:hidden,区别？还有什么方式
 - css 绝对定位和相对定位都是以谁为基准
 - css 弹性盒子
 - CSS 和 JS 实现动画的方式
@@ -21078,24 +20696,15 @@ JavaScript 本身是单线程，也就是同一时刻只能干一件事，JS 任
 - 请实现函数 retry ,把 job 作为 retry 函数的参数传入，当 retry 执行后会尝试调用 job,如果 job 返回成功（即 Promise fulfilled），则 retry 函数返回 job 函数的返回内容；
 - 如果 job 返回失败（即 Promise rejected ）,retry 函数会再次尝试调用 job 函数。
 - 如果 job 连续三次均返回失败，retry 则不再尝试调用，并返回其最后一次失败的内容。
-
-![图片](https://mmbiz.qpic.cn/sz_mmbiz_png/beNzaWVQLGmDbrwHDk7Hb63nfDZq85eoW7DX5ibmhvxxgrUSw9HusERJS3ss8ia4Impa0jIh4qh9XPb1ibpQT7TLg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
-
-![图片](https://mmbiz.qpic.cn/sz_mmbiz_png/beNzaWVQLGmDbrwHDk7Hb63nfDZq85eo7asMp4qqg9vtEZAXuIN6OR71TeGSicSGdOKdbAJAMvmj2gEAJU0Ojaw/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
-
+  ![图片](https://mmbiz.qpic.cn/sz_mmbiz_png/beNzaWVQLGmDbrwHDk7Hb63nfDZq85eoW7DX5ibmhvxxgrUSw9HusERJS3ss8ia4Impa0jIh4qh9XPb1ibpQT7TLg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+  ![图片](https://mmbiz.qpic.cn/sz_mmbiz_png/beNzaWVQLGmDbrwHDk7Hb63nfDZq85eo7asMp4qqg9vtEZAXuIN6OR71TeGSicSGdOKdbAJAMvmj2gEAJU0Ojaw/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
 - 给了一个代码片段，大概就是一个产生随机数的 for 循环，然后把这个随机数当作参数传到一个异步函数，问怎么保证输出顺序也是有序的，其实就是类似于同时发送几个 http 请求，怎么保证响应顺序也按照请求顺序依次返回
 - 写了个类型判断函数
-
-![图片](https://mmbiz.qpic.cn/sz_mmbiz_png/beNzaWVQLGmDbrwHDk7Hb63nfDZq85eoI93qoeiaqpLvibU64YqP6DT6f3Ux2X93mU40vcPQicZRbaJYsQy3GkdZg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
-
+  ![图片](https://mmbiz.qpic.cn/sz_mmbiz_png/beNzaWVQLGmDbrwHDk7Hb63nfDZq85eoI93qoeiaqpLvibU64YqP6DT6f3Ux2X93mU40vcPQicZRbaJYsQy3GkdZg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
 - 遍历根结点下所有子节点
-
-![图片](https://mmbiz.qpic.cn/sz_mmbiz_png/beNzaWVQLGmDbrwHDk7Hb63nfDZq85eocjO1wv2S7lSoLgQzRDWZDzmC8AJNKLBicgYZpSzEmtXficGJxvH20Kfw/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
-
+  ![图片](https://mmbiz.qpic.cn/sz_mmbiz_png/beNzaWVQLGmDbrwHDk7Hb63nfDZq85eocjO1wv2S7lSoLgQzRDWZDzmC8AJNKLBicgYZpSzEmtXficGJxvH20Kfw/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
 - 实现页脚在内容最底部![图片](https://mmbiz.qpic.cn/sz_mmbiz_png/beNzaWVQLGmDbrwHDk7Hb63nfDZq85eoicrZF4WhZTE5sxskZnW7h2Zn3ELKbGNDjrDue7Um31OaHLU3BJe1KlA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
-
-![图片](https://mmbiz.qpic.cn/sz_mmbiz_png/beNzaWVQLGmDbrwHDk7Hb63nfDZq85eonjQreOMrhnEV47CYhIGuGicZuZl8dlqyFyzm2ydjnSm0Iia1vmYUFZ7w/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
-
+  ![图片](https://mmbiz.qpic.cn/sz_mmbiz_png/beNzaWVQLGmDbrwHDk7Hb63nfDZq85eonjQreOMrhnEV47CYhIGuGicZuZl8dlqyFyzm2ydjnSm0Iia1vmYUFZ7w/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
 - 100 人教室 70 人喜欢足球，80 人喜欢篮球，问同时喜欢足球和篮球的人数
 - 试探玻璃杯破碎的楼层
 - 时针与分针夹角
@@ -21122,69 +20731,46 @@ JavaScript 本身是单线程，也就是同一时刻只能干一件事，JS 任
 - 如何衡量一个软件的质量？如何保证产品的质量？（软件工程的思想，敏捷中的测试驱动开发）
 - 找出不多于三个关键词形容自己
 - 怎么跟一个不懂前端的人介绍前端
-
-### 一面
-
 - 原型
-
   构造函数 ，是一种特殊的方法。主要用来在创建对象时初始化对象。每个构造函数都有 prototype(原型)属性
   每个函数都有 prototype(原型)属性，这个属性是一个指针，指向一个对象，
   这个对象的用途是包含特定类型的所有实例共享的属性和方法，即这个原型对象是用来给实例共享属性和方法的。
   而每个实例内部都有一个指向原型对象的指针。
-
 - 闭包
-
   简单来说就是函数嵌套函数，内部函数引用来外部函数的变量，从而导致来垃圾回收机制没有生效，变量被保存来下来。
   也就是所谓的内存泄漏，然后由于内存泄漏又会导致你项目逐渐变得卡顿等等问题。因此要避免内存泄漏。
-
 - 原型链
-
   提到原型链就不得不提原型的继承，继承的完美实现方案是借助寄生组合继承，主要实现原理
   PersonB.prototype = Object.create(PersonA.prototype)实现来继承 PersonA 的原型
   当我们通过 new 关键字实例化的对象身上就有了 PersonB 自身的属性和方法，也有了 PersonA 的原型方法
   当实例化对象调用某个方法时会先在自身和原型上查找，然后是在\_proto\_上一层层查找，这种方式就是原型链。
-
 - vuex
-
   Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。它采用集中式存储管理应用的所有组件的状态
   并以相应的规则保证状态以一种可预测的方式发生变化。
   tate：Vuex 使用单一状态树——是的，用一个对象就包含了全部的应用层级状态。
   mutation：更改 Vuex 的 store 中的状态的唯一方法是提交 mutation
   action: action 提交的是 mutation，而不是直接变更状态。action 可以包含任意异步操作。
   getter: 相当于 Vue 中的 computed 计算属性
-
 - vue-router
-
   Vue Router 是 Vue.js 官方的路由管理器。它和 Vue.js 的核心深度集成，让构建单页面应用变得易如反掌 \<router-link>和\<router-view>和\<keep-alive>
-
 - 深拷贝浅拷贝
-
   深拷贝：
   通过利用 JSON.parse(JSON.stringify(Object))来达到深拷贝的目的
   但是 JSON 深拷贝的缺点是 undefined 和 function 还有 symbol 类型是无法进行深拷贝的
   如有需要可以自己手动封装函数来达到目的
   浅拷贝：
   通过 ES6 新特性 Object.assign()与扩展运算符来达到浅拷贝的目的
-
 - Vue 通信
-
   第一种：props 和`$emit
 第二种：中央事件总线 EventBus(基本不用)
 第三种：vuex（状态管理器）
 第四种：$`parent 和 \$children
-  当然还有其他办法，但是基本不常用
-
 - 你在工作中遇到那些问题，解决方法是什么
-
-  经常遇到的问题就是 Cannot read property ‘prototype’ of undefined
-  解决办法通过浏览器报错提示代码定位问题，解决问题
-
+  经常遇到的问题就是 Cannot read property ‘prototype’ of undefined 解决办法通过浏览器报错提示代码定位问题，解决问题
   Vue 项目中遇到视图不更新，方法不执行，埋点不触发等问题
   一般解决方案查看浏览器报错，查看代码运行到那个阶段未之行结束，阅读源码以及相关文档等
   然后举出来最近开发的项目中遇到的算是两个比较大的问题。
-
 - webpack 配置入口出口
-
   module.exports={
   //入口文件的配置项
   entry:{},
@@ -21193,68 +20779,26 @@ JavaScript 本身是单线程，也就是同一时刻只能干一件事，JS 任
   //模块：例如解读 CSS,图片如何转换，压缩
   module:{},
   //插件，用于生产模版和各项功能
-  plugins:\[],
+  plugins:[],
   //配置 webpack 开发服务功能
   devServer:{}
   }
   简单描述了一下这几个属性是干什么的。
-
-- webpack3 和 webpack4 区别
-
-  1.mode
-
-  webpack 增加了一个 mode 配置，只有两种值 development | production。对不同的环境他会启用不同的配置。
-
-  2.CommonsChunkPlugin
-
-  CommonChunksPlugin 已经从 webpack4 中移除。
-  可使用 optimization.splitChunks 进行模块划分（提取公用代码）。
-  但是需要注意一个问题，默认配置只会对异步请求的模块进行提取拆分，如果要对 entry 进行拆分
-  需要设置 optimization.splitChunks.chunks = 'all'。
-
-  3.webpack4 使用 MiniCssExtractPlugin 取代 ExtractTextWebpackPlugin。
-
-  4.代码分割。
-
-  使用动态 import，而不是用 system.import 或者 require.ensure
-
-  5.vue-loader。
-
-  使用 vue-loader 插件为.vue 文件中的各部分使用相对应的 loader，比如 css-loader 等
-
-  6.UglifyJsPlugin
-
-  现在也不需要使用这个 plugin 了，只需要使用 optimization.minimize 为 true 就行，production mode 下面自动为 true
-
-  optimization.minimizer 可以配置你自己的压缩程序
-
-### 二面
-
 - 说说 Vue 原理
-
   Vue 是采用数据劫持配合发布者-订阅者模式，通过 Object.defineProperty 来()来劫持各个属性的 getter 和 setter
   在数据发生变化的时候，发布消息给依赖收集器，去通知观察者，做出对应的回调函数去更新视图。
-
   具体就是：
   MVVM 作为绑定的入口，整合 Observe,Compil 和 Watcher 三者，通过 Observe 来监听 model 的变化
   通过 Compil 来解析编译模版指令，最终利用 Watcher 搭起 Observe 和 Compil 之前的通信桥梁
   从而达到数据变化 => 更新视图，视图交互变化(input) => 数据 model 变更的双向绑定效果。
-
 - Vue 路由守卫有哪些，怎么设置，使用场景等
-
   常用的两个路由守卫：router.beforeEach 和 router.afterEach
-
   每个守卫方法接收三个参数：
-
   to: Route: 即将要进入的目标 路由对象
-
   from: Route: 当前导航正要离开的路由
-
   next: Function: 一定要调用该方法来 resolve 这个钩子。
-
   在项目中，一般在 beforeEach 这个钩子函数中进行路由跳转的一些信息判断。
   判断是否登录，是否拿到对应的路由权限等等。
-
 - 数组去重
 - 对数组排序
   第一种方法利用 sort 方法
@@ -21270,89 +20814,78 @@ JavaScript 本身是单线程，也就是同一时刻只能干一件事，JS 任
   当试图引用对象的属性时会触发 get 操作，第一步时检查对象本身是否有这个属性，如果有就使用它，没有就去原型中查找。一层层向上直到 Object.prototype 顶层
   基于原型扩展描述一下原型链，什么是原型链，原型的继承，ES5 和 ES6 继承与不同点。
 - ES6 新特性
-
-  1.  ES6 引入来严格模式
-      变量必须声明后在使用
-      函数的参数不能有同名属性, 否则报错
-      不能使用 with 语句 (说实话我基本没用过)
-      不能对只读属性赋值, 否则报错
-      不能使用前缀 0 表示八进制数,否则报错 (说实话我基本没用过)
-      不能删除不可删除的数据, 否则报错
-      不能删除变量 delete prop, 会报错, 只能删除属性 delete global\[prop]
-      eval 不会在它的外层作用域引入变量
-      eval 和 arguments 不能被重新赋值
-      arguments 不会自动反映函数参数的变化
-      不能使用 arguments.caller (说实话我基本没用过)
-      不能使用 arguments.callee (说实话我基本没用过)
-      禁止 this 指向全局对象
-      不能使用 fn.caller 和 fn.arguments 获取函数调用的堆栈 (说实话我基本没用过)
-      增加了保留字（比如 protected、static 和 interface）
-  2.  关于 let 和 const 新增的变量声明
-  3.  变量的解构赋值
-  4.  字符串的扩展
-      includes()：返回布尔值，表示是否找到了参数字符串。
-      startsWith()：返回布尔值，表示参数字符串是否在原字符串的头部。
-      endsWith()：返回布尔值，表示参数字符串是否在原字符串的尾部。6.函数的扩展
-      函数参数指定默认值 7.数组的扩展
-      扩展运算符 8.对象的扩展
-      对象的解构
-
-  5.  Proxy
-      Proxy 可以理解成，在目标对象之前架设一层“拦截”，外界对该对象的访问
-      都必须先通过这层拦截，因此提供了一种机制，可以对外界的访问进行过滤和改写。
-      Proxy 这个词的原意是代理，用在这里表示由它来“代理”某些操作，可以译为“代理器”。
-      Vue3.0 使用了 proxy
-      12.Promise
-      Promise 是异步编程的一种解决方案，比传统的解决方案——回调函数和事件——更合理和更强大。
-      特点是：
-      对象的状态不受外界影响。
-      一旦状态改变，就不会再变，任何时候都可以得到这个结果。
-      13.async 函数
-      async 函数对 Generator 函数的区别：
-      （1）内置执行器。
-      Generator 函数的执行必须靠执行器，而 async 函数自带执行器。也就是说，async 函数的执行，与普通函数一模一样，只要一行。
-      （2）更好的语义。
-      async 和 await，比起星号和 yield，语义更清楚了。async 表示函数里有异步操作，await 表示紧跟在后面的表达式需要等待结果。
-      （3）正常情况下，await 命令后面是一个 Promise 对象。如果不是，会被转成一个立即 resolve 的 Promise 对象。
-      （4）返回值是 Promise。
-      async 函数的返回值是 Promise 对象，这比 Generator 函数的返回值是 Iterator 对象方便多了。你可以用 then 方法指定下一步的操作。
-      14.Class
-      class 跟 let、const 一样：不存在变量提升、不能重复声明...
-      ES6 的 class 可以看作只是一个语法糖，它的绝大部分功能
-      ES5 都可以做到，新的 class 写法只是让对象原型的写法更加清晰、更像面向对象编程的语法而已。
-      15.Module
-      ES6 的模块自动采用严格模式，不管你有没有在模块头部加上"use strict";。
-      import 和 export 命令以及 export 和 export default 的区别
-
-- Css3 新特性
-
-  1.过渡 transition 2.动画 animation 3.形状转换 transform 4.阴影 box-shadow 5.滤镜 Filter 6.颜色 rgba 7.栅格布局 gird 8.弹性布局 flex
-  等等还多...
-
+  1. ES6 引入来严格模式
+     变量必须声明后在使用
+     函数的参数不能有同名属性, 否则报错
+     不能使用 with 语句 (说实话我基本没用过)
+     不能对只读属性赋值, 否则报错
+     不能使用前缀 0 表示八进制数,否则报错 (说实话我基本没用过)
+     不能删除不可删除的数据, 否则报错
+     不能删除变量 delete prop, 会报错, 只能删除属性 delete global\[prop]
+     eval 不会在它的外层作用域引入变量
+     eval 和 arguments 不能被重新赋值
+     arguments 不会自动反映函数参数的变化
+     不能使用 arguments.caller (说实话我基本没用过)
+     不能使用 arguments.callee (说实话我基本没用过)
+     禁止 this 指向全局对象
+     不能使用 fn.caller 和 fn.arguments 获取函数调用的堆栈 (说实话我基本没用过)
+     增加了保留字（比如 protected、static 和 interface）
+  2. 关于 let 和 const 新增的变量声明
+  3. 变量的解构赋值
+  4. 字符串的扩展
+     includes()：返回布尔值，表示是否找到了参数字符串。
+     startsWith()：返回布尔值，表示参数字符串是否在原字符串的头部。
+     endsWith()：返回布尔值，表示参数字符串是否在原字符串的尾部。6.函数的扩展
+     函数参数指定默认值 7.数组的扩展
+     扩展运算符 8.对象的扩展
+     对象的解构
+  5. Proxy
+     Proxy 可以理解成，在目标对象之前架设一层“拦截”，外界对该对象的访问
+     都必须先通过这层拦截，因此提供了一种机制，可以对外界的访问进行过滤和改写。
+     Proxy 这个词的原意是代理，用在这里表示由它来“代理”某些操作，可以译为“代理器”。
+     Vue3.0 使用了 proxy
+     12.Promise
+     Promise 是异步编程的一种解决方案，比传统的解决方案——回调函数和事件——更合理和更强大。
+     特点是：
+     对象的状态不受外界影响。
+     一旦状态改变，就不会再变，任何时候都可以得到这个结果。
+     13.async 函数
+     async 函数对 Generator 函数的区别：
+     （1）内置执行器。
+     Generator 函数的执行必须靠执行器，而 async 函数自带执行器。也就是说，async 函数的执行，与普通函数一模一样，只要一行。
+     （2）更好的语义。
+     async 和 await，比起星号和 yield，语义更清楚了。async 表示函数里有异步操作，await 表示紧跟在后面的表达式需要等待结果。
+     （3）正常情况下，await 命令后面是一个 Promise 对象。如果不是，会被转成一个立即 resolve 的 Promise 对象。
+     （4）返回值是 Promise。
+     async 函数的返回值是 Promise 对象，这比 Generator 函数的返回值是 Iterator 对象方便多了。你可以用 then 方法指定下一步的操作。
+     14.Class
+     class 跟 let、const 一样：不存在变量提升、不能重复声明...
+     ES6 的 class 可以看作只是一个语法糖，它的绝大部分功能
+     ES5 都可以做到，新的 class 写法只是让对象原型的写法更加清晰、更像面向对象编程的语法而已。
+     15.Module
+     ES6 的模块自动采用严格模式，不管你有没有在模块头部加上"use strict";。
+     import 和 export 命令以及 export 和 export default 的区别
+- Css3 新特性 1.过渡 transition 2.动画 animation 3.形状转换 transform 4.阴影 box-shadow 5.滤镜 Filter 6.颜色 rgba 7.栅格布局 gird 8.弹性布局 flex
 - 说一说什么是跨域，怎么解决
-
   因为浏览器出于安全考虑，有同源策略。也就是说，如果协议、域名或者端口有一个不同就是跨域，Ajax 请求会失败。
   为来防止 CSRF 攻击
-  1.JSONP
-  JSONP 的原理很简单，就是利用 \<script> 标签没有跨域限制的漏洞。
-  通过 \<script> 标签指向一个需要访问的地址并提供一个回调函数来接收数据当需要通讯时。 \<script src="<http://domain/api?param1=a&param2=b&callback=jsonp"></script>> \<script>
-  function jsonp(data) {
-  console.log(data)
-  } \</script>
-  JSONP 使用简单且兼容性不错，但是只限于 get 请求。
-  2.CORS
-  CORS 需要浏览器和后端同时支持。IE 8 和 9 需要通过 XDomainRequest 来实现。
-  3.document.domain
-  该方式只能用于二级域名相同的情况下，比如 a.test.com 和 b.test.com 适用于该方式。
-
-      只需要给页面添加 document.domain = 'test.com' 表示二级域名都相同就可以实现跨域
-
-  4.webpack 配置 proxyTable 设置开发环境跨域
-  5.nginx 代理跨域
-  6.iframe 跨域
-  7.postMessage
-  这种方式通常用于获取嵌入页面中的第三方页面数据。一个页面发送消息，另一个页面判断来源并接收消息
-
+  - JSONP
+    JSONP 的原理很简单，就是利用 \<script> 标签没有跨域限制的漏洞。
+    通过 \<script> 标签指向一个需要访问的地址并提供一个回调函数来接收数据当需要通讯时。 \<script src="<http://domain/api?param1=a&param2=b&callback=jsonp"></script>> \<script>
+    function jsonp(data) {
+    console.log(data)
+    } \</script>
+    JSONP 使用简单且兼容性不错，但是只限于 get 请求。
+  - CORS
+    CORS 需要浏览器和后端同时支持。IE 8 和 9 需要通过 XDomainRequest 来实现。
+  - document.domain
+    该方式只能用于二级域名相同的情况下，比如 a.test.com 和 b.test.com 适用于该方式。
+    只需要给页面添加 document.domain = 'test.com' 表示二级域名都相同就可以实现跨域
+  - webpack 配置 proxyTable 设置开发环境跨域
+  - nginx 代理跨域
+  - iframe 跨域
+  - postMessage
+    这种方式通常用于获取嵌入页面中的第三方页面数据。一个页面发送消息，另一个页面判断来源并接收消息
 - 说一说前端性能优化方案
   一：webapck 优化与开启 gzip 压缩
   1. babel-loader 用 include 或 exclude 来帮我们避免不必要的转译，不转译 node_moudules 中的 js 文件
@@ -21550,9 +21083,8 @@ JavaScript 本身是单线程，也就是同一时刻只能干一件事，JS 任
 - 你知道哪些状态码
 - options 请求方法有什么用
 - HTML5 新增了哪些内容或 API，使用过哪些
-- 用一个 div 模拟 textarea 的实现
+- 用一个 div 模拟 textarea 的实现 `<div contenteditable="true"></div>`
 - 实现页面加载进度条
-- 事件委托
 - 实现 extend 函数
 - 为什么会有跨域的问题以及解决方式
 - http 请求跨域问题，你都知道哪些解决跨域的方法
