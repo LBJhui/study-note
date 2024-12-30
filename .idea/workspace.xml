@@ -7,31 +7,34 @@
     <list default="true" id="f2813ec6-06c4-4670-81c4-6a37fde78d10" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LBJhui-blog" beforeDir="false" afterPath="$PROJECT_DIR$/LBJhui-blog" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LBJhui-blog/docs/website/language/JavaScript/High-Performance JavaScript/第11章 期约(promise)与异步函数.md" beforeDir="false" afterPath="$PROJECT_DIR$/LBJhui-blog/docs/website/language/JavaScript/High-Performance JavaScript/第11章 期约(promise)与异步函数.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/demo.html" beforeDir="false" afterPath="$PROJECT_DIR$/demo/demo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/vue3_admin/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/source-code/vue3_admin/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/vue3_admin/src/styles/variable.scss" beforeDir="false" afterPath="$PROJECT_DIR$/source-code/vue3_admin/src/styles/variable.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source-code/vue3_admin/src/views/login/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/source-code/vue3_admin/src/views/login/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LBJhui-blog/docs/website/language/JavaScript/High-Performance JavaScript/第19章 表单脚本.md" beforeDir="false" afterPath="$PROJECT_DIR$/LBJhui-blog/docs/website/language/JavaScript/High-Performance JavaScript/第19章 表单脚本.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source-code/my-UI/packages/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/source-code/my-UI/packages/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FormatOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/LBJhui-blog" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {}
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/LBJhui/LBJhui-blog.git&quot;,
-    &quot;accountId&quot;: &quot;fa07d13b-8024-4b00-b4d2-7ce601ebdf2a&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/LBJhui/study-note.git",
+    "accountId": "ccbd8a2c-4ff1-4b41-b3d9-0df8b5941cc8"
   }
-}</component>
+}]]></component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/source-code/vue-webpack(面试手写题)/package.json" />
+    <dismissed value="$PROJECT_DIR$/source-code/vue3_admin/package.json" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -45,7 +48,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "main",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.standard": "true",
     "node.js.detected.package.tslint": "true",
@@ -53,7 +56,8 @@
     "node.js.selected.package.standard": "",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.rainbow.brackets.disable.when",
+    "prettierjs.PrettierConfiguration.Package": "D:\\Desktop\\study-note\\source-code\\vue3-basic\\vue3_admin_template\\node_modules\\prettier",
+    "settings.editor.selected.configurable": "preferences.sourceCode.JavaScript",
     "ts.external.directory.path": "D:\\Desktop\\study-note\\source-code\\vue3-basic\\vue3_admin_template\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
@@ -80,6 +84,7 @@
       <workItem from="1733321535220" duration="3462000" />
       <workItem from="1734416482519" duration="67000" />
       <workItem from="1734416557518" duration="55000" />
+      <workItem from="1735525110957" duration="779000" />
     </task>
     <servers />
   </component>

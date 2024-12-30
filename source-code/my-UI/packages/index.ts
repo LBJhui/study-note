@@ -7,7 +7,7 @@ const install = (app: any) => {
 }
 
 const TUI = {
-  install,
+  install
 }
 
 export { tButton, tInput }

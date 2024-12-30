@@ -17,6 +17,14 @@ const constantRouter: RouteRecordRaw[] = [
       hidden: true,
     },
   },
+  {
+    path: '/slot',
+    component: () => import('@/views/slot/index.vue'),
+    meta: {
+      title: 'vue插槽的实现原理',
+      hidden: false,
+    },
+  },
 ]
 
 const asyncRouter = [

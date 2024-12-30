@@ -12720,7 +12720,7 @@ mysql
   1\.
   实现一下 some, every
 
-  1.                                                                                                                                                 flatten实现
+  1.                                                                                                                                                      flatten实现
 
   2.  const promise = new Promise(resolve => {
 
@@ -15744,7 +15744,7 @@ webpack 也基本上成了必考的内容，一般会问是否配置过 webpack�
 1\.
 实现一下 some, every
 
-1.                                                                                                                                                 flatten实现
+1.                                                                                                                                                      flatten实现
 
 2.  const promise = new Promise(resolve => {
 
@@ -21460,3 +21460,55 @@ GPU 绘制**多进程的浏览器**：主控进程，插件进程，GPU，tab �
 
 - DNS 解析会出错吗，为什么
 ```
+
+```javascript
+/**
+ * 有很多 IP 地址，如何最快找出 RTT 最短的 IP 地址
+ * 假设最大并发数为 10
+ *
+ * [RTT：Round-Trip Time，往返时延]
+ */
+
+function chunk(arr, size) {
+  return Array.from({ length: Math.ceil(arr.length / size) }, (v, i) => arr.slice(i * size, i * size + size))
+}
+
+async function race(ips, rtt) {
+  return new Promise((resolve) => {
+    const controller = new AbortController()
+    const signal = controller.signal
+    setTimeout(() => {
+      resolve(null)
+      // 取消所有请求
+      controller.abort()
+    }, rtt)
+    let start = Date.now()
+    for (const ip of ips) {
+      fetch(`http://${ip}/ping`, { signal }).then(() => {
+        const rtt = Date.now() - start
+        resolve({ rtt, ip })
+      })
+      // 取消所有请求
+      controller.abort()
+    }
+  })
+}
+
+async function findShortestRTT(ips, parallelCount = 10) {
+  // 对 ip 地址分组
+  const ipChunks = chunk(ips, parallelCount)
+  let result = {
+    rtt: Infinity,
+    ip: ''
+  }
+  for (const chunk of ipChunks) {
+    const temp = await race(chunk, result.rtt)
+    if (temp) {
+      result = temp
+    }
+  }
+  return result.ip
+}
+```
+
+- h 函数的使用
