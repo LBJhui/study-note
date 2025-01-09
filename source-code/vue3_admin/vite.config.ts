@@ -32,5 +32,9 @@ export default defineConfig(({ command }) => {
         },
       },
     },
+    build: {
+      // 启用source map
+      sourcemap: true,
+    },
   }
 })
