@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <template v-if="!setting.hidden">
+    <template v-if="!hiddenMenu">
       <!-- 左侧导航栏 -->
       <div class="left-nav">
         <div class="logo-container">
@@ -48,10 +48,16 @@
 </template>
 
 <script setup lang="ts">
-import { settingStore } from './store'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import routes from '@/router/routes'
 
-const setting = settingStore()
+const router = useRouter()
+const hiddenMenu = ref(false)
+
+router.afterEach((to) => {
+  hiddenMenu.value = to.meta.hidden as boolean
+})
 
 const menuList = routes
 </script>

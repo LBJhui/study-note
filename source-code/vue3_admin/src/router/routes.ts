@@ -25,6 +25,14 @@ const constantRouter: RouteRecordRaw[] = [
       hidden: false,
     },
   },
+  {
+    path: '/uploadFile',
+    component: () => import('@/views/uploadFile/index.vue'),
+    meta: {
+      title: '文件上传',
+      hidden: false,
+    },
+  },
 ]
 
 const asyncRouter = [

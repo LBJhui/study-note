@@ -1,35 +1,18 @@
 https://fe.duyiedu.com/p/t_pc/goods_pc_detail/goods_detail/course_2VKbErGXkTSzvbl9aQ9HgndEtIz?type=2
 
 ```markdown
-**文档类**
-
 [Vue3 之 script-setup 全面解析](https://www.jianshu.com/p/5096bfb42e5a)
-
 [es6](https://es6.ruanyifeng.com/)
-
 [Pinia 中文文档](https://pinia.web3doc.top/)
-
 [webpack](https://www.webpackjs.com/)
-
 [vite](https://vitejs.cn/)
-
 [蚂蚁金服前端团队](https://www.yuque.com/ant-h5)
-
-[sequelize](https://www.sequelize.cn/)
-
----
-
-**零散知识**
-
 [张鑫旭](https://www.zhangxinxu.com/)
-
 [大厂面试题每日一题](https://q.shanyue.tech/)
-
 [阮一峰的网络日志](https://www.ruanyifeng.com/blog/)
 ```
 
 ```text
-https://blog.logrocket.com/complete-guide-using-css-filters-svgs
 前端监控 sentry  上报方式 img标签（src为上报地址，跨域，gif），navigator.sendBeacon
 纯前端图片压缩 图转base64读出宽高，canvas画图
 前端打印 printjs
@@ -43,7 +26,6 @@ assemblyscript+skia
 依赖倒置原则
 prefetch preload
 https://www.zhangxinxu.com/wordpress/2024/11/js-selectionchange-event/
-tsup
 https://www.zhangxinxu.com/wordpress/2022/07/css-font-palette/
 白板 webassembly+Skia Engine
 免费课合集：https://qmdqi.xetlk.com/s/376rbn
@@ -57,7 +39,6 @@ margin-trim 属性设置在容器元素上，可以让子元素(需边缘接触)
 align-content也适用于普通元素
 grid-template-rows: masonry;
 vue方法中属性丢失的问题 methods配置的方法与组件实例的方法 https://blog.csdn.net/xiaotangyu7dong/article/details/131713991
-console.log(([][[]] + [])[+!![]] + ([] + {})[+!![] + +!![]])
 展示组件和容器组件
 使用computed拦截v-model https://juejin.cn/post/7338634091397431330
 v-model 父传子值，元素更改后获取值滞后，nextTick
@@ -74,8 +55,6 @@ transform 从右到左 translate3d
 mask-image
 vue3 expose defineExpose
 正则匹配的贪婪模式和惰性模式有什么区别
-node 版本管理工具:`volta` `nvm`
-new.target 可以判断函数是否被 new 调用
 浏览器的自动播放策略
 BFF 层 backends for frontends
 函数签名 = 函数名 + 参数 + 返回值
@@ -84,15 +63,11 @@ BFF 层 backends for frontends
 http accept-lang/navigator.lang
 content-type
 showDirectoryPicker FileSystem API
-insertBefore
-removeProperty
-Web Locks API
 preventDefault、stopPropagation
 俄罗斯方块实现思路
 conic-gradient
 web-vitals
 ?? 运算符 返回第一个已定义的值
-色彩空间 hex rgb hsl hsv
 Object.defineProperty 只能监听到对象属性的读取或者是写入，而 Proxy 除读写外还可以监听对象中属性的删除，对对象当中方法的调用
 object-fit
 不规则的文字环绕:shape-outside
@@ -115,10 +90,7 @@ css 新单位 vmin vmax  ch
 拖拽组件: vue-draggable-plus
 重绘和回流
 防截屏防录制：Encrypted Media Extensions API
-console.log() 打印对象时，点击小三角实时加载，打印一个对象/数组时，我们在控制台看到的是它的最终状态，而不是打印时的状态，我们要打印对象/数组时，最后JSON.stringify 打印，或者打印里面具体的值
-console.log 输出的是内存地址上的东西
 元素倒影:-webkit-box-reflect
-页面可见度 API page visibility
 使用data url预览图片 https://blog.csdn.net/u012804440/article/details/136018598
 在 TypeScript 中正确的遍历一个对象
 ```
@@ -447,33 +419,6 @@ async function fun(arr) {
    *  async (item2)=>await item2()
    */
 }
-```
-
-```javascript
-// Web网页 阻止息屏 Screen Wake Lock API https://www.zhangxinxu.com/wordpress/2024/03/js-screen-wake-lock-api/
-navigator.wakeLock.request('screen')
-// 当前页面最小化，或者非当前显示标签页，屏幕的 Wake 锁定行为会被释放
-document.addEventListener('visibility', () => {
-  if (document.visibilityState === 'visible') {
-    navigator.wakeLock.request('screen')
-  }
-})
-
-// wakeLock 是个 WakeLockSentinel 对象
-let wakeLock = null
-navigator.wakeLock.request('screen').then((result) => {
-  wakeLock = result
-})
-
-// 释放锁
-wakeLock.release().then(() => {
-  wakeLock = null
-})
-
-// 知道何时释放
-wakeLock.addEventListener('release', () => {
-  console.log('唤醒锁定已释放')
-})
 ```
 
 ```css
@@ -854,8 +799,7 @@ class A {
   b: string = 'a'
 }
 
-type AFields = keypf
-InstanceType<typeof A>
+type AFields = keyof InstanceType<typeof A>
 ```
 
 ```text
@@ -1225,43 +1169,6 @@ console.log(console.log.__proto__ === Function.prototype)
 console.log(console.log.call === Function.prototype.call)
 
 // const r = Function.prototype.call.apply((a) => a, [1, 2])
-```
-
-```javascript
-Promise.myAll = function (promises) {
-  let res, rej
-  const p = new Promise((resolve, reject) => {
-    res = resolve
-    rej = reject
-  })
-  let i = 0
-  let result = []
-  for (const prom of promises) {
-    const index = i
-    i++
-    Promise.resolve(prom).then((data) => {
-      // 1.将完成的数据加入到最终结果
-      result[index] = data
-      // 2.判断是否全部完成
-      i--
-      if (i === 0) {
-        res(result)
-      }
-    }, rej)
-  }
-  if (i === 0) {
-    res([])
-  }
-  return p
-}
-
-Promise.myAll([1, 2, 3, Promise.reject(4)])
-  .then((data) => {
-    console.log('%c 🍑 data', 'font-size:16px;color:#ea7e5c', data)
-  })
-  .catch((e) => {
-    console.log('%c 🎂 e', 'font-size:16px;color:#f5ce50', e)
-  })
 ```
 
 ```js
@@ -1852,6 +1759,11 @@ dragend
 dragenter
 ```
 
+- 如何封装命令式组件
+- https://blog.csdn.net/qq_42582773/article/details/140424340
+- https://blog.csdn.net/qq_45487080/article/details/142994198
+- https://blog.csdn.net/weixin_52648900/article/details/143166740
+
 ```js
 const o = (function () {
   const obj = {
@@ -1934,6 +1846,7 @@ Function.prototype.myCall = function (ctx, ...args) {
 Function.prototype.myBind = function (ctx, ...args) {
   const fn = this
   return function (...restArgs) {
+    // new.target 可以判断函数是否被 new 调用
     if (new.target) {
       return new fn(...args, ...restArgs)
     }
@@ -5008,88 +4921,53 @@ CSP（Content Security Policy）与跨域（Cross-Origin）在 Web 安全领域�
 - 算法题：从数组 [1, 5, 8, 10, 12] 中找到两个数和为 9，返回 [1, 8] 这样的结果。
 - 算法题：从数组 [1, 5, 8, 10, 12] 中找到三个数和为 19，返回 [1, 8， 10] 这样的结果。
 - 算法题 leetcode 300：给定一个无序的整数数组，找到其中最长上升子序列的长度。
+- 看源码，整理 Vue 与 React 框架的所有横向对比，包括渲染原理、虚拟 dom、diff、patch、fiber、批量更新，手写响应式，框架用到的模式、设计思想，性能优化，相关生态技术等等。
+- webpack 原理、热更新原理、动态加载原理、常见 plugins、loader、常见优化，怎么打包、怎么分 chunk，怎么写一个 plugins，生命周期，微内核源码等内容，以及 rollup、gulp 的使用、应用场景。（我记得有一面一个考官对我说，你对整个研发流程都很清楚，但都并不深入，比如一个 webpack 打包分包的依据怎么判定……emmmm，我倒是会，你也不问我啊！）
+- 跨端框架的研究，工程化的梳理，使用的技术栈的坑，移动端的一些实践，面试时额外准备的项目复盘，竞品调查，对方产品的资料，测试系列，还有很多如微前端、中台、serverless、可视化、Wasm 等就不举例了。
+- JS 原型及原型链
+  ![prototype.jpg](https://mmbiz.qpic.cn/mmbiz_jpg/Mpt86EGjlpto9HhomHK7L1seAgwXicwqtBKicXCQ7uykJptnOnGKt3F6IjqxDLcCaEgWACu8wmmBYzx9ery9zIiaQ/640?wx_fmt=jpeg&wxfrom=5&wx_lazy=1&wx_co=1)
+- JS 继承的几种方式
 
-看源码，整理 Vue 与 React 框架的所有横向对比，包括渲染原理、虚拟 dom、diff、patch、fiber、批量更新，手写响应式，框架用到的模式、设计思想，性能优化，相关生态技术等等。
+1. 原型继承
 
-webpack 原理、热更新原理、动态加载原理、常见 plugins、loader、常见优化，怎么打包、怎么分 chunk，怎么写一个 plugins，生命周期，微内核源码等内容，以及 rollup、gulp 的使用、应用场景。（我记得有一面一个考官对我说，你对整个研发流程都很清楚，但都并不深入，比如一个 webpack 打包分包的依据怎么判定……emmmm，我倒是会，你也不问我啊！）
-
-跨端框架的研究，工程化的梳理，使用的技术栈的坑，移动端的一些实践，面试时额外准备的项目复盘，竞品调查，对方产品的资料，测试系列，还有很多如微前端、中台、serverless、可视化、Wasm 等就不举例了。
-
-除此之外，我也看了很多面经、以及技术文章。
-
-掌握了以上内容，我们应该算是有一点知识广度了也能从容地应对前面的技术面了，当然，这不是短短几个月就能达成了，要时间的积累，那些一年就资深的牛人也是在大学甚至更早的时候就开始积累的，这一关逃不掉。
-
-到此，“技术面” 这只老虎应该能打个半死，直接干倒是不可能的，以上的知识对于校招可能足够，但社招不一定用的上，哈哈。
-
-然后就是社招的重点：业务面，怎么说呢，就是多思考多总结吧，深入思考，对每个问题一定要有深入的思考，不然就很难进入大公司了，深度上要有一个拔高才能在面试中获得好的成绩。挑出你项目中的亮点，要被别人认可的亮点，这个比较难，各位只能自求多福了，也是我本人的短板，当时也是鸡蛋里挑骨头，这是我这次找工作遇到的最大拦路虎，业务太简单，你眼中的亮点面试官觉得不是……
-
-当然我这里也可以提供一点方向给你：
-
-业务方面的思考和准备，你可以去这里看看，见微知著，多发散，一定会有启发
-
-# JS 相关
-
-## JS 原型及原型链
-
-    function Person() {}
-    Person.prototype.name = 'Zaxlct';
-    Person.prototype.sayName = function() {
-      alert(this.name);
-    }
-    var person1 = new Person();
-    //JS 在创建对象的时候，都有一个__proto__ 的内置属性，用于指向创建它的构造函数的原型对象。
-    //每个对象都有 __proto__ 属性，但只有函数对象才有 prototype 属性
-    // 对象 person1 有一个 __proto__属性，创建它的构造函数是 Person，构造函数的原型对象是 Person.prototype
-    console.log(person1.__proto__ == Person.prototype) //true
-    //所有函数对象的__proto__都指向Function.prototype
-    String.__proto__ === Function.prototype  // true
-    String.constructor == Function //true
-
-![prototype.jpg](https://mmbiz.qpic.cn/mmbiz_jpg/Mpt86EGjlpto9HhomHK7L1seAgwXicwqtBKicXCQ7uykJptnOnGKt3F6IjqxDLcCaEgWACu8wmmBYzx9ery9zIiaQ/640?wx_fmt=jpeg&wxfrom=5&wx_lazy=1&wx_co=1)
-
-## JS 继承的几种方式
-
-详解
-
-1.  原型继承
-
-    function Parent () {
-    this.name = 'Parent'
-    this.sex = 'boy'
-    }
-    function Child () {
-    this.name = 'child'
-    }
-    // 将子类的原型对象指向父类的实例
-    Child.prototype = new Parent()
-    //优：继承了父类的模板，又继承了父类的原型对象
-    //缺：1.无法实现多继承(因为已经指定了原型对象了)
-    // 2.创建子类时，无法向父类构造函数传参数
+```javascript
+function Parent() {
+  this.name = 'Parent'
+  this.sex = 'boy'
+}
+function Child() {
+  this.name = 'child'
+}
+// 将子类的原型对象指向父类的实例
+Child.prototype = new Parent()
+//优：继承了父类的模板，又继承了父类的原型对象
+//缺：1.无法实现多继承(因为已经指定了原型对象了)
+// 2.创建子类时，无法向父类构造函数传参数
+```
 
 2.  构造函数继承
+    在子类构造函数内部使用`call或apply`来调用父类构造函数，复制父类的实例属性给子类。
 
-在子类构造函数内部使用`call或apply`来调用父类构造函数，复制父类的实例属性给子类。
-
-    function Parent (name) {
-      this.name = name
-    }
-    function Child () {
-      //用.call 来改变 Parent 构造函数内的指向
-      Parent.call(this, 'child')
-    }
-    //优：解决了原型链继承中子类实例共享父类引用对象的问题，实现多继承，创建子类实例时，可以向父类传递参数
-    //缺：构造继承只能继承父类的实例属性和方法，不能继承父类原型的属性和方法
+        function Parent (name) {
+          this.name = name
+        }
+        function Child () {
+          //用.call 来改变 Parent 构造函数内的指向
+          Parent.call(this, 'child')
+        }
+        //优：解决了原型链继承中子类实例共享父类引用对象的问题，实现多继承，创建子类实例时，可以向父类传递参数
+        //缺：构造继承只能继承父类的实例属性和方法，不能继承父类原型的属性和方法
 
 1.  组合继承
 
     组合继承就是将原型链继承与构造函数继承组合在一起。
 
-2.  - 使用**原型链继承**来保证子类能继承到父类原型中的属性和方法
+1.  - 使用**原型链继承**来保证子类能继承到父类原型中的属性和方法
     - 使用**构造继承**来保证子类能继承到父类的实例属性和方法
 
-3.  寄生组合继承
+1.  寄生组合继承
 
-4.  class 继承
+1.  class 继承
 
 在`class` 中继承主要是依靠两个东西：
 
@@ -12231,7 +12109,7 @@ mysql
   1\.
   实现一下 some, every
 
-  1.                                                                                                                                                                                            flatten实现
+  1.                                                                                                                                                                                                            flatten实现
 
   2.  const promise = new Promise(resolve => {
 
@@ -15227,7 +15105,7 @@ webpack 也基本上成了必考的内容，一般会问是否配置过 webpack�
 1\.
 实现一下 some, every
 
-1.                                                                                                                                                                                            flatten实现
+1.                                                                                                                                                                                                            flatten实现
 
 2.  const promise = new Promise(resolve => {
 
@@ -15979,10 +15857,6 @@ functionprintf(str, info) {}
 - 如果要你实现一个 AutoComplete 组件，你会注意哪些点（然后围绕这些点问）
 - 受控组件和非受控组件的区别
 - 你们 abort 机制怎么设计的，了解过原理吗
-
-## **二面**
-
-- 介绍一下做过的项目吧
 - 说一下 webrtc 的运行机制
 - 假如让你使用 webrtc 和 websocket 去实现你画我猜的小游戏，怎么设计
 - 项目里面有用到 webpack，请问你使用 webpack 有啥需要注意的地方呢
@@ -15994,52 +15868,6 @@ functionprintf(str, info) {}
 - 接上面一题，假如中间件 B 的 next 不执行了，最后流向哪里？
 - 设计登录状态管理系统
 - session 应该存在哪里
-
-### **二面笔试题**
-
-- 以下代码输出什么(如果报错是报什么错误)
-
-(function() {
-
-console.log(age);
-
-console.log(name);
-
-let name = 'PapaerCrane';
-
-var age = 24;
-
-})();
-
-- 以下代码输出什么
-
-const myPromise = () =>
-
-Promise.resolve('I have resolved')
-
-const firstFunc = () => {
-
-myPromise().then((res) => {
-
-console.log(res + ' first');
-
-});
-
-console.log('first');
-
-}
-
-asyncfunctionsecondFunc() {
-
-console.log(await myPromise());
-
-console.log('second');
-
-}
-
-firstFunc();
-
-secondFunc();
 
 - 给定一棵树，请你输出所有从根节点到叶子节点的路径组成的数字之和
 
@@ -17120,127 +16948,16 @@ rem 和 em 单位一样，都是一个相对单位，不同的是 em 是相对�
 
 ![图片](https://mmbiz.qpic.cn/mmbiz_png/71ibgGpZLr2V1DcfvibpPw7oFdTILYpERsMLHAtsh5zqs1qibvzVVNXBrdNibIGVlicBKGCDb2nkjN7njdKqaib9vnibA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
 
-## js 基础
-
-### 1. 用 js 打印一个乘法表
-
-这一题面试官考察的是你关于 js 的打印相关基础 api 的熟悉程度，以及基本的数学常识，送分题
-
-    console.log(`
-    1*1=1
-    2*1=2 2*2=4
-    3*1=3 3*2=6 3*3=9
-    4*1=4 4*2=8 4*3=12 4*4=16
-    5*1=5 5*2=10 5*3=15 5*4=20 5*5=25
-    6*1=6 6*2=12 6*3=18 6*4=24 6*5=30 6*6=36
-    7*1=7 7*2=14 7*3=21 7*4=28 7*5=35 7*6=42 7*7=49
-    8*1=8 8*2=16 8*3=24 8*4=32 8*5=40 8*6=48 8*7=56 8*8=64
-    9*1=9 9*2=18 9*3=27 9*4=36 9*5=45 9*6=54 9*7=63 9*8=72 9*9=81
-    `)
-
-### 斐波那契数列函数(30 以内)
-
-斐波那契数列，就是数列的每一个数字，都是前两个数字相加的和，常见面试题
-
-斐波那契数列是一个可难可简单的题目，从暴力递归，到动态规划，以及数学地推公式和矩阵优化几个级别，这里要求了 30 以内，说明对性能要求不高，属于入门送分题级别
-
-    const arr = [0,1,1,2,3,5,8,13,21,34,55,89,144,233,377,610,987,1597,2584,4181,6765,10946,17711,28657,46368,75025,121393,196418,317811,514229,832040,1346269]
-    var fib = function(N) {
-        return arr[N]
-    }
-
-### 手写 Promise
-
-考点：程序员虽然一直用键盘，但是本身字是门面，整体比较简单，写得好是加分项，写不好也不会把你挂掉![图片](https://mmbiz.qpic.cn/mmbiz_png/ZkRdKen1SIfxyNfwMwI7jnVibclbOkMBeKvgso8PBZs59WB7m8sNCnDMmEzFeubkmGqdGmeiaBic2PCzL78v19F6w/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
-
-### 手写防抖节流
-
-和上一题类似的考点，常见面试题 其他手写 vue 响应式，手写算法等都是类似的
-
-![图片](https://mmbiz.qpic.cn/mmbiz_png/ZkRdKen1SIfxyNfwMwI7jnVibclbOkMBeIuFiaj8oHOtMbTCtw5zdSzz2DxRib6VAs3FItvM3ISAHpaSwrsqiaZPhg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
-
-### 不用 sort 实现排序，比如输入\[3,2,6,9,1,4,8] 返回排序后的数组
-
-考点就是常见的各种排序算法，比如冒泡，快排等，可能还会考察空间时间复杂度等问题，也是众多前端想学算法的重要原因之一：面试要用
-
-    function mySort(arr){
-     return [1,2,3,6,8,9]
-    }
-
-### 请 js 实现一个 permute 函数，输入数字 123， 打印出这三个数字的全排列
-
-全排列看似简单，实则有一定的难度，需要面试者理解递归和回溯
-
-    function permute(){
-     return [
-         [1,2,3],
-            [1,3,2],
-            [2,1,3],
-            [2,3,1],
-            [3,1,2],
-            [3,2,1],
-        ]
-    }
-
-### 代码笔试题
-
-![图片](https://mmbiz.qpic.cn/mmbiz_png/ZkRdKen1SIfxyNfwMwI7jnVibclbOkMBeaU5Wz7qdibk8f4nvO8riareb7IEUsCxhwm4LbaPsBIdZ4fA1F7Ir71cg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)根据输入的特点，判断输出，主要是如何高效的筛选过滤条件
-
-    function findFirstAbsentPositiveNumber(arr) {
-      if (arr[0] === 0) {
-        if (arr[1] === 1) {
-          if (arr[2] === 2) {
-            return 5
-          }
-          return 2
-        }
-        return 1
-      }
-      return 1
-    }
-
-## 框架和最佳实践
-
-### v-show 和 v-if 的区别是啥
-
-这一题主要考察 vuejs 基础的应用
-
-两个功能差不多，都是控制元素的显示和隐藏，只不过 v-show 代码更秀一些
-
-### 项目中的错误处理
-
-来源
-
-考察你的填坑能力，出现诡异 bug 的时候如何解决的思路更为重要，毕竟不是所有 bug 都是可预测的，重点是思路要清晰，这对程序员很重要
-
-![图片](https://mmbiz.qpic.cn/mmbiz_png/ZkRdKen1SIfxyNfwMwI7jnVibclbOkMBezWvdJRLzeUO0h6aBnnVAhMztzKFxkkyGW1DypOGhqHa9DDlx4Qj01w/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
-
-### 平时设计过组件吗
-
-这个考察组件化的知识，vue 和 react 都是组件化最热门的框架，我们如果能抽离框架，展示组件化的思想，就是满分答案 我们用很常见的评级 rate 组件举例
-
-    "★★★★★☆☆☆☆☆".slice(5 - rate, 10 - rate);
-
-### 谈一下你对 SPA 的理解
-
-SPA 一词源于拉丁文“Solus Par Agula”（SPA 是指利用水资源结合沐浴、按摩、涂抹保养品和香熏来促进新陈代谢，满足人体视觉、味觉、触觉、嗅觉和思考达到一种身心畅快的享受。日程程序员工作比较辛苦，尤其肩颈手腕会僵硬，经常 SPA 会缓解这些症状，前端工程师必备，需要经常去 SPA
-
-### 你平时有阅读源码的习惯吗？
-
-考察你工作饱和程度
-
-回答：没有， 平时主要以项目为主
-
-- Vue/React
-
-- api 接口
-
-- - mongo
-  - postgresql/mysql
-
+- 手写 Promise
+- 手写防抖节流
+- 不用 sort 实现排序，比如输入 [3,2,6,9,1,4,8] 返回排序后的数组
+- 请 js 实现一个 permute 函数，输入数字 123， 打印出这三个数字的全排列
+- 平时设计过组件吗
+  这个考察组件化的知识，vue 和 react 都是组件化最热门的框架，我们如果能抽离框架，展示组件化的思想，就是满分答案 我们用很常见的评级 rate 组件举例
+  "★★★★★☆☆☆☆☆".slice(5 - rate, 10 - rate);
+- 谈一下你对 SPA 的理解
 - webpack
-
-- - cdn
+  - cdn
   - publicPath
   - nginx
   - 由 nginx 进行维护
@@ -17248,23 +16965,15 @@ SPA 一词源于拉丁文“Solus Par Agula”（SPA 是指利用水资源结合
   - location
   - vue-cli 自己的
   - 自己修改的？
-
 - 权限
-
 - 协商缓存和强缓存
-
-- - last-modified
+  - last-modified
   - etag
-
 - 防盗链
-
-- - referer
+  - referer
   - 原理: **<https://q.shanyue.tech/fe/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/257.html>**
-
 - cors
-
 - 怎么查看请求方的 IP 地址 ❎
-
 - - **<https://q.shanyue.tech/base/http/285.html>**
   - IP
   - TCP
@@ -19232,91 +18941,44 @@ base64
 - `webpack` 优化
 - 如何理解执行上下文
   JavaScript 执行上下文(context)主要指代码执行环境的抽象概念。执行上下文分为三种：
+
   - 全局执行上下文
   - 函数执行上下文
   - eval 执行上下文
     每一段 js 代码执行，都会先创建一个上下文环境。
 
-## 如何理解作用域链
+- 如何理解原型链
+  每个函数都拥有一个 prototype 属性，每个函数**实例对象**都拥有一个**proto**属性，而这个属性指向了函数的 prototype，当我们访问**实例对象**的属性或者方法时，会先从自身构造函数中查找，如果没有就通过**proto**去原型中查找，这个查找的过程我们称之为原型链。（跟作用域链有点像）
+- 继承有哪些方法
 
-> 前沿知识：js 代码执行前会创建上下文环境，这个上下文环境包含了变量、作用域链和 this.
+  - 原型继承
+  - 构造继承
+  - 实例继承
+  - call/apply 继承(组合继承)
+  - ES6 使用 class extends 继承
 
-简单理解就是从当前环境向父级一层一层查找变量的过程称之为作用域链。
-
-    var name = '前端未来';
-    function hello(){
-      console.log(name);
-    }
-
-解释：当我们在函数 hello 里面打印 name 的时候，会先在 hello 作用域中查找，如果没有找到就去 hello 的父级作用域中查找。
-
-## 如何理解原型链
-
-每个函数都拥有一个 prototype 属性，每个函数**实例对象**都拥有一个**proto**属性，而这个属性指向了函数的 prototype，当我们访问**实例对象**的属性或者方法时，会先从自身构造函数中查找，如果没有就通过**proto**去原型中查找，这个查找的过程我们称之为原型链。（跟作用域链有点像）
-
-    // 定义动物 - 父类
-    function Animal(){
-        this.age = 10;
-        this.say = function(){
-            return 'hello tom';
-        }
-    }
-    // 定义猫 - 子类
-    function Cat(){
-        this.name = 'tom';
-    }
-    // 通过原型继承动物类
-    Cat.prototype = new Animal()
-    // 实例化一个cat对象
-    var cat = new Cat();
-    // 打印返回true
-    cat.__proto__ === Cat.prototype
-    // 打印age，会先查找cat，再查找Animal
-    console.log(cat.age)
-
-![图片](https://mmbiz.qpic.cn/mmbiz_png/YItGPcJZoxlJEp6zdYzg4QSBa8EnZuibavTaX2iaQ6mgic5cgbDoIntvcNfYG7cJLn6QLCQee5zJ8HHF6gW0YoxCw/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
-
-通过截图，我们可以看到 cat 实例对象**proto**指向了 Animal，当 cat 没有 age 的时候，会通过**proto**到原型上查找，如果原型上依然没有，会继续向 Object 上查找。
-
-## 继承有哪些方法
-
-- 原型继承
-- 构造继承
-- 实例继承
-- call/apply 继承(组合继承)
-- ES6 使用 class extends 继承
-
-## 什么是深/浅拷贝，有哪些实现方式
-
-JS 数据类型分别基本数据类型和引用数据类型，基本数据类型保存的是值，引用类型保存的是引用地址(this 指针)。浅拷贝共用一个引用地址，深拷贝会创建新的内存地址。
-
-- 浅拷贝方法
-
-  - 直接对象复制
-  - Object.assign
-
-- 深拷贝
-  - JSON.stringify 转为字符串再 JSON.parse
-  - 深度递归遍历
-  - 如何准确判断一个对象是数组
-
-## 数组有哪些常用方法
-
-> 这个非常多，说起来也很快，我主要考察你会多少，另外也为了引出下一个问题,slice 和 splice 区别
-
-- push 末尾添加
-- pop 末尾删除
-- shift 首部删除
-- unshift 首部添加
-- concat 数组合并
-- join 数组元素 通过连接符 连接
-- reverse 数组反转
-- sort 数组排序
-- map/forEach/filter/indexOf/includes/slice/splice
-
-slice 表示截取，slice(start,end)不改变原数组，返回新数组。
-
-splice 表示删除，splice(start,length,item)，会改变原数组，从某个位置开始删除多个元素，并可以插入新的元素。
+- 什么是深/浅拷贝，有哪些实现方式
+  JS 数据类型分别基本数据类型和引用数据类型，基本数据类型保存的是值，引用类型保存的是引用地址(this 指针)。浅拷贝共用一个引用地址，深拷贝会创建新的内存地址。
+  - 浅拷贝方法
+    - 直接对象复制
+    - Object.assign
+  - 深拷贝
+    - JSON.stringify 转为字符串再 JSON.parse
+    - 深度递归遍历
+    - 如何准确判断一个对象是数组
+- 数组有哪些常用方法
+  这个非常多，说起来也很快，我主要考察你会多少，另外也为了引出下一个问题,slice 和 splice 区别
+  - push 末尾添加
+  - pop 末尾删除
+  - shift 首部删除
+  - unshift 首部添加
+  - concat 数组合并
+  - join 数组元素 通过连接符 连接
+  - reverse 数组反转
+  - sort 数组排序
+  - map/forEach/filter/indexOf/includes/slice/splice
+    slice 表示截取，slice(start,end)不改变原数组，返回新数组。
+    splice 表示删除，splice(start,length,item)，会改变原数组，从某个位置开始删除多个元素，并可以插入新的元素。
 
 ## DOM 节点创建和修改有哪些常用 API
 
@@ -19501,7 +19163,6 @@ H5 自适应方案大家在网速能找到很多，我个人推荐一种我非�
 - 同源是什么意思，除了那三个没有了么
 - 事件冒泡和事件捕获，应用？注意？
 - 事件轮询 Eventloop
-- promise、console.log、setTimeout、执行顺序
 - 重绘和重排
 - URl 到页面加载过程
 - 跨域问题，解决，jsonp 原理，不受跨域影响的标签
@@ -20844,11 +20505,6 @@ function createOverload() {
 }
 ```
 
-- 如何封装命令式组件
-- https://blog.csdn.net/qq_42582773/article/details/140424340
-- https://blog.csdn.net/qq_45487080/article/details/142994198
-- https://blog.csdn.net/weixin_52648900/article/details/143166740
-
 ```javascript
 const obj = {
   flag: 'Jhon',
@@ -20861,50 +20517,6 @@ const obj = {
 const p = new Proxy(obj, {})
 p.func()
 obj.func()
-```
-
-```javascript
-console.log(1 / 0) // Infinity
-console.log(typeof 1 / 0) // NaN
-console.log(typeof Infinity) // 'number'
-console.log(typeof (1 / 0)) // 'number'
-```
-
-```javascript
-Promise.myAll = function (proms) {
-  let res, rej
-  const p = new Promise((resolve, reject) => {
-    res = resolve
-    rej = reject
-  })
-  let i = 0
-  // proms 为可迭代对象
-  const result = []
-  for (const item of proms) {
-    const index = i
-    i++
-    Promise.resolve(item).then((data) => {
-      // 1.把成功的结果保存到数组
-      result[index] = data
-      // 2. 判断是不是所偶的 promise 都已成功
-      i--
-      if (i === 0) {
-        res(result)
-      }
-    }, rej)
-  }
-  if (i === 0) {
-    res([])
-  }
-  return p
-}
-Promise.myAll([1, 2, 3, 4])
-  .then((data) => {
-    console.log(data)
-  })
-  .catch((err) => {
-    console.log(err)
-  })
 ```
 
 ```javascript
@@ -20930,11 +20542,19 @@ function sington(className) {
 }
 ```
 
-- document.write()和 innerHTML 的区别
+```javascript
+const myPromise = () => Promise.resolve('I have resolved')
+const firstFunc = () => {
+  myPromise().then((res) => {
+    console.log(res + ' first')
+  })
+  console.log('first')
+}
+async function secondFunc() {
+  console.log(await myPromise())
+  console.log('second')
+}
 
-|    1     |           document.write()           |          innerHTML          |
-| :------: | :----------------------------------: | :-------------------------: |
-|   类型   |        document 对象中的方法         | 存在于 ELement 对象中的属性 |
-| 插入位置 |        脚本元素 script 的位置        |        指定的元素内         |
-| 拼接方法 |               多次调用               |           利用+=            |
-| 覆盖问题 | 文档解析完在调用会覆盖<br />否则不会 |    直接调用会覆盖原内容     |
+firstFunc()
+secondFunc()
+```
