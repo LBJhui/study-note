@@ -13,7 +13,6 @@ https://fe.duyiedu.com/p/t_pc/goods_pc_detail/goods_detail/course_2VKbErGXkTSzvb
 ```
 
 ```text
-前端监控 sentry  上报方式 img标签（src为上报地址，跨域，gif），navigator.sendBeacon
 纯前端图片压缩 图转base64读出宽高，canvas画图
 前端打印 printjs
 对等依赖 peerDependencies(package.json) npm i --legacy-peer-deps
@@ -22,17 +21,14 @@ vue3 h函数
 effectScope 嵌套 https://www.jianshu.com/p/1a1731806e19
 box-shadow
 协同处理 yjs+crdt算法+oj
-assemblyscript+skia
 依赖倒置原则
 prefetch preload
 https://www.zhangxinxu.com/wordpress/2024/11/js-selectionchange-event/
 https://www.zhangxinxu.com/wordpress/2022/07/css-font-palette/
-白板 webassembly+Skia Engine
 免费课合集：https://qmdqi.xetlk.com/s/376rbn
 https://www.zhangxinxu.com/wordpress/2024/09/js-scrollend-event/
 https://www.zhangxinxu.com/wordpress/2024/09/js-object-groupby/
 https://www.zhangxinxu.com/wordpress/2024/09/css-math-round-function/
-HTMLCollection(动态) & NodeList(静态) 伪数组
 CSS文本自定义高亮AP简介 https://www.zhangxinxu.com/wordpress/2024/07/css-custom-highlight-api/
 initial-letter https://www.zhangxinxu.com/wordpress/2024/03/css-initial-letter/
 margin-trim 属性设置在容器元素上，可以让子元素(需边缘接触) margin 设置计算值变成 0 https://www.zhangxinxu.com/wordpress/2023/05/css-margin-trim/
@@ -71,9 +67,6 @@ web-vitals
 Object.defineProperty 只能监听到对象属性的读取或者是写入，而 Proxy 除读写外还可以监听对象中属性的删除，对对象当中方法的调用
 object-fit
 不规则的文字环绕:shape-outside
-getPrototypeOf、setPrototypeOf
-Array.from()
-[动画库：GSAP scrolltrigger]https://gsap.com/
 addEventListener compositionstart 'contextmenu'
 禁止触发系统菜单和长按选中：`touch-callout:none` contextmenu
 markRaw、withModifiers
@@ -86,8 +79,6 @@ ElementUI 日期选择器时间选择范围限制
 图片调色盘：colorThief
 符号绑定
 css 新单位 vmin vmax  ch
-前端ocr图片文字提取功能: tesseract.js
-拖拽组件: vue-draggable-plus
 重绘和回流
 防截屏防录制：Encrypted Media Extensions API
 元素倒影:-webkit-box-reflect
@@ -339,7 +330,7 @@ export default new EventEmitter()
   - 中级：虚拟表格
   - 高级： canvas table
   - 专家：canvas+tile 技术
-  - 高级专家：skia+webassembly
+  - 高级专家：skia+webassembly (白板 webassembly+Skia Engine)
 - 【地图开发】使用百度地图 SDK，封装业务地图渲染器（MaoRenderer），包含：地图撒点、地区数据下钻等功能
 - 【小程序与 App】基于 uniapp 实现智慧党建用户端多端开发落地，产物编译为 H5、微信小程序两端应用
 - 【团队基建】推进团队业务组件库、图标库与基础库沉淀，完成 10+ 个业务组件沉淀，以此提升了团队协同开发的效率
@@ -2850,7 +2841,7 @@ animation-range
 动画库 vueusemotion
 cubic-bezier
 css 动画只支持数值类的属性
-Houdini Houdini API @property https://developer.mozilla.org/zh-CN/docs/Web/API/Houdini_APIs
+Houdini API @property https://developer.mozilla.org/zh-CN/docs/Web/API/Houdini_APIs
 
 剪切函数 clip-path
 background-clip
@@ -4405,7 +4396,7 @@ CSP（Content Security Policy）与跨域（Cross-Origin）在 Web 安全领域�
 - 通过什么做到并发请求
 - http1.1 时如何复用 tcp 连接
 - 介绍 service worker
-- 介绍 css3 中 position\:sticky
+- 介绍 css3 中 position:sticky
 - redux 请求中间件如何处理并发
 - 介绍 Promise，异常捕获
 - 介绍 position 属性包括 CSS3 新增
@@ -4428,11 +4419,7 @@ CSP（Content Security Policy）与跨域（Cross-Origin）在 Web 安全领域�
 - `cookie`放哪里，`cookie`能做的事情和存在的价值
 - `cookie`和`token`都存放在`header`里面，为什么只劫持前者
 - `cookie`和`session`有哪些方面的区别
-- `React`中`Dom`结构发生变化后内部经历了哪些变化
-- `React`挂载的时候有 3 个组件，textComponent、composeComponent、domComponent，区别和关系，Dom 结构发生变化时怎么区分 data 的变化，怎么更新，更新怎么调度，如果更新的时候还有其他任务存在怎么处理
 - key 主要是解决哪一类的问题，为什么不建议用索引 index（重绘）
-- Redux 中异步的请求怎么处理
-- Redux 中间件是什么东西，接受几个参数（两端的柯里化函数）
 - 柯里化函数两端的参数具体是什么东西
 - 中间件是怎么拿到 store 和 action，然后怎么处理
 - state 是怎么注入到组件的，从 reducer 到组件经历了什么样的过程
@@ -4516,25 +4503,16 @@ CSP（Content Security Policy）与跨域（Cross-Origin）在 Web 安全领域�
 - 使用 Async 会注意哪些东西
 - Async 里面有多个 await 请求，可以怎么优化（请求是否有依赖）
 - Promise 和 Async 处理失败的时候有什么区别
-- Redux 在状态管理方面解决了 React 本身不能解决的问题
-- Redux 有没有做过封装
-- react 生命周期，常用的生命周期
 - 对应的生命周期做什么事
 - 遇到性能问题一般在哪个生命周期里解决
 - 怎么做性能优化（异步加载组件...）
-- 写 react 有哪些细节可以优化
-- React 的事件机制（绑定一个事件到一个组件上）
 - 介绍下事件代理，主要解决什么问题
 - 前端开发中用到哪些设计模式
-- React/Redux 中哪些功能用到了哪些设计模式
 - JS 变量类型分为几种，区别是什么
 - JS 里垃圾回收机制是什么，常用的是哪种，怎么处理的
 - 一般怎么组织 CSS（Webpack）
 - 小程序里面开页面最多多少
-- React 子父组件之间如何传值
 - Emit 事件怎么发，需要引入什么
-- 介绍下 React 高阶组件，和普通组件有什么区别
-- 一个对象数组，每个子对象包含一个 id 和 name，React 如何渲染出全部的 name
 - 在哪个生命周期里写
 - 其中有几个 name 不存在，通过异步接口获取，如何做
 - 渲染的时候 key 给什么值，可以使用 index 吗，用 id 好还是 index 好
@@ -4544,7 +4522,6 @@ CSP（Content Security Policy）与跨域（Cross-Origin）在 Web 安全领域�
 - div 垂直水平居中（flex、绝对定位）
 - 两个元素块，一左一右，中间相距 10 像素
 - 上下固定，中间滚动布局如何实现
-- [1, 2, 3, 4, 5]变成[1, 2, 3, a, b, 5] a.splice(3, 1, 'a', 'b')
 - 取数组的最大值（ES5、ES6）
 - apply 和 call 的区别
 - ES5 和 ES6 有什么区别
@@ -4853,7 +4830,6 @@ CSP（Content Security Policy）与跨域（Cross-Origin）在 Web 安全领域�
 - 动态表单能够运用在什么场景？我举了 7、8 个例子。
 - 移动端适配相关的问题，应用场景。
 - react 与 vue 的技术栈对比，说下区别
-- 快速实现 [1, 2, ...100]，所有你能想到的解
 - 数据展示的优化、数据截取和处理
 - 实际场景中，哪些地方应用到了堆、链表、多叉树结构
 - es6 及 es6+ 的能力集，你最常用的，这其中最有用的，都解决了什么问题。
@@ -4905,7 +4881,6 @@ CSP（Content Security Policy）与跨域（Cross-Origin）在 Web 安全领域�
 - 如何写一个 webpack plugin
 - AST 的应用
 - 如何解析一个 html 文本，还是考 AST
-- babel 原理，怎么写 babel 插件
 - 如何设计一个沙盒 sandbox ？
 - 小程序的 API 做了什么处理，能够做到全局变量的隐藏，如果是你，怎么设计 ？
 - 基础题考闭包的，我讲对了思路，结果没做对。
@@ -4918,8 +4893,6 @@ CSP（Content Security Policy）与跨域（Cross-Origin）在 Web 安全领域�
 - 在线文档编辑，如何处理两人的冲突，如何展示，考虑各种场景
 - excel 文档冲突高级处理，文章冲突呢？是上个问题的深化。
 - 基础题：简单实现一个 LRU
-- 算法题：从数组 [1, 5, 8, 10, 12] 中找到两个数和为 9，返回 [1, 8] 这样的结果。
-- 算法题：从数组 [1, 5, 8, 10, 12] 中找到三个数和为 19，返回 [1, 8， 10] 这样的结果。
 - 算法题 leetcode 300：给定一个无序的整数数组，找到其中最长上升子序列的长度。
 - 看源码，整理 Vue 与 React 框架的所有横向对比，包括渲染原理、虚拟 dom、diff、patch、fiber、批量更新，手写响应式，框架用到的模式、设计思想，性能优化，相关生态技术等等。
 - webpack 原理、热更新原理、动态加载原理、常见 plugins、loader、常见优化，怎么打包、怎么分 chunk，怎么写一个 plugins，生命周期，微内核源码等内容，以及 rollup、gulp 的使用、应用场景。（我记得有一面一个考官对我说，你对整个研发流程都很清楚，但都并不深入，比如一个 webpack 打包分包的依据怎么判定……emmmm，我倒是会，你也不问我啊！）
@@ -7070,7 +7043,7 @@ setTimeout 的第一个参数使用字符串而非函数的话，会引发内存
 
 插曲：中间出现两次突然挂机，当时我的感觉就像过山车，从高空滑向低谷，整个心都是 ——某可爱漂亮的央视记者—— 的。
 
-### 三面 (60min)
+```text
 
 这一面是笔试，哈哈，我复习了很多手写题，结果是完全与三面的考题完美岔开，没有交集，emmm……，好在并不难……题一：
 
@@ -7127,23 +7100,12 @@ setTimeout 的第一个参数使用字符串而非函数的话，会引发内存
     event.once('sleep', ()=>console.log('I want sleep));
     event.fire('sleep');
     */
-
-### 业务四面 (35 min)
+```
 
 - 跨端的原理？我讲了几个例子：taro、uni-app，顺便提了 flutter、react native、小程序等的架构，具体怎么设计的。
 - 动态表单能够运用在什么场景？我举了 7、8 个例子。
 - 移动端适配相关的问题，应用场景。
-
-### 整体感受
-
-总体面下来没有让人紧张的感觉，中规中矩，从刚开始较高的心理预期到后面慢慢回落……由于我的水平有限，最终没有争取到多高的薪水。
-
-## 快手二面挂
-
-### 一面（60min）
-
 - B 端遇到的最复杂的数据结构是什么
-- 快速实现 [1, 2, ...100]，所有你能想到的解
 - 数据展示的优化、数据截取和处理
 - 实际场景中，哪些地方应用到了堆、链表、多叉树结构
 - es6 及 es6+ 的能力集，你最常用的，这其中最有用的，都解决了什么问题。
@@ -7154,9 +7116,6 @@ setTimeout 的第一个参数使用字符串而非函数的话，会引发内存
 - 手写 Promise.all
 - 省市区拼接查字段，要求 O(n) 内解出
 - 中台的理解
-
-### 二面（60min）
-
 - 项目的复盘优化
 - 说下业务上最复杂的点
 - node 限流算法
@@ -7164,11 +7123,6 @@ setTimeout 的第一个参数使用字符串而非函数的话，会引发内存
 - 你提到性能指标，能说说都是怎么计算的吗？比如 LCP，FID
 - 算法题：**数组全排列**
 - 中台业务讨论
-
-## 猎豹移动三轮技术面+一轮 hr 面
-
-### 技术一面 (60min)
-
 - input type 都有哪些类型，还记得其他 attrs 呢
 - css 的伪类和伪元素有哪些？有什么区别？
 - 在一个未知宽度的父元素内如何创建一个等边正方形
@@ -7227,62 +7181,44 @@ setTimeout 的第一个参数使用字符串而非函数的话，会引发内存
 - AST 的应用
 - 如何解析一个 html 文本，还是考 AST
 - babel 原理，怎么写 babel 插件
-- 如何设计一个沙盒 sandbox ？
 - 小程序的 API 做了什么处理，能够做到全局变量的隐藏，如果是你，怎么设计 ？
 - 基础题考闭包的，我讲对了思路，结果没做对。
 - 实现颜色转换 'rgb(255, 255, 255)' -> '#FFFFFF' 的多种思路。
 - 提供一个数字 n，生成一组 0\~n-1 的整数，打乱顺序组成数组，打乱几次，如何能够看起来平衡，说出你能想到的所有方法。
 - **leetcode 239**\[2]
-
-### 二面技术 leader（60min）
-
 - 业务，业务，还是业务，项目复盘有没有更好的解决方案。
-
 - 如何处理一个重大事故 bug
-
 - 监控体系
-
 - 虚拟 dom 有什么好的地方？框架为什么要设计虚拟 dom？
-
 - webpack 的缺点，让你设计一个新的构建打包工具，你会怎么设计？
-
 - 在线文档编辑，如何处理两人的冲突，如何展示，考虑各种场景
-
 - excel 文档冲突高级处理，文章冲突呢？是上个问题的深化。
-
-- 基础题：**leetcode 300**\[3]
-
-### 三面业务 leader（60min）
-
-- 算法题：`从数组 [1, 5, 8, 10, 12] 中找到两个数和为 9，返回 [1, 8] 这样的结果。`
-- 算法题：`从数组 [1, 5, 8, 10, 12] 中找到三个数和为 19，返回 [1, 8， 10] 这样的结果。`
 - 算法题 **leetcode 300**\[4]：`给定一个无序的整数数组，找到其中最长上升子序列的长度。`
 
 - 看源码，整理 Vue 与 React 框架的所有横向对比，包括渲染原理、虚拟 dom、diff、patch、fiber、批量更新，手写响应式，框架用到的模式、设计思想，性能优化，相关生态技术等等。
 - webpack 原理、热更新原理、动态加载原理、常见 plugins、loader、常见优化，怎么打包、怎么分 chunk，怎么写一个 plugins，生命周期，微内核源码等内容，以及 rollup、gulp 的使用、应用场景。（我记得有一面一个考官对我说，你对整个研发流程都很清楚，但都并不深入，比如一个 webpack 打包分包的依据怎么判定……emmmm，我倒是会，你也不问我啊！）
 - 跨端框架的研究，工程化的梳理，使用的技术栈的坑，移动端的一些实践，面试时额外准备的项目复盘，竞品调查，对方产品的资料，测试系列，还有很多如微前端、中台、serverless、可视化、Wasm 等就不举例了。
-
-  - css 兼容性有哪几种处理方案，
-  - css3 新属性有哪些
-  - 怎么理解 margin 越界的问题
-  - js 的继承方式有哪些
-  - 深拷贝怎么实现
-  - js 的事件轮询机制有了解吗
-  - 说说 call,apply,bind
-  - 聊聊 es6 的 promise
-  - 为什么要用 async，await
-  - vue 生命周期
-  - vue 双向数据绑定原理
-  - vue 的异步更新，以及 nexttick
-  - vue 路由有哪几种方式，是如何实现的,以及注意事项
-  - vuex 的使用，及其原理
-  - http 与 https 的区别
-  - 从输入 URL 到页面展示发生了什么
-  - 项目中遇到过什么问题
-  - 有没有封装过组件，插件
-  - webpack 怎么进行打包的
-  - 项目中是怎么优化的
-  - xss 怎么处理的
+- css 兼容性有哪几种处理方案，
+- css3 新属性有哪些
+- 怎么理解 margin 越界的问题
+- js 的继承方式有哪些
+- 深拷贝怎么实现
+- js 的事件轮询机制有了解吗
+- 说说 call,apply,bind
+- 聊聊 es6 的 promise
+- 为什么要用 async，await
+- vue 生命周期
+- vue 双向数据绑定原理
+- vue 的异步更新，以及 nexttick
+- vue 路由有哪几种方式，是如何实现的,以及注意事项
+- vuex 的使用，及其原理
+- http 与 https 的区别
+- 从输入 URL 到页面展示发生了什么
+- 项目中遇到过什么问题
+- 有没有封装过组件，插件
+- webpack 怎么进行打包的
+- 项目中是怎么优化的
+- xss 怎么处理的
 
 2.  算法：实现 36 进制转换
 3.  简述 https 原理，以及与 http 的区别
@@ -7460,7 +7396,7 @@ setTimeout 的第一个参数使用字符串而非函数的话，会引发内存
 14. 如果你开发个模块，打包的时候会打成什么 module。现在基本上都是 commonjs 和 esmodule, 分别打成两个。
 15. 人家要你开发模块的时候，是怎么判断用什么 module 的文件，pkg.main 对应于 commonjs, pkg.module 对应于 esmodule。
 16. commonjs 和 esmodule 的区别
-17. 前端监控
+17. 前端监控 sentry 上报方式 img 标签（src 为上报地址，跨域，gif），navigator.sendBeacon
 18. CSRF 攻击
 19. 浏览器强缓存和协商缓存
 20. 你说你项目中有做过错误监控，这东西有啥存在的意义。我以为是后端老哥来面我的，我还详细介绍了下使用场景和方案。但是老哥听不懂，就过了。
@@ -7610,7 +7546,6 @@ setTimeout 的第一个参数使用字符串而非函数的话，会引发内存
 - 写一个发布订阅模式
 - 一道 setTimeout 事件循环的题目
 - 手写题实现电话号码隔位显示（3 4 4）
-- 算法题[0, 2, 3, 0, 5, 0, 0]将 0 全部移动到后面去
 - 介绍下项目亮点
 - 说一下 redux 如何使用
 - redux 源码介绍下
@@ -7846,22 +7781,6 @@ setTimeout 的第一个参数使用字符串而非函数的话，会引发内存
 - - <https://q.shanyue.tech/fe/react/9.html>
   - <https://github.com/shfshanyue/Daily-Question#codesandbox-%E7%A4%BA%E4%BE%8B%E9%9B%86>
 
-- React.memo 与 useMemo: <https://codesandbox.io/s/reactmemo-and-reactusememo-79txp?file=/src/App.js>
-
-- 简历多罗列一些擅长的东西
-
----
-
-## 面经部分
-
-仅供参考，仅供参考，仅供参考！！！
-
-因为几乎没有 React 相关经历，问我最多的 React 问题就是你觉得和 vue 有什么区别？
-
-啊...从这一点来说，简历环节确实很关键。**其实我做过，但我不精通，简历上不写，所以我不会，别问...**
-
-下面的面经部分被我分为了八个方面：（下面题目的 🌟 代表面试频率出现过多次）
-
 - JavaScript 基础
 - Css 以及优化
 - vue 或 react 框架相关
@@ -7870,74 +7789,34 @@ setTimeout 的第一个参数使用字符串而非函数的话，会引发内存
 - 跨平台技术
 - 网络相关
 - 少量算法
-
-其中并没有 Html 相关的东西，一方面确实是相关的题目少，另外不会有太难的问题，平时开发时常见的情况基本可以解决。
-
-并且因为是**从自己的简历**来发问，所以有些也很常见的 nodejs、serverless、GraphQL 等等都不在我的面试题里，但很有可能**出现在你的题目里**，相关题目可以自行补课！
-
-### 原生 JS 代码
-
-1.  JavaScript 实现对上传图片的压缩？
-
-答：读取用户上传的 File 对象，读写到画布（canvas）上，利用 Canvas 的 API 进行压缩，完成压缩之后再转成 File（Blob） 对象，上传到远程图片服务器；不过有时候我们也需要将一个 base64 字符串压缩之后再变为 base64 字符串传入到远程数据库或者再转成 File（Blob） 对象。
-
-思路就是 File + Canvas 的 drawImage
-
-可以看看张鑫旭大佬的文章 HTML5 file API 加 canvas 实现图片前端 JS 压缩并上传
-
-1.  谈一谈 JavaScript 的异步？🌟
-
-答：setTimeout、MutationObserver、postMessage、Promise、async、await、generator
-
-从 MutationObserver、postMessage 会牵扯到 vue 的 \$nextTick
-
-从 generator 会聊到 co.js 实现，代码不长，意思也好理解，但让我写还真没写出来，建议兄弟们好好看一遍！
-
-从 Promise 和 setTimeout 会聊到下面要说的**事件循环**
-
-1.  浏览器和 nodejs 事件循环？🌟
-
-答：执行栈，promise 是 microTask，setTimeout 是 task
-
-其中很多的阶段，可以从这里看到完整的模型介绍：html.spec.whatwg.org/multipage/w…
-
-需要说出来的点：首先 setTimeout 并没有特殊，也是一个 task。另外每次的执行过 task 和 大量的 microtask（不一定在一次循环全执行完）后，会进行 renderUi 阶段，虽然不是每次事件循环都进行 renderUi ，但每次间隔，也就是传说中 **60hz** 的一帧 **16ms**。
-
-nodejs 事件循环略有不同...多了 process.nextTick 等
-
-1.  手写 Promise 或者 Promise 的静态方法
-
-答：手写 Promise 尽量写出来 Promise 的状态，静态方法以及 **.then**，**.catch**。当然更细节的还原可以看 **Promise A+** 规范。
-
-静态方法指 `Promise.allSettled` `Promise.all` `Promise.race` 等等。
-
-1.  手写节流与防抖 🌟
-
-答：老生常谈，原理很简单，主要还是看会不会封装函数，以及封装的高级与否，考虑的情况是否全面。
-
-1.  手写 bind 函数
-
-答：同上。
-
-1.  service worker 使用
-
-答：缓存，渐进式应用，拦截处理
-
-聊到 **worker** 可能还会聊到 **web worker， shared worder** 等等，如果有自信，或者工作对这方面有深入理解，可以秀一下。能体现出自己的优势...
-
-1.  严格模式
-
-答：this 的 undefined，禁止 with，arguments 不允许更改，给只读对象赋值抛异常，变量需要先声明，call，apply 第一个参数不会被转换...
-
-能答出来一些就行。
-
-1.  原型链以及继承
-
-答：很常问，但随便找个赞数高的讲解，看一遍就懂了，记住常考点即可。
-
-1.  正则表达式匹配规则？
-
-答：这个真没办法，只能是对正则表达式的规则进行系统学习，当然常考的可能是 **邮箱，url** 匹配。
+- JavaScript 实现对上传图片的压缩？
+  答：读取用户上传的 File 对象，读写到画布（canvas）上，利用 Canvas 的 API 进行压缩，完成压缩之后再转成 File（Blob） 对象，上传到远程图片服务器；不过有时候我们也需要将一个 base64 字符串压缩之后再变为 base64 字符串传入到远程数据库或者再转成 File（Blob） 对象。
+  思路就是 File + Canvas 的 drawImage
+  可以看看张鑫旭大佬的文章 HTML5 file API 加 canvas 实现图片前端 JS 压缩并上传
+- 谈一谈 JavaScript 的异步？🌟
+  答：setTimeout、MutationObserver、postMessage、Promise、async、await、generator
+  从 MutationObserver、postMessage 会牵扯到 vue 的 $nextTick
+  从 generator 会聊到 co.js 实现，代码不长，意思也好理解，但让我写还真没写出来，建议兄弟们好好看一遍！
+  从 Promise 和 setTimeout 会聊到下面要说的**事件循环**
+- 浏览器和 nodejs 事件循环？🌟
+  答：执行栈，promise 是 microTask，setTimeout 是 tas
+  其中很多的阶段，可以从这里看到完整的模型介绍：html.spec.whatwg.org/multipage/w…
+  需要说出来的点：首先 setTimeout 并没有特殊，也是一个 task。另外每次的执行过 task 和 大量的 microtask（不一定在一次循环全执行完）后，会进行 renderUi 阶段，虽然不是每次事件循环都进行 renderUi ，但每次间隔，也就是传说中 **60hz** 的一帧 **16ms**。
+  nodejs 事件循环略有不同...多了 process.nextTick 等
+- 手写 Promise 或者 Promise 的静态方法
+  答：手写 Promise 尽量写出来 Promise 的状态，静态方法以及 **.then**，**.catch**。当然更细节的还原可以看 **Promise A+** 规范。
+  静态方法指 `Promise.allSettled` `Promise.all` `Promise.race` 等等。
+- 手写节流与防抖
+- 手写 bind 函数
+- service worker 使用
+  答：缓存，渐进式应用，拦截处理
+  聊到 **worker** 可能还会聊到 **web worker， shared worder** 等等，如果有自信，或者工作对这方面有深入理解，可以秀一下。能体现出自己的优势...
+- 严格模式
+  答：this 的 undefined，禁止 with，arguments 不允许更改，给只读对象赋值抛异常，变量需要先声明，call，apply 第一个参数不会被转换...
+- 原型链以及继承
+  答：很常问，但随便找个赞数高的讲解，看一遍就懂了，记住常考点即可。
+- 正则表达式匹配规则？
+  答：这个真没办法，只能是对正则表达式的规则进行系统学习，当然常考的可能是 **邮箱，url** 匹配。
 
 ### css 以及优化
 
@@ -7973,12 +7852,6 @@ nodejs 事件循环略有不同...多了 process.nextTick 等
 - display 为 inline-block、table-cells、flex
 - overflow 除了 visible 以外的值 (hidden、auto、scroll)
 
-作用嘛，为了布局 😂（千万别这么答哈，具体可以看下面文章）
-
-推荐一篇 BFC 文章
-
-### vue 或 react 框架相关
-
 1.  vue 响应式原理以及双向绑定实现代码 ? 🌟
 2.  vue3 响应式原理，有什么不同？
 3.  vue 的 diff 算法思路，怎么对比节点？
@@ -7986,16 +7859,10 @@ nodejs 事件循环略有不同...多了 process.nextTick 等
 5.  vue 如何自定义指令？具体的 api 写法？
 6.  vue3 对于 vue2 在性能上的优化（从 compile 和 runtime 两方面）？
 7.  react 有什么不同？了解 hooks 吗？
+8.  用过 TypeScript 吗？有什么优点，为什么用？具体的场景，使用 TypeScript 进行类型定义。
+    答：vue 项目多， ts 用的少，也用过，写前端监控 sdk 时，对接口进行类型校验，它像一个文档，每一个接口都有定义，后面再翻看瞬间理解意思。（强类型好处还有很多，但是个人觉得写起来超级麻烦，当然有人很喜欢很爽。）
 
-答：（虽然我不会，但我可以说点别的，比如 vue3 也有 hooks，它的使用和一些优点？）
-
-1.  用过 TypeScript 吗？有什么优点，为什么用？具体的场景，使用 TypeScript 进行类型定义。
-
-答：vue 项目多， ts 用的少，也用过，写前端监控 sdk 时，对接口进行类型校验，它像一个文档，每一个接口都有定义，后面再翻看瞬间理解意思。（强类型好处还有很多，但是个人觉得写起来超级麻烦，当然有人很喜欢很爽。）
-
-1.  vue 的 keep-alive 使用场景，以及原理？🌟
-
-### 前端打包等工程化
+- vue 的 keep-alive 使用场景，以及原理？🌟
 
 1.  webpack 和 rollup 使用？
 2.  tree-shaking 原理？🌟
@@ -8007,58 +7874,43 @@ nodejs 事件循环略有不同...多了 process.nextTick 等
 - 代码被 merge 的 pr 历史
 
 1.  如何统一对错误进行捕获的？vue 的异步错误如何捕获？
-
-### 浏览器及常见安全问题相关
-
 1.  浏览器页面加载过程，越详细越好 🌟
-2.  浏览器缓存 🌟
-3.  跨域问题及处理 🌟
-4.  v8 快数组慢数组，hidden class 或者其他模块？
-5.  xss 和 csrc 的意思？如何防范？🌟
-
-答：美团的两篇文章摆出来，面试官直接问下一题！
+1.  浏览器缓存 🌟
+1.  跨域问题及处理 🌟
+1.  v8 快数组慢数组，hidden class 或者其他模块？
+1.  xss 和 csrc 的意思？如何防范？🌟
+    答：美团的两篇文章摆出来，面试官直接问下一题！
 
 - xss 防范
 - csrf 防范
-
-### 跨平台技术
 
 1.  electron 使用，如何实现小托盘功能？
 2.  flutter 的 widget stateFullWidget stateLessWidget 区别？
 3.  js Bridge 的原理 ？🌟
 4.  flutter 的渲染引擎？
-
-### 网络相关
-
-2.  Oauth2.0 和 jwt 单点登录等
-3.  http/https 区别？为什么 https 更安全一点？https 为什么也不是十分安全？
-4.  http1.x 和 http2.0 的区别？http2.0 优点，以及某些情况会比 1.x 速度更慢？
-5.  https 加密原理？
-6.  http2.0 压缩头，以及并行请求原理？
-7.  tcp 的连接方式？
-
-### 少量算法
+5.  Oauth2.0 和 jwt 单点登录等
+6.  http/https 区别？为什么 https 更安全一点？https 为什么也不是十分安全？
+7.  http1.x 和 http2.0 的区别？http2.0 优点，以及某些情况会比 1.x 速度更慢？
+8.  https 加密原理？
+9.  http2.0 压缩头，以及并行请求原理？
+10. tcp 的连接方式？
 
 - 回文串，中心扩散法
 - 冒泡，快排 🌟
 - 二分查找 🌟
 - 动态规划 （没遇到考这个的，可能难度太高，面试官看我简单的半天才拿下，这个直接不考虑了，大佬可以关注一下）
-
----
-
-1.  graphql
-
-2.  1.  graphql-codegen
-    2.  /graphql?UserFriends
-    3.  hash string
-    4.  模板字符串
-    5.  gql
-    6.  POST
-    7.  GET
-    8.  POST 缓存优化 ❎
-    9.  N+1 Query
-    10. /graphql 调试 ❎
-    11. apollo-server/apollo-client
+- graphql
+  1.  graphql-codegen
+  2.  /graphql?UserFriends
+  3.  hash string
+  4.  模板字符串
+  5.  gql
+  6.  POST
+  7.  GET
+  8.  POST 缓存优化 ❎
+  9.  N+1 Query
+  10. /graphql 调试 ❎
+  11. apollo-server/apollo-client
 
 3.  图片懒加载
 
@@ -8130,76 +7982,21 @@ nodejs 事件循环略有不同...多了 process.nextTick 等
   - 而自定义组件递归还要涉及到逻辑层，例如生命周期等，性能会差一些，同时还有 Shadow DOM 引起的样式问题，目前 kbone 使用的是自定义组件递归。
 
 - 小程序有没有 HMR，能不能讲讲 HMR 的原理？
-
-- - 小程序没有 HMR，当时只讲出来了保存代码小程序是怎么刷新的，HMR 没有讲出来。
-
+  小程序没有 HMR，当时只讲出来了保存代码小程序是怎么刷新的，HMR 没有讲出来。
 - 讲讲 z-index
-
 - 讲讲 position
-
 - 实现一个 ts Include
-
-- - 不会
-
 - 实现一个 useInterval
-
-- - 写的不是太对
-
 - js event loop 执行顺序
-
-- 实现一个 immutable
-
-      function immutable(obj) {
-        return {
-          set(path, val) {
-            const paths = path.split('.')
-            const lastK = paths.pop()
-            this.get(paths.join('.'))[lastK] = val
-            return this
-          },
-          get(path) {
-            const paths = path.split('.')
-            return paths.reduce((a, k) => a[k], obj)
-          }
-        }
-      }
-
-- - 这里给一个大佬的实现，我实现的太菜
-
-一面到这里就结束了，可以感受出来，字节对于前沿技术和底层还是很看重的。当时手写题部分确实写的不太好，甚至以为自己凉凉了，结果还是给过了。
-
-### 二面
-
-一面结束后第二天就收到了 hr 打来的约二面的电话，当时心里还是很开心的，二面是交叉面试，面试官年纪稍微大一点。因为是在晚上，所以很多问题记不太清楚了。
-
-不同于一面面试官，和二面面试官聊了一段时间的项目相关的问题，根据自己情况有啥说啥就行。
-
 - options 请求是什么？有什么作用？
-
 - cdn 的原理是什么，是在网络哪一层起的作用？
-
 - 项目性能是如何做优化的？
-
-- - 我主要从网络，缓存，js，css，接口合并等几个方面讲的，该题比较宽泛，可自行发挥。
-
+  我主要从网络，缓存，js，css，接口合并等几个方面讲的，该题比较宽泛，可自行发挥。
 - 动态创建 script 标签并插入到页面上，说执行时机
-
 - 给你一个“A2B3”这样的字符串，输出“AABBB”
-
 - 接上题“C4(A(A3B)2)2”，带嵌套的，这两题都不是原题，但是类似
-
 - 写一个 curry，要求 add(1)(2)(3)(4) 打印 10
-
-- - 一开始我洗的 add(1)(2)(3)(4)()，面试官问我能不能把最后的()去掉，最后寻求提示，他说 console.log 是怎么打印函数的，豁然开朗，复写 toString 即可。
-
-二面肯定不止问了上面这些问题，但是我能记住的只有这些了。。。
-
-我最后问了二面面试官业务相关问题，他说你去找三面面试官问，当时我就知道过了，哈哈。
-
-### 三面(凉凉)
-
-没错，第一次三面凉凉了，甚至都已经收到面试失败的邮件，后面会聊，先看问题。
-
+  一开始我洗的 add(1)(2)(3)(4)()，面试官问我能不能把最后的()去掉，最后寻求提示，他说 console.log 是怎么打印函数的，豁然开朗，复写 toString 即可。
 - loader 和 plugin 的区别是什么？
 - webpack 打包优化，我还提到了 vite，顺便讲了下 vite
 - 小程序原理，以及 Taro 原理
@@ -8208,29 +8005,12 @@ nodejs 事件循环略有不同...多了 process.nextTick 等
 - Tree Shaking 原理
 - 最长回文子串
 - 大数相加
-
-这次面试非常快，因为确实很多都没答上来，面完之后我就知道，结束了 😭。
-
-### 三面
-
-大概几天后吧，hr 打电话跟我说换个 leader 重新面试，理由是我一二面表现还不错，后来才知道，真正的原因是我现在的 leader 执意把我捞起来的。
-
 - 聊了很多工程化相关的问题，主要是项目从开发到上线这一整套流程，聊完之后他也指出了我说的这一套流程有什么不完善的地方。
-- React fiber
 - http2
 - Tree Shaking 原理
 - 项目优化和网络优化
 - 股票最大收益
 - 大数相加
-
----
-
-## 一面
-
-- 项目相关的 - 问的比较细节
-- React hooks 介绍下
-- useEffect vs useLayoutEffect
-- Fiber Node 有哪些属性
 - 如何解决跨域问题
 - es6 之后的新特性
 - 数组扁平化如何做
@@ -8244,24 +8024,11 @@ nodejs 事件循环略有不同...多了 process.nextTick 等
 - 闭包
 - 继承的几种方式
 - webpack 5 介绍下
-
-## 二面
-
-- react.lazy 实现原理
 - 项目相关 - 如果实现大文件上传；文件校验等等；json scheme ，如何优化等
 - 项目相关- 秒杀活动如何实现；
-- 介绍下负责的业务
-- 业务接口人负责的事情
-- 其余的记不太清了，一些闲聊
-
-## 三面
-
-- 从 React 角度如何做页面渲染、性能方面的优化
-- 职业规划
 - 有看过哪些源码
 - webpack 做过哪些优化
-- 谈一谈你的项目，说到了如果如果同时很多人观看直播，发送弹幕，前端要怎么处理
-- 一些公司内，你负责的一些事情的闲聊
+- 谈一谈你的项目，说到了如果同时很多人观看直播，发送弹幕，前端要怎么处理
 
 ---
 
@@ -8392,24 +8159,7 @@ nodejs 事件循环略有不同...多了 process.nextTick 等
 \12. 说下 https，证书是如何校验的？
 
 \13. 说下 http2，你觉得阻碍 http2 发展的问题是什么？（这题后面的问题挺有意思，可以网上搜下答案）
-
-\14. 算法题。跳格子问题，假设一次只能跳一个格子和两个格子，N 个格子有多少种跳法？
-
-### 二面（leader 面）
-
-\1. 自我介绍
-
-\2. 为什么要离职？
-
-\3. 对你的项目经历中 RN 做的 app 挺感兴趣的，你能详细说下这个项目吗？
-
-\4. RN 中原生和 js 端是如何通信的？你说后面使用 JSI 了，你能说下 JSI 的实现原理吗？
-
-\5. 如果要你对这个 app 进行性能优化，你有哪些办法（面试官问了三次还有其他办法吗？）
-
-     1. 代码层面，按照react的优化，减少re-render次数。图片加载用react-native-fast-image,页面初始化的逻辑使用InteractionManager.runAfterInteractions。去掉无用的View层。
-     2. 进行分包加载，启动时只加载启动页面bundle，二级及更深页面等访问到再加载。
-     3. 一些复杂的控件，写原生模块，比如日期选择、下拉选择、级联、播放器等。
+\5. 如果要你对这个 app 进行性能优化，你有哪些办法（面试官问了三次还有其他办法吗？） 1. 代码层面，按照 react 的优化，减少 re-render 次数。图片加载用 react-native-fast-image,页面初始化的逻辑使用 InteractionManager.runAfterInteractions。去掉无用的 View 层。 2. 进行分包加载，启动时只加载启动页面 bundle，二级及更深页面等访问到再加载。 3. 一些复杂的控件，写原生模块，比如日期选择、下拉选择、级联、播放器等。
 
 \6. 你们的 RN 热更新服务是怎么做的？热更新原理是什么？你们的热更新策略怎么做的？
 
@@ -8424,60 +8174,6 @@ nodejs 事件循环略有不同...多了 process.nextTick 等
      3. 安全性问题。
         1）bundle被中间人劫持篡改。使用https下载，并按照https的加密思路，对bundle用hash算法进行签名，然后app端检验签名是否被篡改。
         2）bundle下载地址被暴力攻击。检查User-Agent,只允许手机设备下载，记录设备id，在一定时间内限制下载次数。
-
-\8. 你有什么要问我的吗？
-
----
-
-每日算法：第一个只出现一次的字符
-
-在字符串 `s` 中找出第一个只出现一次的字符。如果没有，返回一个单空格。`s` 只包含小写字母。
-
-**示例:**
-
-    s = "abaccdeff"
-    返回 "b"
-
-    s = ""
-    返回 " "
-
-**限制：**
-
-    0 <= s 的长度 <= 50000
-
-#### 解答：使用 Map
-
-使用 `map` 两次遍历即可：
-
-- 遍历字符串，将每个字符的值与出现次数记录到 `map` 中
-- 再次遍历 `map.keys()` ，获取 `map` 中每个字符出现的次数，判断是否仅仅只有 `1` 次，返回第一个仅出现一次的字符
-
-  const firstUniqChar = function(s) {
-  if(!s) return " "
-  let map = new Map()
-  for(let c of s) {
-  if(map.has(c)) {
-  map.set(c, map.get(c) + 1)
-  } else {
-  map.set(c, 1)
-  }
-  }
-  for(let c of map.keys()) {
-  if(map.get(c) === 1) {
-  return c
-  }
-  }
-
-      return  " "
-
-  };
-
-**复杂度分析：**
-
-- 时间复杂度：O(n)
-- 空间复杂度：O(n)
-
----
 
 - HPACK
 
@@ -9300,10 +8996,6 @@ HR 约我现场二面，我说我去不了北京，HR 说帮我协调一下远�
     \["0", "0", "0", "c", "d", "0"],
     \["0", "0", "0", "0", "e", "0"],
     ];
-
-8.  青蛙跳台阶，一次可以跳 1 阶，2 阶或者 3 阶，如果想跳上一个 N 阶共有几种跳法
-
-前面吹逼时间有点长，导致后面三道算法题做题时间不太够了，挂了
 
 # 美团（酒旅）
 
@@ -10140,100 +9832,70 @@ HR 约我现场二面，我说我去不了北京，HR 说帮我协调一下远�
 2.  有挑战的项目
 3.  SSR 迁移 CSR 的原因，遇到过哪些问题
 4.  LRU 算法 力扣 （这个题我最开始用 Map 做的，面试官跟我说如果不用 Map，如何实现每次查询和删除都能做到 O(1)，我没思路，面试官问我查询 O(1)用什么，我说用哈希，问我插入删除 O(1)用什么，我说用链表，可我不知道怎么结合到一起，面试官提示我可以用双向链表，然后我才做出来的）
+5.  在追求极致体验方面做过哪些
+6.  都会关注哪些指标，如何做检测
+7.  之前的工作中迭代速度是怎样的
+8.  未来三到五年的规划是怎样的
+9.  有没有做过自动化测试方案，对于兼容性如何做自动化测试
+10. 对于 UX 还原度，应该如何高效测试
+11. 一个 PC 页面，如果需要适配手机屏幕，都有哪些需要注意的，可能需要解决哪些问题，需要如何去测试
+12. 主要技术栈是哪些
+13. 之前参与的重构的项目有哪些有难度的地方
+14. SSR 迁移到 CSR 是基于什么考虑
+15. 项目的体量大概都有多大
+16. 项目优化或者重构后，一般从哪些方面评判效果好还是不好呢
+17. bridge 的原理有了解么，有遇到过什么问题么，在一些没有 bridge 的场景里有没有做过特殊处理
+18. 做过唤起 app 么，有遇到过什么问题吗，如何判断唤起是否成功
+19. 国际化采用的什么方案
+20. 换肤方案是如何做的
+21. 小程序和 H5 都有哪些区别，有看过小程序底层如何实现的么
+22. 为什么要做 Vite 迁移，迁移有遇到了什么问题
+23. 写一个 React Hooks，用来倒计时，传入时间，返回 start、pause、restart、isRunning
+24. 实现一个方法，传入一个 url 的数组和一个数字，对 url 进行请求，并根据数字限制最大请求数
+25. 对下一份工作有什么期望
+26. Vue 和 React 的区别
+27. proxy 和 defineproperty 的在 Vue 中区别是什么
+28. Vue-router 原理
+29. js 和 ts 混合开发有没有最佳实践
+30. Vite 为什么会比 webpack 快
+31. Rollup 和 webpack 打包结果有什么异同
+32. 问输出，解释一下函数调用栈和作用域链的关系
 
-## 六面
-
-1.  英语的自我介绍
-2.  为什么会选择做前端，做前端的动机是怎样的
-3.  在追求极致体验方面做过哪些
-4.  都会关注哪些指标，如何做检测
-5.  之前的工作中迭代速度是怎样的
-6.  未来三到五年的规划是怎样的
-7.  有没有做过自动化测试方案，对于兼容性如何做自动化测试
-8.  对于 UX 还原度，应该如何高效测试
-9.  一个 PC 页面，如果需要适配手机屏幕，都有哪些需要注意的，可能需要解决哪些问题，需要如何去测试
-
-# 快手（广告）
-
-1.  主要技术栈是哪些
-2.  之前参与的重构的项目有哪些有难度的地方
-3.  SSR 迁移到 CSR 是基于什么考虑
-4.  项目的体量大概都有多大
-5.  项目优化或者重构后，一般从哪些方面评判效果好还是不好呢
-6.  bridge 的原理有了解么，有遇到过什么问题么，在一些没有 bridge 的场景里有没有做过特殊处理
-7.  做过唤起 app 么，有遇到过什么问题吗，如何判断唤起是否成功
-8.  国际化采用的什么方案
-9.  换肤方案是如何做的
-10. 小程序和 H5 都有哪些区别，有看过小程序底层如何实现的么
-11. 为什么要做 Vite 迁移，迁移有遇到了什么问题
-12. 写一个 React Hooks，用来倒计时，传入时间，返回 start、pause、restart、isRunning
-13. 实现一个方法，传入一个 url 的数组和一个数字，对 url 进行请求，并根据数字限制最大请求数
-
-# 腾讯（广告）
-
-## 一面
-
-1.  对下一份工作有什么期望
-
-2.  React 阅读过哪部分源码
-
-3.  Vue 和 React 的区别
-
-4.  proxy 和 defineproperty 的在 Vue 中区别是什么
-
-5.  Vue-router 原理
-
-6.  js 和 ts 混合开发有没有最佳实践
-
-7.  Vite 为什么会比 webpack 快
-
-8.  Rollup 和 webpack 打包结果有什么异同
-
-9.  问输出，解释一下函数调用栈和作用域链的关系
-
+    ```javascript
     function bar() {
-    console.log(project);
+      console.log(project)
     }
 
     function foo() {
-    var project = "foo";
-    bar();
+      var project = 'foo'
+      bar()
     }
 
-    var project = "global";
-    foo();
+    var project = 'global'
+    foo()
+    ```
 
-10. 问输出，如果希望循环中输出 123，有哪些方式可以改
-
-    for (var i = 0; i < 3; i++) {
-    setTimeout(() => {
-    console.log(new Date(), i);
-    }, 1000);
-    }
-
-    console.log(new Date(), i);
-
-11. 对 js 的异步是如何理解的
-12. 如何理解闭包
-13. 求一个字符串的不重复的最长字串的长度 力扣
-14. 判断一个对象是否是循环引用对象
-15. 团队内部 eslint 的规范是如何指定的
-16. 从输入 url 到渲染页面，都发生了什么
-17. 主要负责的业务
-18. 换肤方案是如何做的
-19. 国际化方案是如何做的，都做了哪些语种
-20. 离线包的方案原理是什么
-21. node 主要都做了哪些
-22. 安全问题遇到过哪些，CSRF 的加签名是如何做的
-23. 单向链表反转
-24. 快速排序
-25. 主要负责哪些业务
-26. 有过带人的经验么
-27. 输出数组中频率第二高的元素的下标
-28. 幂等与非幂等的区别
-29. get 请求是否可以传图片
-30. 有没有遇到过前端安全问题
-31. 线上问题一般如何处理
+33. 对 js 的异步是如何理解的
+34. 如何理解闭包
+35. 求一个字符串的不重复的最长字串的长度 力扣
+36. 判断一个对象是否是循环引用对象
+37. 团队内部 eslint 的规范是如何指定的
+38. 从输入 url 到渲染页面，都发生了什么
+39. 主要负责的业务
+40. 换肤方案是如何做的
+41. 国际化方案是如何做的，都做了哪些语种
+42. 离线包的方案原理是什么
+43. node 主要都做了哪些
+44. 安全问题遇到过哪些，CSRF 的加签名是如何做的
+45. 单向链表反转
+46. 快速排序
+47. 主要负责哪些业务
+48. 有过带人的经验么
+49. 输出数组中频率第二高的元素的下标
+50. 幂等与非幂等的区别
+51. get 请求是否可以传图片
+52. 有没有遇到过前端安全问题
+53. 线上问题一般如何处理
 
 - 简述 Vue 的生存周期（创建，挂载，更新，销毁）
 - 你用过 Bootstrap 写过库吗？让你用 Bootstrap 设计一个系统，怎么设计？（这问题我现在都不知道怎么答）
@@ -10253,50 +9915,16 @@ HR 约我现场二面，我说我去不了北京，HR 说帮我协调一下远�
 - HTTP ， TCP ， UDP ， IP （参看计算机网络教材）
 - 进程通信，有名和匿名管道（**有名管道和无名管道**\[15]）
 - 你有什么要问我的吗？（见后文小结里的 HR 相关文章）
-
-一面过了后公众号显示进入复试状态，但二面一直没消息。成备胎了？
-
----
-
-## 头条
-
-头条面试问的算法题比起笔试题简单多了。
-
-面试前会有小姐姐和你约时间。
-
-一般是在牛客网上视频面试，会让你在在线编译器里写代码。顺利的话一次三面。头条回绝人倒是干脆，面完试十五分钟内就会给你打电话。像我这样被挂起来的倒是挺少见……
-
-一面，视频
-
 - 简述 CSRF （跨站请求伪造）的攻击和防御措施（**CSDN 博客-CSRF**\[16]）
 - 在线写代码，给定一个数组和一个正整数 N，求一个和小于 N 的最长连续子数组（我两层 for 循环暴力解了，在面试官引导下做出了一定的优化）
 - 在线写代码， CSS 的单行和多行截断？（ overflow ， text-overflow ）
 - Vue 的双向绑定原理（事件监听， getter 和 setter ）
-
-别的记不清了……当时网不好
-
-二面，视频（三面还没给我消息，估计凉了）
-
 - 在线写代码，给定一个二叉树，求根节点到叶子节点的路径上所有节点值之和（DFS，先序遍历，递归）
 - 在线写代码，给定两个有序数组，合并为一个有序数组。不许使用 js 的 concat 和 sort 方法（两个指针）
 - 在线写代码，两栏布局，左边定宽右边自适应，等高（ flex ， grid ， float ， position ，方法很多随便说几个）
 - 简述自定义事件实现方法（参看红宝书）
 - 简述 getter 和 setter 写法（参看红宝书）
 - TCP 三次握手和四次挥手，拥塞控制（参看计算机网络教材）
-- 你有什么要问我的吗？（见后文小结里的 HR 相关文章）
-
----
-
-## 链家
-
-我也不知道我为啥挂了……
-
-当时面试地点在凯伦饭店。环境舒适，面试官也挺温和。
-
-技术面难度不大，但问得比较细。我印象不深，一二面合起来写吧。
-
-技术面
-
 - 跨域方式（ JSONP , webSocket 等，但原理要搞懂）
 - Web 本地存储（ Cookie ， localStorage ， sessionStorage 等）
 - Cookie 相关的头字段和格式（ Set-Cookie：name1=value1, expires='...',expires='...' ）
@@ -10305,64 +9933,37 @@ HR 约我现场二面，我说我去不了北京，HR 说帮我协调一下远�
 - 手写代码，不产生新数组，删除数组里的重复元素（排序， splice() ）
 - 项目细节（问了我一堆后端，还好当年项目搭档的源码我还有印象）
 - 你有什么要问我的吗？（见后文小结里的 HR 相关文章）
-
-二面面试官对我的评价：动手能力强，能解决问题，但所学知识杂而不精，不过学生都这样。
-
-HR 面
-
-基本是天南海北地侃大山，家庭住址、经济条件、寝室关系、参加过的竞赛、做过的项目、职业规划等都会关联到……我可能在这个环节说错话了。言多必失，不要太实诚，也不要撒谎。
-
----
-
-## 网易
-
-网易的面试体验挺不错。它的微信公众号会给你叫号，前台小姐姐也会提醒你，每一面结束后都可以找前台小姐姐查询面试结果。而且食堂超级好吃！还可以边吃饭边吸猫！
-
-面试地点在杭州研究院一楼大厅。环境舒适，就是座位有点不够用。
-
-一面
-
 - 6 道基本技术问题，居中、闭包、块级元素和行内元素等（答案略）
 - 某个项目的页面布局方式，缓存的设计和优化方式（本地存储和协议相关的）
 - ajax 的原生写法（创建 XHR 对象， open() ， setRequestHeader() ， send() ， onreadystatechange ）
+  关于 ajax ,我再强调以下方面。
+
+  //open()接受 3 个参数：请求类型、 URL 和是否异步的布尔值
+  //GET 方式通常这样发：
+  xhr.open("get", "example.php?name1=value1&name2=value2", true)
+
+  //可以设定请求头，包括自定义请求头，比方说这样：
+  xhr.setRequestHeader("MyHeader", "MyValue")；
+
+  //可以这样取得一个包含所有头部信息的长字符串：
+  var myHeader = xhr.getResponseHeader("MyHeader");
+  var allHeaders = xhr.getAllResponseHeaders();
+
+  //POST 方式有这几个地方要改：
+  //请求头要重设，数据会以 key1=value1&key2=value2 的方式发送到服务器
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  //获取表单
+  var form = document.getElementById("user-info");
+  //序列化表单，发送的内容传入 send()
+  xhr.send(serialize(form));
+
+  //也可以这样传值：
+  var data = new FormData(form);
+  //再传一点别的
+  data.append("name", "Nicholas")
+  xhr.send(data);
+
 - vue-router 的原理（ hash ， HTML5 新增的 pushState ）
-
-关于 ajax ,我再强调以下方面。
-
-    //open()接受3个参数：请求类型、 URL 和是否异步的布尔值
-    //GET方式通常这样发：
-    xhr.open("get", "example.php?name1=value1&name2=value2", true)
-
-    //可以设定请求头，包括自定义请求头，比方说这样：
-    xhr.setRequestHeader("MyHeader", "MyValue")；
-
-    //可以这样取得一个包含所有头部信息的长字符串：
-    var myHeader = xhr.getResponseHeader("MyHeader");
-    var allHeaders = xhr.getAllResponseHeaders();
-
-    //POST方式有这几个地方要改：
-    //请求头要重设，数据会以key1=value1&key2=value2的方式发送到服务器
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    //获取表单
-    var form = document.getElementById("user-info");
-    //序列化表单，发送的内容传入send()
-    xhr.send(serialize(form));
-
-    //也可以这样传值：
-    var data = new FormData(form);
-    //再传一点别的
-    data.append("name", "Nicholas")
-    xhr.send(data);
-
-别的不记得了……
-
-二面
-
-面试官：“你觉得你擅长 CSS 还是 JS？”
-我：“JS。”
-面试官：“好，那我问你一道 CSS 的问题。”
-我：“？？？”
-
 - CSS 三栏布局，左右定宽，中间自适应（ flex ， grid 等）
 - 解释构造函数、对象、原型链之间的关系（看红宝书）
 - 手写代码，实现原型式继承（看红宝书）
@@ -10371,74 +9972,25 @@ HR 面
 - Virtual DOM 和 diff 算法（ DOM 树，分层比较， key ， DocumentFragment ）
 - jQuery 链式调用的原理（**知乎-jQuery 链式调用**\[17]）
 - 最近碰到的技术难题，不一定是前端（我答了 B 站的爬虫与反爬虫）
-
-关于反爬虫，请求头中的这两个字段要修改。
-
-- Host ：发出请求的页面所在的域。
-- Referer ：发出请求的页面的 URI 。注意， HTTP 规范将这个头部字段拼写错了，而为保证与规范一致，也只能将错就错了（这个英文单词的正确拼法应该是 referrer ）。
-
-HR 面
-
-HR 小姐姐似乎对我们学校挺熟悉的，但好像不是校友……
-
-- 谈一谈过去做过的项目、面对的难题（和 UI 的沟通问题，顺便引出我后来自学了平面设计。又提了提爬虫）
-- 家在哪里（照实回答就行）
-- 未来职业规划（表示出你想在公司长久待下去，继续进步就行）
-- 具体的技术发展方向（我答的是“能支持上亿用户使用的前端架构”）
-- 为了往这个方向发展，你所做的努力（我答的是“在看《高性能网站建设》、自学后端，顺便提了一下‘东北 Java 第一人’姜国海老师”）
-- 预测一下前端未来的发展趋势（我答的是“自动化”）
-- 拿了哪家的 offer？（……还是照实回答吧）
-- 实习时间（我建议把时间段说得宽松一些，到时候真的冲突再商量）
-
----
-
-## 京东
-
-京东的面试小哥哥有点逗。因为是临时改成电话面试，过程不太正规，题目直接用手机的摄像头传给我……
-
-初面已过，复试原本显示待安排，后来估计是招满人直接给我挂了。
-
-一面
-
+  关于反爬虫，请求头中的这两个字段要修改。
+  - Host ：发出请求的页面所在的域。
+  - Referer ：发出请求的页面的 URI 。注意， HTTP 规范将这个头部字段拼写错了，而为保证与规范一致，也只能将错就错了（这个英文单词的正确拼法应该是 referrer ）。
 - 列举块级元素和行内元素（ div 等， span 等）
 - absolute 依据的定位元素是？（非 static 的祖先元素）
 - 几道 js 基础题（多去牛客网刷题）
-- Vue 里 v-if 和 v-show 的区别？（**文档**\[18]）
 - parseInt() 和 array 的 map 方法的参数？（看红宝书）
-
-```javascript
-const result = ['1', '2', '3'].map(parseInt) // parseInt(item,index,arr)
-console.log(result)
-```
-
-面试官对我的评价：基础还可以，做项目的能力是有的，但缺乏深度，要多关注一些细节
-
----
-
-## 去哪儿网
-
-距离去哪儿网笔试快一个月了，我都以为我凉了，结果在北京面腾讯的当天下午连续接到三个电话……只有一轮技术面+一轮 HR 面，然后就给我发了口头 offer，相当地干脆利落……
-
-去哪儿网好像更注重考察你对框架、工具的应用，对于基础考得反而不多。而且还考了我 jQuery ,别的公司都不怎么考的……
-
-一面
-
+  ```javascript
+  const result = ['1', '2', '3'].map(parseInt) // parseInt(item,index,arr)
+  console.log(result)
+  ```
 - webpack 用过吗？如何处理图片、 CSS 文件？（各种 loader ）
 - 使用 flex 布局写移动端布局（注意 flex-direction 要改）
 - jQuery 的 delegate 原理（事件冒泡与捕获）
-
----
-
-## 搜狐
-
 - position 的取值和含义（**W3Cschool-position 属性**\[19]）
 - z-index 的蜜汁用法（这是一个“拼爹”的属性）
 - CORS 跨域文件共享的请求头（询问允许的方法和域）
 - 获取页面滚动高度（ window\.pageYOffset ）
 - 函数节流和去抖，写滚动监听函数（**函数节流和去抖**\[20]）
-
----
-
 - 箭头函数、闭包、异步（老生常谈，参见上文）
 - 高阶函数（呃……我真不太清楚这是啥，听起来挺像闭包的）
 - 求 N 的阶乘末尾有多少个 0，在线码代码或讲思路（求因数，统计 2、5、10 的个数）
@@ -10453,109 +10005,76 @@ console.log(result)
 - 解释 event loop （听过，不太会）
 - 服务端渲染，计算首屏和白屏时间（不太会……**首屏白屏**\[22]
 - 服务器如何强制更新后的文件替代客户端缓存的文件（不太会……好像和 MD5 有关？）
+- 执行代码求输出，并说明为什么，严格模式下输出有变化吗，为什么
 
-### 笔试题
+  ```javascript
+  var a = function () {
+    this.b = 3
+  }
+  var c = new a()
+  a.prototype.b = 9
+  var b = 7
+  a()
 
-一面：
+  console.log(b)
+  console.log(c.b)
+  ```
 
-1.  执行代码求输出，并说明为什么，严格模式下输出有变化吗，为什么
-
-    var a = function () {this.b = 3;}
-    var c = new a();
-    a.prototype.b = 9;
-    var b = 7;
-    a();
-
-    console.log(b);
-    console.log(c.b);
-
-2.  给定一个升序整型数组\[0,1,2,4,5,7,13,15,16],找出其中连续出现的数字区间，输出为\["0->2","4->5","7","13","15->16"]
-
-    function summaryRanges(arr){
-    //TODO
-    }
-
-3.  请实现以下的函数，可以批量请求数据，所有的 URL 地址在 urls 参数中，同时可以通过 max 参数控制请求的并发度，当所有请求结束之后，需要执行 callback 回调函数。发请求的函数可以直接使用 fetch 即可
-
-    function sendRequest(urls: sring\[],max\:number,callback:()=>void){
-    //TODO
-    }
-
-二面：
-
-1.  实现一个字符串反转：输入：[www.toutiao.com.cn](http://www.toutiao.com.cn) 输出：cn.com.toutiao.www
-
-要求：1.不使用字符串处理函数 2.空间复杂度尽可能小
-
-1.  不借助变量，交换两个数。
-
-    function swap(a, b) {
-    //TODO
-    }
-
-2.  观察者模式与发布订阅者区别，并写出其模型
-
-### 与项目无绝对相关的问答题
+- 给定一个升序整型数组\[0,1,2,4,5,7,13,15,16],找出其中连续出现的数字区间，输出为 ["0->2","4->5","7","13","15->16"]
+- 请实现以下的函数，可以批量请求数据，所有的 URL 地址在 urls 参数中，同时可以通过 max 参数控制请求的并发度，当所有请求结束之后，需要执行 callback 回调函数。发请求的函数可以直接使用 fetch 即可
+- 实现一个字符串反转：输入：[www.toutiao.com.cn](http://www.toutiao.com.cn) 输出：cn.com.toutiao.www
+  要求：1.不使用字符串处理函数 2.空间复杂度尽可能小
+- 不借助变量，交换两个数。
+- 观察者模式与发布订阅者区别，并写出其模型
 
 1.  vue 事件机制是如何实现的 (<https://juejin.im/post/59ca5e975188257a8908959b>)
 2.  vue 的组件通信方式有哪些
-3.  react fiber 的实现原理 (<https://juejin.im/post/5dadc6045188255a270a0f85#comment>)
-4.  vue 响应式数据原理(vue2/vue3/依赖收集/发布订阅/watcher 消息队列控制/Vue.set 实现)
-5.  vue 转小程序怎么实现(ast/生命周期对齐/跨平台模块兼容/兼容细节点实现过程)
-6.  性能指标，如何理解 TTI，如何统计，与 FID 有什么区别，如何实现统计，还聊了很多性能的东西
-7.  说说你所了解的安全问题及防护方法（[Web 安全总结(面试必备良药)](http://mp.weixin.qq.com/s?__biz=MzI0MzIyMDM5Ng==&mid=2649825865&idx=1&sn=a049c26b3f81d8657a6066b8e11a7f05&chksm=f175e88ac602619cd82cca9716d7054007470ac77ba1a2d5b23d667cd0e7af73ebeba62ce835&scene=21#wechat_redirect)）
-8.  说说你知道的设计模式，并举个对应的模式例子
-9.  未来规划及学习方法
-10. 你觉得你是怎样拿到京东校招的 sp 的
-11. 遇到的最大挑战/过去的最大收获分别是什么
+3.  vue 响应式数据原理(vue2/vue3/依赖收集/发布订阅/watcher 消息队列控制/Vue.set 实现)
+4.  vue 转小程序怎么实现(ast/生命周期对齐/跨平台模块兼容/兼容细节点实现过程)
+5.  性能指标，如何理解 TTI，如何统计，与 FID 有什么区别，如何实现统计，还聊了很多性能的东西
+6.  说说你所了解的安全问题及防护方法（[Web 安全总结(面试必备良药)](http://mp.weixin.qq.com/s?__biz=MzI0MzIyMDM5Ng==&mid=2649825865&idx=1&sn=a049c26b3f81d8657a6066b8e11a7f05&chksm=f175e88ac602619cd82cca9716d7054007470ac77ba1a2d5b23d667cd0e7af73ebeba62ce835&scene=21#wechat_redirect)）
+7.  说说你知道的设计模式，并举个对应的模式例子
 
-## 一面
+- h5 首页为什么做成了服务端渲染？
+- 打包结果优化，具体做了哪些优化
+- vue 中 beforeCreate 和 created 的区别
+- vue 中用过哪些修饰器？
+  事件修饰符
+  .stop
+  .prevent
+  .capture
+  .self
+  .once
+  .passive
 
-**2、h5 首页为什么做成了服务端渲染？【描述】**
+  按键修饰符
+  .enter
+  .tab
+  .delete (捕获“删除”和“退格”键)
+  .esc
+  .space
+  .up
+  .down
+  .left
+  .right
 
-**3、打包结果优化，具体做了哪些优化【描述】【举例】**
+  其他常用的修饰符
+  .trim
+  .number
+  .lazy
+  .sync
 
-**4、vue 中 beforeCreate 和 created 的区别【描述】**
-
-**5、vue 中用过哪些修饰器？【举例】**
-事件修饰符
-.stop
-.prevent
-.capture
-.self
-.once
-.passive
-
-按键修饰符
-.enter
-.tab
-.delete (捕获“删除”和“退格”键)
-.esc
-.space
-.up
-.down
-.left
-.right
-
-其他常用的修饰符
-.trim
-.number
-.lazy
-.sync
-
-**6、vue 中 computed 和 watch 的区别【描述】**
-
-- computed 一般用于简化模板中变量的调用
-- watch 一般用于监听数据的变化，做一些逻辑处理或者异步处理，可以深度监听、立即执行
-- computed 和 watch 在源码里都是通过 Watcher 类创建出来的
-- 初始化时，先创建 computed 再创建 watch 。数据改变时，先执行 computed 再执行 watch
-
-**7、vue 中 key 的作用是什么？【描述】**
-Key 的作用：
-主要用来在虚拟 DOM 的 diff 算法中，在新旧节点的对比时辨别 vnode ，使用 key 时，Vue 会基于 key 的变化重新排列元素顺序，尽可能的复用页面元素，只找出必须更新的 DOM，最终可以减少 DOM 操作。常见的列子是结合 v-for 来进行列表渲染，或者用于强制替换元素/组件。
-设置 Key 的好处：
-（1）数据更新时，可以尽可能的减少 DOM 操作；
-（2）列表渲染时，可以提高列表渲染的效率，提高页面的性能；
+- vue 中 computed 和 watch 的区别
+  - computed 一般用于简化模板中变量的调用
+  - watch 一般用于监听数据的变化，做一些逻辑处理或者异步处理，可以深度监听、立即执行
+  - computed 和 watch 在源码里都是通过 Watcher 类创建出来的
+  - 初始化时，先创建 computed 再创建 watch 。数据改变时，先执行 computed 再执行 watch
+- vue 中 key 的作用是什么？
+  Key 的作用：
+  主要用来在虚拟 DOM 的 diff 算法中，在新旧节点的对比时辨别 vnode ，使用 key 时，Vue 会基于 key 的变化重新排列元素顺序，尽可能的复用页面元素，只找出必须更新的 DOM，最终可以减少 DOM 操作。常见的列子是结合 v-for 来进行列表渲染，或者用于强制替换元素/组件。
+  设置 Key 的好处：
+  （1）数据更新时，可以尽可能的减少 DOM 操作；
+  （2）列表渲染时，可以提高列表渲染的效率，提高页面的性能；
 
 **8、比如，在 v-for 时写了 key ，将第二个元素和第三个元素交换了顺序，实际的 diff 算法怎样的【描述】**
 
@@ -11194,32 +10713,17 @@ flex-shrink 属性定义了项目的缩小比例，默认为 1，即如果空间
 7.  介绍一下你在平时业务中使用过的优化方案？
 8.  介绍一下浏览器的页面缓存机制？
 9.  算法题：判断字符串的括号正常闭合，写完之后面试官还会要求你对源代码进行优化
-
-#### 视频三面
-
-三面的时候其实考核的基本上就是简历上的项目经历啥的，所以题目的也不多。
-
-1.  React 和 Vue 的差别，为什么你的项目使用 Vue 去开发？
-2.  算法题：回文串
-
-#### 总结
-
-总的来说字节这边的回答其实并不是很完美，在工程化这块其实我准备的不是很多。后面打算会学下这块东西，但是最后的话面试也是过了，目前还在走流程。
-
-### 涂鸦智能（offer 流程中）
-
-#### 电话一面
-
-1.  vue 怎么实现数据双向绑定？data 中不定义相关字段，直接使用 v-model 可以吗？
-2.  vue2 和 vue3 数据拦截的区别？为什么 proxy 不能向下兼容？
-3.  vue 的 data 为什么要用函数返回一个对象？
-4.  无感刷新 token 是怎么实现的？
-5.  git 操作相关
-6.  https 数据传输流程
-7.  CSRF 的了解
-8.  301、302 和 304 代表什么意思？浏览器缓存是怎么回事？
-9.  简单说下栈和队列？如何用栈实现队列？
-10. 如何判断链表是否有环？不用快慢指针的话有什么方法？
+10. React 和 Vue 的差别，为什么你的项目使用 Vue 去开发？
+11. vue 怎么实现数据双向绑定？data 中不定义相关字段，直接使用 v-model 可以吗？
+12. vue2 和 vue3 数据拦截的区别？为什么 proxy 不能向下兼容？
+13. vue 的 data 为什么要用函数返回一个对象？
+14. 无感刷新 token 是怎么实现的？
+15. git 操作相关
+16. https 数据传输流程
+17. CSRF 的了解
+18. 301、302 和 304 代表什么意思？浏览器缓存是怎么回事？
+19. 简单说下栈和队列？如何用栈实现队列？
+20. 如何判断链表是否有环？不用快慢指针的话有什么方法？
 
 #### 电话二面
 
@@ -11244,17 +10748,15 @@ flex-shrink 属性定义了项目的缩小比例，默认为 1，即如果空间
 11. 算法题：实现树的广度优先遍历
 12. 算法题：实现树的深度优先遍历
 
-#### 电话二面
+13. 实现广告曝光率的统计，要求如下：
 
-1.  实现广告曝光率的统计，要求如下：
-
-2.  - 区分为资源没加载的情况下流失的用户
+14. - 区分为资源没加载的情况下流失的用户
     - 统计用户累计在广告位浏览时间
     - 统计广告位展示比例不同的情况下的用户比例
 
-3.  如何监听线上页面内存溢出？
+15. 如何监听线上页面内存溢出？
 
-4.  页面报错监听，考虑异步的情况（其实就是设计一套通用的报错监控方案）
+16. 页面报错监听，考虑异步的情况（其实就是设计一套通用的报错监控方案）
 
 ### 有道科技
 
@@ -11393,342 +10895,126 @@ new 的执行过程大致如下：
 1.  项目难点以及怎么解决的
 2.  项目有哪些亮点？
 
-> 写一个 es6 的继承过程
+- 写一个 es6 的继承过程
+- 写一个大数相乘的解决方案。传两个字符串进来，返回一个字符串
+- 写一个防抖函数
+- 算法题: https://leetcode.cn/problems/bu-ke-pai-zhong-de-shun-zi-lcof/description/
+- webpack 原理
 
-这个题我觉得出得很好，很考察基本功。
+  1.  初始化参数：从配置文件和 Shell 语句中读取与合并参数，得出最终的参数；
+  2.  开始编译：用上一步得到的参数初始化 Compiler 对象，加载所有配置的插件，执行对象的 run 方法开始执行编译；
+  3.  确定入口：根据配置中的 entry 找出所有的入口文件；
+  4.  编译模块：从入口文件出发，调用所有配置的 Loader 对模块进行翻译，再找出该模块依赖的模块，再递归本步骤直到所有入口依赖的文件都经过了本步骤的处理；
+  5.  完成模块编译：在经过第 4 步使用 Loader 翻译完所有模块后，得到了每个模块被翻译后的最终内容以及它们之间的依赖关系；
+  6.  输出资源：根据入口和模块之间的依赖关系，组装成一个个包含多个模块的 Chunk，再把每个 Chunk 转换成一个单独的文件加入到输出列表，这步是可以修改输出内容的最后机会；
+  7.  输出完成：在确定好输出内容后，根据配置确定输出的路径和文件名，把文件内容写入到文件系统。
 
--
--
--
--
--
--
--
--
--
--
--
--
--
--
--
--
-- // 这个是要实现的方法 createClass = fun(sons, super) { // TODO return fn;}
+  在以上过程中，Webpack 会在特定的时间点广播出特定的事件，插件在监听到感兴趣的事件后会执行特定的逻辑，并且插件可以调用 Webpack 提供的 API 改变 Webpack 的运行结果。
 
-  // 这是个 es6 的一个例子，要实现 extends 的功能。class Man extends Human { cons (args) { super(args) // xxxxx }
-  speak() { console.log('') }}
+- babel 原理
+  babel 的转译过程分为三个阶段：**parsing、transforming、generating**，以 ES6 代码转译为 ES5 代码为例，babel 转译的具体过程如下：
 
-> 写一个大数相乘的解决方案。传两个字符串进来，返回一个字符串
+  1.  ES6 代码输入
+  2.  babylon 进行解析得到 AST
+  3.  plugin 用 babel-traverse 对 AST 树进行遍历转译,得到新的 AST 树
+  4.  用 babel-generator 通过 AST 树生成 ES5 代码
 
--
--
-- function multi(str1, str2) {
-
-  }
-
-这道题跟一面的时候思路差不多，只是进位的时候不一定是 1。
-
-### 三面
-
-> 聊项目
-
-> 写一个防抖函数
-
-> 算法题:<https://leetcode-cn.com/problems/bu-ke-pai-zhong-de-shun-zi-lcof/>
-
-### 小节
-
-字节果然是出了名的考算法题比较多的，基本每面都会算法题和编程题，对编程能力比较看重吧。
-
-讲道理一面还是比较常规的，二三面因为都是团队 leader 和更高级别的，问的技术细节也比较少了，重点考察一些技术方案和项目的问题。
-
-## 滴滴
-
-### 一面
-
-> webpack 原理
-
-大致就是：
-
-1.  初始化参数：从配置文件和 Shell 语句中读取与合并参数，得出最终的参数；
-2.  开始编译：用上一步得到的参数初始化 Compiler 对象，加载所有配置的插件，执行对象的 run 方法开始执行编译；
-3.  确定入口：根据配置中的 entry 找出所有的入口文件；
-4.  编译模块：从入口文件出发，调用所有配置的 Loader 对模块进行翻译，再找出该模块依赖的模块，再递归本步骤直到所有入口依赖的文件都经过了本步骤的处理；
-5.  完成模块编译：在经过第 4 步使用 Loader 翻译完所有模块后，得到了每个模块被翻译后的最终内容以及它们之间的依赖关系；
-6.  输出资源：根据入口和模块之间的依赖关系，组装成一个个包含多个模块的 Chunk，再把每个 Chunk 转换成一个单独的文件加入到输出列表，这步是可以修改输出内容的最后机会；
-7.  输出完成：在确定好输出内容后，根据配置确定输出的路径和文件名，把文件内容写入到文件系统。
-
-在以上过程中，Webpack 会在特定的时间点广播出特定的事件，插件在监听到感兴趣的事件后会执行特定的逻辑，并且插件可以调用 Webpack 提供的 API 改变 Webpack 的运行结果。
-
-> babel 原理
-
-babel 的转译过程分为三个阶段：**parsing、transforming、generating**，以 ES6 代码转译为 ES5 代码为例，babel 转译的具体过程如下：
-
-1.  ES6 代码输入
-2.  babylon 进行解析得到 AST
-3.  plugin 用 babel-traverse 对 AST 树进行遍历转译,得到新的 AST 树
-4.  用 babel-generator 通过 AST 树生成 ES5 代码
-
-> 虚拟 DOM 的理解
-
-[从 React 历史的长河里聊虚拟 DOM 及其价值](https://mp.weixin.qq.com/s?__biz=MzI1ODk2Mjk0Nw==&mid=2247484879&idx=1&sn=ee0d2e3e235fa911ce2878ae2ea2b676&scene=21#wechat_redirect)
-
-> 项目里如何做的性能优化
-
-这个跟我的项目相关。
-
-> 写过 webpack loader 或者插件吗
-
-> 讲讲你写的 babel 插件
-
-### 二面
-
-> 了解多端的原理吗？
-
-> http 与 tcp 的关系
-
-> tcp 可以建立多个连接吗？
-
-> 介绍一下为什么要有 三次握手，四次挥手
-
-> 写过 babel 插件吗？用来干啥的？怎么写的 babel 插件
-
-> 知道怎么转化成 AST 的吗？
-
-我估计就是问词法分析和语法分析相关的
-
-### 三面
-
-> 项目介绍
-
-> 说一下你的项目有哪些复杂的点，以及怎么解决的
-
-这个聊了挺久的，还聊了一些数据量比较大的怎么处理。
-
-> 你们的业务组件库有多少个，是什么样的组件
-
-> 权限组件是怎么设计的
-
-> 介绍一下你对中间件的理解
-
-> 怎么保证后端服务稳定性，怎么做容灾
-
-1.  多个服务器部署
-2.  降级处理，服务挂了，从缓存里面取。
-
-> 怎么让数据库查询更快
-
-1.  索引
-2.  如果数据量太多了可以拆表，分多个数据库
-
-> 数据库是用的什么？
-
-mysql
-
-> 为什么用 mysql
-
-## 蚂蚁
-
-> vue3 的 类似 hooks 的原理是怎么样的
-
-> 组件升级怎么让使用这个组件的人都知道。
-
-> 如果让你设计项目自动设计组件升级，并且安全，你会怎么去设计
+- 虚拟 DOM 的理解
+- 项目里如何做的性能优化
+- 写过 webpack loader 或者插件吗
+- 讲讲你写的 babel 插件
+- 了解多端的原理吗？
+- http 与 tcp 的关系
+- tcp 可以建立多个连接吗？
+- 介绍一下为什么要有 三次握手，四次挥手
+- 写过 babel 插件吗？用来干啥的？怎么写的 babel 插件
+- 知道怎么转化成 AST 的吗？
+- 项目介绍
+- 说一下你的项目有哪些复杂的点，以及怎么解决的
+  这个聊了挺久的，还聊了一些数据量比较大的怎么处理。
+- 你们的业务组件库有多少个，是什么样的组件
+- 权限组件是怎么设计的
+- 介绍一下你对中间件的理解
+- 怎么保证后端服务稳定性，怎么做容灾
+  1.  多个服务器部署
+  2.  降级处理，服务挂了，从缓存里面取。
+- 怎么让数据库查询更快
+  1.  索引
+  2.  如果数据量太多了可以拆表，分多个数据库
+- 数据库是用的什么？
+  mysql
+- 为什么用 mysql
+- vue3 的 类似 hooks 的原理是怎么样的
+- 组件升级怎么让使用这个组件的人都知道。
+- 如果让你设计项目自动设计组件升级，并且安全，你会怎么去设计
 
 1.  flutter 有了解过吗？为什么说它的性能可以媲美原生？它有什么缺点吗？
-
 2.  如果一个项目要用移动端跨平台框架开发，你会选择哪个？
-
 3.  反转单向链表怎么做？需要几个指针？都有什么作用？
-
 4.  Vue 和 React 的区别是什么？你觉得哪个好？
-
-5.  redux 主要解决了什么问题？它的工作原理是什么？与 mobx 的区别是什么？你觉得 redux 和 mobx 哪个更好？
-
-6.  react 中 state 有层级很深，比如 a.b.c.d，如果只更新 c 属性有哪些办法？immutable.js 实现的原理是什么？
-
-7.  说下 crsf 和 xss，分别举例说明，各有什么解决办法？
-
-8.  Cookie 的同源策略是怎么样的，跨域情况下如何携带 Cookie（这里主要考察了 SameSite 问题，因为我 crsf 问题没答到这点）
-
-9.  有用过哪些跨平台框架，react-native 中原生端和 js 端怎么进行通信的？
-
-10. 假设有一个非常复杂耗时的逻辑，代码逻辑已经最优了前提下要你优化，你有哪些办法？（这题其实是考察 WebWorker）
-
-11. 说下浏览器的进程、线程模型，chrome 浏览器有多少个进程？线程模型中的每个线程都是干嘛用的？
-
-12. 说下 js 的内存泄漏，什么情况容易出现内存泄漏？怎么解决？垃圾回收机制是怎么样的？
-
-13. 自己的项目做了哪些性能优化？除了 webpack 打包之类的优化外，http 层面有做了哪些优化？gzip 如何开启？gzip 有多少个级别？
-
-14. 用二分法移除掉一个字符串中所有的字母字符。
-
-15. 随机生成 100w 正负整数存储下来，记录时间 t1；然后把这 100w 数据中的负数全去掉，记录时间 t2；然后记录总共耗时 t3 = t2 - t1。
-
-16. 在耗时 t3 的基础上优化下，使 t4 的耗时只有 t3 的 70%; 在 t4 的耗时基础下再优化，使 t5 的耗时只有 t4 的 70%...
-
-17. 说一下输入一个 url 地址后的全过程？dom 渲染那块描述过于简单，能否说的更详细点？react 中的 diff 算法的原理？传统的 diff 算法是怎么实现的？
-
-18. 说出一个 react 的特性？它的原理是什么？（我答的 fiber）
-
-19. 你们的前端项目主要用的是 ES 版本是多少？说出 ES7 中的 3 个性特性并说出应用场景？说出 ES8 中的三个新特性并说出应用场景？
-
-20. WebWorker 有了解过吗？它有什么应用场景？刚刚的算法题可以用这个进行再次优化吗？
-
-21. 为什么说 https 是安全的？https 的证书校验过程是怎么样的？（这里一定要说的非常非常详细）证书校验用到了哪些算法？
-
-22. https 一定是安全的吗？（考察 https 中间人劫持），有什么解决办法？
-
-23. 说出 http2 中至少三个新特性？你们有在实际中用过吗？
-
-### 四面（交叉面）
-
-交叉面和一面差不多，这里就不重复了。多问了 http 缓存机制问题，然后问了一下: **浏览器的默认缓存时间是多久？**
-
-1.  要你设计一个前端监控方案，你打算怎么做。
+5.  说下 crsf 和 xss，分别举例说明，各有什么解决办法？
+6.  Cookie 的同源策略是怎么样的，跨域情况下如何携带 Cookie（这里主要考察了 SameSite 问题，因为我 crsf 问题没答到这点）
+7.  假设有一个非常复杂耗时的逻辑，代码逻辑已经最优了前提下要你优化，你有哪些办法？（这题其实是考察 WebWorker）
+8.  说下浏览器的进程、线程模型，chrome 浏览器有多少个进程？线程模型中的每个线程都是干嘛用的？
+9.  说下 js 的内存泄漏，什么情况容易出现内存泄漏？怎么解决？垃圾回收机制是怎么样的？
+10. 自己的项目做了哪些性能优化？除了 webpack 打包之类的优化外，http 层面有做了哪些优化？gzip 如何开启？gzip 有多少个级别？
+11. 用二分法移除掉一个字符串中所有的字母字符。
+12. 随机生成 100w 正负整数存储下来，记录时间 t1；然后把这 100w 数据中的负数全去掉，记录时间 t2；然后记录总共耗时 t3 = t2 - t1。
+13. 在耗时 t3 的基础上优化下，使 t4 的耗时只有 t3 的 70%; 在 t4 的耗时基础下再优化，使 t5 的耗时只有 t4 的 70%...
+14. 说一下输入一个 url 地址后的全过程？dom 渲染那块描述过于简单，能否说的更详细点？react 中的 diff 算法的原理？传统的 diff 算法是怎么实现的？
+15. 你们的前端项目主要用的是 ES 版本是多少？说出 ES7 中的 3 个性特性并说出应用场景？说出 ES8 中的三个新特性并说出应用场景？
+16. WebWorker 有了解过吗？它有什么应用场景？刚刚的算法题可以用这个进行再次优化吗？
+17. 为什么说 https 是安全的？https 的证书校验过程是怎么样的？（这里一定要说的非常非常详细）证书校验用到了哪些算法？
+18. https 一定是安全的吗？（考察 https 中间人劫持），有什么解决办法？
+19. 说出 http2 中至少三个新特性？你们有在实际中用过吗？
+20. 要你设计一个前端监控方案，你打算怎么做。
 
 - rem, 计算出 375 的屏幕，1rem,单位出现小数怎么处理
 - 数组插入几种做法
 
 1.  数组中 删除一个元素
+2.  Taro 的技术实现原理是什么
+3.  有没有了解过 Remax，它和 Taro 有何不同
+4.  如何评价 Flutter
+5.  数组替换做法
+6.  输入 url 到页面做了哪些事
+7.  css 树和 html dom 树构建先后顺序
+8.  你关于性能优化是否只知道 js 文件摆放顺序、减少请求、雪碧图等等，却连衡量指标 window\.performance.timing 都不清楚是干什么的？
 
-2.  React 为什么采用 vdom，优势在哪里
-
-3.  Taro 的技术实现原理是什么
-
-4.  有没有了解过 Remax，它和 Taro 有何不同
-
-5.  如何评价 Flutter
-
-6.  数组替换做法
-
-7.  输入 url 到页面做了哪些事
-
-8.  css 树和 html dom 树构建先后顺序
-
-9.  1、你关于性能优化是否只知道 js 文件摆放顺序、减少请求、雪碧图等等，却连衡量指标 window\.performance.timing 都不清楚是干什么的？
-
-    2、请你描述下一个网页是如何渲染出来的，dom 树和 css 树是如何合并的，浏览器的运行机制是什么，什么是否会造成渲染阻塞？
-
-    3、请简述下 js 引擎的工作原理，js 是怎样处理事件的 eventloop，宏任务源 tasks 和微任务源 jobs 分别有哪些？js 是如何构造抽象语法书（AST）的？
-
-    4、你是否考虑全面你编写的整个函数，或者整个功能的容错性与扩展性？怎样构建一个组件是最合理最科学的，对于错误的处理是否有统一的方式方法？
-
-    5、浏览器缓存的基本策略，什么时候该缓存什么时候不该缓存，以及对于控制缓存的字段的相关设置是否清楚？
-
-    6、你是否可以利用面向对象的思维去抽象你的功能，你会构建一个 class（ES6）吗？你对于前端架构的理解？
-
-    7、你会用 VUE，你会用 React，你读得懂这两个架构的源码吗？你懂他俩的基本设计模式吗？让你去构建一个类似的框架你如何下手？
-
-    8、你了解的 ES6 只是 const、let、promise 吗？你考虑过 ES6 提出的真正趋势吗？
-
-    9、你会用 less，那么让你去写一个 loader 你可以吗？
-
-    10、webpack 你也会用，你了解其中原理吗？你知道分析打包依赖的过程吗？你知道 tree-shakeing 是如何干掉无用重复的代码的吗？
-
-    11、你真的熟练使用 css 吗，那你知道 position 有几个属性吗
-
-    13、你可以用 js 去实现一个单向、双向、循环链表吗？你可以实现查找、插入、删除操作吗？
-
-    14、你了解基本常见算法吗？快速排序写一个？要是限制空间利用你该如何写？
-
-    15、你了解贪心算法、动态规划、分治算法、回溯算法等常见的算法吗？
-
-    16、你是如何理解前端架构的？你了解持续集成吗？
-
-    17、你了解基本的设计模式吗？举例单例模式、策略模式、代理模式、迭代模式、发布订阅模式。。。？
-
-    18、写一个事件监听函数呗？实现 once、on、remove、emit 功能
-
-    19、node.js 的实现层是什么？
-
-    20、node 的事件循环机制是怎样的？
-
-    21、node 的 child_process 模块有几个 api,分别的作用是什么？
-
-    22、http1.0 与 1.1 协议的区别？
-
-    23、node 是如何实现 http 模块的？
-
-    24、如何构建一个主从模式？
-
-    25、nginx 相关配置了解过吗？1、你关于性能优化是否只知道 js 文件摆放顺序、减少请求、雪碧图等等，却连衡量指标 window\.performance.timing 都不清楚是干什么的？
-
-    2、请你描述下一个网页是如何渲染出来的，dom 树和 css 树是如何合并的，浏览器的运行机制是什么，什么是否会造成渲染阻塞？
-
-    3、请简述下 js 引擎的工作原理，js 是怎样处理事件的 eventloop，宏任务源 tasks 和微任务源 jobs 分别有哪些？js 是如何构造抽象语法书（AST）的？
-
-    4、你是否考虑全面你编写的整个函数，或者整个功能的容错性与扩展性？怎样构建一个组件是最合理最科学的，对于错误的处理是否有统一的方式方法？
-
-    5、浏览器缓存的基本策略，什么时候该缓存什么时候不该缓存，以及对于控制缓存的字段的相关设置是否清楚？
-
-    6、你是否可以利用面向对象的思维去抽象你的功能，你会构建一个 class（ES6）吗？你对于前端架构的理解？
-
-    7、你会用 VUE，你会用 React，你读得懂这两个架构的源码吗？你懂他俩的基本设计模式吗？让你去构建一个类似的框架你如何下手？
-
-    8、你了解的 ES6 只是 const、let、promise 吗？你考虑过 ES6 提出的真正趋势吗？
-
-    9、你会用 less，那么让你去写一个 loader 你可以吗？
-
-    10、webpack 你也会用，你了解其中原理吗？你知道分析打包依赖的过程吗？你知道 tree-shakeing 是如何干掉无用重复的代码的吗？
-
-    11、你真的熟练使用 css 吗，那你知道 position 有几个属性吗，具体参考<https://github.com/wintercn/b>...
-
-    13、你可以用 js 去实现一个单向、双向、循环链表吗？你可以实现查找、插入、删除操作吗？
-
-    14、你了解基本常见算法吗？快速排序写一个？要是限制空间利用你该如何写？
-
-    15、你了解贪心算法、动态规划、分治算法、回溯算法等常见的算法吗？
-
-    16、你是如何理解前端架构的？你了解持续集成吗？
-
-    17、你了解基本的设计模式吗？举例单例模式、策略模式、代理模式、迭代模式、发布订阅模式。。。？
-
-    18、写一个事件监听函数呗？实现 once、on、remove、emit 功能
-
-    19、node.js 的实现层是什么？
-
-    20、node 的事件循环机制是怎样的？
-
-    21、node 的 child_process 模块有几个 api,分别的作用是什么？
-
-    22、http1.0 与 1.1 协议的区别？
-
-    23、node 是如何实现 http 模块的？
-
-    24、如何构建一个主从模式？
-
-    25、nginx 相关配置了解过吗？
+- 请你描述下一个网页是如何渲染出来的，dom 树和 css 树是如何合并的，浏览器的运行机制是什么，什么是否会造成渲染阻塞？
+- 请简述下 js 引擎的工作原理，js 是怎样处理事件的 eventloop，宏任务源 tasks 和微任务源 jobs 分别有哪些？js 是如何构造抽象语法书（AST）的？
+- 你是否考虑全面你编写的整个函数，或者整个功能的容错性与扩展性？怎样构建一个组件是最合理最科学的，对于错误的处理是否有统一的方式方法？
+- 浏览器缓存的基本策略，什么时候该缓存什么时候不该缓存，以及对于控制缓存的字段的相关设置是否清楚？
+- 你是否可以利用面向对象的思维去抽象你的功能，你会构建一个 class（ES6）吗？你对于前端架构的理解？
+- 你会用 VUE，你会用 React，你读得懂这两个架构的源码吗？你懂他俩的基本设计模式吗？让你去构建一个类似的框架你如何下手？
+- 你了解的 ES6 只是 const、let、promise 吗？你考虑过 ES6 提出的真正趋势吗？
+- 你会用 less，那么让你去写一个 loader 你可以吗？
+- webpack 你也会用，你了解其中原理吗？你知道分析打包依赖的过程吗？你知道 tree-shakeing 是如何干掉无用重复的代码的吗？
+- 你真的熟练使用 css 吗，那你知道 position 有几个属性吗
+- 你可以用 js 去实现一个单向、双向、循环链表吗？你可以实现查找、插入、删除操作吗？
+- 你了解基本常见算法吗？快速排序写一个？要是限制空间利用你该如何写？
+- 你了解贪心算法、动态规划、分治算法、回溯算法等常见的算法吗？
+- 你是如何理解前端架构的？你了解持续集成吗？
+- 你了解基本的设计模式吗？举例单例模式、策略模式、代理模式、迭代模式、发布订阅模式。。。？
+- 写一个事件监听函数呗？实现 once、on、remove、emit 功能
+- node.js 的实现层是什么？
+- node 的事件循环机制是怎样的？
+- node 的 child_process 模块有几个 api,分别的作用是什么？
+- http1.0 与 1.1 协议的区别？
+- node 是如何实现 http 模块的？
+- nginx 相关配置了解过吗？1、你关于性能优化是否只知道 js 文件摆放顺序、减少请求、雪碧图等等，却连衡量指标 window\.performance.timing 都不清楚是干什么的？
 
 10. js 的 async 和 defer 区别
-
 11. 一个 js 体积过大，如何加载
-
 12. 跨域的几种方式
-
 13. 线上跨域的解决办法
-
 14. cors 跨域理解
-
 15. 什么是简单请求，什么是复杂请求
-
 16. vue 和 react 区别
-
-17. react 生命周期
-
-18. useEffet 使用
-
-19. usecallback 使用场景
-
-20. usestate 为什么不能再 if 里面用
-
-21. tree-shaking
-
-22. babel-import-plugin 原理
-
-23. 为什么 rollup 打包体积小
-
-24. 如何实现浏览器间的兼容
+17. tree-shaking
+18. babel-import-plugin 原理
+19. 为什么 rollup 打包体积小
+20. 如何实现浏览器间的兼容
 
 - babel-polyfill 是什么，如何实现 babel-polyfill 按需加载
 - javascript 精度问题的原因
@@ -11738,50 +11024,28 @@ mysql
 - 触发 bfc 的方式
 - rem 和 vw 的使用场景
 
-**再惠网络科技**
-
-### 一面
-
-1.  自我介绍一下
-
-2.  看到你用过 mobx，说一下 mobx 的优势？实现原理呢？
-
-3.  你工作以来，在项目中遇到的印象深刻的问题有哪些？有没有在项目实践过一些自己的想法和新技术？
-
 4.  说说 TS 和 ES 的区别，以及 TS 带来的好处？
-
 5.  你说你学习能力强，那你毕业这一年多来，你都是怎么熟悉业务和项目的？有系统的看完过哪本书？
-
 6.  对小程序有了解吗？（我只写过 demo）
-
 7.  对打包工具有了解吗？
-
 8.  除了 react，你还用过哪些框架？
-
 9.  求契波那切数列的第 N 项
-
 10. 获取到契波那切数列的前 N 项
-
 11. 求一个对象的层级数（我写完后，又问如果不用递归，只用循环实现呢）
-
 12. 实现下面这道题中的 machine 函数
+    ![图片](https://mmbiz.qpic.cn/mmbiz_png/VgnGRVJVoHGRwjNljTztZkr75TyFTX8SZ4H4l8sld6Ud2jjibp1KIUpEdLh6s7cqd41gPvfUUzSItRCbky8vTsQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+13. 介绍一下你们那边的业务？那你们业务都是在 app 里面吗？（安卓、IOS、H5 甚至小程序和快应用都有，基本上都是 webview 套 h5 做的）
+14. 你最近有比较感兴趣的、主要研究的技术吗？为什么感兴趣？
+15. 我看了你的 github，上面 star 了一个 react.backbone，这个是什么？
+16. 我看你的 github 里面有个 mobx-jquery，这个是做什么的？
+17. 这个 mobx-jquery 里面的 observer 你是怎么实现的？（封装的 autorun）那么 autorun 的原理是什么？
+18. 你对团队的要求是怎么样的？你毕业这一年多收获最大的是什么？
+19. 看到你写了 TS，那么 TS 的优势是什么呢？你说修改字段后其他还用原字段的地方会报错，那么是怎么跟踪到是否修改的呢？vscode 里面是怎么实现根据类型文件来给一个方法添加类型的呢？
+20. 看到你的简历里面写着维护一个老项目，这个 lizard 是什么框架？（基于 backbone 封装的一个 Hybrid 框架 xxxxx）
+21. 那来做道题吧。实现一个函数，可以按顺序获取到一个 DOM 节点下面所有的文本。
+22. 你有什么想问我的吗？（你平时在公司的一天都是在做什么呢？）
 
-    ![图片](https://mmbiz.qpic.cn/mmbiz_png/VgnGRVJVoHGRwjNljTztZkr75TyFTX8SZ4H4l8sld6Ud2jjibp1KIUpEdLh6s7cqd41gPvfUUzSItRCbky8vTsQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)image_1d5oivtp41p1a1r3v1ne4qdmr9mm.png-113.5kB
-
-### 二面
-
-1.  介绍一下你们那边的业务？那你们业务都是在 app 里面吗？（安卓、IOS、H5 甚至小程序和快应用都有，基本上都是 webview 套 h5 做的）
-2.  你最近有比较感兴趣的、主要研究的技术吗？为什么感兴趣？
-3.  我看了你的 github，上面 star 了一个 react.backbone，这个是什么？
-4.  我看你的 github 里面有个 mobx-jquery，这个是做什么的？
-5.  这个 mobx-jquery 里面的 observer 你是怎么实现的？（封装的 autorun）那么 autorun 的原理是什么？
-6.  你对团队的要求是怎么样的？你毕业这一年多收获最大的是什么？
-7.  看到你写了 TS，那么 TS 的优势是什么呢？你说修改字段后其他还用原字段的地方会报错，那么是怎么跟踪到是否修改的呢？vscode 里面是怎么实现根据类型文件来给一个方法添加类型的呢？
-8.  看到你的简历里面写着维护一个老项目，这个 lizard 是什么框架？（基于 backbone 封装的一个 Hybrid 框架 xxxxx）
-9.  那来做道题吧。实现一个函数，可以按顺序获取到一个 DOM 节点下面所有的文本。
-10. 你有什么想问我的吗？（你平时在公司的一天都是在做什么呢？）
-
-- **「2.1 vuex 是什么？怎么使⽤？哪种功能场景使⽤它？」**
+- vuex 是什么？怎么使⽤？哪种功能场景使⽤它？
 
   - 只⽤来读取的状态集中放在 store 中；改变状态的⽅式是提交 mutations，这是个同步的事物；异步逻辑应该封装在 action 中。
   - 在 main.js 引⼊ store，注⼊。新建了⼀个⽬录 store，…export 。
@@ -11790,10 +11054,9 @@ mysql
   - mutations：mutations 定义的⽅法动态修改 Vuex 的 store 中的状态或数据
   - getters：类似 vue 的计算属性，主要⽤来过滤⼀些数据。
   - action：actions 可以理解为通过将 mutations ⾥⾯处⾥数据的⽅法变成可异步的处理数据的⽅法，简单的说就是异步操作数据。view 层通过 store.dispath 来分发 action。
+    modules：项⽬特别复杂的时候，可以让每⼀个模块拥有⾃⼰的 state、mutation、action、getters，使得结构⾮常清晰，⽅便管理
 
-  modules：项⽬特别复杂的时候，可以让每⼀个模块拥有⾃⼰的 state、mutation、action、getters，使得结构⾮常清晰，⽅便管理
-
-  **「2.2 关于响应式数据绑定，双向绑定机制：Object.defineProperty()」**
+- 关于响应式数据绑定，双向绑定机制：Object.defineProperty()
 
   vue 实现数据双向绑定主要是：采⽤数据劫持结合发布者-订阅者模式的⽅式，通过`Object.defineProperty()`来劫持各个属性的`setter`，`getter`，在数据变动时发布消息给订阅者，触发相应监听回调。当把⼀个普通`Javascript`对象传给 Vue 实例来作为它的`data`选项时,`Vue`将遍历它的属性，⽤`Object.defineProperty()`将它们转为`getter/setter`。⽤户看不到`getter/setter`，但是在内部它们让`Vue`追踪依赖，在属性被访问和修改时通知变化。
 
@@ -12109,7 +11372,7 @@ mysql
   1\.
   实现一下 some, every
 
-  1.                                                                                                                                                                                                            flatten实现
+  1.                                                                                                                                                                                                                                      flatten实现
 
   2.  const promise = new Promise(resolve => {
 
@@ -13405,562 +12668,262 @@ webpack 也基本上成了必考的内容，一般会问是否配置过 webpack�
     */
 
 - 跨端的原理？我讲了几个例子：taro、uni-app，顺便提了 flutter、react native、小程序等的架构，具体怎么设计的。
-
 - 动态表单能够运用在什么场景？我举了 7、8 个例子。
-
 - 移动端适配相关的问题，应用场景。
-
 - react 与 vue 的技术栈对比，说下区别
-
 - B 端遇到的最复杂的数据结构是什么
-
-- 快速实现 \[1, 2, ...100]，所有你能想到的解
-
 - 数据展示的优化、数据截取和处理
-
 - 实际场景中，哪些地方应用到了堆、链表、多叉树结构
-
 - es6 及 es6+ 的能力集，你最常用的，这其中最有用的，都解决了什么问题。
-
 - GC 相关问题：es6+ ，eventloop 中涉及 GC 的部分。
-
 - 数组 flat 展开的各种解法，数组 map 应用
-
 - 讲下 V8 sort 的大概思路
-
 - Promise 并发限制
-
 - 手写 Promise.all
-
 - 省市区拼接查字段，要求 O(n) 内解出
-
 - 中台的理解
-
-- 个人发展方向
-
 - 项目的复盘优化
-
 - 说下业务上最复杂的点
-
 - node 限流算法
-
 - 最有效的性能优化方法
-
 - 你提到性能指标，能说说都是怎么计算的吗？比如 LCP，FID
-
 - input type 都有哪些类型，还记得其他 attrs 呢
-
 - css 的伪类和伪元素有哪些？有什么区别？
-
 - 在一个未知宽度的父元素内如何创建一个等边正方形
-
 - 异步加载 js 会阻塞什么
-
 - 数组所有方法都有哪些？findIndex 的参数说明
-
 - vue 和 react 的异同
-
 - 如何优化 vue 框架，注意是优化框架
-
-- vue 和 react 的 jsx 使用
-
 - id key 真的能使列表比对更高效吗？举个反例？
-
 - webpack 优化的手段
-
 - tree-shaking 怎么配置，如何 **避免** tree-shaking？
-
 - electron 和小程序遇到什么坑？
-
 - 说下微信自动化测试
-
 - es2015 到 es2020 的新特性，你最常用什么，给你收益最大的。
-
 - weakMap 和 Map 的区别，weakMap 原理，为什么能被 GC？
-
 - 如何干扰 GC ？
-
 - webpack import 动态加载原理
-
 - 知道 webpack 中的 devTool 吗？
-
 - 如何进行错误定位和数据上报，线上异常的处理
-
 - 为什么有时候配置了 webpack caching，chunk 还是更新了？
-
 - 讲讲浏览器和 node 的 eventloop
-
 - 微任务后面还有哪些？requestAnimationFrame 是怎么调用的？requestAnimationFrame 帧内总是有任务吗？分情况说下。
-
 - 帧数怎么计算？
-
 - 了解网络安全吗？
-
 - 如何避免数据被 iframe 截获
-
 - 说下状态码
-
 - 说下 304，什么情况会 304？协商缓存的头部字段？
-
 - 工程化实践的看法
-
 - 项目是如何收集问题的，用户量如何？
-
 - 性能问题如何排查，你们项目的指标，具体数据、截图发给我看看……
-
 - 模块化是怎么实施的？
-
 - 目录结构讲下
-
 - 一些功能是自研还是使用第三方工具，叫什么名字，怎么使用 ？
-
 - 疯狂问测试相关的内容，单元测试和组件测试是怎么做的、代码覆盖率多少，如何权衡测试原则，系统测试相关的内容，一些细节上的问题怎么处理，等等，要说出个 1、2、3 来 ？
-
 - 项目亮点/难点，怎么解决 ？
-
 - 复盘，整个项目总结，让你重新设计这套系统你会怎么做 ？
-
 - 工程化实践和深入的一个点
-
 - 团队氛围，有什么好的点可以说下，有什么不好的点也说下……
-
 - 中台具体集成了什么功能 ？你都做了什么 ？
-
 - 你是如何进行技术突破的，又是如何学习的 ？
-
 - webpack 提高构建速度的方式
-
 - loader 输入什么产出什么 ？
-
 - webpack 原理
-
 - webpack 动态加载的原理
-
 - webpack 热更新
-
 - 如何写一个 webpack plugin
-
 - AST 的应用
-
 - 如何解析一个 html 文本，还是考 AST
-
 - babel 原理，怎么写 babel 插件
-
-- 如何设计一个沙盒 sandbox ？
-
 - 小程序的 API 做了什么处理，能够做到全局变量的隐藏，如果是你，怎么设计 ？
-
 - 基础题考闭包的，我讲对了思路，结果没做对。
-
 - 实现颜色转换 'rgb(255, 255, 255)' -> '#FFFFFF' 的多种思路。
-
 - 提供一个数字 n，生成一组 0\~n-1 的整数，打乱顺序组成数组，打乱几次，如何能够看起来平衡，说出你能想到的所有方法。
-
 - 如何处理一个重大事故 bug
-
 - 监控体系
-
 - 虚拟 dom 有什么好的地方？框架为什么要设计虚拟 dom？
-
 - webpack 的缺点，让你设计一个新的构建打包工具，你会怎么设计？
-
 - 在线文档编辑，如何处理两人的冲突，如何展示，考虑各种场景
-
 - excel 文档冲突高级处理，文章冲突呢？是上个问题的深化。
-
-- 算法题：`从数组 [1, 5, 8, 10, 12] 中找到两个数和为 9，返回 [1, 8] 这样的结果。`
-
-- 算法题：`从数组 [1, 5, 8, 10, 12] 中找到三个数和为 19，返回 [1, 8， 10] 这样的结果。`
-
 - 算法题 **leetcode 300**\[4]：`给定一个无序的整数数组，找到其中最长上升子序列的长度。`
-
 - 如何获取数组中最大的数
-
 - 数组和链表的使用场景
-
 - 了解哪些排序算法，说说冒泡排序和快排的区别
-
 - 背包问题
-
 - 浏览器缓存
-
 - 输入一串 url 到浏览器，会发生什么？
-
-- vm.\$set 原理
-
+- vm.$set 原理
 - 深拷贝如何解决循环引用
-
 - http 缓存头部字段
-
 - vue 和 react 的区别
-
 - 讲讲前端路由
-
 - 一道查找路径的场景题
-
 - 一道如何优雅处理异步的场景题
-
 - webpack 工作流
-
 - webpack 是如何解决两次引入的
-
-- 公司团队规模
-
 - 讲讲 http 三次握手，为什么需要三次握手
-
 - 讲讲 http 四次挥手，为什么需要四次而不是三次
-
 - 如何看待 toc tob 端业务
-
 - 对于新技术如何看待
-
 - 小程序有了解过吗
-
 - 在小组担任的位置
-
 - 说说你工作中遇到有挑战的项目
-
-- 非科班的你如何学习的
-
-- 看过那些书，讲讲收获
-
 - 数据库范式
-
-- 了解 golang 吗（简历没写数据库和 golang 的字眼）
-
 - 布局的几种方式
-
 - rem vw 的区别
-
 - rem em 的区别
-
-- 讲讲 React 生命周期
-
 - webpack 你是如何做优化的
-
 - 浏览器缓存
-
-- react 性能优化
-
 - vue 如何做权限检验
-
 - 讲讲 http2.0
-
 - 你是如何做性能优化的
-
 - 单元测试如何测试，代码覆盖率如何
-
-- react 生命周期
-
-- 说说 react 状态逻辑复用问题
-
-- react fiber 节点（不会，没研究过）
-
 - Koa 中间件原理
-
-- Redux 工作流？
-
 - Koa 如何实现监控处理
-
-- 如何实现 Redux 异步功能
-
-- Redux 如何优化
-
 - commonjs 的实现原理
-
 - 讲讲垃圾回收机制
-
 - Vue 和 React 的区别
-
 - 函数式编程 如何理解纯函数
-
 - Node 原生 api 错误处理有了解吗
-
 - 说说浏览器渲染流程
-
 - 说说重绘和重排
-
 - 说说那些属性可以直接避免重绘和重排
-
 - treeshaking 原理
-
 - 按需加载的原理
-
 - 讲讲原型链
-
 - 了解过那些前端构建工具 分别介绍他 webpack rollup gulp
-
 - 双向数据绑定原理
-
 - 说 vue 如何收集依赖的
-
 - 组件库设计有什么原则？
-
 - 组件库是自己从 0 开始搭的吗，说说有哪些特点
-
 - 如何实现组件库按需加载
-
 - 讲讲 http2.0
-
-- 讲讲 react fiber 节点
-
-- 说说你的优点与缺点
-
-- 讲讲 react 生命周期
-
 - 讲讲 ts 中 type 和 interface 的区别
-
 - 说说 http
-
 - 说说 vue 双向绑定
-
 - diff 算法
-
 - 虚拟 dom
-
 - http 缓存
-
 - 讲讲 http2.0
-
 - 说说状态逻辑复用问题
-
 - 介绍下项目的亮点
-
 - 介绍下 es6 新增了哪些特性
-
 - Reflect 的用途？
-
 - 域名切片
-
 - 为什么 vue 或者 react 要求 key 值唯一
-
-- 平时怎么学习的
-
 - MVVM 实现
-
 - data 里面为什么是函数
-
 - UDP TCP 区别
-
 - vuex 应用场景
-
 - 说说 XSS 攻击
-
 - 说说 vue 的模板编译
-
 - 说说你项目的亮点
-
 - new 原理实现
-
 - 状态码 403 404 503 304 说说
-
 - diff 算法
-
 - 虚拟 dom
-
 - 说说事件循环
-
-- react16 的重大更新
-
-- 为什么废除三个 react 生命周期的 api
-
-- 讲讲 fiber
-
 - 浏览器缓存
-
 - nextTick 原理
-
 - 说说你的 vuex 持久化插件
-
 - 内联元素与块级元素
-
 - 数组 api 介绍
-
 - dom 操作有哪些 api
-
 - 数组去重有哪几种方式
-
-- 变量提升问题
-
 - 柯里化问题
-
 - 数字转金额的问题
-
 - 手写防抖和节流
-
 - 判断变量的几种方式，有哪些不同
-
-- 动态规划算法题
-
-- 什么是暂时性死区？
-
 - 块级作用域和函数作用域
-
 - call bind new 实现原理
-
 - vue 双向绑定原理
-
 - LRU 算法
-
 - http2.0 的有哪些内容
-
 - http 缓存
-
 - rem vw 区别
-
 - 移动 1px 问题
-
 - 函数柯里化
-
 - diff 算法
-
 - 虚拟 dom
-
 - nextTick 原理
-
 - 事件循环
-
 - 如何解决移动端 click300ms 延迟？
-
 - vue 有哪些全局组件
-
 - 移动端如何完成拖拽功能？
-
 - 防抖和节流的区别
-
 - 一道逻辑题：有 5L 的桶和 3L 的桶，如何拿到 4L 的水
-
 - 防抖和节流的使用场景，举例说明
-
 - 居中的几种方案
-
 - 事件循环
-
 - 移动 1px
-
 - setTimeout 与 rAF
-
 - flex:1
-
 - 介绍下你写的库
-
 - 发布订阅和观察者的区别
-
 - 单例模式
-
 - 发布订阅和观察者的区别
-
 - JSONP 实现原理
-
 - 移动端点击延迟怎么处理
-
 - git flow 工作流介绍
-
-- 两道场景题-问的很深，很久
-
 - 怎么做性能优化
-
 - 性能监控如何做
-
 - 跨域解决方案
-
 - 简单请求和复杂请求
-
 - 多路复用
-
 - git flow 工作流介绍
-
 - 如何进行 code review
-
 - 平时怎么学习
-
 - 组件库相关问题
-
 - 项目自己搭的？如何支持 treeshaking
-
 - 如何做版本号管理
-
 - less 样式如何做按需加载
-
 - webpack 项目如何优化
-
 - ts 泛型
-
 - 怎么通过实例拿到构造函数
-
 - extend 原理
-
 - Object.create 原理
-
 - 虚拟列表原理
-
 - 浏览器缓存原理
-
 - 什么 csrf 攻击
-
 - csrftoken 怎么获取，存到哪里
-
 - 并发调度手写题
-
-- 自我介绍主要围绕几个点：个人信息、最近的公司职责和涉及的业务、主要技术栈、我擅长的技术、项目介绍（STAR：项目背景、任务、你的工作内容、项目亮点、结果你实现了什么学到了什么）、最近在做什么、结语。
-
-- 简历里写了两个技术栈，所以讲讲 vue 和 react 的区别和联系吧主要围绕几个点：两者的模板渲染、两者的虚拟 dom、diff 差异（vue2、vue3、react 16）、react fiber 能解决什么问题、vue2 的响应式原理和 vue3 的响应式原理；vue 关于 Proxy 与 Object.defineProperty 的区别；两者的批量更新，还有路由差异、常用的优化手段、怎么进行数据通信、讲点新鲜的内容：新发布的 vue3 有什么特性、最后总结，谈谈两者的如今的生态……
-
-- 项目的性能优化主要围绕几个点：项目技术栈的性能优化，比如使用 react 可以讲避免重复渲染的一些手段，比如 electron 可以将如何更接近原生；针对浏览器做的优化（你需要了解浏览器相关原理，比如缓存/存储、代理、SSR 等，针对渲染引擎的工作内容想到的优化，比如解析 css 解析会影响 dom 渲染、合成优化减少回流重绘、web worker、Event Loop 等）；打包工具提供的优化，特指 webpack；针对具体的页面做的优化，比如首页该做什么，首页最新指标；最后讲讲应用场景、我的项目里用到了哪些方法，针对中等项目、大型项目的性能选择。PS：性能优化的内容如果认真讲，肯定两/三个小时下不来，**因为性能优化没有终点**，我面试时也只想到了上面的这些……
-
-- 了解我们的产品吗？我提前 google 了团队的业务项目，之前也看过一些类似产品的文章，我结合自己的项目经验，说了一点理解，就几句话。
-
-- 你想问什么？我问了本次的表现，了解了一些团队项目的工作内容、项目招人的背景、对于后续面试该做什么准备。一面没碰到手写题，都是很基础的问题，整体相对轻松。
-
 - 权限页面的细节：
-
   - 各个模块、按钮怎么设计权限；
   - 分角色、分地域怎么设计？
   - 要加个表头，还要控制展示的顺序，在各个浏览器表现一致，怎么设计？说出所有方案，想到什么自由发挥了……
   - 聊到本地存储，问：localStorage 在各浏览器、移动端浏览器的 size 一致吗？
-
-  其他：
-
+    其他：
   - 这一段是我简历的项目，略过……
   - 继续聊阿里的产品，简单使用后，请提出几个可以优化的地方？
   - 啥也没透露，让你预测下这款产品的接下来的方向，如果是你，你会着手哪个方向，并且凭啥让你来干，说下你擅长的……
   - 正式讨论产品，大家都在做什么，团队协作的情况，公布接下来的迭代方向，针对的人群，目标……
-
 - 题一
-
-  /\*\*
-
   - 1.计算多个区间的交集
-  - 区间用长度为 2 的数字数组表示，如\[2, 5]表示区间 2 到 5（包括 2 和 5）；
-  - 区间不限定方向，如\[5, 2]等同于\[2, 5]；
+  - 区间用长度为 2 的数字数组表示，如[2, 5]表示区间 2 到 5（包括 2 和 5）；
+  - 区间不限定方向，如[5, 2]等同于[2, 5]；
   - 实现`getIntersection 函数`
   - 可接收多个区间，并返回所有区间的交集（用区间表示），如空集用 null 表示
   - 示例：
-  - getIntersection(\[5, 2], \[4, 9], \[3, 6]); // \[4, 5]
-  - getIntersection(\[1, 7], \[8, 9]); // null
-    \*/
-
+  - getIntersection([5, 2], [4, 9], [3, 6]); // [4, 5]
+  - getIntersection([1, 7], [8, 9]); // null
 - 题二：
-
-  /\*\*
 
   - 2.DOM 的体积过大会影响页面性能，假如你想在用户关闭页面时统计（计算并反馈给服务器）
     当前页面中元素节点的数量总和、元素节点的最大嵌套深度以及最大子元素个数，请用 JS 配合
     原生 DOM API 实现该需求（不用考虑陈旧浏览器以及在现代浏览器中的兼容性，可以使用任意
     浏览器的最新特性；不用考虑 shadow DOM）。比如在如下页面中运行后：
-    \*/
-
-  <html>
-    &lt;head&gt;&lt;/head&gt;
-    &lt;body&gt;
+    ```html
+    <html>
+      &lt;head&gt;&lt;/head&gt; &lt;body&gt;
       <div>
         <span>f</span>
         <span>o</span>
         <span>o</span>
       </div>
-    &lt;/body&gt;
-  </html>
-  // 会输出：
+      &lt;/body&gt;
+    </html>
+    // 会输出：
+    ```
 
   {
   totalElementsCount: 7,
@@ -13968,10 +12931,12 @@ webpack 也基本上成了必考的内容，一般会问是否配置过 webpack�
   maxChildrenCount: 3
   }
 
-- 题三
+  ```
 
+  ```
+
+- 题三
   // 3.请使用原生代码实现一个 Events 模块，可以实现自定义事件的订阅、触发、移除功能
-  /\*
   const fn1 = (... args)=>console.log('I want sleep1', ... args)
   const fn2 = (... args)=>console.log('I want sleep2', ... args)
   const event = new Events();
@@ -13983,269 +12948,109 @@ webpack 也基本上成了必考的内容，一般会问是否配置过 webpack�
   event.off('sleep', fn1);
   event.once('sleep', ()=>console.log('I want sleep));
   event.fire('sleep');
-  \*/
-
 - 跨端的原理？我讲了几个例子：taro、uni-app，顺便提了 flutter、react native、小程序等的架构，具体怎么设计的。
-
 - 动态表单能够运用在什么场景？我举了 7、8 个例子。
-
 - 移动端适配相关的问题，应用场景。
-
 - 我公司的业务讨论，是否了解过竞品等等，这里略过。
-
 - 对于你项目的竞品有了解吗？说一下
-
 - 你的项目与竞品相比，好在哪里，有什么优势？
-
 - 下班后都在做什么，问的都是过往经历，问的太详细了，让人不舒服。
-
 - 如果与同事发生了意见的不一致，你会如何解决呢
-
 - 现在针对我们的业务，急需增加一个新的模块位置，你会怎么设计？数据怎么展示……
-
 - react 与 vue 的技术栈对比，说下区别
-
 - B 端遇到的最复杂的数据结构是什么
-
-- 快速实现 \[1, 2, ...100]，所有你能想到的解
-
+- 快速实现 [1, 2, ...100]，所有你能想到的解
 - 数据展示的优化、数据截取和处理
-
 - 实际场景中，哪些地方应用到了堆、链表、多叉树结构
-
 - es6 及 es6+ 的能力集，你最常用的，这其中最有用的，都解决了什么问题。
-
 - GC 相关问题：es6+ ，eventloop 中涉及 GC 的部分。
-
 - 数组 flat 展开的各种解法，数组 map 应用
-
 - 讲下 V8 sort 的大概思路
-
 - Promise 并发限制
-
 - 手写 Promise.all
-
 - 省市区拼接查字段，要求 O(n) 内解出
-
 - 中台的理解
-
-- 讨论了下业务
-
-- 个人发展方向
-
-- 项目的复盘优化
-
 - 说下业务上最复杂的点
-
 - node 限流算法
-
 - 最有效的性能优化方法
-
 - 你提到性能指标，能说说都是怎么计算的吗？比如 LCP，FID
-
-- 算法题：**数组全排列**\[1]
-
+- 算法题：**数组全排列**[1]
 - 中台业务讨论
-
-- 离职原因
-
 - input type 都有哪些类型，还记得其他 attrs 呢
-
 - css 的伪类和伪元素有哪些？有什么区别？
-
 - 在一个未知宽度的父元素内如何创建一个等边正方形
-
 - 异步加载 js 会阻塞什么
-
 - 数组所有方法都有哪些？findIndex 的参数说明
-
 - vue 和 react 的异同
-
 - 如何优化 vue 框架，注意是优化框架
-
 - vue 和 react 的 jsx 使用
-
 - id key 真的能使列表比对更高效吗？举个反例？
-
 - webpack 优化的手段
-
 - tree-shaking 怎么配置，如何 **避免** tree-shaking？
-
 - electron 和小程序遇到什么坑？
-
 - 说下微信自动化测试
-
 - es2015 到 es2020 的新特性，你最常用什么，给你收益最大的。
-
 - weakMap 和 Map 的区别，weakMap 原理，为什么能被 GC？
-
 - 如何干扰 GC ？
-
 - webpack import 动态加载原理
-
 - 知道 webpack 中的 devTool 吗？
-
 - 如何进行错误定位和数据上报，线上异常的处理
-
 - 为什么有时候配置了 webpack caching，chunk 还是更新了？
-
 - 讲讲浏览器和 node 的 eventloop
-
 - 微任务后面还有哪些？requestAnimationFrame 是怎么调用的？requestAnimationFrame 帧内总是有任务吗？分情况说下。
-
 - 帧数怎么计算？
-
 - 了解网络安全吗？
-
 - 如何避免数据被 iframe 截获
-
 - 说下状态码
-
 - 说下 304，什么情况会 304？协商缓存的头部字段？
-
-- 你学习的渠道
-
 - 工程化实践的看法
-
 - 项目是如何收集问题的，用户量如何？
-
 - 性能问题如何排查，你们项目的指标，具体数据、截图发给我看看……
-
 - 模块化是怎么实施的？
-
 - 目录结构讲下
-
 - 一些功能是自研还是使用第三方工具，叫什么名字，怎么使用 ？
-
 - 疯狂问测试相关的内容，单元测试和组件测试是怎么做的、代码覆盖率多少，如何权衡测试原则，系统测试相关的内容，一些细节上的问题怎么处理，等等，要说出个 1、2、3 来 ？
-
 - 项目亮点/难点，怎么解决 ？
-
 - 复盘，整个项目总结，让你重新设计这套系统你会怎么做 ？
-
 - 工程化实践和深入的一个点
-
 - 团队氛围，有什么好的点可以说下，有什么不好的点也说下……
-
 - 中台具体集成了什么功能 ？你都做了什么 ？
-
 - 你是如何进行技术突破的，又是如何学习的 ？
-
 - 对未来的规划
-
 - 有什么问题想问？我随便问了几个问题过渡，然后抛出最重要的一个，厚着脸皮让大佬指出我的问题（PS：这是我面试的目的之一，当时几个面试进度属猎豹最快了。别人眼中的我，在前端方面具体是怎样的感官 ？我一直很好奇。不是每个人都有一个对自己清晰的认识的，既然自己想不出来，那就通过面试吧）。
-
-- 讲讲前任公司
-
-- 离职原因
-
-- 加班的看法
-
-- 猎豹的福利
-
 - webpack 提高构建速度的方式
-
 - loader 输入什么产出什么 ？
-
 - webpack 原理
-
 - webpack 动态加载的原理
-
 - webpack 热更新
-
 - 如何写一个 webpack plugin
-
 - AST 的应用
-
 - 如何解析一个 html 文本，还是考 AST
-
 - babel 原理，怎么写 babel 插件
-
-- 如何设计一个沙盒 sandbox ？
-
 - 小程序的 API 做了什么处理，能够做到全局变量的隐藏，如果是你，怎么设计 ？
-
 - 基础题考闭包的，我讲对了思路，结果没做对。
-
 - 实现颜色转换 'rgb(255, 255, 255)' -> '#FFFFFF' 的多种思路。
-
 - 提供一个数字 n，生成一组 0\~n-1 的整数，打乱顺序组成数组，打乱几次，如何能够看起来平衡，说出你能想到的所有方法。
-
-- **leetcode 239**\[2]
-
-- 业务，业务，还是业务，项目复盘有没有更好的解决方案。
-
+- **leetcode 239**
 - 如何处理一个重大事故 bug
-
 - 监控体系
-
 - 虚拟 dom 有什么好的地方？框架为什么要设计虚拟 dom？
-
 - webpack 的缺点，让你设计一个新的构建打包工具，你会怎么设计？
-
 - 在线文档编辑，如何处理两人的冲突，如何展示，考虑各种场景
-
 - excel 文档冲突高级处理，文章冲突呢？是上个问题的深化。
-
-- 基础题：**leetcode 300**\[3]
-
-  let x = \[1, 2, 3];
-  let y = x;
-  let z = \[4, 5, 6];
-  y\[0] = 10;
-  y = z;
-  z\[1] = 20;
-  x\[2] = z = 30;
-  console.log(x, y, z);
-
-- 算法题：`从数组 [1, 5, 8, 10, 12] 中找到两个数和为 9，返回 [1, 8] 这样的结果。`
-
-- 算法题：`从数组 [1, 5, 8, 10, 12] 中找到三个数和为 19，返回 [1, 8， 10] 这样的结果。`
-
-- 算法题 **leetcode 300**\[4]：`给定一个无序的整数数组，找到其中最长上升子序列的长度。`
-
-- 你先简单做个自我介绍吧
-
-  \2. 这是你自己做的吗？主要是这个管理系统是吧？
-
-  \3. 是用第三方的还是完全自己手写的？
-
-  \4. 用什么框架了吗？
-
-  \5. 你这个项目都是静态吗？
-
-  \6. 你这个文章是富文本编辑好直接放在数据库对吧？如果文章里面有不安全的标签，显示出来比较危险，你有没有做一个处理？
-
-  > 这里我觉得可以答两点
-  >
-  > 1.  过滤用户输入
-  > 2.  markdown 区域内不渲染 html 标签
-
-  \7. 除了标签还有什么别的安全问题？
-
-  > 我答了：XSS 注入，主要是 script 标签。
-
-  \8. 你这个没有实现登录这一套是吧？如果我要设置登录一个月的选项，如何实现这个功能？
-
-  > 现在考虑是展示，还没有做。
-  >
-  > 给 cookie 设置过期时间。
-
-  \9. cookie 和 token 的区别是什么？
-
-  > 这里去了解一下。
-
-  \10. 这个页面有没有用 flex 布局？
-
-  \11. 父容器和三个子容器：ABC，B 为固定宽度，AC 宽度随父容器宽度变化。
-
-  > 1.  flex 布局：ac 设置 flex1
-  > 2.  float：abc 浮动，使用 calc 计算宽度，中间盒子设置 margin
-  > 3.  待补充
-
-  \12. 浏览器地址栏中输入网址键入回车，会有哪些事情？
-
-  \13. 有个问题：你说来了 script 代码会停止渲染，其实，这个中间有三种方式，不一定都会停止，你了解这三种方式吗？
+- 算法题 **leetcode 300**：`给定一个无序的整数数组，找到其中最长上升子序列的长度。`
+- 你这个文章是富文本编辑好直接放在数据库对吧？如果文章里面有不安全的标签，显示出来比较危险，你有没有做一个处理？
+  1.  过滤用户输入
+  2.  markdown 区域内不渲染 html 标签
+- 除了标签还有什么别的安全问题？
+  我答了：XSS 注入，主要是 script 标签。
+- 你这个没有实现登录这一套是吧？如果我要设置登录一个月的选项，如何实现这个功能？
+- cookie 和 token 的区别是什么？
+- 父容器和三个子容器：ABC，B 为固定宽度，AC 宽度随父容器宽度变化。
+  flex 布局：ac 设置 flex1
+  float：abc 浮动，使用 calc 计算宽度，中间盒子设置 margin
+- 浏览器地址栏中输入网址键入回车，会有哪些事情？
+- 有个问题：你说来了 script 代码会停止渲染，其实，这个中间有三种方式，不一定都会停止，你了解这三种方式吗？
 
   > 浅谈 script 标签中的 async 和 defer
   >
@@ -14499,538 +13304,453 @@ webpack 也基本上成了必考的内容，一般会问是否配置过 webpack�
 - async await 经过编译后和 generator 有啥联系？(问了两遍，还是不知道问的啥，直接说了 async await 原理，他说你讲了太深，问的不是这个，过吧过吧)
 
 - 为什么要做你这个开源项目？后台数据哪来的？
-
 - HTTP 的 GET 和 POST 请求有什么区别？(我说了 4 个区别)
-
 - 说一说 CSRF 和 XSS 攻击？(说了一堆，他说你讲的太细了，是不是最近看过之类的文章，我说没有)
-
 - HTTP 缓存能不能说一下？(强缓存，协商缓存，中间扯到代理了，讲了一堆，他说可以了)
-
 - 你知道 JS 的语言标准是如何制定的吗？(确实不熟，说下去自己查查)
-
 - 你用过哪些 ES 最新的语法，越新越好
-
 - 你对 babel 了解吗？能不能说说几个 stage 代表什么意思？
-
 - Vue 的响应式对数组是如何处理的？(重写数组方法，手动派发更新)
-
-- - Object 为什么可以自动派发更新？
-
+  - Object 为什么可以自动派发更新？
 - 假如我在一个 for 循环中改变当前组件依赖的数据，改变一万次，会有什么效果？(讲到批量更新和 nextTick 原理，他表示可以)
-
 - 假如让你设计一个适配 PC、手机和平板的项目，你有哪些布局方案？(首先是 vh、vw，然后用淘宝出品的 lib-flexible 库进行 rem 适配，还有一种 flex + px 的适配方式)
-
 - CSS 当中以 @ 开头的属性有哪些？(我说了@media, @keyframes，后来提醒我还有@import，我补充这个是串行加载 CSS)
-
 - 了解过前端当前的发展趋势吗，比如一些新的技术方向。(说了对 PWA 的看法，为什么会凉，flutter、electron、微前端，serverless)
-
 - 了解过云计算吗？能不能讲一讲云计算的发展方向和前景？(没了解过)
-
 - 对自己的职业规划是怎样的？(说了一大堆，他笑了笑，说今天就到这里吧，明天笔试)
-
 - 项目中遇到了哪些挑战？
-
 - 说说你对前端架构的认识，如何设计出一个架构方案(说实话，我顶不住，没研究过)
-
 - 在一个大型项目中，如何定位发生内存泄露的代码？(没有实践过)
-
 - Last-Modified 和 Etag 有什么区别？
-
 - Cache-Control 和 Last-Modified 的区别
-
 - 说说 String, StringBuilder 和 StringBuffer 的区别
-
 - 跨域有哪些方案？
-
-- React 受控组件和非受控组件的区别
-
 - 你自己在社区做过什么具有推动性的事情？
-
 - 你能不能说说自己比较擅长的数据结构有哪些?
-
 - 你希望公司的环境是怎么样的？
 
--
+  1.  浏览器和 nodejs 事件循环？🌟
 
-<!---->
+  答：执行栈，promise 是 microTask，setTimeout 是 task
 
-    ## 面经部分
+  其中很多的阶段，可以从这里看到完整的模型介绍：html.spec.whatwg.org/multipage/w…
 
-<!---->
+  需要说出来的点：首先 setTimeout 并没有特殊，也是一个 task。另外每次的执行过 task 和 大量的 microtask（不一定在一次循环全执行完）后，会进行 renderUi 阶段，虽然不是每次事件循环都进行 renderUi ，但每次间隔，也就是传说中 **60hz** 的一帧 **16ms**。
 
-    仅供参考，仅供参考，仅供参考！！！
+  nodejs 事件循环略有不同...多了 process.nextTick 等
 
-    因为几乎没有 React 相关经历，问我最多的 React 问题就是你觉得和 vue 有什么区别？
+  1.  手写 Promise 或者 Promise 的静态方法
 
-    啊...从这一点来说，简历环节确实很关键。**其实我做过，但我不精通，简历上不写，所以我不会，别问...**
+  答：手写 Promise 尽量写出来 Promise 的状态，静态方法以及 **.then**，**.catch**。当然更细节的还原可以看 **Promise A+** 规范。
 
-    下面的面经部分被我分为了八个方面：（下面题目的 🌟 代表面试频率出现过多次）
+  静态方法指 `Promise.allSettled` `Promise.all` `Promise.race` 等等。
 
-    *   JavaScript 基础
-    *   Css 以及优化
-    *   vue 或 react 框架相关
-    *   前端打包等工程化
-    *   浏览器及常见安全问题相关
-    *   跨平台技术
-    *   网络相关
-    *   少量算法
+  1.  手写节流与防抖 🌟
 
-    其中并没有 Html 相关的东西，一方面确实是相关的题目少，另外不会有太难的问题，平时开发时常见的情况基本可以解决。
+  答：老生常谈，原理很简单，主要还是看会不会封装函数，以及封装的高级与否，考虑的情况是否全面。
 
-    并且因为是**从自己的简历**来发问，所以有些也很常见的 nodejs、serverless、GraphQL 等等都不在我的面试题里，但很有可能**出现在你的题目里**，相关题目可以自行补课！
+  1.  手写 bind 函数
 
-    ### 原生 JS 代码
+  答：同上。
 
-    1.  JavaScript 实现对上传图片的压缩？
+  1.  service worker 使用
 
-    答：读取用户上传的 File 对象，读写到画布（canvas）上，利用 Canvas 的 API 进行压缩，完成压缩之后再转成 File（Blob） 对象，上传到远程图片服务器；不过有时候我们也需要将一个 base64 字符串压缩之后再变为 base64 字符串传入到远程数据库或者再转成 File（Blob） 对象。
+  答：缓存，渐进式应用，拦截处理
 
-    思路就是 File + Canvas 的 drawImage
+  聊到 **worker** 可能还会聊到 **web worker， shared worder** 等等，如果有自信，或者工作对这方面有深入理解，可以秀一下。能体现出自己的优势...
 
-    可以看看张鑫旭大佬的文章 HTML5 file API 加 canvas 实现图片前端 JS 压缩并上传
+  1.  严格模式
 
-    1.  谈一谈 JavaScript 的异步？🌟
+  答：this 的 undefined，禁止 with，arguments 不允许更改，给只读对象赋值抛异常，变量需要先声明，call，apply 第一个参数不会被转换...
 
-    答：setTimeout、MutationObserver、postMessage、Promise、async、await、generator
+  能答出来一些就行。
 
-    从 MutationObserver、postMessage 会牵扯到 vue 的 \$nextTick
+  1.  原型链以及继承
 
-    从 generator 会聊到 co.js 实现，代码不长，意思也好理解，但让我写还真没写出来，建议兄弟们好好看一遍！
+  答：很常问，但随便找个赞数高的讲解，看一遍就懂了，记住常考点即可。
 
-    从 Promise 和 setTimeout 会聊到下面要说的**事件循环**
+  1.  正则表达式匹配规则？
 
-    1.  浏览器和 nodejs 事件循环？🌟
+  答：这个真没办法，只能是对正则表达式的规则进行系统学习，当然常考的可能是 **邮箱，url** 匹配。
 
-    答：执行栈，promise 是 microTask，setTimeout 是 task
+  ### css 以及优化
 
-    其中很多的阶段，可以从这里看到完整的模型介绍：html.spec.whatwg.org/multipage/w…
+  1.  flex 布局 🌟
 
-    需要说出来的点：首先 setTimeout 并没有特殊，也是一个 task。另外每次的执行过 task 和 大量的 microtask（不一定在一次循环全执行完）后，会进行 renderUi 阶段，虽然不是每次事件循环都进行 renderUi ，但每次间隔，也就是传说中 **60hz** 的一帧 **16ms**。
+  答：阮一峰老师的 flex 文章，清晰易懂。
 
-    nodejs 事件循环略有不同...多了 process.nextTick 等
+  常用的 api 和两列、三列布局等等，对于我来说稍微有点难度。之前项目对兼容性高，基本没怎么用过 flex 布局。没用过的建议用一用，几个小时就会常见布局了。
 
-    1.  手写 Promise 或者 Promise 的静态方法
+  1.  优化长列表滚动效果
 
-    答：手写 Promise 尽量写出来 Promise 的状态，静态方法以及 **.then**，**.catch**。当然更细节的还原可以看 **Promise A+** 规范。
+  没答上来，说了几个 js 的方案没答对点上。
 
-    静态方法指 `Promise.allSettled` `Promise.all` `Promise.race` 等等。
+  面试官答曰：transition 优化动画效果，分层渲染
 
-    1.  手写节流与防抖 🌟
+  后面分析了一下，可以用 transform 进行强制分层，第二种可以用 content-visibility 将看不见的元素不渲染，设置值为 `auto` 即可。第三个是对于某些动画效果，可以用 `will-change` 作用在父元素上进行 gpu 加速，使用后删掉。
 
-    答：老生常谈，原理很简单，主要还是看会不会封装函数，以及封装的高级与否，考虑的情况是否全面。
+  1.  响应式布局 🌟
 
-    1.  手写 bind 函数
+  答：可能会涉及 css 函数，rem/em 区别，媒体查询...
 
-    答：同上。
+  1.  什么是 BFC？
 
-    1.  service worker 使用
+  答：块级格式化上下文，我布局总用！
 
-    答：缓存，渐进式应用，拦截处理
+  问：什么会形成 BFC？它的作用是什么？
 
-    聊到 **worker** 可能还会聊到 **web worker， shared worder** 等等，如果有自信，或者工作对这方面有深入理解，可以秀一下。能体现出自己的优势...
+  答：
 
-    1.  严格模式
+  - body 根元素
+  - 浮动元素：float 除 none 以外的值
+  - 绝对定位元素：position (absolute、fixed)
+  - display 为 inline-block、table-cells、flex
+  - overflow 除了 visible 以外的值 (hidden、auto、scroll)
 
-    答：this 的 undefined，禁止 with，arguments 不允许更改，给只读对象赋值抛异常，变量需要先声明，call，apply 第一个参数不会被转换...
+  作用嘛，为了布局 😂（千万别这么答哈，具体可以看下面文章）
 
-    能答出来一些就行。
+  推荐一篇 BFC 文章
 
-    1.  原型链以及继承
+  ### vue 或 react 框架相关
 
-    答：很常问，但随便找个赞数高的讲解，看一遍就懂了，记住常考点即可。
+  1.  vue 响应式原理以及双向绑定实现代码 ? 🌟
+  2.  vue3 响应式原理，有什么不同？
+  3.  vue 的 diff 算法思路，怎么对比节点？
+  4.  vue 的 compile 实现？🌟
+  5.  vue 如何自定义指令？具体的 api 写法？
+  6.  vue3 对于 vue2 在性能上的优化（从 compile 和 runtime 两方面）？
+  7.  react 有什么不同？了解 hooks 吗？
 
-    1.  正则表达式匹配规则？
+  答：（虽然我不会，但我可以说点别的，比如 vue3 也有 hooks，它的使用和一些优点？）
 
-    答：这个真没办法，只能是对正则表达式的规则进行系统学习，当然常考的可能是 **邮箱，url** 匹配。
+  1.  用过 TypeScript 吗？有什么优点，为什么用？具体的场景，使用 TypeScript 进行类型定义。
 
-    ### css 以及优化
+  答：vue 项目多， ts 用的少，也用过，写前端监控 sdk 时，对接口进行类型校验，它像一个文档，每一个接口都有定义，后面再翻看瞬间理解意思。（强类型好处还有很多，但是个人觉得写起来超级麻烦，当然有人很喜欢很爽。）
 
-    1.  flex 布局 🌟
+  1.  vue 的 keep-alive 使用场景，以及原理？🌟
 
-    答：阮一峰老师的 flex 文章，清晰易懂。
+  ### 前端打包等工程化
 
-    常用的 api 和两列、三列布局等等，对于我来说稍微有点难度。之前项目对兼容性高，基本没怎么用过 flex 布局。没用过的建议用一用，几个小时就会常见布局了。
+  1.  webpack 和 rollup 使用？
 
-    1.  优化长列表滚动效果
+  2.  tree-shaking 原理？🌟
 
-    没答上来，说了几个 js 的方案没答对点上。
+  3.  webpack loader 和 plugin 怎么写？
 
-    面试官答曰：transition 优化动画效果，分层渲染
+  4.  你对 vite 熟悉，和 webpack 区别？
 
-    后面分析了一下，可以用 transform 进行强制分层，第二种可以用 content-visibility 将看不见的元素不渲染，设置值为 `auto` 即可。第三个是对于某些动画效果，可以用 `will-change` 作用在父元素上进行 gpu 加速，使用后删掉。
+  5.  给 vite 做的贡献和在实际项目的使用？
 
-    1.  响应式布局 🌟
+  - vite-electron-quick Git 地址
 
-    答：可能会涉及 css 函数，rem/em 区别，媒体查询...
+  - 代码被 merge 的 pr 历史
 
-    1.  什么是 BFC？
+  1.  如何统一对错误进行捕获的？vue 的异步错误如何捕获？
 
-    答：块级格式化上下文，我布局总用！
+  - 自己写的 JS 错误捕获 SDK Git 地址
 
-    问：什么会形成 BFC？它的作用是什么？
+  顺便求个 git 小 🌟🌟
 
-    答：
+  ![图片](https://mmbiz.qpic.cn/sz_mmbiz_jpg/H8M5QJDxMHrFWJIUTubbI1xZS9ntOIm9iaXPDlEqjgfeIxFPw0HasYmsdNVnxdJI6eqx5uklLba7yibcRJR6oZ2g/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
 
-    *   body 根元素
-    *   浮动元素：float 除 none 以外的值
-    *   绝对定位元素：position (absolute、fixed)
-    *   display 为 inline-block、table-cells、flex
-    *   overflow 除了 visible 以外的值 (hidden、auto、scroll)
+  ### 浏览器及常见安全问题相关
 
-    作用嘛，为了布局 😂（千万别这么答哈，具体可以看下面文章）
+  1.  浏览器页面加载过程，越详细越好 🌟
+  2.  浏览器缓存 🌟
+  3.  跨域问题及处理 🌟
+  4.  v8 快数组慢数组，hidden class 或者其他模块？
+  5.  xss 和 csrc 的意思？如何防范？🌟
 
-    推荐一篇 BFC 文章
+  答：美团的两篇文章摆出来，面试官直接问下一题！
 
-    ### vue 或 react 框架相关
+  - xss 防范
+  - csrf 防范
 
-    1.  vue 响应式原理以及双向绑定实现代码 ? 🌟
-    2.  vue3 响应式原理，有什么不同？
-    3.  vue 的 diff 算法思路，怎么对比节点？
-    4.  vue 的 compile 实现？🌟
-    5.  vue 如何自定义指令？具体的 api 写法？
-    6.  vue3 对于 vue2 在性能上的优化（从 compile 和 runtime 两方面）？
-    7.  react 有什么不同？了解 hooks 吗？
+  ### 跨平台技术
 
-    答：（虽然我不会，但我可以说点别的，比如 vue3 也有 hooks，它的使用和一些优点？）
+  1.  electron 使用，如何实现小托盘功能？
+  2.  flutter 的 widget stateFullWidget stateLessWidget 区别？
+  3.  js Bridge 的原理 ？🌟
+  4.  flutter 的渲染引擎？
 
-    1.  用过 TypeScript 吗？有什么优点，为什么用？具体的场景，使用 TypeScript 进行类型定义。
+  ### 网络相关
 
-    答：vue 项目多， ts 用的少，也用过，写前端监控 sdk 时，对接口进行类型校验，它像一个文档，每一个接口都有定义，后面再翻看瞬间理解意思。（强类型好处还有很多，但是个人觉得写起来超级麻烦，当然有人很喜欢很爽。）
+  2.  Oauth2.0 和 jwt 单点登录等
+  3.  http/https 区别？为什么 https 更安全一点？https 为什么也不是十分安全？
+  4.  http1.x 和 http2.0 的区别？http2.0 优点，以及某些情况会比 1.x 速度更慢？
+  5.  https 加密原理？
+  6.  http2.0 压缩头，以及并行请求原理？
+  7.  tcp 的连接方式？
 
-    1.  vue 的 keep-alive 使用场景，以及原理？🌟
+  ### 少量算法
 
-    ### 前端打包等工程化
+  - 回文串，中心扩散法
+  - 冒泡，快排 🌟
+  - 二分查找 🌟
+  - 动态规划 （没遇到考这个的，可能难度太高，面试官看我简单的半天才拿下，这个直接不考虑了，大佬可以关注一下）
 
-    1.  webpack 和 rollup 使用？
+  ## 面试中的项目题
 
-    2.  tree-shaking 原理？🌟
+  大概就是让你去设计一个系统的技术选型，或者是如何设计组件库，设计一个系统。个人猜测对于渣渣的我，这种题就是看看有没有 owner 意识，而且也可以看一下我对哪些技术更感兴趣？
 
-    3.  webpack loader 和 plugin 怎么写？
+  除了系统，还有某些场景的设计方案，比如如何用鉴权控制登陆时间设计**保持七天登录状态**。
 
-    4.  你对 vite 熟悉，和 webpack 区别？
+  因为我简历中几乎没有涉及 nodejs 服务端的东西，但面试官总想问一问...
 
-    5.  给 vite 做的贡献和在实际项目的使用？
+  只能说做过自己博客的服务端...
 
-    *   vite-electron-quick Git 地址
+  服务端代码 Git 地址
 
-    *   代码被 merge 的 pr 历史
+  但是很简陋...只能说开发过 😂
 
-    1.  如何统一对错误进行捕获的？vue 的异步错误如何捕获？
+  ## 总结
 
-    *   自己写的 JS 错误捕获 SDK Git 地址
+  - 对于框架原理只能说个大概，真的深入某一部分具体的代码和实现方式就只能写出一个框架，许多细节注意不到。
+  - 算法方面还是很薄弱，好在面试官都很和蔼可亲，擅长发现人的美哈哈哈...（最好多刷一刷，不然影响你的工资和成功率 😯）
+  - 在投递简历之前，最好通过各种渠道找到公司内部的人，先提前了解业务，也可以帮助后期优秀 offer 的决策。
+  - 要勇于说不，对于某些 offer 待遇不满意、业务不喜欢，应该相信自己，不要因为当下没有更好的 offer 而投降，一份工作短则一年长则 N 年，为了幸福生活要慎重选择！！！
 
-    顺便求个 git 小 🌟🌟
+  ### 第一个场景问题
 
-    ![图片](https://mmbiz.qpic.cn/sz_mmbiz_jpg/H8M5QJDxMHrFWJIUTubbI1xZS9ntOIm9iaXPDlEqjgfeIxFPw0HasYmsdNVnxdJI6eqx5uklLba7yibcRJR6oZ2g/640?wx_fmt=jpeg\&tp=webp\&wxfrom=5\&wx_lazy=1\&wx_co=1)
+  比如直播的场景，你应该知道吧，你需要实现一个这样子的场景，比如某个老师点击某个地方，比如 U 盘，你这个时候需要展示 U 盘的动画效果，比如这个时候，老师点击这个电脑屏幕，你需要展示一个小电脑的动画效果，向上述这样子，**「需要在特定的时间点，完成特定的动画效果」**。
 
-    ### 浏览器及常见安全问题相关
+  - 嗯，这个问题，我的想法是，动画是例外加上去的，如果说是直接后期处理的话，那应该跟我们前端的关系不大了，所以我们接下来的问题，就是如何去处理，时间同步的问题，怎么在具体的时间点，开始展示动画呢
+  - 第二个问题，假设我们可以获取到某个时间点的动画，那么接下来，小哥哥，给我们提出了一个新的问题，就是当你的网络拥塞时，比如有延迟的时候，这个时候，出现卡顿的效果，原本需要 5 秒播放完的，可能需要 7 秒，那么你是如何去解决动画同步的？
 
-    1.  浏览器页面加载过程，越详细越好 🌟
-    2.  浏览器缓存 🌟
-    3.  跨域问题及处理 🌟
-    4.  v8 快数组慢数组，hidden class 或者其他模块？
-    5.  xss 和 csrc 的意思？如何防范？🌟
+  嗯，我没有做过这种类似的问题，所以回答起来感觉很吃力，有了解的小伙伴可以评论留下你们的答案，我虚心学习。
 
-    答：美团的两篇文章摆出来，面试官直接问下一题！
+  ### 第二个场景问题
 
-    *   xss 防范
-    *   csrf 防范
+  有一个场景，在一个输入框输入内容，怎么更加高效的去提示用户你输入的信息，举个例子，你输入天猫，那么对应的提示信息是天猫商城，天猫集团，这个信息如何最快的获取，有没有不需要发请求的方式来实现？
 
-    ### 跨平台技术
+  - 比如数据请求的时候，尽量发的请求少，那么可以做防抖和节流处理
+  - 接下来的小哥哥，给了新的场景，当你的服务器挂了，数据取不到，那如何设计一个小型的本地数据库
+  - 接下来问题就是如何设计一个本地的数据，优化的点，就是尽可能的快，每次查询数据尽可能的快
+  - 我的第一个思路，是 key-value 这样子去设计，但是随后就被小哥哥给质疑出问题了，举个例子，如果按照你的想法，如果关键字为 `天`，`天猫`，这样子设计数据的话，就会存在被数据重复，这样子显然是不合理的。
+  - 想了很久，这个时候，既然有`前缀`重合的情况，那么是不是有一种数据结构可以解决这个问题呢？?
+  - 字典树，我们可以在本地建立一个预读的字典树，这样子的话，根据用户输入的内容，查字典树，这个时间复杂度大概就是 O(m+n)，所以很大程度上加快了查找效率。
 
-    1.  electron 使用，如何实现小托盘功能？
-    2.  flutter 的 widget stateFullWidget stateLessWidget 区别？
-    3.  js Bridge 的原理 ？🌟
-    4.  flutter 的渲染引擎？
+  当然了，有更好的解决办法的话，可以留下你们的答案，看看你们是如何解决问题的。
 
-    ### 网络相关
+  ### 第三个场景问题
 
+  Git 版本工具你使用过吧，那你能不能实现一个这样子的效果，完成 Git Diff 算法，比较两个文件的不同，然后说一说具体的思路，这个过程怎么去比较的？两个文件不同的位置如何标注出来，如何找出这个不同，具体说一说思路。
 
-    2.  Oauth2.0 和 jwt 单点登录等
-    3.  http/https 区别？为什么 https 更安全一点？https 为什么也不是十分安全？
-    4.  http1.x 和 http2.0 的区别？http2.0 优点，以及某些情况会比 1.x 速度更慢？
-    5.  https 加密原理？
-    6.  http2.0 压缩头，以及并行请求原理？
-    7.  tcp 的连接方式？
+  - 一开始我想的是 diff 算法，比如是 vue 中的虚拟 dom 算法，但是感觉不对啊，diff 是做了优化的，这里很明显不合理，于是这个方法就不合理了。
+  - 那么两个文件，该如何快速的找到对应的两者文件的差别呢？这个问题想了好久，嗯，当时自己好像是口胡了一些思路，比如去逐行逐行的比较，这样子的话，其实也不是很合理的，仔细想一想不行
+  - 小哥哥提示了我，我们是不是要去找`最长的公共子串`，这个是时候，我应该想起来这个是两个串的`LCS`,应该就是经典的`动态规划`问题,最后一个问题，确实没有想到这个，可能就是很久没有接触这类动态规划问题了。
+  - 核心应该是动态规划解决 LCS，以及后续的处理，可以去看看有些文章，写的很不错，我这里就不张开啦。
 
-    ### 少量算法
+  Git 是怎样生成 diff 的：Myers 算法
 
-    *   回文串，中心扩散法
-    *   冒泡，快排 🌟
-    *   二分查找 🌟
-    *   动态规划 （没遇到考这个的，可能难度太高，面试官看我简单的半天才拿下，这个直接不考虑了，大佬可以关注一下）
+  嗯,三面的话，考察的是你思考问题，以及结合问题是如何分析，可能也考了算法吧，嗯，害，挺难的。
 
-    ## 面试中的项目题
+  ### 一面
 
-    大概就是让你去设计一个系统的技术选型，或者是如何设计组件库，设计一个系统。个人猜测对于渣渣的我，这种题就是看看有没有 owner 意识，而且也可以看一下我对哪些技术更感兴趣？
+  面试流程 50 分钟，基本上自我介绍，我花了一分钟介绍完自己在校经历，接下来就是提问环节。
 
-    除了系统，还有某些场景的设计方案，比如如何用鉴权控制登陆时间设计**保持七天登录状态**。
+  全程下来小哥哥耐心指点，非常温柔，这就是我现象中的面试官应该有的样子，还会耐心去提示你，有问题的话，也就帮助你，引导你怎么去回答。
 
-    因为我简历中几乎没有涉及 nodejs 服务端的东西，但面试官总想问一问...
+  ### H5 新特性
 
-    只能说做过自己博客的服务端...
+  简历上面写了这个内容，所以被问到了，害，当时脑子一蒙，都完全没有答好，这里在好好的梳理一遍?
 
-    服务端代码 Git 地址
+  1.  本地存储特性
+  2.  设备兼容特性 HTML5 提供了前所未有的数据与应用接入开放接口
+  3.  连接特性 WebSockets
+  4.  网页多媒体特性 支持 Audio Video SVG Canvas WebGL CSS3
+  5.  CSS3 特性
 
-    但是很简陋...只能说开发过 😂
+  增加`拖放API`、`地理定位`、`SVG绘图`、`canvas绘图`、`Web Worker`、`WebSocket`
 
-    ## 总结
+  然后我答了本地存储，接下来就问我这方便的问题啦?
 
-    *   对于框架原理只能说个大概，真的深入某一部分具体的代码和实现方式就只能写出一个框架，许多细节注意不到。
-    *   算法方面还是很薄弱，好在面试官都很和蔼可亲，擅长发现人的美哈哈哈...（最好多刷一刷，不然影响你的工资和成功率 😯）
-    *   在投递简历之前，最好通过各种渠道找到公司内部的人，先提前了解业务，也可以帮助后期优秀 offer 的决策。
-    *   要勇于说不，对于某些 offer 待遇不满意、业务不喜欢，应该相信自己，不要因为当下没有更好的 offer 而投降，一份工作短则一年长则 N 年，为了幸福生活要慎重选择！！！
+  ### localstroge sessionstoge 区别 应用场景
 
-    ### 第一个场景问题
+  ### vue 组件间通信
 
-    比如直播的场景，你应该知道吧，你需要实现一个这样子的场景，比如某个老师点击某个地方，比如 U 盘，你这个时候需要展示 U 盘的动画效果，比如这个时候，老师点击这个电脑屏幕，你需要展示一个小电脑的动画效果，向上述这样子，**「需要在特定的时间点，完成特定的动画效果」**。
+  好几次面试都问了这个问题，这个问题我是这么看待的，取决于你平时项目中经常使用的方式是哪些，所以我每次都会答三种方式，反而网上 8 种组件间通信的方式，我记不住，也觉得了解一下即可，跟面试官交流一下，你在项目种是如何使用的即可。
 
-    *   嗯，这个问题，我的想法是，动画是例外加上去的，如果说是直接后期处理的话，那应该跟我们前端的关系不大了，所以我们接下来的问题，就是如何去处理，时间同步的问题，怎么在具体的时间点，开始展示动画呢
-    *   第二个问题，假设我们可以获取到某个时间点的动画，那么接下来，小哥哥，给我们提出了一个新的问题，就是当你的网络拥塞时，比如有延迟的时候，这个时候，出现卡顿的效果，原本需要 5 秒播放完的，可能需要 7 秒，那么你是如何去解决动画同步的？
+  ### 遍历对象方法
 
-    嗯，我没有做过这种类似的问题，所以回答起来感觉很吃力，有了解的小伙伴可以评论留下你们的答案，我虚心学习。
+  - for in 遍历的也可以，不过对于非继承的属性名称也会获取到，通过 hasOwnproperty 判断
+  - Object.keys() 可枚举属性和方法名
+  - Object.getOwnPropertyNames() 可以获取数组内包括自身拥有的枚举或不可枚举属性名称字符串，如果是数组的话，还有可能获取到`length`属性
 
-    ### 第二个场景问题
+  编程题?
 
-    有一个场景，在一个输入框输入内容，怎么更加高效的去提示用户你输入的信息，举个例子，你输入天猫，那么对应的提示信息是天猫商城，天猫集团，这个信息如何最快的获取，有没有不需要发请求的方式来实现？
+  ### 数组去重
 
-    *   比如数据请求的时候，尽量发的请求少，那么可以做防抖和节流处理
-    *   接下来的小哥哥，给了新的场景，当你的服务器挂了，数据取不到，那如何设计一个小型的本地数据库
-    *   接下来问题就是如何设计一个本地的数据，优化的点，就是尽可能的快，每次查询数据尽可能的快
-    *   我的第一个思路，是 key-value 这样子去设计，但是随后就被小哥哥给质疑出问题了，举个例子，如果按照你的想法，如果关键字为 `天`，`天猫`，这样子设计数据的话，就会存在被数据重复，这样子显然是不合理的。
-    *   想了很久，这个时候，既然有`前缀`重合的情况，那么是不是有一种数据结构可以解决这个问题呢？?
-    *   字典树，我们可以在本地建立一个预读的字典树，这样子的话，根据用户输入的内容，查字典树，这个时间复杂度大概就是 O(m+n)，所以很大程度上加快了查找效率。
+  常规题，讲清楚思路，最后小哥哥提示能不能使用 O(n)，我给出了两者方案
 
-    当然了，有更好的解决办法的话，可以留下你们的答案，看看你们是如何解决问题的。
+  - Set
 
-    ### 第三个场景问题
+  - 用对象特性，我觉得他就是想考这个，给你们贴一个代码吧?
 
-    Git 版本工具你使用过吧，那你能不能实现一个这样子的效果，完成 Git Diff 算法，比较两个文件的不同，然后说一说具体的思路，这个过程怎么去比较的？两个文件不同的位置如何标注出来，如何找出这个不同，具体说一说思路。
+  -
 
-    *   一开始我想的是 diff 算法，比如是 vue 中的虚拟 dom 算法，但是感觉不对啊，diff 是做了优化的，这里很明显不合理，于是这个方法就不合理了。
-    *   那么两个文件，该如何快速的找到对应的两者文件的差别呢？这个问题想了好久，嗯，当时自己好像是口胡了一些思路，比如去逐行逐行的比较，这样子的话，其实也不是很合理的，仔细想一想不行
-    *   小哥哥提示了我，我们是不是要去找`最长的公共子串`，这个是时候，我应该想起来这个是两个串的`LCS`,应该就是经典的`动态规划`问题,最后一个问题，确实没有想到这个，可能就是很久没有接触这类动态规划问题了。
-    *   核心应该是动态规划解决 LCS，以及后续的处理，可以去看看有些文章，写的很不错，我这里就不张开啦。
+  -
 
-    Git 是怎样生成 diff 的：Myers 算法
+  -
 
-    嗯,三面的话，考察的是你思考问题，以及结合问题是如何分析，可能也考了算法吧，嗯，害，挺难的。
+  -
 
-    ### 一面
+  -
 
-    面试流程 50 分钟，基本上自我介绍，我花了一分钟介绍完自己在校经历，接下来就是提问环节。
+  -  <!---->
 
-    全程下来小哥哥耐心指点，非常温柔，这就是我现象中的面试官应该有的样子，还会耐心去提示你，有问题的话，也就帮助你，引导你怎么去回答。
+         let unique = arr => {            let obj = {}            return arr.filter((ele) => {                return obj.hasOwnProperty(typeof ele + ele) ? false : (obj[typeof ele + ele] = true)            })        }
 
-    ### H5 新特性
+  ### 深度遍历
 
-    简历上面写了这个内容，所以被问到了，害，当时脑子一蒙，都完全没有答好，这里在好好的梳理一遍?
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -  <!---->
 
-    1.  本地存储特性
-    2.  设备兼容特性 HTML5 提供了前所未有的数据与应用接入开放接口
-    3.  连接特性 WebSockets
-    4.  网页多媒体特性 支持 Audio Video SVG Canvas WebGL CSS3
-    5.  CSS3 特性
+         const tree = {	name: 'root',	children: [		{			name: 'c1',			children: [				{						name: 'c11',					children: []							},					{						name: 'c12',					children: []						}			]		},		{			name: 'c2',			children: [				{						name: 'c21',					children: []							},					{						name: 'c22',					children: []						}			]		}	]}
+         // 深度优先的方式遍历 打印 name// ['root', 'c1','c11', 'c12', 'c2', 'c21', 'c22']
 
-    增加`拖放API`、`地理定位`、`SVG绘图`、`canvas绘图`、`Web Worker`、`WebSocket`
+  这题，我一开始想到的就是递归的写法，写完之后，然后小哥哥问了我递归的缺点，以及如何去优化，不用递归的方法该怎么去实现？
 
-    然后我答了本地存储，接下来就问我这方便的问题啦?
+  面试的时候，没有写出来，太紧张了，不在状态，复盘的时候，写了一下用\*\*「栈」\*\*的实现方式?
 
-    ### localstroge sessionstoge 区别 应用场景
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -  <!---->
 
-    ### vue 组件间通信
+         function solve(root) {            let stack = [],                result = [];            if(!root) return [];            stack.push(root)            while(stack.length) {                let node = stack.pop()                if(node == null ) continue                result.push(node.name)                for(let i = node.children.length-1; i >= 0; i--) {                    // 这里就是面试的重点,应该从后面的节点压入栈中                    stack.push(node.children[i])                }            }            return result        }
 
-    好几次面试都问了这个问题，这个问题我是这么看待的，取决于你平时项目中经常使用的方式是哪些，所以我每次都会答三种方式，反而网上 8 种组件间通信的方式，我记不住，也觉得了解一下即可，跟面试官交流一下，你在项目种是如何使用的即可。
+  ### 链表的相加问题?
 
-    ### 遍历对象方法
+  这个是 LeetCode 上面的题目，我好像还写过，面试的最后一题的时候，我以及蒙了，完全不知道自己在干嘛，其实\*\*「链表题都是套路」\*\*，我连套路都没有掌握，
 
-    *   for in 遍历的也可以，不过对于非继承的属性名称也会获取到，通过 hasOwnproperty 判断
-    *   Object.keys() 可枚举属性和方法名
-    *   Object.getOwnPropertyNames() 可以获取数组内包括自身拥有的枚举或不可枚举属性名称字符串，如果是数组的话，还有可能获取到`length`属性
+  这个我写了一个专题，把题目刷完之后，应该遇到链表问题，可以轻松解决了。
 
-    编程题?
+  「算法与数据结构」链表的 9 个基本操作
 
-    ### 数组去重
+  ### 二面
 
-    常规题，讲清楚思路，最后小哥哥提示能不能使用 O(n)，我给出了两者方案
+  大概的时间上的安排，算了一下，大致上是花了 50 分钟吧，是个小姐姐，小姐姐好温柔，我印象中小姐姐很 nice，我记得我笔试做 Promise 的时候，我做错了，她还特意问了我一遍，当时我大概知道错了，不过呢，这个过程小姐姐是微笑的，缓解了尴尬，而且还耐心的去指导我，给她点赞呀。
 
-    *   Set
+  ### ES6 语法，Promise 了解吗
 
-    *   用对象特性，我觉得他就是想考这个，给你们贴一个代码吧?
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -  <!---->
 
-    *
+         const promise = new Promise((resolve, reject) => {            console.log(1);            resolve();            reject()            console.log(2);        })
+                 promise.then(() => {            console.log(3);        },() => {            console.log("失败的状态")        })
+                 console.log(4);
 
-    *
+  我看到以后，就直接说答案了，这点不好，因为一般而言，面试官出的题目肯定有点小坑，下次要注意了，最后面试官小姐姐还是微笑的告诉我，应该这么去做，然后怎么怎么样。
 
-    *
+  ### 前端性能优化
 
-    *
+  这个问题太大了，而且对于一个实际开发经验为 0 的而言，这个问题就很置命，所以呢，我就准备了从 URL 到页面渲染这个一块去说，里面的优化点挺多的，可以自行去了解。
 
-    *
+  - 构建请求行
+  - 查缓存 （重点说一说）
 
-    *
+  - tcp http （比如减少请求次数，嗯，应该还有其他优化吧，cdn？）
+  - 浏览器渲染过程 （这里面就有优化了，比如常见的如何避免回流和重绘）
+  - 防抖和节流处理
+  - webpack 打包优化也可以说一说，前提你得有自信
 
-    <!---->
+  ## 其他面经
 
-        let unique = arr => {            let obj = {}            return arr.filter((ele) => {                return obj.hasOwnProperty(typeof ele + ele) ? false : (obj[typeof ele + ele] = true)            })        }
+  这里面就是其他一些公司的问题了，比如有赞，涂鸦等，问题很基础，所以我带过了，主要是觉得简单，所以就掉过啦。
 
-    ### 深度遍历
+  ### 你说你最近在研究 webpack，说一说
 
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
+  这个问题，我介绍的时候，就直接说了，最近在写博客以及研究 webpack，讲一讲 webpack 一些配置，比如 loader，plugins，常见的 loader，自己配过 loader 的话，答起来就很流畅。
 
-    <!---->
+  然后顺便叫我说一说原理，这我暂时就不清楚了。
 
-        const tree = {	name: 'root',	children: [		{			name: 'c1',			children: [				{						name: 'c11',					children: []							},					{						name: 'c12',					children: []						}			]		},		{			name: 'c2',			children: [				{						name: 'c21',					children: []							},					{						name: 'c22',					children: []						}			]		}	]}
-        // 深度优先的方式遍历 打印 name// ['root', 'c1','c11', 'c12', 'c2', 'c21', 'c22']
+  ### ES6 了解吗，说一说
 
-    这题，我一开始想到的就是递归的写法，写完之后，然后小哥哥问了我递归的缺点，以及如何去优化，不用递归的方法该怎么去实现？
+  嗯，就按照你平常的来说，比如箭头函数，展开运算符，Promise，然后好像就说了这三个….太紧张了
 
-    面试的时候，没有写出来，太紧张了，不在状态，复盘的时候，写了一下用\*\*「栈」\*\*的实现方式?
+  其实还有很多都用过，这里记录一下
 
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
+  - ES6 类 Class
+  - for...of 和 for...in
+  - 对象的解构
+  - rest 操作符 / Spread 操作符
+  - 模板字符串
+  - const let
 
-    <!---->
+  ### 闭包
 
-        function solve(root) {            let stack = [],                result = [];            if(!root) return [];            stack.push(root)            while(stack.length) {                let node = stack.pop()                if(node == null ) continue                result.push(node.name)                for(let i = node.children.length-1; i >= 0; i--) {                    // 这里就是面试的重点,应该从后面的节点压入栈中                    stack.push(node.children[i])                }            }            return result        }
+  嗯，这个问题，老生常谈的问题了，就过吧，不同的人，对这个有不一样的理解。
 
-    ### 链表的相加问题?
+  ### 某知音科技
 
-    这个是 LeetCode 上面的题目，我好像还写过，面试的最后一题的时候，我以及蒙了，完全不知道自己在干嘛，其实\*\*「链表题都是套路」\*\*，我连套路都没有掌握，
+  面试长达 80 分钟，我觉得我都快要被问倒了，真的，这个过程太长了呀，不过呢，这个小哥哥也非常 nice，过程中有非常认真听我讲，嗯，听我一个人在那么巴拉巴拉半天。
 
-    这个我写了一个专题，把题目刷完之后，应该遇到链表问题，可以轻松解决了。
-
-    「算法与数据结构」链表的 9 个基本操作
-
-    ### 二面
-
-    大概的时间上的安排，算了一下，大致上是花了 50 分钟吧，是个小姐姐，小姐姐好温柔，我印象中小姐姐很 nice，我记得我笔试做 Promise 的时候，我做错了，她还特意问了我一遍，当时我大概知道错了，不过呢，这个过程小姐姐是微笑的，缓解了尴尬，而且还耐心的去指导我，给她点赞呀。
-
-    ### ES6 语法，Promise 了解吗
-
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-
-    <!---->
-
-        const promise = new Promise((resolve, reject) => {            console.log(1);            resolve();            reject()            console.log(2);        })
-                promise.then(() => {            console.log(3);        },() => {            console.log("失败的状态")        })
-                console.log(4);
-
-    我看到以后，就直接说答案了，这点不好，因为一般而言，面试官出的题目肯定有点小坑，下次要注意了，最后面试官小姐姐还是微笑的告诉我，应该这么去做，然后怎么怎么样。
-
-    ### 前端性能优化
-
-    这个问题太大了，而且对于一个实际开发经验为 0 的而言，这个问题就很置命，所以呢，我就准备了从 URL 到页面渲染这个一块去说，里面的优化点挺多的，可以自行去了解。
-
-    *   构建请求行
-    *   查缓存 （重点说一说）
-
-    *   tcp http （比如减少请求次数，嗯，应该还有其他优化吧，cdn？）
-    *   浏览器渲染过程 （这里面就有优化了，比如常见的如何避免回流和重绘）
-    *   防抖和节流处理
-    *   webpack 打包优化也可以说一说，前提你得有自信
-
-
-    ## 其他面经
-
-    这里面就是其他一些公司的问题了，比如有赞，涂鸦等，问题很基础，所以我带过了，主要是觉得简单，所以就掉过啦。
-
-    ### 你说你最近在研究 webpack，说一说
-
-    这个问题，我介绍的时候，就直接说了，最近在写博客以及研究 webpack，讲一讲 webpack 一些配置，比如 loader，plugins，常见的 loader，自己配过 loader 的话，答起来就很流畅。
-
-    然后顺便叫我说一说原理，这我暂时就不清楚了。
-
-    ### ES6 了解吗，说一说
-
-    嗯，就按照你平常的来说，比如箭头函数，展开运算符，Promise，然后好像就说了这三个….太紧张了
-
-    其实还有很多都用过，这里记录一下
-
-    *   ES6 类 Class
-    *   for...of 和 for...in
-    *   对象的解构
-    *   rest 操作符 / Spread 操作符
-    *   模板字符串
-    *   const let
-
-    ### 闭包
-
-    嗯，这个问题，老生常谈的问题了，就过吧，不同的人，对这个有不一样的理解。
-
-    ### 某知音科技
-
-    面试长达 80 分钟，我觉得我都快要被问倒了，真的，这个过程太长了呀，不过呢，这个小哥哥也非常 nice，过程中有非常认真听我讲，嗯，听我一个人在那么巴拉巴拉半天。
-
-    *   原型
-    *   闭包
-    *   作用域
-    *   输入 url 过程整个过程
-    *   https 区别，TLS 握手
-    *   浏览器缓存
-    *   https 如何保证安全，TLS 握手的过程聊一聊
-    *   vue 通信方式
-    *   vue 数据响应式的原理，数组是怎么重写的
+  - 原型
+  - 闭包
+  - 作用域
+  - 输入 url 过程整个过程
+  - https 区别，TLS 握手
+  - 浏览器缓存
+  - https 如何保证安全，TLS 握手的过程聊一聊
+  - vue 通信方式
+  - vue 数据响应式的原理，数组是怎么重写的
 
 #### 一、携程
 
@@ -15105,7 +13825,7 @@ webpack 也基本上成了必考的内容，一般会问是否配置过 webpack�
 1\.
 实现一下 some, every
 
-1.                                                                                                                                                                                                            flatten实现
+1.                                                                                                                                                                                                                                      flatten实现
 
 2.  const promise = new Promise(resolve => {
 
@@ -15270,53 +13990,23 @@ webpack 也基本上成了必考的内容，一般会问是否配置过 webpack�
     }, 300);
     }
 
-PS：一面笔试要求是 30 分钟，前 4 道算法题，二面笔试题是 15 分钟
-
-### 与项目关系不大的问答题
-
-1.  节流防抖(实现/场景/源码，如 lodash 实现原理)
-2.  事件循环(浏览器/node/版本差异)
-3.  setTimeout 实现原理
-4.  react 和 vue 的区别
-5.  Promise 原理
-6.  前端错误监控及容灾
-7.  性能优化
-8.  谈谈 node 的内存泄漏
-9.  开发过程中遇到的最大挑战是什么
-10. 学习的动力怎么来的，如何维持
-11. 浏览器的渲染机制是怎样的
-12. SSR 作用及优缺点
-13. 如何进行状态管理
-14. webpack 及浏览器的技术分享目的是什么，分享了什么，怎么做的分享
-15. 如何进行项目重构
-16. 进程与线程的区别
-17. 说说知道的设计模式
-
-PS：由于面试全过程历时比较长，一些题目已经忘记了。大概记得这么点，然后很看项目，每一轮都详细问了项目～
-
-### 可能感兴趣的问答
-
-1.  面试一共几轮
-
-我本人一共 4 轮技术面 + 1 轮 HR 面。目前微信职级为 9 级以下的技术岗不用经过面委，9 级以下的一般 4 轮技术面，内部转岗可 3 轮技术面，9 级及以上的需要走面委面试，大概形式是做份 ppt 去讲自己的项目经历及其他技术项。9 级及以上的就 5-10 轮技术面不等。
-
-1.  历时多长
-
-我本人总历时一个多月(相对来说算很快了),所以如果你要面腾讯，千万不要裸辞，不对，面什么都不要裸辞，这年头不好混，怂一点。
-
-1.  整体面试流程是怎样的
-
-内推->一面技术->二面技术->三面技术->四面技术(GM)->HR 面->口头 offer->正式 offer->背调->入职
-
-每个阶段耗时一到两周的时间
-
-1.  微信工作地点
-
-目前微信在广州，大部分的组都在广州，其中微信支付在深圳。我本人的岗位是在广州。
-
-1.  微信考算法多吗
-
-多，基本上就是算法+项目,别看我只是写了几道算法题，那是因为...
+9.  节流防抖(实现/场景/源码，如 lodash 实现原理)
+10. 事件循环(浏览器/node/版本差异)
+11. setTimeout 实现原理
+12. react 和 vue 的区别
+13. Promise 原理
+14. 前端错误监控及容灾
+15. 性能优化
+16. 谈谈 node 的内存泄漏
+17. 开发过程中遇到的最大挑战是什么
+18. 学习的动力怎么来的，如何维持
+19. 浏览器的渲染机制是怎样的
+20. SSR 作用及优缺点
+21. 如何进行状态管理
+22. webpack 及浏览器的技术分享目的是什么，分享了什么，怎么做的分享
+23. 如何进行项目重构
+24. 进程与线程的区别
+25. 说说知道的设计模式
 
 ## 2 常规基础题
 
@@ -15587,158 +14277,73 @@ Loader 和 Plugin 的区别：
 
 思路：新建一个数组，将 obj1 遍历过的键值存储在数组中，再下一次进行遍历时发现一样的值，直接跳过进行比较。
 
-#### 笔试题
-
-> 笔试题比较简单
-
 1.  编写函数`convert(money)` ，传入金额，将金额转换为千分位表示法。例如：12345.6 => 12,345.6
 2.  实现对象的深拷贝,输出：新的对象
 3.  请完成 React 组件封装，能够实现长度展示功能封装，并且不失 input 原生组件能力。
 
-#### 面试题
-
-- 进程线程的区别 \[event loop 事件循环 ]
-
-- 聊一聊缓存 \[浏览器缓存+http 缓存]
-
-- 如果浏览器关闭了再打开, 请求还是 from cache 吗? \[浏览器缓存+http 缓存]
-
+- 进程线程的区别 [event loop 事件循环 ]
+- 聊一聊缓存 [浏览器缓存+http 缓存]
+- 如果浏览器关闭了再打开, 请求还是 from cache 吗?
 - Service Worker 了解过么?
-
-- 聊一下常见的前端安全问题. \[前端安全攻防]
-
-- 你的网站是怎么阻止 csrf 攻击的? \[前端安全攻防]
-
+- 聊一下常见的前端安全问题.
+- 你的网站是怎么阻止 csrf 攻击的?
 - 为什么用 token 就可以防止 csrf 攻击?
-
 - token 的刷新机制是怎么样的， 为什么这么设置？
-
-- 讲一下 跨域 \[跨域]
-
+- 讲一下 跨域
 - 如何处理项目的异常.
-
 - script error 怎么捕获
-
 - 脚手架做了什么功能.
-
 - webpack 做了什么优化
-
-- webpack 原理 \[webpack]
-
+- webpack 原理 [webpack]
 - 维护的公共组件需要发布大更新, 如何做?
-
-- react 怎么做优化
-
-- 用 react hook 来实现 class 的几种生命周期.
-
-- react hook 相比较 class, 哪些不太容易实现?
-
-- react 原理
-
 - 聊一下高阶组件 hoc
-
 - 聊一聊组件设计, 领域模型
-
-- mobx 和 redux , 为什么选择了 mobx , 技术选型有标准
-
-- mobx 过于灵活, 如何规范约束
-
-- mobx 原理与 redux 原理
-
 - 项目的最大难点是什么? 怎么解决?
-
 - 聊一下 node 的事件循环.
-
 - node 架构中容灾
-
 - pm2 的原理.
-
 - 有没有读过 egg 源码.
-
 - 了解过 grahql 么
-
 - 聊一下微服务
-
-- 小程序跟 h5 的区别是什么? \[小程序底层实现]
-
-- 讲一下 taro 小程序的底层原理，跟 mpvue 的区别 \[AST, babel]
-
+- 小程序跟 h5 的区别是什么? [小程序底层实现]
+- 讲一下 taro 小程序的底层原理，跟 mpvue 的区别 [AST, babel]
 - SPA 项目如何监控 pv, uv 值
-
 - 如何在用户刷新、跳转、关闭浏览器时向服务端发送统计的数据？
-
 - 错误日志上报遇到的问题.
-
-- 规范 \[eslint, prettier, git commit hook]
-
+- 规范 [eslint, prettier, git commit hook]
 - 如何制定规范？
-
 - 可视化表单了解过么?
-
 - 聊一下 axios .有什么优点, 跟 fetch, ajax 对比
-
 - axios 为什么既可以在浏览器发请求,又可以在 node 层发请求?
-
-- 职业规划
-
-- 考虑杭州么
-
-- 家人情况
-
-- 基础知识
-
-- - 跨域
-  - 执行上下文/作用域链/闭包
-  - 事件循环
-  - 安全
-  - 缓存
-  - 模块化
-  - 深拷贝浅拷贝
-  - 异步处理 async await promise
-  - 防抖节流
-  - http 请求头, http2 http 相关知识
-
-- webpack 知识点
-
-- - webpack 热更新的原理
-  - loader 和 plugin 的区别
-  - 手写一个 plugin
-  - webpack 底层 Tapable 原理
-  - webpack 做的性能优化
-  - tree-shaking
-  - webpack 的构建流程
-  - 多页面打包怎么做?
-  - 文件指纹
-  - webpack 如何实现异步加载
-
-- react 知识点
-
-- - jsx 的原理
-  - 为什么要使用 key , 有什么好处
-  - diff 原理
-  - fiber 架构
-  - setState 更新机制
-  - react hook 原理
-  - 原生事件和 React 事件的区别？
-  - 虚拟 dom 有啥好处?
-  - 高阶组件(HOC), Mixin, hook 对比和用处.
-
-- node 知识点
-
-- - koa 中间件原理
-
-  - 介绍下 stream
-
+- 跨域
+- 执行上下文/作用域链/闭包
+- 事件循环
+- 安全
+- 缓存
+- 模块化
+- 深拷贝浅拷贝
+- 异步处理 async await promise
+- 防抖节流
+- http 请求头, http2 http 相关知识
+- webpack 热更新的原理
+- loader 和 plugin 的区别
+- 手写一个 plugin
+- webpack 底层 Tapable 原理
+- webpack 做的性能优化
+- tree-shaking
+- webpack 的构建流程
+- 多页面打包怎么做?
+- 文件指纹
+- webpack 如何实现异步加载
+- koa 中间件原理
+- 介绍下 stream
 - babel
-
-- - transform-runtime, stage-2 说一下他们的作用
-  - babel 如何将字符串解析成 AST ?
-  - 讲一下 AST 语法树
-  - babel-runtime 和 babel-polyfill
-
+- transform-runtime, stage-2 说一下他们的作用
+- babel 如何将字符串解析成 AST ?
+- 讲一下 AST 语法树
+- babel-runtime 和 babel-polyfill
 - npm package.json
-
-- - npx
+- npx
   - 说一下对 package.json 的理解,它都有哪些作用
 
 ## **一面二面**
@@ -15974,34 +14579,6 @@ DOM API：
 
 2）冒泡和捕获机制，以及实际应用？
 
-1.  前端框架的底层原理
-
-我们以 React 为例，经常会考察内容包括：
-
-1）setState 的内部实现？
-
-2）什么是虚拟 DOM，引入虚拟 DOM 的目的，虚拟 DOM 一定能解决性能问题么？
-
-3）React Hooks 有哪些了解？
-
-4）react redux 的底层原理？如何完成异步请求？介绍自己常用哪些 redux 中间件？以组合函数的方式手写代码实现中间件的级联功能？
-
-5）react 的 diff 算法了解么？
-
-6）react 的 fiber 算法了解么？
-
-7）react pureComponent 和 Component 有何区别？
-
-8）react 的生命周期，新版和旧版都需要了解
-
-9）react 的单向数据流如何理解？
-
-10）如何设计组件？
-
-11）react memo？
-
-12）react 无尽列表是如何实现的？
-
 1.  性能优化
 
 1）浏览器的渲染原理是一定会被问到的？
@@ -16070,69 +14647,16 @@ DOM API：
 
 详历主要有三个作用：有助于职业规划，可视化技能体系、经验分布和成长路径。是定制简历的母版。提供面试素材。当被问到“这个项目最大的提高是什么”，或者“你失败的一次沟通是怎样的”，你可以从准备好的详历中，快速选取恰当的故事，讲给面试官。
 
-## 【第三部分 面试流程，以及美团、阿里面试有什么不同的体会】
+- 实现一个 promise.all
+  记住 3 个关键点
 
-（待大亮补充，比如：）
+  - 请求是并发执行的。
+  - 用一个计数器记录，等全部的异步接口都返回时就 resolve
+  - 返回的结果必须按照输入的 fn 顺序存储
 
-可能很多同学都想知道大厂的面试流程，这里我也简要分享一下：
-
-总的来说大厂对于候选人的基础知识要求还是非常严格的，当然也更看重候选人的潜力和心智，因为在大厂看来知识是死的，只要时间足够，通常都可以掌握，但是潜力和心智状态，却和每个人的成长轨迹和阅历有关。
-
-一面面试官通常是你未来的同事。面试主要考察候选人的基础知识，我遇到的面试官都非常 nice，会寒暄几句，帮助你脱离紧张的情绪，然后进入正式面试环节。我记得看过一个 TED 的演讲，内容是关于紧张，里面讲就算你真的紧张的不行，也不必担心，因为人总是比较在意自己的，所以就算你觉得自己非常紧张了，在面试官眼中你表现得也没有你想象的那么紧张。
-
-二面面试官通常是你未来的直级 leader。这里阿里和美团不一样的点在于，当时阿里主要考察了我对于过往项目的掌握程度，以及我在项目中的角色，然后和我聊了很多个人成长方面的心得和看法；美团则侧重考察了我一面面试官没有问到的基础知识点，这里其实每个公司可能都不太一样。
-
-三面面试官通常是你整个部门的 leader，主要从职业发展和候选人背景方面进行考察，过程中也会穿插着考些算法题，不过都不难，主要考察候选率的编程能力的。美团到这里就结束了，之后就是 HR 和你聊聊薪水，个人背景，跳槽原因等等。
-
-阿里比较特殊，会多一轮交叉面试，四面是 HRG 和集团技术大佬混合面试，我个人觉得主要考察候选人的沟通、应变及潜力等等，没太问技术相关的问题，可能我比较幸运吧
-
-想说的是如果想求职阿里，就要做好打持久战的准备，阿里的面试周期比较长，1-2 个月也是很正常的，所以要做好心理准备，如果面试完没有收到阿里的邮件，应该就通过面试了，没有消息就是最好的消息。美团就很快，当然也看部门是否急需招人，我面试的部门当天就走完了全部流程。
-
-## 【第四部分 其他 Tips】
-
-下面这些 Tips，都是我平常自己准备面试会遵循的，希望也可以帮助到你。
-
-1.  简历编写，如何过初步筛选
-
-网上优化简历的方法论很多，我就不多展开了，我列举一下我的简历框架，希望能给你一些启发
-
-1）尽量一页纸展示自己的内容。
-
-2）总体分为 7 个模块：个人信息、教育及工作背景、技能清单、项目经验、开源项目、个人博客、自我评价，其中开源项目和个人博客部分可有可无，如果有，自然是加分项。
-
-3）技能清单里面，写清楚自己熟悉的语言、框架，甚至能证明你有某方面能力的证书。这里需要注意的是，千万别写“精通”，除非你这门语言或者框架的缔造者，一般来说精通一门语言或者框架确实很难。
-
-4）项目部分，我的书写方式是 工作+结果。挑选项目中我参与的比较重要的部分，然后描述清楚工作内容和我的产出结果，尽量数字化自己的成果，比如项目时间、代码量、提高百分比等。再者，项目部分一定要真实，你需要对你写的内容了如指掌并且负责，否则面试官可能会认为你人品有问题。
-
-5）自我评价部分，通常来说，适当包装自己的优点即可。如果某个企业你十分心仪，也可以参考对方的企业文化，重点匹配自己的内容即可。另外，你写的优点最好能用 1-2 个例子来佐证，比如我写了自己自驱力强，阿里面试官问到我的时候，我就介绍了自己主动学习，参与前端训练营的培训、买了很多专栏并学习、关注了很多技术博客，并写文章总结等等。
-
-1.  怎么谈薪资
-
-如果到了谈钱的时候，首先恭喜你前期的努力终于快见到回报了。我们程序员通常都比较内向，不善于谈这些，我也一样，但谈钱其实没有什么不好意思的。你可能跟我一样，有着错误的心理认知：自己少要点，公司看到我们要的不多，可能会考虑给 Offer。实际上，当你几轮面试过后，你应该可以判断出自己是否有可能拿到 Offer 的。这时候，你可以先调研一下行业薪资水平，然后再结合自己的水平给出自己的预期，这种情况下，你拿到的 Offer 才可能不至于让自己委屈。有时候，不敢多要也是正常的，多面试几次，多拿到几个 Offer，底气自然也就足了。
-
-1.  养精蓄锐
-
-面试前吃饱饭也是很重要的，记得有次面试一个大厂，没吃早饭，然后坐地铁 1 个小时，3 轮面试 3.5 个小时，三面的时候自己的专注力和精力能明显感觉到是跟不上的，这样也是会影响自己临场发挥的
-
-## 一面
-
-### 笔试题
-
-#### 实现一个 promise.all
-
-记住 3 个关键点
-
-- 请求是并发执行的。
-- 用一个计数器记录，等全部的异步接口都返回时就 resolve
-- 返回的结果必须按照输入的 fn 顺序存储
-
-#### 买卖股票的最佳时机
-
-![图片](https://mmbiz.qpic.cn/mmbiz_png/ZWVxrQ7G0WSCs5Z45JzPQw0YVicT0JZbwqictNY9AyRbsDN1ulS0P33OzozyvWmTqWibzVhxCK364R9hZZnnl9jJg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)股票系列问题有很多， 这道题的细节是“可以买卖无数多次”，那么用“贪心算法”即可。
-
-#### 二维矩阵
-
-![图片](https://mmbiz.qpic.cn/mmbiz_png/ZWVxrQ7G0WSCs5Z45JzPQw0YVicT0JZbwd5V3ibpAdDhgWRAZ1faiaibL4WmWFhDAjQ1yOYZXwp6ySITT31nY139Xw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+- 买卖股票的最佳时机
+- 二维矩阵
+  ![图片](https://mmbiz.qpic.cn/mmbiz_png/ZWVxrQ7G0WSCs5Z45JzPQw0YVicT0JZbwd5V3ibpAdDhgWRAZ1faiaibL4WmWFhDAjQ1yOYZXwp6ySITT31nY139Xw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
 
 ### 面试题
 
@@ -16164,277 +14688,114 @@ DOM API：
 - 那 nginx 那块的容灾呢，了解么？
 - nginx 怎么做负载均衡的
 - 除了用 nginx 做过这些， 还设置过什么？
-
-#### 求最长的山脉
-
-输入：[2,1,4,7,3,2,5] 输出：5 解释：最长的 “山脉” 是 [1,4,7,3,2]，长度为 5。
-
-> 理解题目理解了很久...实际实现起来并不难，就是很难理解
-
-首先， 最长的山脉：指最长的 2 个坡底之间的距离。
-
-那么这道题的解决思路就出来了。
-
-- 使用双指针分别从左右两边开始平移，找到第一个 坡底 即可
-- 坡底：2 种情况，一种是左右 2 边都比它大，一种是在边界处，下一个值比它大。
-
-### 面试题
-
+- 求最长的山脉
+  输入：[2,1,4,7,3,2,5] 输出：5 解释：最长的 “山脉” 是 [1,4,7,3,2]，长度为 5。
+  理解题目理解了很久...实际实现起来并不难，就是很难理解
+  首先， 最长的山脉：指最长的 2 个坡底之间的距离。
+  那么这道题的解决思路就出来了。
+  - 使用双指针分别从左右两边开始平移，找到第一个 坡底 即可
+  - 坡底：2 种情况，一种是左右 2 边都比它大，一种是在边界处，下一个值比它大。
 - 场景题：一个页面有很多很多个数据，怎么让它不卡顿？
-
-- - 虚拟滚动
+  - 虚拟滚动
   - 分片渲染
   - ……
-
 - git eslint， 这些要怎么集成，写脚本？如何设置警告值，加邮件提醒？
-
 - 运维这边，前端是如何发布代码的？
-
 - node 的 qps 是多少？为什么这么设置？
-
 - 日志多的情况，如何处理？
-
 - babel 细节
-
-- 其他的就是聊我做过的项目了。还有一些细节题目，忘记了哈哈。
-
-总体感觉：二面面试官比较关注系统层面的东西，怎么部署，一整链路是怎么样的……有些时候我有点难 get 到面试官想考察的点，他也会逐步引导。很温和很强的大佬。不知不觉就跟面试官聊了 2 个多小时，然后面试官约的会议室到点了哈哈，然后就结束了面试。
-
-## 三面
-
-三面这个就很凶残了，幸好脸皮厚，不然我要怀疑人生了。
-
-- 你做过小游戏？介绍一下
-
-- 连连看小游戏？那你手写一个吧
-
-- - （内心活动：？？？黑人问号，压力面也不是这样的吧）表面客客气气：需要全部手写出来？还是写一个大概的框架？
-
-- 你就写出来就是了？
-
-- （怀疑人生的我，开始写起了代码）
-
-- - 定一个框架，定好 game 类的入参（类型），写好 draw 绘制 canvas 的方法，判断是否连线成功， 消除方块
-
-- 那你个这个连线逻辑怎么判断？
-
-- 连连看最多只能 2 个拐点，我只需要分 3 种情况，一个拐点，2 个拐点，没有拐点的情况。
-
-- 那你写出来，你别说。
-
-- 好吧…… 你要不要看看我之前写得文章，还有动图哦。（笑哭）
-
-> 过了好久，面试官终于放过我了。聊项目聊聊聊。
-
 - 你了解 koa 中间件么？
 - 手写一个 koa 中间件。
 - 为什么要跳槽？
 - 职业规划
-
-总体感觉：压力面，没有一丝微笑，总体聊了 40 分钟的样子。第二天就 hr 面了。效率真的杠杠的
-
-头条其实，非常考察算法能力。顺路总结下如何从一个算法小白菜，到可以 hold 住大部分的 easy 题。
-
-## 一.刷题网站
-
-**leetcode 网站**\[1]光看不练都是假的，这个网站的刷题顺序。先刷右上角的剑指 offer
-
-![图片](https://mmbiz.qpic.cn/mmbiz_png/ZWVxrQ7G0WSCs5Z45JzPQw0YVicT0JZbw7ibrB45kmcMaqSBlTGVtHEoHXo6ZIic6c2qOhLkOIc68L2KsvEmErrJA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
-
-## 二.系列题目
-
-笔者将题目粗浅的分为下面几种类型：![图片](https://mmbiz.qpic.cn/mmbiz_png/ZWVxrQ7G0WSCs5Z45JzPQw0YVicT0JZbwZFHUZMzIk8baib51rRbw2nvNlBX2KOficNKicDbibVebx5BZzQZytaeUjg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)解题思路有以下几种方式：
-
-![图片](https://mmbiz.qpic.cn/mmbiz_png/ZWVxrQ7G0WSCs5Z45JzPQw0YVicT0JZbwgcqibCOsibLge8RZEFx9DSp2oNDyZOcY6ibsRmUf19uuB0Bp9xKzbfWjg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
-
-一开始看着贪心算法，动态规划，bfs，dfs 可能会觉得，好像好高级的样子，其实弄懂之后，就跟一个名词一样。可以一天吃透一个解题的类型。举一反三。不要觉得难，一步一个脚印就好了～
-
-## 三. 实战题目
-
-评论区真的很多大神，还有各种动画，所以建议大家打开对应的题目，多看看大神的解法，自己动手写一遍。下面只做一些题目的枚举和归纳分类。
-
-### 1. 链表
-
-- **合并两个有序链表**\[2]
-- **旋转链表**\[3]
-
-### 2. 树
-
-说到树，先理解 dfs （深度优先搜索）和 bfs （广度优先搜索）
-
-广度优先算法：（以一个波浪一样一层一层向外广播）
-
-![图片](https://mmbiz.qpic.cn/mmbiz_png/ZWVxrQ7G0WSCs5Z45JzPQw0YVicT0JZbw2MBGnGMv6gmbSZwwg6OZ9V3c0KD1RYUnZtTaQIfpXbdjj934GUcVKA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
-
-深度优先算法：（一直访问到子节点，然后再回到父节点）
-
-![图片](https://mmbiz.qpic.cn/mmbiz_png/ZWVxrQ7G0WSCs5Z45JzPQw0YVicT0JZbwxotCicHYXYvO0skBcWibZiaOokPS7ricrxzt94RP1E0Bn1lpQMkMH38A7A/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
-
-> 很多题目都是基于 dfs 和 bfs 的变形，所以先吃透 dfs 和 bfs ，再去刷题。
-
-- **二叉树的中序遍历**\[4]
-- **二叉树的最大深度**\[5]
-- **路径总和**\[6]
-- **首个公共祖先**\[7]
-- **重建二叉树**\[8]
-
-- **三数之和**\[10]
-
-### 4. 股票系列
-
-- **买卖股票的最佳时机**\[11]
-
-### 5. 动态规划
-
-一般只考察一阶动态规划，从结果推起，推导出一个公式。
-
-看到一个段子：如果你遇到一个面试官给你出了个三阶动态规划，你就放弃把，因为面试官很怕你做出来。
-
-- **爬楼梯**\[12]
-- **三角形最小路径和**\[13]
-
-> 动态规划的题很多很多，可以慢慢悟，等到灵光一闪，你就懂了
-
-### vue 相关
-
-1.  Vue 实例的生命周期讲一下, mounted 阶段真实 DOM 存在了嘛?
-
-`Vue`实例从创建到销毁的过程，就是生命周期。
-
-也就是：开始创建->初始化数据->编译模板->挂载`dom`->数据更新重新渲染虚拟 `dom`->最后销毁。这一系列的过程就是 vue 的生命周期。所以在 mounted 阶段真实的 DOM 就已经存在了。
-
-- beforeCreate：vue 实例的挂载元素 el 和数据对象`data`都还没有进行初始化，还是一个 `undefined`状态
-- created: 此时 vue 实例的数据对象`data`已经有了，可以访问里面的数据和方法， `el`还没有，也没有挂载`dom`
-- beforeMount: 在这里 vue 实例的元素`el`和数据对象都有了，只不过在挂载之前还是虚拟的`dom`节点
-- mounted: vue 实例已经挂在到真实的`dom`上，可以通过对 `dom`操作来获取`dom`节点
-- beforeUpdate: 响应式数据更新时调用，发生在虚拟`dom`打补丁之前，适合在更新之前访问现有的 `dom`，比如手动移除已添加的事件监听器
-- updated: 虚拟`dom`重新渲染和打补丁之后调用，组成新的 `dom`已经更新，避免在这个钩子函数中操作数据，防止死循环。
-- beforeDestory: vue 实例在销毁前调用，在这里还可以使用，通过`this`也能访问到实例，可以在这里对一些不用的定时器进行清除，解绑事件。
-- destoryed：vue 实例销毁后调用，调用后所有事件监听器会被移除，所有的子实例都会被销毁。
-
-官方图示
-
-1.  Vue 中的的通信方式有几种？隔代组件的通信你用那种方式解决？
-
-总共有 7 种，当时是只回答了 4 种
-
-- props/\$emit 适用父子组件通信
-- ref 与 parent/children 适用父子组件通信
-- EventBus(事件总线) 适用于父子、隔代、兄弟组件通信
-- attrs/listeners 适用于隔代组件通信
-- provide/inject 适用于隔代组件通信
-- vuex 适用于父子、隔代、兄弟组件通信
-- slot 插槽方式
-
-参考这篇文章
-
-1.  Vue 中的常见指令有那些？？
-
-v-text/v-html/v-for/v-show/v-if/v-else/v-cloak/v-bind/v-on/v-model/v-slot...
-
-vue 的指令还是得都记住的，这里是按照我的记忆方式排列的，大家可以有自己的记忆方式。
-
-参考 vue 文档
-
-1.  v-show 和 v-if 有什么区别？？
-
-v-show 是 css 切换，v-if 是完整的销毁和重新创建，如果频繁切换时用 v-show，运行时较少改变用 v-if
-
-1.  谈谈你对 vuex 的理解？
-
-vuex 是一个专门为 vue.js 开发的状态管理模式，每一个 vuex 应用核心就是 store(仓库)。store 基本上就是一个容器，它包含着你的应用中大部分的 state(状态)
-
-- `vuex`的状态存储是响应式的，当 `vue`组件中 store 中读取状态时候，若`store`中的状态发生变化，那么相应的组件也会相应地得到高效更新。
-- 改变`store`中的状态的唯一途径就是显示 `commit`(提交)`mutation`，这样使得我们可以方便地跟踪每一个状态的变化。
-
-主要有以下几个模块：
-
-- State: 定义了应用状态的数据结构，可以在这里设置默认的初始状态
-- Getter: 允许组件从`Stroe`中获取数据， `mapGetters`辅助函数仅仅是将`store`中的`getter`映射到计算属性。
-- Mutation: 唯一更改`store`中状态的方法，且必须是同步函数。
-- Action: 用于提交`muatation`, 而不是直接变更状态，可以包含任意异步操作。
-- Module: 允许将单一的`store`拆分为多个 `sotre`且同时保存在单一的状态树中
-
-1.  vuex 中`state`存储的数据如果页面刷新此时数据还会有吗?
-
-当时没想清楚就回答了有，面试官说没有让我回去可以试一下，其实过后我就知道是没有了，在项目中有遇到过这个问题。。。
-
-项目地址：高仿小米商城，github 地址感兴趣的朋友可以 clone 下来学习下，如果感觉不错的话可以欢迎大家点个 start。
-
-在这个项目中我用到了 vuex 来管理用户名和购物车数量，当时我的设想是用户即使没有登录也可以访问首页，当用户将商品加入购物车再让用户跳转到登录页，所以就存在这么一个问题，当用户登录之后我通过 vuex 来存储用户名和购物车数量，当用户跳转其他页面再回到首页的时候此时 vuex 中`state`中的数据已经没有了导致用户名和购物车数量都为空，当时的解决方案是在 app.vue 中 `mounted`这个钩子通过 cookie 中有没有存储用户的 id 来判断用户是否登录，如果登录重新发送请求再通过`dispatch`触发 `action`来提交`mutation`中的方法重新存储用户名和购物车数量到 `state`中
-
-1.  v-bind 和 v-model 的区别， v-model 原理知道吗？
-
-- v-bind 用来绑定数据和属性以及表达式
-- v-model 使用在表单中，实现双向数据绑定的，在表单元素外不起使用。
-
-v-model 原理：我们在 vue 项目中主要使用 v-model 指令在表单 input、textarea、select、等表单元素上创建双向数据绑定， v-model 本质上就是 vue 的语法糖，v-model 在内部为不同的输入元素使用不同的属性并抛出不同的事件：
-
-- `text`和 `textarea`元素使用 value 属性和 input 事件
-- `checkbox`和 `radio`使用`checked`属性和 change 事件
-- `slect`字段将 `value`作为`prop`并将 change 作用事件
-
-**「举个栗子」**
-
+- 链表
+  合并两个有序链表
+  旋转链表
+- 树
+  二叉树的中序遍历
+  二叉树的最大深度
+  路径总和
+  首个公共祖先
+  重建二叉树
+- 股票系列 买卖股票的最佳时机
+- 动态规划 三角形最小路径和
+- Vue 实例的生命周期讲一下, mounted 阶段真实 DOM 存在了嘛?
+  `Vue`实例从创建到销毁的过程，就是生命周期。
+  也就是：开始创建->初始化数据->编译模板->挂载`dom`->数据更新重新渲染虚拟 `dom`->最后销毁。这一系列的过程就是 vue 的生命周期。所以在 mounted 阶段真实的 DOM 就已经存在了。
+  - beforeCreate：vue 实例的挂载元素 el 和数据对象`data`都还没有进行初始化，还是一个 `undefined`状态
+  - created: 此时 vue 实例的数据对象`data`已经有了，可以访问里面的数据和方法， `el`还没有，也没有挂载`dom`
+  - beforeMount: 在这里 vue 实例的元素`el`和数据对象都有了，只不过在挂载之前还是虚拟的`dom`节点
+  - mounted: vue 实例已经挂在到真实的`dom`上，可以通过对 `dom`操作来获取`dom`节点
+  - beforeUpdate: 响应式数据更新时调用，发生在虚拟`dom`打补丁之前，适合在更新之前访问现有的 `dom`，比如手动移除已添加的事件监听器
+  - updated: 虚拟`dom`重新渲染和打补丁之后调用，组成新的 `dom`已经更新，避免在这个钩子函数中操作数据，防止死循环。
+  - beforeDestory: vue 实例在销毁前调用，在这里还可以使用，通过`this`也能访问到实例，可以在这里对一些不用的定时器进行清除，解绑事件。
+  - destoryed：vue 实例销毁后调用，调用后所有事件监听器会被移除，所有的子实例都会被销毁。
+- Vue 中的的通信方式有几种？隔代组件的通信你用那种方式解决？
+  总共有 7 种，当时是只回答了 4 种
+  - props/\$emit 适用父子组件通信
+  - ref 与 parent/children 适用父子组件通信
+  - EventBus(事件总线) 适用于父子、隔代、兄弟组件通信
+  - attrs/listeners 适用于隔代组件通信
+  - provide/inject 适用于隔代组件通信
+  - vuex 适用于父子、隔代、兄弟组件通信
+  - slot 插槽方式
+- Vue 中的常见指令有那些？？
+  v-text/v-html/v-for/v-show/v-if/v-else/v-cloak/v-bind/v-on/v-model/v-slot...
+- v-show 和 v-if 有什么区别？？
+  v-show 是 css 切换，v-if 是完整的销毁和重新创建，如果频繁切换时用 v-show，运行时较少改变用 v-if
+- 谈谈你对 vuex 的理解？
+  vuex 是一个专门为 vue.js 开发的状态管理模式，每一个 vuex 应用核心就是 store(仓库)。store 基本上就是一个容器，它包含着你的应用中大部分的 state(状态)
+  - `vuex`的状态存储是响应式的，当 `vue`组件中 store 中读取状态时候，若`store`中的状态发生变化，那么相应的组件也会相应地得到高效更新。
+  - 改变`store`中的状态的唯一途径就是显示 `commit`(提交)`mutation`，这样使得我们可以方便地跟踪每一个状态的变化。
+    主要有以下几个模块：
+  - State: 定义了应用状态的数据结构，可以在这里设置默认的初始状态
+  - Getter: 允许组件从`Stroe`中获取数据， `mapGetters`辅助函数仅仅是将`store`中的`getter`映射到计算属性。
+  - Mutation: 唯一更改`store`中状态的方法，且必须是同步函数。
+  - Action: 用于提交`muatation`, 而不是直接变更状态，可以包含任意异步操作。
+  - Module: 允许将单一的`store`拆分为多个 `sotre`且同时保存在单一的状态树中
+- vuex 中`state`存储的数据如果页面刷新此时数据还会有吗?
+- v-bind 和 v-model 的区别， v-model 原理知道吗？
+  v-bind 用来绑定数据和属性以及表达式
+  v-model 使用在表单中，实现双向数据绑定的，在表单元素外不起使用。
+  v-model 原理：我们在 vue 项目中主要使用 v-model 指令在表单 input、textarea、select、等表单元素上创建双向数据绑定， v-model 本质上就是 vue 的语法糖，v-model 在内部为不同的输入元素使用不同的属性并抛出不同的事件：
+  - `text`和 `textarea`元素使用 value 属性和 input 事件
+  - `checkbox`和 `radio`使用`checked`属性和 change 事件
+  - `slect`字段将 `value`作为`prop`并将 change 作用事件
     <input v-model="something">
     本质上相当于这样
     <input v-bind:value="something" v-on:input="something = $event.target.value">
-    其实就是通过绑定一个something属性，通过监听input事件，当用户改变输入框数据的时候，
-    通过事件传递过来的事件对象中的target找到事件源，value属性表示事件源的值，从而实现双向数据绑定的效果
-
-其他的实现可以参考文章 v-model 源码解析(超详细)
-
-1.  MVC 和 MVVM 有什么区别？？
-
-**「MVC」**
-
-- M - Model：模型，是应用程序中用于处理应用程序数据逻辑的部分，通常模型对象负责在数据库中存取数据
-- V - View: 视图，是应用程序中处理数据显示的部分，通常视图是依据模型数据创建的。
-- C - Controller: 控制器, 是应用程序中处理用户交互的部分，通常控制器负责从视图读取数据，控制用户输入，并向模型发送数据。
-
-  图示
-
-![图片](https://mmbiz.qpic.cn/mmbiz/XP4dRIhZqqX2uXkcficYZicefWj6UaCf7kXZxVzn1kCZARMdeEUWr2SxfjH3VoCQucS4aTqicrTC5y4avCev1nz2Q/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
-
-    流程
-
-- View 接受用户交互请求
-- View 将请求转交给 Controller 处理
-- Controller 操作 Model 进行数据更新保存
-- 数据更新保存之后，Model 会通知 View 更新
-- View 更新变化数据使用户得到反馈
-
-**「MVVM」**
-
-- M - Model，Model 代表数据模型，也可以在 Model 中定义数据修改和操作的业务逻辑
-- V - View，View 代表 UI 组件，它负责将数据模型转化为 UI 展现出来
-- VM - ViewModel，ViewModel 监听模型数据的改变和控制视图行为、处理用户交互，简单理解就是一个同步 View 和 Model 的对象，连接 Model 和 View
-
-  图示
-
-![图片](https://mmbiz.qpic.cn/mmbiz/XP4dRIhZqqX2uXkcficYZicefWj6UaCf7kAIhIPNdO7oVibYF6ZfCH81wMf0IhRrVfQOX83ejQYpT35VbTiaiaWEUlg/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
-
-    流程
-
-- View 接收用户交互请求
-- View 将请求转交给 ViewModel
-- ViewModel 操作 Model 数据更新
-- Model 更新完数据，通知 ViewModel 数据发生变化
-- ViewModel 更新 View 数据
-
-**「两者的区别」**
-
-- ViewModel 替换了 Controller 在 UI 层之下
-- ViewModel 向 View 暴露了它所需要的数据和指令
-- ViewModel 接收来自 Model 的数据
-
-> 概括起来就是，MVVM 由 MVC 发展而来，通过在 Model 之上而在 View 之下增加一个非视觉的组件将来自 Model 的数据映射到 View 中。
+    其实就是通过绑定一个 something 属性，通过监听 input 事件，当用户改变输入框数据的时候，
+    通过事件传递过来的事件对象中的 target 找到事件源，value 属性表示事件源的值，从而实现双向数据绑定的效果
+- MVC 和 MVVM 有什么区别？？
+  **「MVC」**
+  - M - Model：模型，是应用程序中用于处理应用程序数据逻辑的部分，通常模型对象负责在数据库中存取数据
+  - V - View: 视图，是应用程序中处理数据显示的部分，通常视图是依据模型数据创建的。
+  - C - Controller: 控制器, 是应用程序中处理用户交互的部分，通常控制器负责从视图读取数据，控制用户输入，并向模型发送数据。
+    ![图片](https://mmbiz.qpic.cn/mmbiz/XP4dRIhZqqX2uXkcficYZicefWj6UaCf7kXZxVzn1kCZARMdeEUWr2SxfjH3VoCQucS4aTqicrTC5y4avCev1nz2Q/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+  - View 接受用户交互请求
+  - View 将请求转交给 Controller 处理
+  - Controller 操作 Model 进行数据更新保存
+  - 数据更新保存之后，Model 会通知 View 更新
+  - View 更新变化数据使用户得到反馈
+    **「MVVM」**
+  - M - Model，Model 代表数据模型，也可以在 Model 中定义数据修改和操作的业务逻辑
+  - V - View，View 代表 UI 组件，它负责将数据模型转化为 UI 展现出来
+  - VM - ViewModel，ViewModel 监听模型数据的改变和控制视图行为、处理用户交互，简单理解就是一个同步 View 和 Model 的对象，连接 Model 和 View
+    ![图片](https://mmbiz.qpic.cn/mmbiz/XP4dRIhZqqX2uXkcficYZicefWj6UaCf7kAIhIPNdO7oVibYF6ZfCH81wMf0IhRrVfQOX83ejQYpT35VbTiaiaWEUlg/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+  - View 接收用户交互请求
+  - View 将请求转交给 ViewModel
+  - ViewModel 操作 Model 数据更新
+  - Model 更新完数据，通知 ViewModel 数据发生变化
+  - ViewModel 更新 View 数据
+    **「两者的区别」**
+  - ViewModel 替换了 Controller 在 UI 层之下
+  - ViewModel 向 View 暴露了它所需要的数据和指令
+  - ViewModel 接收来自 Model 的数据
+    > 概括起来就是，MVVM 由 MVC 发展而来，通过在 Model 之上而在 View 之下增加一个非视觉的组件将来自 Model 的数据映射到 View 中。
 
 1.  Vue 中的组件 data 为什么必须是函数？？
 
 因为组件是可以复用的，js 里对象是引用关系，如果组件 data 是一个对象，那么子组件中的 data 属性值会互相污染，产生不必要的麻烦。所以一个组件中的 data 必须是一个函数，因此每个实例可以维护一份被返回对象独立的拷贝。也因为`new Vue`的实例是不会被复用，所以不存在以上问题。官方文档讲的很详细，想要深入了解可以看下文档中的解释。
-
-vue 官方文档
 
 ### 其他
 
@@ -16641,164 +15002,75 @@ rem 和 em 单位一样，都是一个相对单位，不同的是 em 是相对�
 
 最后确定那些数据是需要外部传入就 ok 了。
 
-1.  你觉得你这个防小米商城项目中最大的亮点是什么？？
-
-    在订单确认页面，使用自行封装 dialog 通过 slot 自由定制内容的方式来实现，新增、编辑、删除收货地址的对应元素，用户点击的不同实现对应功能。
-
-#### HTML
-
 - HTML5 有哪些新特性？
-
 - Doctype 作⽤? 严格模式与混杂模式如何区分？它们有何意义?
-
 - 如何实现浏览器内多个标签页之间的通信？
-
 - ⾏内元素有哪些？块级元素有哪些？空(void)元素有哪些？⾏内元 素和块级元素有什么区别？
-
 - 简述⼀下 src 与 href 的区别？
-
 - cookies,sessionStorage,localStorage 的区别？
-
 - HTML5 的离线储存的使用和原理？
-
 - 怎样处理 移动端 1px 被 渲染成 2px 问题？
-
 - 浏览器是如何渲染页面的？
-
 - iframe 的优缺点？
-
 - Canvas 和 SVG 图形的区别是什么？
-
 - 谈一谈 meta 标签？
-
-![图片](https://mmbiz.qpic.cn/mmbiz_png/71ibgGpZLr2V1DcfvibpPw7oFdTILYpERscR7OMQdNIiaboPcGAyxbbenice209iauDRLRNyL0S3hibIVVbKNwbAiaEuQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
-
-####
-
-#### CSS 基础
-
 - 请你讲一讲 CSS 的权重和优先级
-
 - 介绍 Flex 布局，flex 是什么属性的缩写：
-
 - CSS 怎么画一个大小为父元素宽度一半的正方形？
-
 - CSS 实现自适应正方形、等宽高比矩形
-
 - 实现两栏布局的方式
-
 - 实现三列布局的方式
-
 - CSS 动画有哪些？
-
 - 用 css2 和 css3 分别写一下垂直居中和水平居中
-
 - visibility 和 display 的差别（还有 opacity)
-
 - opacity 可以有过渡效果嘛？
-
 - BFC 与 IFC 区别
-
 - BFC 会与 float 元素相互覆盖吗？为什么？举例说明
-
 - 了解 box-sizing 吗？
-
 - 什么是 BFC
-
 - 了解盒模型吗？
-
 - 说一下你知道的 position 属性，都有啥特点？
-
 - 两个 div 上下排列，都设 margin，有什么现象？
-
 - 清除浮动有哪些方法？
-
-![图片](https://mmbiz.qpic.cn/mmbiz_png/71ibgGpZLr2V1DcfvibpPw7oFdTILYpERsTkd8CdiaT7BjYLdDBpEYZWRZxUgObGE8AgqxIHR5icVlSwicmXRsoLjsQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
-
-#### JavaScript 基础
-
 - 写代码：实现函数能够深度克隆基本类型
-
 - 事件流
-
 - 事件是如何实现的？
-
 - new 一个函数发生了什么
-
 - new 一个构造函数，如果函数返回 `return {}` 、 `return null` ， `return 1` ， `return true` 会发生什么情况？
-
 - 闭包是什么？
-
 - 闭包产生的本质
-
 - 一般如何产生闭包
-
 - 闭包的应用场景
-
 - 什么是作用域？
-
 - 什么是作用域链？
-
 - JS 隐式转换，显示转换
-
 - 了解 this 嘛，bind，call，apply 具体指什么
-
 - 手写 bind、apply、call
-
 - setTimeout(fn, 0)多久才执行，Event Loop
-
 - 手写题：Promise 原理
-
 - js 脚本加载问题，async、defer 问题
-
 - 如何判断一个对象是不是空对象？
-
-- \<script src=’xxx’ ’xxx’/>外部 js 文件先加载还是 onload 先执行，为什么？
-
+- <script src=’xxx’ ’xxx’/>外部 js 文件先加载还是 onload 先执行，为什么？
 - 怎么加事件监听
-
 - 事件传播机制（事件流）
-
 - 说一下原型链和原型链的继承吧
-
 - 说下对 JS 的了解吧
-
 - 数组能够调用的函数有哪些？
-
 - 如何判断数组类型
-
 - 函数中的 arguments 是数组吗？类数组转数组的方法了解一下？
-
 - 用过 TypeScript 吗？它的作用是什么？
-
 - PWA 使用过吗？serviceWorker 的使用原理是啥？
-
 - ES6 之前使用 prototype 实现继承
-
 - 如果一个构造函数，bind 了一个对象，用这个构造函数创建出的实例会继承这个对象的属性吗？为什么？
-
 - 箭头函数和普通函数有啥区别？箭头函数能当构造函数吗？
-
 - 知道 ES6 的 Class 嘛？Static 关键字有了解嘛
-
 - 事件循环机制 （Event Loop）
-
 - 手写题：数组扁平化
-
 - 手写题：实现柯里化
-
 - 手写题：数组去重
-
 - let 闭包
-
 - 变量提升
-
 - instance 如何使用
-
-![图片](https://mmbiz.qpic.cn/mmbiz_png/71ibgGpZLr2V1DcfvibpPw7oFdTILYpERsCSw0LV0dwu0wJ2uib7FGKXBCI3Jk9gnpT5BibQjjwNNUkgZHWzo6LyXw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
-
-#### Vue 框架
-
 - active-class 是哪个组件的属性？嵌套路由怎么定义？
 - 怎么定义 vue-router 的动态路由？怎么获取传过来的动态参数？
 - vue-router 有哪几种导航钩子？
@@ -16829,11 +15101,6 @@ rem 和 em 单位一样，都是一个相对单位，不同的是 em 是相对�
 - Vue 声明组件的 state 是用 data 方法，那为什么 data 是通过一个 function 来返回一个对象，而不是直接写一个对象呢？
 - 说下 vue 组件之间的通信？
 - vue 中 mixin 与 extend 区别？
-
-![图片](https://mmbiz.qpic.cn/mmbiz_png/71ibgGpZLr2V1DcfvibpPw7oFdTILYpERsK5CSSmbDBAa3biaVj8DKeCSm6NdxmII6N9aJgOBQGjQqpNx0l0nPA5Q/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
-
-#### 计算机网络基础
-
 - HTTP 缓存
 - HTTP 常用的状态码及使用场景？
 - 你知道 302 状态码是什么嘛？你平时浏览网页的过程中遇到过哪些 302 的场景？
@@ -16854,100 +15121,66 @@ rem 和 em 单位一样，都是一个相对单位，不同的是 em 是相对�
 - TCP 协议怎么保证可靠的，UDP 为什么不可靠？
 - HTTP 2 改进
 - DDOS 攻击
-
-![图片](https://mmbiz.qpic.cn/mmbiz_png/71ibgGpZLr2V1DcfvibpPw7oFdTILYpERsYicuo3pGVAybibJgN4aqYmiatHW0b1oXNjic9NzD7Tvhbgic0gWiaRzddib3g/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
-
-#### 算法
-
-**链表**
-
-- 前序遍历判断回文链表
-- 反转链表
-- 合并 K 个升序链表
-- K 个一组翻转链表
-- 环形链表
-- 排序链表
-- 相交链表
-
-**字符串**
-
-- 【面试真题】最长回文子串【双指针】
-- 最长公共前缀【双指针】
-- 无重复字符的最长子串【双指针】
-- 【面试真题】最小覆盖子串【滑动窗口】
-
-**数组问题**
-
-- 【面试真题】俄罗斯套娃信封问题【排序+最长上升子序列】
-- 最长连续递增序列【快慢指针】
-- 最长连续序列 【哈希表】
-- 【面试真题】盛最多水的容器【哈希表】
-- 寻找两个正序数组的中位数【双指针】
-- 删除有序数组中的重复项【快慢指针】
-- 和为 K 的子数组【哈希表】
-- nSum 问题【哈希表】
-- 【面试真题】接雨水【暴力+备忘录优化】
-- 跳跃游戏【贪心算法】
-
-**二叉树**
-
-- 二叉树的最近公共祖先
-- 二叉搜索树中的搜索
-- 删除二叉搜索树中的节点
-- 完全二叉树的节点个数
-- 二叉树的锯齿形层序遍历
-
-**排序算法**
-
-- 用最少数量的箭引爆气球
-- 合并区间【排序算法+区间问题】
-
-**二分查找**
-
-- 判断子序列【二分查找】
-- 在排序数组中查找元素的第一个和最后一个位置【二分搜索】
-
-**动态规划**
-
-- 最长递增子序列
-- 【面试真题】 零钱兑换
-- 【面试真题】 最长公共子序列
-- 编辑距离
-- 【面试真题】最长回文子序列
-- 【面试真题】最大子序和
-- 【面试真题】 买卖股票的最佳时机
-
-**BFS**
-
-- 打开转盘锁
-- 二叉树的最小深度
-
-**栈**
-
-- 最小栈【栈】
-- 下一个更大元素
-- 【面试真题】有效的括号
-- 简化路径
-
-**DFS**
-
-- 岛屿的最大面积
-- 相同的树
-
-**回溯算法**
-
-- N 皇后
-
-- 全排列
-
-- 括号生成
-
-- 复原 IP 地址
-
-- 子集
-
-![图片](https://mmbiz.qpic.cn/mmbiz_png/71ibgGpZLr2V1DcfvibpPw7oFdTILYpERsMLHAtsh5zqs1qibvzVVNXBrdNibIGVlicBKGCDb2nkjN7njdKqaib9vnibA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
-
+- 算法
+  **链表**
+  - 前序遍历判断回文链表
+  - 反转链表
+  - 合并 K 个升序链表
+  - K 个一组翻转链表
+  - 环形链表
+  - 排序链表
+  - 相交链表
+    **字符串**
+  - 【面试真题】最长回文子串【双指针】
+  - 最长公共前缀【双指针】
+  - 无重复字符的最长子串【双指针】
+  - 【面试真题】最小覆盖子串【滑动窗口】
+    **数组问题**
+  - 【面试真题】俄罗斯套娃信封问题【排序+最长上升子序列】
+  - 最长连续递增序列【快慢指针】
+  - 最长连续序列 【哈希表】
+  - 【面试真题】盛最多水的容器【哈希表】
+  - 寻找两个正序数组的中位数【双指针】
+  - 删除有序数组中的重复项【快慢指针】
+  - 和为 K 的子数组【哈希表】
+  - 跳跃游戏【贪心算法】
+    **二叉树**
+  - 二叉树的最近公共祖先
+  - 二叉搜索树中的搜索
+  - 删除二叉搜索树中的节点
+  - 完全二叉树的节点个数
+  - 二叉树的锯齿形层序遍历
+    **排序算法**
+  - 用最少数量的箭引爆气球
+  - 合并区间【排序算法+区间问题】
+    **二分查找**
+  - 判断子序列【二分查找】
+  - 在排序数组中查找元素的第一个和最后一个位置【二分搜索】
+    **动态规划**
+  - 最长递增子序列
+  - 【面试真题】 零钱兑换
+  - 【面试真题】 最长公共子序列
+  - 编辑距离
+  - 【面试真题】最长回文子序列
+  - 【面试真题】最大子序和
+  - 【面试真题】 买卖股票的最佳时机
+    **BFS**
+  - 打开转盘锁
+  - 二叉树的最小深度
+    **栈**
+  - 最小栈【栈】
+  - 下一个更大元素
+  - 【面试真题】有效的括号
+  - 简化路径
+    **DFS**
+  - 岛屿的最大面积
+  - 相同的树
+    **回溯算法**
+  - N 皇后
+  - 全排列
+  - 括号生成
+  - 复原 IP 地址
+  - 子集
 - 手写 Promise
 - 手写防抖节流
 - 不用 sort 实现排序，比如输入 [3,2,6,9,1,4,8] 返回排序后的数组
@@ -17424,14 +15657,11 @@ rem 和 em 单位一样，都是一个相对单位，不同的是 em 是相对�
 ## 未录到的一场
 
 - 跨域
-
-- - CORS
+  - CORS
   - JSONP
   - Proxy
-
 - CSS
-
-- - class/attribute
+  - class/attribute
   - CSS Scope
   - BEM
   - attribute
@@ -17441,22 +15671,16 @@ rem 和 em 单位一样，都是一个相对单位，不同的是 em 是相对�
   - 布局三等分
   - 如何避免样式冲突
   - 优先级 ❎
-
 - webpack
-
-- - commonjs
+  - commonjs
   - esm ->
   - umd
-
 - package.json
-
-- - main
+  - main
   - module
   - exports -> q.shanyue.tech/engineering/535.html
-
 - http
-
-- - 404
+  - 404
   - 403
   - 304
   - 204
@@ -17466,18 +15690,8 @@ rem 和 em 单位一样，都是一个相对单位，不同的是 em 是相对�
   - 429
   - cache
   - status code
-
-- react
-
-- - immutable.js/immer
-  - Proxy -> immer
-  - `useEffect()`
-  - immutable
-  - 合成事件 ✅
-
 - webpack 压缩 Javascript 体积
-
-- - express-static
+  - express-static
   - accept-encoding
   - terser
   - tree shaking
@@ -17485,85 +15699,55 @@ rem 和 em 单位一样，都是一个相对单位，不同的是 em 是相对�
   - css
   - webpack-bundle-analyzer
   - polyfill -> preset-env
-
 - webpack 加载 css
-
-- - css-loader
+  - css-loader
   - style-loader
   - extract css -> webpack5 目前已经支持
-
 - webpack 减小打包体积
-
-- - babel-loader -> swc
+  - babel-loader -> swc
   - tsloader -> type check
   - cache
   - 多进程
-
 - semver
-
-- - ^1.2.3
+  - ^1.2.3
   - \~1.2.3
-
-- 幽灵依赖 ❎
-
-- - 重复依赖 -> pnpm
-
+- 幽灵依赖 ❎ - 重复依赖 -> pnpm
 - pnpm 是如何处理 ❎
-
 - nodejs/koa/洋葱模型
-
-- - 中间件
-
-- body-parser/stream/raw-body ❎
-
-- cors vary
-
+  - 中间件
+  - body-parser/stream/raw-body ❎
+  - cors vary
 - CICD
-
 - Github Action (免费)
-
-- - COS
-
-- - Github 管理项目
+  - COS
+  - Github 管理项目
   - 前端在哪里部署？
-
 - 持续交付
-
 - 版本管理/Tag/Release
-
 - 质量检查 (PR)
 
-- - husky (git hooks) ❎
+  - husky (git hooks) ❎
   - ci 的时机
-  - sync\_
-
-- - `.git/hooks/precommit`
-
-- - lint-staged -> Stage
+  - sync
+  - `.git/hooks/precommit`
+  - lint-staged -> Stage
   - git index/stage/head
   - git hooks 是如何工作的
-
-- - \[open、sync\_\*\*]
-
-- - N 个分支走到 dev 环境是否无法上线
-
-- - PR/feature/xxx 新功能分支
+  - \[open、sync\_\*\*]
+  - N 个分支走到 dev 环境是否无法上线
+  - PR/feature/xxx 新功能分支
   - dev 测试环境
   - staging 预发布环境
   - master 会做吗？❎
   - on: pull_request and feature/\*\*
-
-- - lint
+  - lint
   - test
   - prettier
   - commit-msg
   - 多个阶段
-
-- 自动关掉 PR
-
-- - Approving + CI Success 才能进行合并 ❎
-
-- - 为什么这么做？(当 CI 失败时自动关掉)
+  - 自动关掉 PR
+  - Approving + CI Success 才能进行合并 ❎
+  - 为什么这么做？(当 CI 失败时自动关掉)
   - WIP:
   - CI 失败: -> 策略
 
@@ -17951,178 +16135,106 @@ base64
 - `csrf` 和 `xss` 是什么，如何避免
 - 前端怎样对用户的数据进行加密传输
 - 基于 `md5` 提升安全性
-
-## 谈一谈 `css` 盒模型
-
-👉👉 **【面试题解】CSS 盒子模型与 margin 负值**\[2]
-
-## 多种方式实现上面 `100px` 下面自适应的布局
-
-- `flex` 布局
-- `gird` 布局
-- `margin-top + calc`
-- `定位 + calc`
-
-## `display` 都有哪些属性
-
-|        值        |                         描述                         |
-| :--------------: | :--------------------------------------------------: |
-|     **none**     |                  此元素不会被显示。                  |
-|    **block**     |   此元素将显示为块级元素，此元素前后会带有换行符。   |
-|    **inline**    | 默认。此元素会被显示为内联元素，元素前后没有换行符。 |
-| **inline-block** |                     行内块元素。                     |
-|    **table**     |   此元素会作为块级表格来显示，表格前后带有换行符。   |
-|   **inherit**    |       规定应该从父元素继承 display 属性的值。        |
-|     **flex**     |                     弹性盒模型。                     |
-|     **grid**     |                      网格布局。                      |
-
-## 块元素和行内元素、行内块元素的区别
-
-**一.块级元素**
-
-**（1）常见的块元素有哪些？**
-
-常见的块元素有`<h1>~<h6>、<p>、<div>、<ul>、<ol>、<li>`等，其中 `<div>` 标签是最典型的块元素。
-
-**（2）块级元素有什么特点？**
-
-- 自己独占一行
-- 高度，宽度、外边距以及内边距都可以控制。
-- 宽度默认是容器（父级宽度）的 `100%`
-- 是一个容器及盒子，里面可以放行内或者块级元素
-
-**（3）注意问题：**
-
-只有文字才能组成段落，因此 `p` 标签里面不能放块级元素，特别是 `p` 标签不能放 `div`。同理还有这些标签`h1,h2,h3,h4,h5,h6,dt` ，他们都是文字类块级标签，里面不能放其他块级元素。
-
-**二.行内元素**
-
-**（1）常见行内元素有哪些？**
-
-常见的行内元素有 `<a>、<strong>、<b>、<em>、<i>、<del>、<s>、<ins>、<u>、<span>` 等，其中 `<span>` 标签最典型的行内元素，也称内联元素。
-
-**（2）行内元素有哪些特点？**
-
-- 相邻行内元素在一行上，一行可以显示多个
-- 高、宽直接设置是无效的
-- 只可以设置水平方向的外边距
-- 默认宽度就是它本身内容的宽度
-- 行内元素只能容纳文本或则其他行内元素
-
-**（3）注意问题：**
-
-链接里面不能再放链接。
-
-特殊情况 `a` 里面可以放块级元素，但是给 `a` 转换一下块级模式最安全。
-
-**三.行内块元素**
-
-**（1）常见行内块儿元素有哪些？**
-
-在行内元素中有几个特殊的标签 `<img />、<input />、<td>`，可以对它们设置宽高和对齐属性，有些资料可能会称它们为行内块元素。
-
-**（2）行内块元素有什么特点？**
-
-- 和相邻行内元素（行内块）在一行上,但是之间会有空白缝隙，一行可以显示多个。
-- 默认宽度就是它本身内容的宽度。
-- 高度，行高、外边距以及内边距都可以控制。
-
-**四. 块级元素、行内元素和行内块元素的区别**
-
-| **元素模式** |      **元素排列**      |      **设置样式**      |   **默认宽度**   |         **包含**         |
-| :----------: | :--------------------: | :--------------------: | :--------------: | :----------------------: |
-|   块级元素   | 一行只能放一个块级元素 |    可以设置宽度高度    |   容器的 100%    |  容器级可以包含任何标签  |
-|   行内元素   | 一行可以放多个行内元素 | 不可以直接设置宽度高度 | 它本身内容的宽度 | 容纳文本或则其他行内元素 |
-|  行内块元素  |  一行放多个行内块元素  |   可以设置宽度和高度   | 它本身内容的宽度 |                          |
-
-**五. 块级元素、行内元素和行内块元素互转**
-
-- 块转行内：`display:inline`;
-- 行内转块：`display:block`;
-- 块、行内元素转换为行内块：`display: inline-block`;
-
-## `js` 原型和原型链
-
-👉👉 **深入 JavaScript 系列（六）：原型与原型链**\[3]
-
-## `Person.prototype.constructor` 是什么
-
-    Person.prototype.constructor === Person // true
-    复制代码
-
-## 函数有没有 `__ proto __` 属性
-
-    let fn = function() {}
-    // 函数（包括原生构造函数）的原型对象为Function.prototype
-    fn.__proto__ === Function.prototype // true
-    复制代码
-
-函数都是由 `Function` 原生构造函数创建的，所以函数的 `__proto__` 属性指向 `Function` 的 `prototype` 属性。
-
-## `Promise` 如何一次进行多个异步请求
-
-答：利用 `Promise.all` 。
-
-## `Promise.all` 的返回机制是什么
-
-除了 `Promise.all` ，还有其他几个原型方法也要知道。
-
-👉👉 **看了就会，手写 Promise 原理，最通俗易懂的版本！！！**\[6]
-
-## 如果想要其中一个请求出错了但是不返回结果怎么办
-
-答：使用 `Promise.allSelectd` 。
-
-## `webpack` 打包优化知道多少
-
-👉👉 **玩转 webpack，使你的打包速度提升 90%**\[7]
-
-## `koa` 如何启动一个服务器
-
-    const Koa = require('koa');
-    const app = new Koa();
-
-    app.use(async ctx => {
-      ctx.body = 'Hello World';
-    });
-
-    app.listen(3000);
-    复制代码
-
-## `new koa` 都做了什么
-
-- 构建上下文 `ctx`
-- 构建洋葱圈模型。
-
-## `koa` 洋葱圈模型原理
-
-👉👉 **浅析 koa 的洋葱模型实现**\[8]
-
-## `koa` 洋葱圈和 `express` 中间件有什么区别
-
-👉👉 **Koa2 和 Express 中间件对比**\[9]
-
-## 长列表优化，一万条数据不用分页和懒加载，如何提升性能
-
-👉👉 **后端一次给你 10 万条数据，如何优雅展示，到底考察我什么?**\[10]
-
-## 数据请求从发起到接收数据之间发生了什么
-
-这个我不会，也没有找到什么有效的资料，希望有大佬可以指点一下。
-
-## `csrf` 和 `xss` 是什么，如何避免
-
-👉👉 **浅说 XSS 和 CSRF**\[11]
-
-## 前端怎样对用户的数据进行加密传输
-
-答：`md5`，我其实不太了解，只是用 `md5` 做过登录注册的密码加密，也不会别的了。
-
-## 基于 `md5` 提升安全性
-
-答：`md5（md5）`，我开玩笑的，有没有大佬可以指点一下。
-
-- 遍历数组的 `n` 种方法
+- 谈一谈 `css` 盒模型 【面试题解】CSS 盒子模型与 margin 负值
+- 多种方式实现上面 `100px` 下面自适应的布局
+  - `flex` 布局
+  - `gird` 布局
+  - `margin-top + calc`
+  - `定位 + calc`
+- `display` 都有哪些属性
+  | 值 | 描述 |
+  | :--------------: | :--------------------------------------------------: |
+  | **none** | 此元素不会被显示。 |
+  | **block** | 此元素将显示为块级元素，此元素前后会带有换行符。 |
+  | **inline** | 默认。此元素会被显示为内联元素，元素前后没有换行符。 |
+  | **inline-block** | 行内块元素。 |
+  | **table** | 此元素会作为块级表格来显示，表格前后带有换行符。 |
+  | **inherit** | 规定应该从父元素继承 display 属性的值。 |
+  | **flex** | 弹性盒模型。 |
+  | **grid** | 网格布局。 |
+- 块元素和行内元素、行内块元素的区别
+- 块级元素
+  **（1）常见的块元素有哪些？**
+  常见的块元素有`<h1>~<h6>、<p>、<div>、<ul>、<ol>、<li>`等，其中 `<div>` 标签是最典型的块元素。
+  **（2）块级元素有什么特点？**
+  - 自己独占一行
+  - 高度，宽度、外边距以及内边距都可以控制。
+  - 宽度默认是容器（父级宽度）的 `100%`
+  - 是一个容器及盒子，里面可以放行内或者块级元素
+    **（3）注意问题：**
+    只有文字才能组成段落，因此 `p` 标签里面不能放块级元素，特别是 `p` 标签不能放 `div`。同理还有这些标签`h1,h2,h3,h4,h5,h6,dt` ，他们都是文字类块级标签，里面不能放其他块级元素。
+- 行内元素
+  **（1）常见行内元素有哪些？**
+  常见的行内元素有 `<a>、<strong>、<b>、<em>、<i>、<del>、<s>、<ins>、<u>、<span>` 等，其中 `<span>` 标签最典型的行内元素，也称内联元素。
+  **（2）行内元素有哪些特点？**
+  - 相邻行内元素在一行上，一行可以显示多个
+  - 高、宽直接设置是无效的
+  - 只可以设置水平方向的外边距
+  - 默认宽度就是它本身内容的宽度
+  - 行内元素只能容纳文本或则其他行内元素
+    **（3）注意问题：**
+    链接里面不能再放链接。
+    特殊情况 `a` 里面可以放块级元素，但是给 `a` 转换一下块级模式最安全。
+- 行内块元素
+  **（1）常见行内块儿元素有哪些？**
+  在行内元素中有几个特殊的标签 `<img />、<input />、<td>`，可以对它们设置宽高和对齐属性，有些资料可能会称它们为行内块元素。
+  **（2）行内块元素有什么特点？**
+  - 和相邻行内元素（行内块）在一行上,但是之间会有空白缝隙，一行可以显示多个。
+  - 默认宽度就是它本身内容的宽度。
+  - 高度，行高、外边距以及内边距都可以控制。
+- 块级元素、行内元素和行内块元素的区别
+  | **元素模式** | **元素排列** | **设置样式** | **默认宽度** | **包含** |
+  | :----------: | :--------------------: | :--------------------: | :--------------: | :----------------------: |
+  | 块级元素 | 一行只能放一个块级元素 | 可以设置宽度高度 | 容器的 100% | 容器级可以包含任何标签 |
+  | 行内元素 | 一行可以放多个行内元素 | 不可以直接设置宽度高度 | 它本身内容的宽度 | 容纳文本或则其他行内元素 |
+  | 行内块元素 | 一行放多个行内块元素 | 可以设置宽度和高度 | 它本身内容的宽度 | |
+- 块级元素、行内元素和行内块元素互转
+  - 块转行内：`display:inline`;
+  - 行内转块：`display:block`;
+  - 块、行内元素转换为行内块：`display: inline-block`;
+- `js` 原型和原型链 深入 JavaScript 系列（六）：原型与原型链
+- `Person.prototype.constructor` 是什么
+  Person.prototype.constructor === Person // true
+- 函数有没有 `__ proto __` 属性
+  ```javascript
+  let fn = function () {}
+  // 函数（包括原生构造函数）的原型对象为Function.prototype
+  fn.__proto__ === Function.prototype // true
+  ```
+  函数都是由 `Function` 原生构造函数创建的，所以函数的 `__proto__` 属性指向 `Function` 的 `prototype` 属性。
+- `Promise` 如何一次进行多个异步请求
+  答：利用 `Promise.all` 。
+- `Promise.all` 的返回机制是什么
+  除了 `Promise.all` ，还有其他几个原型方法也要知道。
+  👉👉 **看了就会，手写 Promise 原理，最通俗易懂的版本！！！**
+- 如果想要其中一个请求出错了但是不返回结果怎么办
+  答：使用 `Promise.allSelectd` 。
+- `webpack` 打包优化知道多少 玩转 webpack，使你的打包速度提升 90%
+- `koa` 如何启动一个服务器
+
+  ```javascript
+  const Koa = require('koa')
+  const app = new Koa()
+
+  app.use(async (ctx) => {
+    ctx.body = 'Hello World'
+  })
+
+  app.listen(3000)
+  ```
+
+- `new koa` 都做了什么
+  - 构建上下文 `ctx`
+  - 构建洋葱圈模型。
+- `koa` 洋葱圈模型原理 浅析 koa 的洋葱模型实现
+- `koa` 洋葱圈和 `express` 中间件有什么区别
+- 长列表优化，一万条数据不用分页和懒加载，如何提升性能
+- 数据请求从发起到接收数据之间发生了什么
+- `csrf` 和 `xss` 是什么，如何避免
+- 前端怎样对用户的数据进行加密传输
+  答：`md5`，我其实不太了解，只是用 `md5` 做过登录注册的密码加密，也不会别的了。
+- 基于 `md5` 提升安全性
+  答：`md5（md5）`，我开玩笑的，有没有大佬可以指点一下。
 - 说一下 `vue` 有哪些优点和特点
 - 什么是虚拟 `dom`
 - `vue` 组件间传值的 `n` 种方式
@@ -18142,118 +16254,69 @@ base64
 - 搭一个新项目的框架,需要考虑哪些问题
 - 如何做权限认证
 - 如何做 `mock` 数据
-
-## 遍历数组的 `n` 种方法
-
-👉👉 **【面试题解】你了解 JavaScript 常用的的十个高阶函数么?**\[12]
-
-## 说一下 `vue` 有哪些优点和特点
-
-- **渐进式框架**：可以在任何项目中轻易的引入；
-- **轻量级框架**：只关注视图层，是一个构建数据的视图集合，大小只有几十 `kb` ；
-- **简单易学**：国人开发，中文文档，不存在语言障碍 ，易于理解和学习；
-- **双向数据绑定**：在数据操作方面更为简单；
-- **组件化**：很大程度上实现了逻辑的封装和重用，在构建单页面应用方面有着独特的优势；
-- **视图，数据，结构分离**：使数据的更改更为简单，不需要进行逻辑代码的修改，只需要操作数据就能完成相关操作；
-
-## 什么是虚拟 `dom`
-
-`Virtual DOM` 是 `DOM` 节点在 `JavaScript` 中的一种抽象数据结构，之所以需要虚拟 `DOM`，是因为浏览器中操作 `DOM` 的代价比较昂贵，频繁操作 `DOM` 会产生性能问题。
-
-虚拟 `DOM` 的作用是在每一次响应式数据发生变化引起页面重渲染时，`Vue` 对比更新前后的虚拟 `DOM`，匹配找出尽可能少的需要更新的真实 `DOM`，从而达到提升性能的目的。
-
-虚拟 `DOM` 的实现原理主要包括以下 **3** 部分：
-
+- 说一下 `vue` 有哪些优点和特点
+  - **渐进式框架**：可以在任何项目中轻易的引入；
+  - **轻量级框架**：只关注视图层，是一个构建数据的视图集合，大小只有几十 `kb` ；
+  - **简单易学**：国人开发，中文文档，不存在语言障碍 ，易于理解和学习；
+  - **双向数据绑定**：在数据操作方面更为简单；
+  - **组件化**：很大程度上实现了逻辑的封装和重用，在构建单页面应用方面有着独特的优势；
+  - **视图，数据，结构分离**：使数据的更改更为简单，不需要进行逻辑代码的修改，只需要操作数据就能完成相关操作；
+- 什么是虚拟 `dom`
+  `Virtual DOM` 是 `DOM` 节点在 `JavaScript` 中的一种抽象数据结构，之所以需要虚拟 `DOM`，是因为浏览器中操作 `DOM` 的代价比较昂贵，频繁操作 `DOM` 会产生性能问题。
+  虚拟 `DOM` 的作用是在每一次响应式数据发生变化引起页面重渲染时，`Vue` 对比更新前后的虚拟 `DOM`，匹配找出尽可能少的需要更新的真实 `DOM`，从而达到提升性能的目的。
+  虚拟 `DOM` 的实现原理主要包括以下 **3** 部分：
 - 用 `JavaScript` 对象模拟真实 `DOM` 树，对真实 `DOM` 进行抽象；
 - `diff` 算法 — 比较两棵虚拟 `DOM` 树的差异；
 - `pach` 算法 — 将两个虚拟 `DOM` 对象的差异应用到真正的 `DOM` 树。
-
-## `vue` 组件间传值的 `n` 种方式
-
-**（1）`props / $emit` 适用 父子组件通信**
-
-**（2）`ref` 适用 父子组件通信**
-
-- `ref`：如果在普通的 `DOM` 元素上使用，引用指向的就是 `DOM` 元素；如果用在子组件上，引用就指向组件实例
-
-**（3）`$parent` / `$children` / `$root`：访问父 / 子实例 / 根实例**
-
-**（4）`EventBus （$emit / $on）` 适用于 父子、隔代、兄弟组件通信**
-
-这种方法通过一个空的 `Vue` 实例作为中央事件总线（事件中心），用它来触发事件和监听事件，从而实现任何组件间的通信，包括父子、隔代、兄弟组件。
-
-**（5）`$attrs`/`$listeners` 适用于 隔代组件通信**
-
-- `$attrs`：包含了父作用域中不被 `prop` 所识别 (且获取) 的特性绑定 ( `class` 和 `style` 除外 )。当一个组件没有声明任何 `prop` 时，这里会包含所有父作用域的绑定 ( `class` 和 `style` 除外 )，并且可以通过 `v-bind="$attrs"` 传入内部组件。通常配合 `inheritAttrs` 选项一起使用。
-- `$listeners`：包含了父作用域中的 (不含 `.native` 修饰器的) `v-on` 事件监听器。它可以通过 `v-on="$listeners"` 传入内部组件
-
-**（6）`provide / inject` 适用于 隔代组件通信**
-
-祖先组件中通过 `provide` 来提供变量，然后在子孙组件中通过 `inject` 来注入变量。`provide / inject API` 主要解决了跨级组件间的通信问题，不过它的使用场景，主要是子组件获取上级组件的状态，跨级组件间建立了一种主动提供与依赖注入的关系。
-
-**（7）`Vuex` 适用于 父子、隔代、兄弟组件通信**
-
-`Vuex` 是一个专为 `Vue.js` 应用程序开发的状态管理模式。每一个 `Vuex` 应用的核心就是 `store`（仓库）。`store` 基本上就是一个容器，它包含着你的应用中大部分的状态 ( `state` )。
-
-- `Vuex` 的状态存储是响应式的。当 `Vue` 组件从 `store` 中读取状态的时候，若 `store` 中的状态发生变化，那么相应的组件也会相应地得到高效更新。
-- 改变 `store` 中的状态的唯一途径就是显式地提交 `(commit) mutation`。这样使得我们可以方便地跟踪每一个状态的变化。
-
-**（8）插槽**
-
-`Vue3` 可以通过 `usesolt` 获取插槽数据。
-
-**（9）`mitt.js` 适用于任意组件通信**
-
-    Vue3` 中移除了 `$on`，`$off`等方法，所以 `EventBus` 不再使用，相应的替换方案就是 `mitt.js
-
-## `vue` 有哪些内置指令
-
-![图片](https://mmbiz.qpic.cn/sz_mmbiz/H8M5QJDxMHrs1Gic0ynJLEPic2w3wOg5I1s4xNKCZnmsC4fvPKLMbATRSZOZ63G6dq5gz6j03ic8vNG1ckKLbAyzg/640?wx_fmt=other&wxfrom=5&wx_lazy=1&wx_co=1)640.webp
-
-## `v-show` 和 `v-if` 有什么区别
-
+- `vue` 组件间传值的 `n` 种方式
+  **（1）`props / $emit` 适用 父子组件通信**
+  **（2）`ref` 适用 父子组件通信**
+  - `ref`：如果在普通的 `DOM` 元素上使用，引用指向的就是 `DOM` 元素；如果用在子组件上，引用就指向组件实例
+    **（3）`$parent` / `$children` / `$root`：访问父 / 子实例 / 根实例**
+    **（4）`EventBus （$emit / $on）` 适用于 父子、隔代、兄弟组件通信**
+    这种方法通过一个空的 `Vue` 实例作为中央事件总线（事件中心），用它来触发事件和监听事件，从而实现任何组件间的通信，包括父子、隔代、兄弟组件。
+    **（5）`$attrs`/`$listeners` 适用于 隔代组件通信**
+  - `$attrs`：包含了父作用域中不被 `prop` 所识别 (且获取) 的特性绑定 ( `class` 和 `style` 除外 )。当一个组件没有声明任何 `prop` 时，这里会包含所有父作用域的绑定 ( `class` 和 `style` 除外 )，并且可以通过 `v-bind="$attrs"` 传入内部组件。通常配合 `inheritAttrs` 选项一起使用。
+  - `$listeners`：包含了父作用域中的 (不含 `.native` 修饰器的) `v-on` 事件监听器。它可以通过 `v-on="$listeners"` 传入内部组件
+    **（6）`provide / inject` 适用于 隔代组件通信**
+    祖先组件中通过 `provide` 来提供变量，然后在子孙组件中通过 `inject` 来注入变量。`provide / inject API` 主要解决了跨级组件间的通信问题，不过它的使用场景，主要是子组件获取上级组件的状态，跨级组件间建立了一种主动提供与依赖注入的关系。
+    **（7）`Vuex` 适用于 父子、隔代、兄弟组件通信**
+    `Vuex` 是一个专为 `Vue.js` 应用程序开发的状态管理模式。每一个 `Vuex` 应用的核心就是 `store`（仓库）。`store` 基本上就是一个容器，它包含着你的应用中大部分的状态 ( `state` )。
+  - `Vuex` 的状态存储是响应式的。当 `Vue` 组件从 `store` 中读取状态的时候，若 `store` 中的状态发生变化，那么相应的组件也会相应地得到高效更新。
+  - 改变 `store` 中的状态的唯一途径就是显式地提交 `(commit) mutation`。这样使得我们可以方便地跟踪每一个状态的变化。
+    **（8）插槽**
+    `Vue3` 可以通过 `usesolt` 获取插槽数据。
+    **（9）`mitt.js` 适用于任意组件通信**
+    Vue3`中移除了`$on`，`$off`等方法，所以 `EventBus`不再使用，相应的替换方案就是`mitt.js
+- `vue` 有哪些内置指令
+  ![图片](https://mmbiz.qpic.cn/sz_mmbiz/H8M5QJDxMHrs1Gic0ynJLEPic2w3wOg5I1s4xNKCZnmsC4fvPKLMbATRSZOZ63G6dq5gz6j03ic8vNG1ckKLbAyzg/640?wx_fmt=other&wxfrom=5&wx_lazy=1&wx_co=1)
+- `v-show` 和 `v-if` 有什么区别
 - **手段**：`v-if` 是动态的向 `DOM` 树内添加或者删除 `DOM` 元素；`v-show` 是通过设置 `DOM` 元素的 `display` 样式属性控制显隐；
 - **编译过程**：`v-if` 切换有一个局部编译/卸载的过程，切换过程中合适地销毁和重建内部的事件监听和子组件；`v-show` 只是简单的基于 `css` 切换；
 - **编译条件**：`v-if` 是惰性的，如果初始条件为假，则什么也不做；只有在条件第一次变为真时才开始局部编译; `v-show` 是在任何条件下，无论首次条件是否为真，都被编译，然后被缓存，而且 `DOM` 元素保留；
 - **性能消耗**：`v-if` 有更高的切换消耗；`v-show` 有更高的初始渲染消耗；
 - **使用场景**：`v-if` 适合运营条件不大可能改变；`v-show` 适合频繁切换。
-
-## 如何让 `CSS` 只在当前组件中起作用
-
-在组件中的 `style` 标签中加上 `scoped`
-
-## 如何解决 `vue` 初始化页面闪动问题
-
-使用 `vue` 开发时，在 `vue` 初始化之前，由于 `div` 是不归 `vue` 管的，所以我们写的代码在还没有解析的情况下会容易出现花屏现象，看到类似于 `{{message}}` 的字样，虽然一般情况下这个时间很短暂，但是我们还是有必要让解决这个问题的。
-
-首先：在 `css` 里加上 `[v-cloak] { display: none; }` 。如果没有彻底解决问题，则在根元素加上 `style="display: none;" :style="{display: block }"`
-
-## 什么是 `SPA`，有什么优点和缺点
-
-`SPA` 仅在 `Web` 页面初始化时加载相应的 `HTML`、`JavaScript` 和 `CSS`。一旦页面加载完成，`SPA` 不会因为用户的操作而进行页面的重新加载或跳转；取而代之的是利用路由机制实现 `HTML` 内容的变换，`UI` 与用户的交互，避免页面的重新加载。
-
-**优点：**
-
-- 用户体验好、快，内容的改变不需要重新加载整个页面，避免了不必要的跳转和重复渲染；
-- 有利于前后端职责分离，架构清晰，前端进行交互逻辑，后端负责数据处理；
-
-**缺点：**
-
-- 初次加载耗时多：为实现单页 `Web` 应用功能及显示效果，需要在加载页面的时候将 `JavaScript`、`CSS` 统一加载，部分页面按需加载；
-- 不利于 `SEO`：由于所有的内容都在一个页面中动态替换显示，所以在 `SEO` 上其有着天然的弱势。
-
-## `vue` 首屏渲染优化有哪些
-
-- 图片压缩/懒加载
-- 禁止生成 `.map` 文件
-- 路由懒加载
-- `cdn` 引入公共库
-- 开启 `GZIP` 压缩
-
-## `vue` 生命周期函数有哪些
-
-`Vue` 的生命周期钩子核心实现是利用发布订阅模式先把用户传入的的生命周期钩子订阅好（内部采用数组的方式存储）然后在创建组件实例的过程中会一次执行对应的钩子方法（发布）。
-
+- 如何让 `CSS` 只在当前组件中起作用
+  在组件中的 `style` 标签中加上 `scoped`
+- 如何解决 `vue` 初始化页面闪动问题
+  使用 `vue` 开发时，在 `vue` 初始化之前，由于 `div` 是不归 `vue` 管的，所以我们写的代码在还没有解析的情况下会容易出现花屏现象，看到类似于 `{{message}}` 的字样，虽然一般情况下这个时间很短暂，但是我们还是有必要让解决这个问题的。
+  首先：在 `css` 里加上 `[v-cloak] { display: none; }` 。如果没有彻底解决问题，则在根元素加上 `style="display: none;" :style="{display: block }"`
+- 什么是 `SPA`，有什么优点和缺点
+  `SPA` 仅在 `Web` 页面初始化时加载相应的 `HTML`、`JavaScript` 和 `CSS`。一旦页面加载完成，`SPA` 不会因为用户的操作而进行页面的重新加载或跳转；取而代之的是利用路由机制实现 `HTML` 内容的变换，`UI` 与用户的交互，避免页面的重新加载。
+  **优点：**
+  - 用户体验好、快，内容的改变不需要重新加载整个页面，避免了不必要的跳转和重复渲染；
+  - 有利于前后端职责分离，架构清晰，前端进行交互逻辑，后端负责数据处理；
+    **缺点：**
+  - 初次加载耗时多：为实现单页 `Web` 应用功能及显示效果，需要在加载页面的时候将 `JavaScript`、`CSS` 统一加载，部分页面按需加载；
+  - 不利于 `SEO`：由于所有的内容都在一个页面中动态替换显示，所以在 `SEO` 上其有着天然的弱势。
+- `vue` 首屏渲染优化有哪些
+  - 图片压缩/懒加载
+  - 禁止生成 `.map` 文件
+  - 路由懒加载
+  - `cdn` 引入公共库
+  - 开启 `GZIP` 压缩
+- `vue` 生命周期函数有哪些
+  `Vue` 的生命周期钩子核心实现是利用发布订阅模式先把用户传入的的生命周期钩子订阅好（内部采用数组的方式存储）然后在创建组件实例的过程中会一次执行对应的钩子方法（发布）。
 - `beforeCreate`：是 `new Vue()` 之后触发的第一个钩子，在当前阶段 `data`、`methods`、`computed` 以及 `watch` 上的数据和方法都不能被访问。
 - `created`：在实例创建完成后发生，当前阶段已经完成了数据观测，也就是可以使用数据，更改数据，在这里更改数据不会触发 `updated` 函数。可以做一些初始数据的获取，在当前阶段无法与 `Dom` 进行交互，如果非要想，可以通过 `vm.$nextTick` 来访问 `Dom`。
 - `beforeMount`：发生在挂载之前，在这之前 `template` 模板已导入渲染函数编译。而当前阶段虚拟 `Dom` 已经创建完成，即将开始渲染。在此时也可以对数据进行更改，不会触发 `updated`。
@@ -18262,178 +16325,79 @@ base64
 - `updated`：发生在更新完成之后，当前阶段组件 `Dom` 已完成更新。要注意的是避免在此期间更改数据，因为这可能会导致无限循环的更新。
 - `beforeDestroy`：发生在实例销毁之前，在当前阶段实例完全可以被使用，我们可以在这时进行善后收尾工作，比如清除计时器。
 - `destroyed`：发生在实例销毁之后，这个时候只剩下了 `dom` 空壳。组件已被拆解，数据绑定被卸除，监听被移出，子实例也统统被销毁。
-
-## 第一次页面加载会触发哪几个钩子
-
-    beforeCreate`，`created`，`beforeMount`，`mounted
-
-## 在哪个生命周期中发起数据请求
-
-可以在钩子函数 `created`、`beforeMount`、`mounted` 中进行调用，因为在这三个钩子函数中，`data` 已经创建，可以将服务端端返回的数据进行赋值。
-
-推荐在 `created` 钩子函数中调用异步请求，有以下优点：
-
-- 能更快获取到服务端数据，减少页面 `loading` 时间；
-- `ssr` 不支持 `beforeMount` 、`mounted` 钩子函数，所以放在 `created` 中有助于一致性；
-
-## `vue-router` 有几种模式
-
-`vue-router` 有 3 种路由模式：`hash`、`history`、`abstract`：
-
-- **hash**: 使用 `URL hash` 值来作路由。支持所有浏览器，包括不支持 `HTML5 History Api` 的浏览器；
-- **history** : 依赖 `HTML5 History API` 和服务器配置。
-- **abstract** : 支持所有 `JavaScript` 运行环境，如 `Node.js` 服务器端。如果发现没有浏览器的 `API`，路由会自动强制进入这个模式.
-
-## `hash` 和 `history` 有什么区别
-
-**（1）hash 模式的实现原理**
-
-早期的前端路由的实现就是基于 `location.hash` 来实现的。其实现原理很简单，`location.hash` 的值就是 `URL` 中 `#` 后面的内容。比如下面这个网站，它的 `location.hash` 的值为 `#search`：
-
-    https://www.word.com#search
-    复制代码
-
-`hash` 路由模式的实现主要是基于下面几个特性：
-
-- `URL` 中 `hash` 值只是客户端的一种状态，也就是说当向服务器端发出请求时，`hash` 部分不会被发送；
-- `hash` 值的改变，都会在浏览器的访问历史中增加一个记录。因此我们能通过浏览器的回退、前进按钮控制 `hash` 的切换；
-- 可以通过 `a` 标签，并设置 `href` 属性，当用户点击这个标签后，`URL` 的 `hash` 值会发生改变；或者使用 `JavaScript` 来对 `loaction.hash` 进行赋值，改变 `URL` 的 `hash` 值；
-- 我们可以使用 `hashchange` 事件来监听 `hash` 值的变化，从而对页面进行跳转（渲染）。
-
-**（2）history 模式的实现原理**
-
-`HTML5` 提供了 `History API` 来实现 `URL` 的变化。其中做最主要的 `API` 有以下两个：`history.pushState()` 和 `history.repalceState()`。这两个 `API` 可以在不进行刷新的情况下，操作浏览器的历史纪录。唯一不同的是，前者是新增一个历史记录，后者是直接替换当前的历史记录，如下所示：
-
+- 第一次页面加载会触发哪几个钩子
+  beforeCreate`，`created`，`beforeMount`，`mounted
+- 在哪个生命周期中发起数据请求
+  可以在钩子函数 `created`、`beforeMount`、`mounted` 中进行调用，因为在这三个钩子函数中，`data` 已经创建，可以将服务端端返回的数据进行赋值。
+  推荐在 `created` 钩子函数中调用异步请求，有以下优点：
+  - 能更快获取到服务端数据，减少页面 `loading` 时间；
+  - `ssr` 不支持 `beforeMount` 、`mounted` 钩子函数，所以放在 `created` 中有助于一致性；
+- `vue-router` 有几种模式
+  `vue-router` 有 3 种路由模式：`hash`、`history`、`abstract`：
+  - **hash**: 使用 `URL hash` 值来作路由。支持所有浏览器，包括不支持 `HTML5 History Api` 的浏览器；
+  - **history** : 依赖 `HTML5 History API` 和服务器配置。
+  - **abstract** : 支持所有 `JavaScript` 运行环境，如 `Node.js` 服务器端。如果发现没有浏览器的 `API`，路由会自动强制进入这个模式.
+- `hash` 和 `history` 有什么区别
+  **（1）hash 模式的实现原理**
+  早期的前端路由的实现就是基于 `location.hash` 来实现的。其实现原理很简单，`location.hash` 的值就是 `URL` 中 `#` 后面的内容。比如下面这个网站，它的 `location.hash` 的值为 `#search`：
+  https://www.word.com#search
+  `hash` 路由模式的实现主要是基于下面几个特性：
+  - `URL` 中 `hash` 值只是客户端的一种状态，也就是说当向服务器端发出请求时，`hash` 部分不会被发送；
+  - `hash` 值的改变，都会在浏览器的访问历史中增加一个记录。因此我们能通过浏览器的回退、前进按钮控制 `hash` 的切换；
+  - 可以通过 `a` 标签，并设置 `href` 属性，当用户点击这个标签后，`URL` 的 `hash` 值会发生改变；或者使用 `JavaScript` 来对 `loaction.hash` 进行赋值，改变 `URL` 的 `hash` 值；
+  - 我们可以使用 `hashchange` 事件来监听 `hash` 值的变化，从而对页面进行跳转（渲染）。
+    **（2）history 模式的实现原理**
+    `HTML5` 提供了 `History API` 来实现 `URL` 的变化。其中做最主要的 `API` 有以下两个：`history.pushState()` 和 `history.repalceState()`。这两个 `API` 可以在不进行刷新的情况下，操作浏览器的历史纪录。唯一不同的是，前者是新增一个历史记录，后者是直接替换当前的历史记录，如下所示：
     window.history.pushState(null, null, path);
     window.history.replaceState(null, null, path);
-    复制代码
-
-`history` 路由模式的实现主要基于存在下面几个特性：
-
-- `pushState` 和 `repalceState` 两个 `API` 来操作实现 `URL` 的变化 ；
-- 我们可以使用 `popstate` 事件来监听 `url` 的变化，从而对页面进行跳转（渲染）；
-- `history.pushState()` 或 `history.replaceState()` 不会触发 `popstate` 事件，这时我们需要手动触发页面跳转（渲染）。
-
-## `vuex` 有哪些属性
-
-有五种，分别
-
-- **State**：定义了应用状态的数据结构，可以在这里设置默认的初始状态。
-- **Getter**：允许组件从 `Store` 中获取数据，`mapGetters` 辅助函数仅仅是将 `store` 中的 `getter` 映射到局部计算属性。
-- **Mutation**：是唯一更改 `store` 中状态的方法，且必须是同步函数。
-- **Action**：用于提交 `mutation`，而不是直接变更状态，可以包含任意异步操作。
-- **Module**：允许将单一的 `Store` 拆分为多个 `store` 且同时保存在单一的状态树中。
-
-## `git` 常用命令了解哪些
-
-👉👉 **Git 命令速查表**\[13]
-
-## 搭一个新项目的框架,需要考虑哪些问题
-
-👉👉 **结合代码实践，全面学习前端工程化**\[14]
-
-## 如何做权限认证
-
-答：在路由守卫中根据 `url` 地址结合 `token` 做权限认证。
-
-## 如何做 `mock` 数据
-
-答：可以使用 `mock.js`
-
-# C 公司
-
-## 整体总结
-
-`C` 公司首先要在线上申请面试，然后会填一个很长很长的 **报名表**，填完以后又会填一个很长很长的 **问卷**，问卷的内容就好像是公众号心理测评一样，跟技术没有丁点关系。然后就让我去公司面试了，面试形式是 `上机`，题目已经整理在下面了，整体来说不算难，手写表格比较恶心一点。然后笔试完了，又给了我一套小学 **奥数题**，不能用方程式解，这个属实有点坑，这个过了应该还有个面试环节，但是我在笔试环节被毙掉了，也不知道后面是什么情况。
-
-## 面试题一览
-
-- `ajax` 是什么?有什么优缺点
-- 同步和异步的区别
-- 如何解决跨域问题
-- `WEB` 应用从服务器主动推送 `Data` 到客户端有哪些方式
-- 经常遇到的浏览器的兼容性问题有哪些?原因是什么?如何解决
-- 有哪些常用的 `hack` 技巧
-- 前端开发性能优化,你有什么经验
-- 谈谈你对 `webpack` 的看法
-- 主流的前端框架的优缺点是什么
-- 你最喜欢哪个框架，为什么
-- 如何消除一个数组里面重复的元素
+    `history` 路由模式的实现主要基于存在下面几个特性：
+  - `pushState` 和 `repalceState` 两个 `API` 来操作实现 `URL` 的变化 ；
+  - 我们可以使用 `popstate` 事件来监听 `url` 的变化，从而对页面进行跳转（渲染）；
+  - `history.pushState()` 或 `history.replaceState()` 不会触发 `popstate` 事件，这时我们需要手动触发页面跳转（渲染）。
+- `vuex` 有哪些属性
+  有五种，分别
+  - **State**：定义了应用状态的数据结构，可以在这里设置默认的初始状态。
+  - **Getter**：允许组件从 `Store` 中获取数据，`mapGetters` 辅助函数仅仅是将 `store` 中的 `getter` 映射到局部计算属性。
+  - **Mutation**：是唯一更改 `store` 中状态的方法，且必须是同步函数。
+  - **Action**：用于提交 `mutation`，而不是直接变更状态，可以包含任意异步操作。
+  - **Module**：允许将单一的 `Store` 拆分为多个 `store` 且同时保存在单一的状态树中。
+- `git` 常用命令了解哪些
+- 搭一个新项目的框架,需要考虑哪些问题
+- 如何做权限认证
+  答：在路由守卫中根据 `url` 地址结合 `token` 做权限认证。
+- 如何做 `mock` 数据
+  答：可以使用 `mock.js`
 - `css` 如何实现一个幻灯片效果
 - 手写表格
-
-## `ajax` 是什么?有什么优缺点
-
-`ajax` 是一种创建交互网页应用的一门技术。
-
-优点：
-
+- `ajax` 是什么?有什么优缺点
+  `ajax` 是一种创建交互网页应用的一门技术。
+  优点：
 - 实现局部更新(无刷新状态下)，
 - 减轻了服务器端的压力
-
-缺点：
-
+  缺点：
 - 破坏了浏览器前进和后退机制(因为 `ajax` 自动更新机制)
 - `ajax` 请求多了，也会出现页面加载慢的情况。
 - 搜索引擎的支持程度比较低。
 - `ajax` 的安全性问题不太好(可以用数据加密解决)。
-
-## 同步和异步的区别
-
-**同步：** 同步的思想是：所有的操作都做完，才返回给用户。这样用户在线等待的时间太长，给用户一种卡死了的感觉（就是系统迁移中，点击了迁移，界面就不动了，但是程序还在执行，卡死了的感觉）。这种情况下，用户不能关闭界面，如果关闭了，即迁移程序就中断了。
-
-**异步：** 将用户请求放入消息队列，并反馈给用户，系统迁移程序已经启动，你可以关闭浏览器了。然后程序再慢慢地去写入数据库去。这就是异步。但是用户没有卡死的感觉，会告诉你，你的请求系统已经响应了。你可以关闭界面了。
-
-## 如何解决跨域问题
-
-👉👉 **九种跨域方式实现原理（完整版）**\[15]
-
-## `WEB` 应用从服务器主动推送 `Data` 到客户端有哪些方式
-
-- **轮询**
-- **WebSocket**
-
-## 经常遇到的浏览器的兼容性问题有哪些?原因是什么?如何解决
-
-由于我的公司是一个致力于培养用户习惯的公司，遇到兼容问题都是**请下载最新版本谷歌浏览器**😝，所以我这个其实没有什么实际的经验，只知道 `babel` 和 `postcss` 。
-
-## 有哪些常用的 `hack` 技巧
-
-说实话，没听说过。
-
-## 前端开发性能优化,你有什么经验
-
-👉👉 **前端性能优化 24 条建议（2020）**\[16]
-
-## 谈谈你对 `webpack` 的看法
-
-👉👉 **当面试官问 Webpack 的时候他想知道什么**\[17]
-
-## 主流的前端框架的优缺点是什么
-
-只用过 `vue` ，优点上面讲过了，缺点嘛，可能就是不支持 `IE8` 。
-
-## 你最喜欢哪个框架，为什么
-
-同上一个问题。
-
-## 如何消除一个数组里面重复的元素
-
-- `set`
-- `reduce`
-- `for循环`
-- 能实现方式有很多，原理都是对比两个数组，没有就放进去。
-
-## `css` 如何实现一个幻灯片效果
-
-👉👉 **使用 CSS 实现一个简单的幻灯片效果**\[18]
-
-# D 公司
-
-## 整体总结
-
-这个面试过程就很随和，面试官是个架构师，`level` 挺高的，不会问八股文，他给我出了几个现实中的场景，然后转换成代码的逻辑，去让我实现他，一共问了没几个问题，不需要背面试题，会由一个问题一直追着问我，然后还会不断的引导我，提示我，直到我啥也答不上来。
-
+- 同步和异步的区别
+  **同步：** 同步的思想是：所有的操作都做完，才返回给用户。这样用户在线等待的时间太长，给用户一种卡死了的感觉（就是系统迁移中，点击了迁移，界面就不动了，但是程序还在执行，卡死了的感觉）。这种情况下，用户不能关闭界面，如果关闭了，即迁移程序就中断了。
+  **异步：** 将用户请求放入消息队列，并反馈给用户，系统迁移程序已经启动，你可以关闭浏览器了。然后程序再慢慢地去写入数据库去。这就是异步。但是用户没有卡死的感觉，会告诉你，你的请求系统已经响应了。你可以关闭界面了。
+- `WEB` 应用从服务器主动推送 `Data` 到客户端有哪些方式
+  轮询
+  WebSocket
+- 经常遇到的浏览器的兼容性问题有哪些?原因是什么?如何解决
+  由于我的公司是一个致力于培养用户习惯的公司，遇到兼容问题都是**请下载最新版本谷歌浏览器**😝，所以我这个其实没有什么实际的经验，只知道 `babel` 和 `postcss` 。
+- 有哪些常用的 `hack` 技巧
+- 前端开发性能优化,你有什么经验
+- 谈谈你对 `webpack` 的看法
+- 主流的前端框架的优缺点是什么
+  只用过 `vue` ，优点上面讲过了，缺点嘛，可能就是不支持 `IE8` 。
+- 如何消除一个数组里面重复的元素
+  - `set`
+  - `reduce`
+  - `for循环`
+  - 能实现方式有很多，原理都是对比两个数组，没有就放进去。
+- `css` 如何实现一个幻灯片效果
 - 一般请求后端接口，你都怎么弄？
 - 你的后端要给你什么样的信息，你才能请求成功呢？
 - 请求参数有什么格式？
@@ -18454,99 +16418,37 @@ base64
 - `localStorage，session，cookie`的区别是什么？
 - 然后问了我自己的几个开源项目
 - 因为我带了电脑，所以还看了看我的代码
-
-## 一般请求后端接口，你都怎么弄？
-
-这个问题其实没有搞懂面试官想问什么，参照接口文档发起请求就行了呗，顶多就是再二次封装一个 `axios`。
-
-## 你的后端要给你什么样的信息，你才能请求成功呢？
-
-- 请求方式
-- 请求参数
-
-## 请求参数有什么格式？
-
-👉👉 **HTTP 请求参数之三种格式**\[19]
-
-- `Query String Parameters`
-- `Form Data`
-- `Request Payload`
-
-## 如何给后端传递一个文件？
-
-👉👉 **前后端文件上传过程以及方法**\[20]
-
-## 你如何理解前端工程化?
-
-👉👉 **结合代码实践，全面学习前端工程化**\[21]
-
-## 上面提到的买电脑这个例子怎么实现？
-
-答：使用 `promise.all` 或者 `async/await`。
-
-## 不使用 `promise.all` , `async/await` 怎么实现?
-
-不知道了 😭😭。
-
-## `promise.all` 和 `async/await` 有什么区别?
-
-答：`Async Await` 是基于 `promise` 实现，是改良版的 `promise`，使代码看起来更加简洁，异步代码执行像同步代码一样。
-
-## `promise.all` 是为了解决什么问题?
-
-答：汇总大量的异步操作结果。
-
-## 如何删除事件监听，一个元素绑定了多个事件，你怎么确认删除的是哪个？
-
-    element.removeEventListener(type，handler，false/true)
-    复制代码
-
-- **type**:事件类型
-- **handler**:事件执行触发的函数
-- **false/true**:`false` 为冒泡 ，`true` 为捕获，参数是 `true`，表示在捕获阶段调用事件处理程序；`如果是false`，表示在冒泡阶段调用事件处理程序。
-
-需要注意的是，通过匿名函数是无法消除监听事件，只有通过实名函数才能。
-
-## 不熟悉的项目，如何找到接口所在的代码？
-
-答：可以搜接口的地址。
-
-## `localStorage，session，cookie`的区别是什么？
-
-👉👉 **理解 cookie、session、localStorage、sessionStorage 之不同**\[22]
-
-# E 公司
-
-## 整体总结
-
-这个完全没必要去，就当是避雷吧，首先他这个公司的楼非常破，公司内部非常破，像个传销窝点，然后就是他面试官不是个搞技术的，不知道是个什么负责人，问的问题也跟技术没啥关系，因为看到办公环境就不想继续了，所以没录音，也没问什么问题，很快就结束了。
-
-`E` 公司其实算不上什么面经，只是提醒大家在找工作之前一定要先看一下目标公司的环境，规模等，从根源上避免像我一样踩雷。
-
-# F 公司
-
-## 整体总结
-
-`F` 公司两个面试官轮流提问，基本上都不会问八股文的问题，项目经验问的比较多，只要是真实的工作经验，基本都能应对，然后问了我自己的开源项目一些问题，这个是根据简历来的，如果没写是不会问的。第一个面试官感觉是一直在自言自语，我一直在嗯嗯嗯嗯嗯，第二个面试官会在问项目的时候结合我的回答情况，追问一些基础知识，涉及到的都整理在下面了。
-
-## 面试题一览
-
-面试官一：
-
+- 一般请求后端接口，你都怎么弄？
+  这个问题其实没有搞懂面试官想问什么，参照接口文档发起请求就行了呗，顶多就是再二次封装一个 `axios`。
+- 你的后端要给你什么样的信息，你才能请求成功呢？
+  请求方式
+  请求参数
+- 请求参数有什么格式？
+  `Query String Parameters`
+  `Form Data`
+  `Request Payload`
+- 如何给后端传递一个文件？
+- 你如何理解前端工程化?
+- `promise.all` 和 `async/await` 有什么区别?
+  答：`Async Await` 是基于 `promise` 实现，是改良版的 `promise`，使代码看起来更加简洁，异步代码执行像同步代码一样。
+- `promise.all` 是为了解决什么问题?
+  答：汇总大量的异步操作结果。
+- 如何删除事件监听，一个元素绑定了多个事件，你怎么确认删除的是哪个？
+  element.removeEventListener(type，handler，false/true)
+  - **type**:事件类型
+  - **handler**:事件执行触发的函数
+  - **false/true**:`false` 为冒泡 ，`true` 为捕获，参数是 `true`，表示在捕获阶段调用事件处理程序；`如果是false`，表示在冒泡阶段调用事件处理程序。
+    需要注意的是，通过匿名函数是无法消除监听事件，只有通过实名函数才能。
+- 不熟悉的项目，如何找到接口所在的代码？
+  答：可以搜接口的地址。
+- `localStorage，session，cookie`的区别是什么？
 - 我看你掘金了，简单描述一下 `call`，`apply`，`bind` 有什么区别和应用场景。（说的好像是我不写他就不问了）
 - 说一说盒子模型？
 - 公司项目负责哪部分功能？
 - 表单和表格封装过么？
 - 表单是怎么封装的？
 - 大数据的表单怎么处理，`select` 选项过多的时候？（优化问题）
-- 学完 `vue3` 有什么想法么？`nuxt` 什么感想？
 - 自己做过脚手架么？
-- 然后就是聊项目········
-
-面试官二：
-
-- 在公司都做哪些事？项目是干什么的？
-- 然后就是聊项目········
 - `vue2` 和 `vue3` 有什么区别？
 - 有没有遇到性能优化问题？
 - 从输入 `url` 到页面渲染完成之间发生了什么？
@@ -18557,135 +16459,69 @@ base64
 - 前端安全问题，`CSRF`，`XSS`
 - 如何解决跨域问题？
 - 跨域问题实际上改的是 `http` 里面哪个参数？
-
-## `call`，`apply`，`bind` 有什么区别和应用场景
-
-👉👉 **【面试题解】你了解 call，apply，bind 吗？那你可以手写一个吗？**\[23]
-
-## 说一说盒子模型
-
-👉👉 **【面试题解】CSS 盒子模型与 margin 负值**\[24]
-
-## 学完 `vue3` 有什么想法么？`nuxt` 什么感想
-
-答：`vue3` 在代码编写层面，可以更好的完成结构和逻辑的复用。`nuxt` 是一个约定大于配置的框架，很多东西人家都给封装好了，按照约定去写就可以了，有利于团队协作。
-
-## `vue2` 和 `vue3` 有什么区别
-
-- 响应式原理
-- 生命周期钩子名称
-- 自定义指令钩子名称
-- 新的内置组件
-- `diff` 算法
-- `Composition API`
-
-## 有没有遇到性能优化问题
-
-👉👉 **前端性能优化 24 条建议（2020）**\[25]
-
-## 从输入 `url` 到页面渲染完成之间发生了什么
-
-👉👉 **史上最详细的经典面试题 从输入 URL 到看到页面发生了什么？**\[26]
-
-## 浏览器原理了解过么
-
-👉👉 **深入理解浏览器工作原理**\[27]
-
-## `http` 状态码都有哪些
-
-状态码第一位数字决定了不同的响应状态，如下：
-
-- 1 表示消息
-- 2 表示成功
-- 3 表示重定向
-- 4 表示请求错误
-- 5 表示服务器错误
-
-**1xx**
-
-代表请求已被接受，需要继续处理，这类响应是临时响应，只包含状态行和某些可选的响应信息，并一空行结束
-
-常见的有：
-
-- `100` （客户继续发送请求，这是临时响应） 这个临时响应是用来通知客户端它的部分请求已经被服务器接收，且仍未被拒绝。客户端印当据需发送请求的剩余部分，或者如果请求已经完成，忽略这个响应，服务器必须在请求完成后向客户端发送一个最终响应
-- `101` 服务器根据客户端的请求切换协议，主要用于 `websocket` 或 `HTTP2` 升级
-
-**2xx**
-
-代表请求已成功被服务器接收，处理，并接受
-
-- `200` （成功） 请求已成功，请求所希望的响应头或数据体将随此响应返回
-- `201` （已创建）请求成功并且服务器创建了新的资源
-- `202` （已创建）服务器已经接受请求，但尚未处理
-- `203` （非授权信息）服务器已成功处理请求，但返回的信息可能来自另一来源
-- `204` （无内容）服务器成功处理请求，但没有返回任何内容
-- `205` （重置内容）服务器成功处理请求，但没有返回任何内容
-- `206` （部分内容）服务器成功处理了部分请求
-
-**3xx**
-
-表示要完成请求，需要进一步操作，通常这些状态代码用来重定向
-
-- `300` （多种选择）针对请求，服务器可执行多种操作。
-- `301` （永久移动）请求的网页已永久移动到新位置。
-- `302` （临时移动）服务器目前从不同位置的网页响应请求，但请求者应该继续使用原有位置来进行以后的请求
-- `303` （查看其它位置）请求者应当对不同位置使用单独的 `GET` 请求来检索响应时，服务器返回此代码
-- `305` （使用代理）请求者只能使用代理访问请求的网页。
-- `307` （临时重定向）服务器目前从不同位置的网页响应请求，但请求者应继续使用原有位置来进行以后的请求
-
-**4xx**
-
-代表了客户端看起来可能发生了错误，妨碍了服务器的处理
-
-- `400` （错误请求）服务器不理解请求的语法
-- `401` （未授权）请求要求身份验证。
-- `403` （禁止）服务器拒绝请求
-- `404` （未找到）服务器找不到请求的网页
-- `405` （方法禁用）禁用请求中指定的方法
-- `406` （不接受）无法使用请求的内容特性响应请求的网页
-- `407` （需要代理授权）此状态代码与 `401`（未授权）类似，但指定请求者应当授权使用代理
-- `408` （请求超时）服务器等候请求时发生超时
-
-**5xx**
-
-表示服务器无法完成明显有效的请求。这类状态代码代表了服务器在处理请求的过程中有错误或异常状态发生
-
-- `500` （服务器内部错误）服务器遇到错误，无法完成请求
-- `501` （尚未实施）服务器服务器不具备完成请求的功能
-- `502` （错误网关）服务器作为网关或代理，从上游服务器收到无效响应
-- `503` （服务不可用）服务器目前无法使用，（由于超载或停机维护）
-- `504` （网关超时）服务器作为网关或代理，但是没有及时从上游服务器收到请求
-- `505` （ `HTTP` 版本不受支持）服务器不支持请求中所用的 `HTTP` 协议版本
-
-## 前端如何处理这些状态码
-
-答：在 `axios` 的请求拦截当中根据不同的状态码进行不同的操作。
-
-## `localStorage`，`session`，`cookie` 的区别是什么
-
-👉👉 **理解 cookie、session、localStorage、sessionStorage 之不同**\[28]
-
-## 前端安全问题，`CSRF`，`XSS`
-
-👉👉 **浅说 XSS 和 CSRF**\[29]
-
-## 如何解决跨域问题
-
-👉👉 **九种跨域方式实现原理（完整版）**\[30]
-
-## 跨域问题实际上改的是 `http` 里面哪个参数
-
-答：`Access-Control-Allow-Origin` ？这个不确定，有大佬可以指点一下。
-
-# G 公司
-
-## 整体总结
-
-`G` 公司一上来给我展示了一个设计图，让我现场进行布局，很简单，就是一个 `header` 和一个 `sider`，还有一个内容区，内容区一个两栏布局，挺简单的。然后就是根据我的简历上写的项目，问几个公司的，问几个我自己开源的，期间会穿插着问一些相关知识点，涉及到的已经整理下面了。
-
-## 面试题一览
-
-- 给看了设计图，让现场布局
+- `call`，`apply`，`bind` 有什么区别和应用场景
+- `vue2` 和 `vue3` 有什么区别
+  - 响应式原理
+  - 生命周期钩子名称
+  - 自定义指令钩子名称
+  - 新的内置组件
+  - `diff` 算法
+  - `Composition API`
+- 有没有遇到性能优化问题
+- 从输入 `url` 到页面渲染完成之间发生了什么
+- 浏览器原理了解过么
+- `http` 状态码都有哪些
+  状态码第一位数字决定了不同的响应状态，如下：
+  - 1 表示消息
+  - 2 表示成功
+  - 3 表示重定向
+  - 4 表示请求错误
+  - 5 表示服务器错误
+    **1xx**
+    代表请求已被接受，需要继续处理，这类响应是临时响应，只包含状态行和某些可选的响应信息，并一空行结束
+    常见的有：
+  - `100` （客户继续发送请求，这是临时响应） 这个临时响应是用来通知客户端它的部分请求已经被服务器接收，且仍未被拒绝。客户端印当据需发送请求的剩余部分，或者如果请求已经完成，忽略这个响应，服务器必须在请求完成后向客户端发送一个最终响应
+  - `101` 服务器根据客户端的请求切换协议，主要用于 `websocket` 或 `HTTP2` 升级
+    **2xx**
+    代表请求已成功被服务器接收，处理，并接受
+  - `200` （成功） 请求已成功，请求所希望的响应头或数据体将随此响应返回
+  - `201` （已创建）请求成功并且服务器创建了新的资源
+  - `202` （已创建）服务器已经接受请求，但尚未处理
+  - `203` （非授权信息）服务器已成功处理请求，但返回的信息可能来自另一来源
+  - `204` （无内容）服务器成功处理请求，但没有返回任何内容
+  - `205` （重置内容）服务器成功处理请求，但没有返回任何内容
+  - `206` （部分内容）服务器成功处理了部分请求
+    **3xx**
+    表示要完成请求，需要进一步操作，通常这些状态代码用来重定向
+  - `300` （多种选择）针对请求，服务器可执行多种操作。
+  - `301` （永久移动）请求的网页已永久移动到新位置。
+  - `302` （临时移动）服务器目前从不同位置的网页响应请求，但请求者应该继续使用原有位置来进行以后的请求
+  - `303` （查看其它位置）请求者应当对不同位置使用单独的 `GET` 请求来检索响应时，服务器返回此代码
+  - `305` （使用代理）请求者只能使用代理访问请求的网页。
+  - `307` （临时重定向）服务器目前从不同位置的网页响应请求，但请求者应继续使用原有位置来进行以后的请求
+    **4xx**
+    代表了客户端看起来可能发生了错误，妨碍了服务器的处理
+  - `400` （错误请求）服务器不理解请求的语法
+  - `401` （未授权）请求要求身份验证。
+  - `403` （禁止）服务器拒绝请求
+  - `404` （未找到）服务器找不到请求的网页
+  - `405` （方法禁用）禁用请求中指定的方法
+  - `406` （不接受）无法使用请求的内容特性响应请求的网页
+  - `407` （需要代理授权）此状态代码与 `401`（未授权）类似，但指定请求者应当授权使用代理
+  - `408` （请求超时）服务器等候请求时发生超时
+    **5xx**
+    表示服务器无法完成明显有效的请求。这类状态代码代表了服务器在处理请求的过程中有错误或异常状态发生
+    - `500` （服务器内部错误）服务器遇到错误，无法完成请求
+    - `501` （尚未实施）服务器服务器不具备完成请求的功能
+    - `502` （错误网关）服务器作为网关或代理，从上游服务器收到无效响应
+    - `503` （服务不可用）服务器目前无法使用，（由于超载或停机维护）
+    - `504` （网关超时）服务器作为网关或代理，但是没有及时从上游服务器收到请求
+    - `505` （ `HTTP` 版本不受支持）服务器不支持请求中所用的 `HTTP` 协议版本
+- 前端如何处理这些状态码
+  答：在 `axios` 的请求拦截当中根据不同的状态码进行不同的操作。
+- 前端安全问题，`CSRF`，`XSS`
+- 跨域问题实际上改的是 `http` 里面哪个参数
+  答：`Access-Control-Allow-Origin` ？这个不确定，有大佬可以指点一下。
 - `localStorage`，`session`，`cookie` 的区别是什么
 - `vuex` 的 `mutation` 和 `action`
 - `vuex` 模块化
@@ -18693,118 +16529,38 @@ base64
 - `css` 盒子模型
 - `css` 实现斑马线的效果
 - 跨域问题
-
-## `localStorage`，`session`，`cookie` 的区别是什么
-
-👉👉 **理解 cookie、session、localStorage、sessionStorage 之不同**\[31]
-
-## `vuex` 的 `mutation` 和 `action`
-
-👉👉 **【初学者笔记】一文学会使用 Vuex**\[32]
-
-## `vuex` 模块化
-
-👉👉 **【初学者笔记】一文学会使用 Vuex**\[33]
-
-## 数组深拷贝
-
-👉👉 **【面试题解】JavaScript 的深浅拷贝，如何手写深拷贝？**\[34]
-
-## `css` 盒子模型
-
-👉👉 **【面试题解】CSS 盒子模型与 margin 负值**\[35]
-
-## `css` 实现斑马线的效果
-
-答：可以通过伪元素，父级元素使用绝对定位，伪元素使用相对定位，大小和父元素一样，位置重合。再利用 `nth-child` 选择器选择奇数行，只给奇数行设置伪元素即可实现。
-
-## 跨域问题
-
-👉👉 **九种跨域方式实现原理（完整版）**\[36]
-
-# H 公司
-
-## 整体总结
-
-`H` 公司好像并不是很诚心招人的样子，面试官象征性的问了几个问题就让我回家等消息了，问的都很基础，参考意义不大，等真想招人的时候肯定不是这个样子的。
-
-咱也不清楚是不是年终了在刷绩效，还是说在我去之前已经招够人了，但我已经约面试了也不好意思毁约，有没有类似经历的？
-
-## 面试题一览
-
+- `localStorage`，`session`，`cookie` 的区别是什么
+- `vuex` 的 `mutation` 和 `action`
+- `vuex` 模块化
+- 数组深拷贝
+- `css` 盒子模型
+- `css` 实现斑马线的效果
+  答：可以通过伪元素，父级元素使用绝对定位，伪元素使用相对定位，大小和父元素一样，位置重合。再利用 `nth-child` 选择器选择奇数行，只给奇数行设置伪元素即可实现。
+- `ts` 和 `js` 的优缺点
 - `es6` 有哪些新特性
 - `promise` 都有哪些方法
 - 遍历数组的 `n` 种方法
 - `vue` 生命周期
 - `watch` 和 `computed` 区别和使用场景
+  **对于 Computed：**
+  - 它支持缓存，只有依赖的数据发生了变化，才会重新计算
+  - 不支持异步，当 `Computed` 中有异步操作时，无法监听数据的变化
+  - 如果一个属性是由其他属性计算而来的，这个属性依赖其他的属性，一般会使用 computed
+  - 如果 `computed` 属性的属性值是函数，那么默认使用 `get` 方法，函数的返回值就是属性的属性值；在 `computed` 中，属性有一个 `get` 方法和一个 `set` 方法，当数据发生变化时，会调用 `set` 方法。
+    **对于 Watch：**
+  - 它不支持缓存，当一个属性发生变化时，它就会触发相应的操作
+  - 支持异步监听
+  - 监听的函数接收两个参数，第一个参数是最新的值，第二个是变化之前的值
+  - 监听数据必须是 `data` 中声明的或者父组件传递过来的 `props` 中的数据，当发生变化时，会触发其他操作
+  - 函数有两个的参数：
+    - **immediate**：组件加载立即触发回调函数
+    - **deep**：深度监听，发现数据内部的变化，在复杂数据类型中使用，例如数组中的对象发生变化。
 - `vue3` 和 `vue2` 的区别
 - 虚拟 `dom` 和真实 `dom` 的区别
+  虚拟 `DOM` 不会进行排版与重绘操作
+  虚拟 `DOM` 就是把真实 `DOM` 转换为 `Javascript` 代码
+  虚拟 `DOM` 进行频繁修改，然后一次性比较并修改真实 `DOM` 中需要改的部分，最后并在真实 `DOM` 中进行排版与重绘，减少过多 `DOM` 节点排版与重绘损耗
 - 组件传值的 `n` 种方式
-- `ts` 和 `js` 的优缺点
-
-## `es6` 有哪些新特性
-
-👉👉 **阮一峰 ES6 入门教程**\[37]
-
-## `promise` 都有哪些方法
-
-👉👉 **看了就会，手写 Promise 原理，最通俗易懂的版本！！！**\[38]
-
-## 遍历数组的 `n` 种方法
-
-👉👉 **【面试题解】你了解 JavaScript 常用的的十个高阶函数么?**\[39]
-
-## `vue` 生命周期
-
-`B` 公司的面试题中解答过了。
-
-## `watch` 和 `computed` 区别和使用场景
-
-**对于 Computed：**
-
-- 它支持缓存，只有依赖的数据发生了变化，才会重新计算
-- 不支持异步，当 `Computed` 中有异步操作时，无法监听数据的变化
-- 如果一个属性是由其他属性计算而来的，这个属性依赖其他的属性，一般会使用 computed
-- 如果 `computed` 属性的属性值是函数，那么默认使用 `get` 方法，函数的返回值就是属性的属性值；在 `computed` 中，属性有一个 `get` 方法和一个 `set` 方法，当数据发生变化时，会调用 `set` 方法。
-
-**对于 Watch：**
-
-- 它不支持缓存，当一个属性发生变化时，它就会触发相应的操作
-
-- 支持异步监听
-
-- 监听的函数接收两个参数，第一个参数是最新的值，第二个是变化之前的值
-
-- 监听数据必须是 `data` 中声明的或者父组件传递过来的 `props` 中的数据，当发生变化时，会触发其他操作
-
-- 函数有两个的参数：
-
-- - **immediate**：组件加载立即触发回调函数
-  - **deep**：深度监听，发现数据内部的变化，在复杂数据类型中使用，例如数组中的对象发生变化。
-
-## `vue3` 和 `vue2` 的区别
-
-`F` 公司的面试题中解答过了。
-
-## 虚拟 `dom` 和真实 `dom` 的区别
-
-- 虚拟 `DOM` 不会进行排版与重绘操作
-- 虚拟 `DOM` 就是把真实 `DOM` 转换为 `Javascript` 代码
-- 虚拟 `DOM` 进行频繁修改，然后一次性比较并修改真实 `DOM` 中需要改的部分，最后并在真实 `DOM` 中进行排版与重绘，减少过多 `DOM` 节点排版与重绘损耗
-
-## 组件传值的 `n` 种方式
-
-`B` 公司的面试题中解答过了。
-
-## `ts` 和 `js` 的优缺点
-
-- `ts` 是 `js` 的超集，即你可以在 `ts` 中使用原生 `js` 语法。
-- `ts` 需要静态编译，它提供了强类型与更多面向对象的内容。
-- `ts` 最终仍要编译为弱类型，基于对象的原生的 `js`，再运行。
-
-## 面试题一览
-
-- 盒模型
 - 元素水平垂直居中的方法
 - `flex` 和 `grid` 有什么区别
 - `flex：1` 是什么意思
@@ -18817,102 +16573,34 @@ base64
 - 跨域，解决跨域问题的方案
 - 说一下 `sourcemap` 都有哪些配置，开发环境和生产环境如何选择？
 - 浏览器从输入 `url` 到页面渲染之间做了哪些事情？
-
-## 盒模型
-
-👉👉 **【面试题解】CSS 盒子模型与 margin 负值**\[40]
-
-## 元素水平垂直居中的方法
-
-👉👉 **【面试题解】宽高固定的 12 种和宽高不固定的 29 种 CSS 居中方案。**\[41]
-
-## `flex` 和 `grid` 有什么区别
-
-👉👉 **「一劳永逸」48 张小图带你领略 flex 布局之美**\[42]
-
-👉👉 **最强大的 CSS 布局 —— Grid 布局**\[43]
-
-## `flex：1` 是什么意思
-
-👉👉 **「一劳永逸」48 张小图带你领略 flex 布局之美**\[44]
-
-## 一个父容器，三个子容器，两边的子容器宽度固定，中间自适应，如何实现？
-
-- `flex` 布局
-- `grid` 布局
-- `定位 + calc`
-
-## 说一下闭包和函数柯里化
-
-👉👉 **【面试题解】初识 JavaScript 闭包**\[45]
-
-👉👉 **「前端进阶」彻底弄懂函数柯里化**\[46]
-
-## 解释一下事件循环，微任务和宏任务都有哪些？
-
-👉👉 **做一些动图，学习一下 EventLoop**\[47]
-
-## 解释一下原型链
-
-👉👉 **深入 JavaScript 系列（六）：原型与原型链**\[48]
-
-## 所有的对象都有原型吗？
-
-答：不是的, 用 `Object.create(null)` 创建的对象没有原型。
-
-## `vue` 的生命周期
-
-`B` 公司的面试题中解答过了。
-
-## 跨域，解决跨域问题的方案
-
-👉👉 **九种跨域方式实现原理（完整版）**\[49]
-
-## 说一下 `sourcemap` 都有哪些配置，开发环境和生产环境如何选择？
-
-👉👉 **当面试官问 Webpack 的时候他想知道什么**\[50]
-
-## 浏览器从输入 `url` 到页面渲染之间做了哪些事情？
-
-👉👉 **史上最详细的经典面试题 从输入 URL 到看到页面发生了什么？**\[51]
-
-## 面试题一览
-
+- 元素水平垂直居中的方法
+- `flex` 和 `grid` 有什么区别
+- `flex：1` 是什么意思
+- 一个父容器，三个子容器，两边的子容器宽度固定，中间自适应，如何实现？
+  - `flex` 布局
+  - `grid` 布局
+  - `定位 + calc`
+- JavaScript 闭包
+- 函数柯里化
+- 解释一下事件循环，微任务和宏任务都有哪些？
+- EventLoop
+- 原型与原型链
+- 所有的对象都有原型吗？
+  答：不是的, 用 `Object.create(null)` 创建的对象没有原型。
+- `vue` 的生命周期
+- 九种跨域方式实现原理
+- 说一下 `sourcemap` 都有哪些配置，开发环境和生产环境如何选择？
+- 从输入 URL 到看到页面发生了什么？
 - 我看你熟悉 `vue`，那你讲讲 `vue` 的模板编译原理吧
-- `vue` 为什么要用 `template` 啊
 - 讲一讲 `vuex` 的挂载过程
 - 讲一讲 `vue-router` 的几种模式和守卫吧
-- `nuxt` 怎样配置路由，如何自定义路由，自定义的和约定路由哪个优先级高
 - `promise` 你都用过哪些方法
-- `express` 和 `koa` 有什么区别
-- `ts` 跟 `js`有什么区别，优点和缺点
-
-## 我看你熟悉 `vue`，那你讲讲 `vue` 的模板编译原理吧
-
-👉👉 **Vue 模板编译原理**\[52]
-
-## `vue` 为什么要用 `template` 啊
-
-答：我说的是书写起来更像原生的 `html` 。
-
-## 讲一讲 `vuex` 的挂载过程
-
-👉👉 **vuex 的 store 是如何挂载到每个组件中**\[53]
-
-## 讲一讲 `vue-router` 的几种模式和守卫吧
-
-模式前面讲过了
-
-👉👉 **【面试题解】vue-router 有几种钩子函数？具体是什么及执行流程是怎样的？**\[54]
-
-## `nuxt` 怎样配置路由，如何自定义路由，自定义的和约定路由哪个优先级高
-
-答：约定路由，`nuxt` 内部会根据文件路径自动生成路由，自定义路由不会了。
-
-## `promise` 你都用过哪些方法
-
-👉👉 **看了就会，手写 Promise 原理，最通俗易懂的版本！！！**\[55]
-
+- `vue` 为什么要用 `template` 啊
+  答：我说的是书写起来更像原生的 `html` 。
+- vuex 的 store 是如何挂载到每个组件中
+- vue-router 有几种钩子函数？具体是什么及执行流程是怎样的？
+- `nuxt` 怎样配置路由，如何自定义路由，自定义的和约定路由哪个优先级高
+  答：约定路由，`nuxt` 内部会根据文件路径自动生成路由，自定义路由不会了。
 - `express` 和 `koa` 有什么区别
   **1. 语法区别**
   - `experss` 异步使用 回调
@@ -18941,22 +16629,18 @@ base64
 - `webpack` 优化
 - 如何理解执行上下文
   JavaScript 执行上下文(context)主要指代码执行环境的抽象概念。执行上下文分为三种：
-
   - 全局执行上下文
   - 函数执行上下文
   - eval 执行上下文
     每一段 js 代码执行，都会先创建一个上下文环境。
-
 - 如何理解原型链
   每个函数都拥有一个 prototype 属性，每个函数**实例对象**都拥有一个**proto**属性，而这个属性指向了函数的 prototype，当我们访问**实例对象**的属性或者方法时，会先从自身构造函数中查找，如果没有就通过**proto**去原型中查找，这个查找的过程我们称之为原型链。（跟作用域链有点像）
 - 继承有哪些方法
-
   - 原型继承
   - 构造继承
   - 实例继承
   - call/apply 继承(组合继承)
   - ES6 使用 class extends 继承
-
 - 什么是深/浅拷贝，有哪些实现方式
   JS 数据类型分别基本数据类型和引用数据类型，基本数据类型保存的是值，引用类型保存的是引用地址(this 指针)。浅拷贝共用一个引用地址，深拷贝会创建新的内存地址。
   - 浅拷贝方法
@@ -18979,68 +16663,40 @@ base64
   - map/forEach/filter/indexOf/includes/slice/splice
     slice 表示截取，slice(start,end)不改变原数组，返回新数组。
     splice 表示删除，splice(start,length,item)，会改变原数组，从某个位置开始删除多个元素，并可以插入新的元素。
-
-## DOM 节点创建和修改有哪些常用 API
-
-创建节点
-
-- createElement
-- createTextNode
-- createDocumentFragment(临时节点)
-
-修改节点
-
-- appendChild`parent.appendChild(child)`
-- insertBefore `parentNode.insertBefore(newNode,refNode);`
-- removeChild `parent.removeChild(node)`
-- replaceChild
-
-## CSS 清除浮动有哪些方法
-
-- 父级元素设置高度，手动撑开
-- 浮动元素结尾增加空标签，设置 clear:both
-- 父元素设置 overflow:hidden
-- 父元素添加伪类:after 和 zoom
-
-## 谈一下 flex 布局
-
-flex 是一种弹性布局，包含 flex-container 和 flex-item.
-
-常用的属性包括 flex-direction、flex-wrap、justify-content、align-items
-
-水平居中 justify-content\:center 水平两头居中 justify-content\:space-between 垂直居中 align-items\:center
-
-## 谈一下盒模型
-
-盒模型包括：content,padding,border,margin
-
-盒模型分为：IE 盒模型和标准 w3c 盒模型
-
-IE 盒模型宽度包含了 padding 和 border，w3c 盒模型宽度就是内容宽度。
-
-## transition 动画和 animation 有什么区别
-
-他们虽然都可以做出动画效果，但是 transition 主要做简单的过渡效果，而 animation 可以做复杂的动画效果，在语法和用法上有非常大的区别。
-
-## H5 自适应方案
-
-H5 自适应方案大家在网速能找到很多，我个人推荐一种我非常喜欢的方式，就是 rem. rem 是一种相对单位，它基于 html 的 font-size 值来进行调整。
-
-通常我们以 750 为基准，我们会在 header 中嵌套一段 js 脚本，获取手机网页分辨率尺寸除以 375，为了方便计算，我们假设 750 像素下 1rem = 100px；所以 我们除以 375 后需要乘以 50.
-
-## call/apply/bind 作用和区别
-
-他们都可以改变函数的作用域。
-
-- call/apply 可以直接执行该函数，而 bind 不会立刻执行
-- call/apply 作用类似，都可以改变指针和执行函数，区别在于传参不同，call 需要单个传参，apply 通过数组传参
-
-## 观察者和发布订阅者区别
-
-他们都属于观察者模式，只不过有不同的实现方法。发布订阅相比于观察者多了一个调度中心，发布者通过调度中心向订阅者发布消息。观察者模式中目标和观察者相互依赖，观察者订阅目标主题，当目标发生变化后，会通知对应观察者。
-
-大家可参考我另一篇公众号文章。
-
+- DOM 节点创建和修改有哪些常用 API
+  创建节点
+  - createElement
+  - createTextNode
+  - createDocumentFragment(临时节点)
+    修改节点
+  - appendChild`parent.appendChild(child)`
+  - insertBefore `parentNode.insertBefore(newNode,refNode);`
+  - removeChild `parent.removeChild(node)`
+  - replaceChild
+- CSS 清除浮动有哪些方法
+  父级元素设置高度，手动撑开
+  浮动元素结尾增加空标签，设置 clear:both
+  父元素设置 overflow:hidden
+  父元素添加伪类:after 和 zoom
+- 谈一下 flex 布局
+  flex 是一种弹性布局，包含 flex-container 和 flex-item.
+  常用的属性包括 flex-direction、flex-wrap、justify-content、align-items
+  水平居中 justify-content\:center 水平两头居中 justify-content\:space-between 垂直居中 align-items\:center
+- 谈一下盒模型
+  盒模型包括：content,padding,border,margin
+  盒模型分为：IE 盒模型和标准 w3c 盒模型
+  IE 盒模型宽度包含了 padding 和 border，w3c 盒模型宽度就是内容宽度。
+- transition 动画和 animation 有什么区别
+  他们虽然都可以做出动画效果，但是 transition 主要做简单的过渡效果，而 animation 可以做复杂的动画效果，在语法和用法上有非常大的区别。
+- H5 自适应方案
+  H5 自适应方案大家在网上能找到很多，我个人推荐一种我非常喜欢的方式，就是 rem. rem 是一种相对单位，它基于 html 的 font-size 值来进行调整。
+  通常我们以 750 为基准，我们会在 header 中嵌套一段 js 脚本，获取手机网页分辨率尺寸除以 375，为了方便计算，我们假设 750 像素下 1rem = 100px；所以 我们除以 375 后需要乘以 50.
+- call/apply/bind 作用和区别
+  他们都可以改变函数的作用域。
+  call/apply 可以直接执行该函数，而 bind 不会立刻执行
+  call/apply 作用类似，都可以改变指针和执行函数，区别在于传参不同，call 需要单个传参，apply 通过数组传参
+- 观察者和发布订阅者区别
+  他们都属于观察者模式，只不过有不同的实现方法。发布订阅相比于观察者多了一个调度中心，发布者通过调度中心向订阅者发布消息。观察者模式中目标和观察者相互依赖，观察者订阅目标主题，当目标发生变化后，会通知对应观察者。
 - 浏览器解析渲染页面过程
   ![图片](https://mmbiz.qpic.cn/mmbiz_png/YItGPcJZoxlJEp6zdYzg4QSBa8EnZuibaKDPIIVW28DgZREYxJpG6TPgMNt1HP8O7TwksdGWLiculnibrZx6onwJw/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
   - 解析 HTML，生成 DOM 树
@@ -19545,7 +17201,6 @@ H5 自适应方案大家在网速能找到很多，我个人推荐一种我非�
 - 手撕代码：大数相乘
 - 手撕代码：函数无限柯里化（有 n 个参数，函数调用 n+1 次得到结果）
 - 手撕代码：实现一个轮询器，主要考察 Promise
-- 用 es5 的 let 实现一个闭包
 - 继承（实现私有属性和私有方法）
 - 设计实现一个固定执行顺序的 script 加载
 - 手写代码题：找出字符串中出现次数最多的字符及出现次数
@@ -19554,10 +17209,6 @@ H5 自适应方案大家在网速能找到很多，我个人推荐一种我非�
 - 将一个平铺的数组用 js 写成树的结构
 - 完成函数的实现，使得它可以实现达到 `Array.prototype.forEach` 相同的功能
 - 看下面代码执行结果，说明原因
-
-![图片](https://mmbiz.qpic.cn/sz_mmbiz_png/beNzaWVQLGmDbrwHDk7Hb63nfDZq85eoSiafmAqekD4SqMH6Cbia7uaB7wdRrBkkvgVUViaAibOTYTDTsLJEPPBkaA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
-
-- ![图片](data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==)
 - token 过期怎么做
 - 怎么知道用户和 token 的对应关系
 - token 和 cookie 区别
@@ -19565,10 +17216,7 @@ H5 自适应方案大家在网速能找到很多，我个人推荐一种我非�
 - 手撕 Event bus
 - 手撕函数组合
 - 手撕对象扁平化
-
-![图片](https://mmbiz.qpic.cn/sz_mmbiz_png/beNzaWVQLGmDbrwHDk7Hb63nfDZq85eoA4Dnfnll696rB70s4FpclyhK1ALJUiaCMSIgwuPxnx2EhICt87iavFMQ/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
-
-- 给列表中的 li（里面是 a 标签）绑定点击事件，点击时弹出其在列表中的顺序（页面不跳转）
+  ![图片](https://mmbiz.qpic.cn/sz_mmbiz_png/beNzaWVQLGmDbrwHDk7Hb63nfDZq85eoA4Dnfnll696rB70s4FpclyhK1ALJUiaCMSIgwuPxnx2EhICt87iavFMQ/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
 - JS 实现一个 JSON.stringify() 功能的函数
 - 三次重试：假设有一个函数名为 job,调用 job 后会执行一些异步任务，并返回一个 Promise ,但 job 执行的异步任务任务有可能会失败
 - 请实现函数 retry ,把 job 作为 retry 函数的参数传入，当 retry 执行后会尝试调用 job,如果 job 返回成功（即 Promise fulfilled），则 retry 函数返回 job 函数的返回内容；
@@ -19585,9 +17233,7 @@ H5 自适应方案大家在网速能找到很多，我个人推荐一种我非�
   ![图片](https://mmbiz.qpic.cn/sz_mmbiz_png/beNzaWVQLGmDbrwHDk7Hb63nfDZq85eonjQreOMrhnEV47CYhIGuGicZuZl8dlqyFyzm2ydjnSm0Iia1vmYUFZ7w/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
 - 100 人教室 70 人喜欢足球，80 人喜欢篮球，问同时喜欢足球和篮球的人数
 - 试探玻璃杯破碎的楼层
-- 时针与分针夹角
-- 5.25 时针和分针夹角
-- 上一题拓展\:X 时 Y 分夹角
+- 时针与分针夹角 5.25 时针和分针夹角 上一题拓展\:X 时 Y 分夹角
 - 一个班里 60% 喜欢 A, 70% 喜欢 B, 80% 喜欢 C, 问同时喜欢 ABC 的
 - 一瓶汽水一块钱，俩空瓶可以换一瓶汽水，给你 20 块钱，最多喝多少瓶？
 - 给你一个 A4 纸张，随便剪掉一个随意位置宽高的矩形，给你一个没有刻度的尺子和笔，怎么一刀把剩下的 A4 纸张分成面积同样大小的两半。
@@ -19600,12 +17246,8 @@ H5 自适应方案大家在网速能找到很多，我个人推荐一种我非�
 - OT 算法
 - 问了计算机组成，问我 cache 知道吗，我大概说了说，然后问为什么 cache 更快
 - 操作系统，银行家算法，死锁怎么解决
-- 为什么学习前端
-- 我在学习过程中遇到了哪些困难，怎么解决的。
-- 有没有关注前端的新技术
 - flutter 有了解吗
 - h5 有写过吗，移动端有了解吗
-- 了解过小程序吗
 - 如何衡量一个软件的质量？如何保证产品的质量？（软件工程的思想，敏捷中的测试驱动开发）
 - 找出不多于三个关键词形容自己
 - 怎么跟一个不懂前端的人介绍前端
@@ -20389,8 +18031,6 @@ async function findShortestRTT(ips, parallelCount = 10) {
 }
 ```
 
-- h 函数的使用
-
 ```markdown
 如何封装组件
 
@@ -20540,21 +18180,4 @@ function sington(className) {
   proxy.prototype.construct = proxy
   return proxy
 }
-```
-
-```javascript
-const myPromise = () => Promise.resolve('I have resolved')
-const firstFunc = () => {
-  myPromise().then((res) => {
-    console.log(res + ' first')
-  })
-  console.log('first')
-}
-async function secondFunc() {
-  console.log(await myPromise())
-  console.log('second')
-}
-
-firstFunc()
-secondFunc()
 ```
