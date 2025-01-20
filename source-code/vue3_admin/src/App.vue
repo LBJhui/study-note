@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div v-resize="resize" id="app">
     <template v-if="!hiddenMenu">
       <!-- 左侧导航栏 -->
       <div class="left-nav">
@@ -48,6 +48,7 @@
 </template>
 
 <script setup lang="ts">
+import vResize from '@/directs/sizeDirect'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import routes from '@/router/routes'
@@ -58,6 +59,10 @@ const hiddenMenu = ref(false)
 router.afterEach((to) => {
   hiddenMenu.value = to.meta.hidden as boolean
 })
+
+const resize = (value) => {
+  console.log(value)
+}
 
 const menuList = routes
 </script>
