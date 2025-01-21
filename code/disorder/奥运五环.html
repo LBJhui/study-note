@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>奥运五环</title>
+    <style>
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* background: pink; */
+      }
+
+      .five {
+        /* position: absolute; */
+        display: flex;
+        flex-wrap: wrap;
+        /* 把弹性盒子内元素挤下去 */
+        width: 400px;
+        justify-content: center;
+        transform-style: preserve-3d;
+        /* background: pink; */
+      }
+
+      .five span {
+        width: 100px;
+        height: 100px;
+        border: 10px solid blue;
+        border-radius: 100px;
+        /* 将span设置为圆形 */
+        margin: 0 6px;
+        /* 调环与环之间的间距（左右） */
+      }
+
+      .five span:nth-child(1) {
+        border-color: blue;
+      }
+
+      .five span:nth-child(2) {
+        border-color: black;
+        transform: translateZ(-1px) rotateX(2deg);
+        /* 更改translateZ的值实现颜色层覆盖效果 */
+        /* 通过微调旋转的角度，实现层叠嵌套的结果 */
+      }
+
+      .five span:nth-child(3) {
+        border-color: red;
+        transform: translateZ(10px) rotateY(-15deg);
+      }
+      .five span:nth-child(4) {
+        border-color: yellow;
+        margin-top: -50px;
+        /* 上移4号圈圈 */
+        transform: rotateX(1deg);
+        transform-origin: center 16%;
+        /* 设置变形中心点 */
+      }
+
+      .five span:nth-child(5) {
+        border-color: green;
+        margin-top: -50px;
+        transform: rotateX(3deg);
+        transform-origin: center 16%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="five">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </body>
+</html>
