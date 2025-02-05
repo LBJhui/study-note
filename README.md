@@ -1,5 +1,72 @@
 https://fe.duyiedu.com/p/t_pc/goods_pc_detail/goods_detail/course_2VKbErGXkTSzvbl9aQ9HgndEtIz?type=2
 
+```javascript
+// 脚本加载失败如何重试
+
+在项目中遇到的一个难点，无论是我们用的原生js还是用的框架最后上线的时候都会是打包好之后，打包好之后的js文件中都会自己或者自动引入script，在生产环境中会出现其中有一个script无法加载成功的时候怎么处理，当js加载不出来的时候页面是显示不出来的，最起码功能是不正常的，现在都是单页面应用，js加载不成功的话对页面影响还是比较大的，所以我们需要去处理这个问题。。。
+
+// 1. 什么时间重试 捕获
+// 2. 如何重试
+// 在 head 标签中添加 script 元素
+const backupDomains = [
+  'https://www.baidu.com',
+  'https://www.google.com',
+  'https://www.bing.com',
+  'https://www.yahoo.com',
+  'https://www.youtube.com',
+  'https://www.facebook.com',
+  'https://www.twitter.com',
+  'https://www.instagram.com',
+  'https://www.tiktok.com'
+]
+const nextDomain = {}
+window.addEventListener(
+  'error',
+  (e) => {
+    // 只捕获脚本错误
+    if (e instanceof ErrorEvent && e.target.tagName !== 'SCRIPT') {
+      return
+    }
+    const url = new URL(e.target.src)
+    const pathname = url.pathname
+    if (!nextDomain[pathname]) {
+      nextDomain[pathname] = 0
+    }
+
+    const index = nextDomain[pathname]
+    if (index >= backupDomains.length) {
+      return
+    }
+    const domain = backupDomains[index]
+    url.hostname = domain
+    const newUrl = url.toString()
+    // 阻塞页面
+    document.write(`<script src="${newUrl}"></script>`)
+    // const script = document.createElement('script')
+    // script.src = newUrl
+    // e.target.parentElement.insertBefore(script, e.target)
+    nextDomain[pathname]++
+  },
+  true
+)
+
+```
+
+```markdown
+何时发生重排？何时发生重绘？
+**重排**：
+所有对布局树的更改，以及所有对布局树的读取，都会引发重排
+更改：异步重排
+读取：同步重排
+**重绘**
+对所有非几何信息的读写所造成的可见样式的变化
+```
+
+```text
+栈：变量、参数
+堆：对象
+```
+
 ```markdown
 [es6](https://es6.ruanyifeng.com/)
 [Pinia 中文文档](https://pinia.web3doc.top/)
@@ -12,6 +79,7 @@ https://fe.duyiedu.com/p/t_pc/goods_pc_detail/goods_detail/course_2VKbErGXkTSzvb
 ```
 
 ```text
+structuredClone
 [Vue3 之 script-setup 全面解析](https://www.jianshu.com/p/5096bfb42e5a)
 纯前端图片压缩 图转base64读出宽高，canvas画图
 前端打印 printjs
@@ -50,7 +118,7 @@ vue3 expose defineExpose markRaw、withModifiers
 正则匹配的贪婪模式和惰性模式有什么区别
 浏览器的自动播放策略
 BFF 层 backends for frontends
-函数签名 = 函数名 + 参数 + 返回值
+函数签名 = 函数名称 + 函数参数 + 函数参数类型 + 返回值类型
 改变 webkit 表单输入框 placeholder 的颜色值：input::-webkit-input-placehold
 去掉 ios 系统中元素被触摸时产生的半透明灰色遮罩：tip-highlight-color:rgba(0,0,0,0)
 http accept-lang/navigator.lang
@@ -116,58 +184,6 @@ function _parseInt(str, radix) {
 ```
 
 ```javascript
-async function asy1() {
-  console.log(1)
-  await asy2()
-  console.log(2)
-}
-
-const asy2 = async () => {
-  await setTimeout(() => {
-    Promise.resolve().then(() => {
-      console.log(3)
-    })
-    console.log(4)
-  }, 0)
-}
-
-const asy3 = async () => {
-  Promise.resolve().then(() => {
-    console.log(6)
-  })
-}
-
-asy1()
-console.log(7)
-asy3()
-```
-
-```javascript
-async function asy1() {
-  console.log(1)
-  await asy2()
-  console.log(2)
-}
-
-const asy2 = async () => {
-  await (() => {
-    console.log(3)
-  })()
-  console.log(4)
-}
-
-const asy3 = async () => {
-  Promise.resolve().then(() => {
-    console.log(6)
-  })
-}
-
-asy1()
-console.log(7)
-asy3()
-```
-
-```javascript
 /**
  * 依次顺序执行一系列任务
  * 所有任务全部完成后可以得到每个任务的执行结果
@@ -204,17 +220,6 @@ function processTasks(...tasks) {
     }
   }
 }
-```
-
-```text
-为什么要用到虚拟DOM
-
-首先，肯定是为了效率。但并不一定用了虚拟dom就能提升效率，就比如svelet框架，没用虚拟dom反而效率更高。
-
-第一点，由于vue或者是react能做到的最小程度的重新渲染程度范围是‘组件’，所以虚拟dom的出现是为了降低重新渲染颗粒度。当数据发生变化时，重新调用Render函数，如果里面写的是真实dom元素就会大大降低效率。而用虚拟dom，就会先生成一个虚拟dom树，使用diff算法，将之前的dom树与新的虚拟dom树去做对比，只重新渲染发生变化的部分。
-
-第二点就是，解耦运行环境。因为不同的运行环境如移动段或者pc端，只有浏览器才有真实dom，移动端就用不了真实dom。虚拟dom的本质就是一个js对象，里面有props，childrens，children里面又有props和childrens，像是标签一样嵌套。不同的运行环境就可以来解析这个对象实现页面展示（跨平台性）。
-
 ```
 
 ```Typescript
@@ -342,35 +347,9 @@ async function fun(arr) {
 }
 ```
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <style>
-      /* @scope规则 */
-      @scope (#app) {
-        .box {
-          width: 100px;
-          height: 100px;
-          background-color: red;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div id="app">
-      <div class="box"></div>
-    </div>
-  </body>
-</html>
-```
-
 ```text
 跨标签页通信常见方案
-  BroadcastChannel API
+  BroadcastChannel API https://www.zhangxinxu.com/wordpress/2025/01/js-broadcast-channel-api/
   Service Worker
   LocalStorage  window.onstorage 监听
   Shared Worker 定时器轮询 setInterval
@@ -555,25 +534,6 @@ const newHref = btoa(`AA${link}ZZ`) // a 标签的地址
 a.href = `thunder://${newHref}`
 ```
 
-```ts
-// never类型的妙用
-type Method = 'GET' | 'POST'
-
-function request(url: string, method: Method) {
-  if (method === 'GET') {
-    // do something
-  } else if (method === 'POST') {
-    // do something
-  } else {
-    // 之后 Method 方法修改，这里会报错
-    const n: never = method
-  }
-}
-
-// never类型的妙用2
-function m<T>(x: T extends number ? never : T) {}
-```
-
 ```javascript
 // 从视频文件提取画面帧 https://juejin.cn/post/7352079398072746047
 const inp = document.querySelector('input[type=file]')
@@ -680,15 +640,6 @@ function deepClone(origin, hashMap = new WeakMap()) {
   }
   return target
 }
-```
-
-```ts
-class A {
-  a: number = 1
-  b: string = 'a'
-}
-
-type AFields = keyof InstanceType<typeof A>
 ```
 
 ```text
@@ -2255,12 +2206,6 @@ e
 )
 ```
 
-```js
-// 隐式转换和布尔判定
-;[] + []
-;[] + ![]
-```
-
 ```scss
 // SASS中的颜色函数
 $btnColors: #409eff, #67c23a, #f56c6c, #e6a23c, #909399;
@@ -2297,45 +2242,6 @@ Cookie 中的 SameSite：用于限制跨站请求
 None:不作任何限制，使用该值必须保证 Cookie 为 Secure，否则无效
 lax:阻止发送 Cookie，但对超链接放行，默认值
 strict:阻止发送 Cookie
-```
-
-```html
-<!-- 图片的马赛克效果 -->
-①
-<!-- step 1 -->
-<svg>
-  <filter id="mosaic">
-    <feFlood x="4" y="4" height="2" width="2" />
-    <feComposite width="8" heigth="8" />
-    <feTile result="a" />
-    <feComposite in="SourceGraphic" in2="a" operator="in" />
-    <feMorphology operator="dilate" raduis="4" />
-  </filter>
-</svg>
-<!-- step 2 马赛克图片应用滤镜 -->
-<style>
-  img {
-    filter: url(#mosaic);
-  }
-</style>
-
-② image-rendering:pixelated 图片要小 vite-imagetools
-<style>
-  img {
-    image-rendering: pixelated;
-  }
-</style>
-
-<style>
-  /* 磨砂玻璃效果 */
-  backdrop-filter: blur (10 px);
-
-  /* 阴影效果 */
-  filter: drop-shadow (0 0 5 px #000);
-  filter: blur (5 px);
-  filter: grayscale (50 %);
-  filter: hue-rotate (90 deg);
-</style>
 ```
 
 - Typescript 中的 this 和 JavaScript 中的 this 有什么差异？
@@ -3240,7 +3146,6 @@ Array.prototype.forEach = function (callback) {
 - will-change
 - EyeDropper
 - 购物车
-- terser
 - 属性描述符
 - Object.freeze .seal isFrozen
 - addEventListener passive：false
@@ -3526,7 +3431,6 @@ Array.prototype.forEach = function (callback) {
 - transform 动画和直接使用 left、top 改变位置有什么优缺点
 - 如何判断链表是否有环
 - 介绍二叉搜索树的特点
-- 介绍暂时性死区
 - 观察者和发布-订阅的区别
 - 介绍纯函数
 - 前端性能优化
@@ -3701,7 +3605,6 @@ Array.prototype.forEach = function (callback) {
 - 如何对相对路径引用进行优化
 - node 文件查找优先级
 - npm2 和 npm3+有什么区别
-- knex 连接数据库响应回调
 - 介绍异步方案
 - 如何处理异常捕获
 - 项目如何管理模块
@@ -3721,7 +3624,6 @@ Array.prototype.forEach = function (callback) {
 - 为什么虚拟 DOM 比真实 DOM 性能好
 - 单例、工厂、观察者项目中实际场景
 - 项目中树的使用场景以及了解
-- 工作收获
 - 添加原生事件不移除为什么会内存泄露
 - 还有哪些地方会内存泄露
 - setInterval 需要注意的点
@@ -3734,10 +3636,6 @@ Array.prototype.forEach = function (callback) {
 - for..in 和 object.keys 的区别
 - 使用闭包特权函数的使用场景
 - get 和 post 有什么区别
-- 对无状态组件的理解
-- 介绍 ES6 的功能
-- 浅拷贝和深拷贝的区别
-- 介绍箭头函数的 this
 - 介绍 Promise 和 then
 - 介绍快速排序
 - 算法：前 K 个最大的元素
@@ -5013,8 +4911,6 @@ Array.prototype.forEach = function (callback) {
   rollup 小而美，相较没有 webpack 完善但是同样体积更小速度更快。类似压缩等基础功能也要通过插件实现。更适合做一些工具库的打包处理
 - 介绍一下你写的 webpack loader
   工具为了兼容 vue2、vue3 两个版本，核心代码是完全相同的，差异只是在 vue 特性 api 的引入上，vue2 从@vue/composition-api 中引入，vue3 从 vue 中引入.所以 loader 做的事情就是在构建 vue2 版本的时候将`import { *** } from 'vue' `替换为 `import { *** } from '@vue/composition-api'`
-- 职业规划
-  希望在未来的两到三年时间，拓充技术能力的同时，在业务能力上有所沉淀成为业务，形成一定的见解，同时谋求从大头兵向小组长的一个转变
 - 实现具有并发限制的 promise.all
 
   ```javascript
@@ -5099,22 +4995,13 @@ Array.prototype.forEach = function (callback) {
   }
   ```
 
-- 毕业以来的工作履历
-- 当时为什么没有走校招
-- 去年换工作的时候收到的 offer 和选择
-- 有没有收到其他公司的 offer，有没有什么倾向性
-- 选择工作有什么着重点
 - 输入一个正整数，输出他的两个素数因子，如没有输出 -1 -1
 - 输入两个数组，分别从两个数组中取出一个元素相加，和作为一个元素，求 K 个这样的元素的最小和。坐标完全相同，属于同一个元素。
 - 输入一个 n\*m 的多维数组，输出一个字符串，按顺序将字符串中的每一个字符在数组中查找，要求查找位置必须相邻，且每一个元素只能使用一次。输出字符串在数组中的坐标
-  牛客网的测试用例无法调试，只知道通过率分别是 100%，95%，95%.实在想不出边界条件了。这里就不放出代码误导大家了。
 - http 请求头有哪些关键字，反映客户端信息的是那个字段
   同上 User-Agent
 - http 请求触发 catch 的原因可能有哪些
   拦截器捕获其他异常，比如 204，请求处理函数执行异常，返回资源异常（不符合接口定义）
-- 302、304 什么含义
-  302：临时重定向
-  304：资源未修改，使用缓存
 - 项目重构前是什么状态
   部门内第一个是使用组合式模式开发落地的项目，由于前期不熟悉缺乏经验。导致项目数据流动混乱、功能杂糅、请求相互依赖，不但没有突出组合式逻辑清晰代码复用的优点，反而导致代码可维护性差，白屏时间长。
   通过梳理逻辑功能，重新组织页面、组件，按照单一原则抽离 hook，解耦无关逻辑。梳理数据流动，无关请求并行触发。提升代码可维护性，加快首屏渲染。
@@ -5287,7 +5174,7 @@ Array.prototype.forEach = function (callback) {
   301 Moved Permanently 请求的网页已永久移动到新位置。
   302 Found 临时性重定向。
   303 See Other 临时性重定向，且总是使用 GET 请求新的 URI。
-  304 Not Modified 自从上次请求后，请求的网页未修改过。
+  304 Not Modified 自从上次请求后，请求的网页未修改过。资源未修改，使用缓存
   400 Bad Request 服务器无法理解请求的格式，客户端不应当尝试再次使用相同的内容发起请求。
   401 Unauthorized 请求未授权。
   403 Forbidden 禁止访问。
@@ -5330,7 +5217,6 @@ Array.prototype.forEach = function (callback) {
 - 原型链, new
 - 跨域(cors), http 请求
 - XSS 和 CSRF
-- 框架原理
 - setTimeout 为什么最小只能设置 4ms，怎么实现一个 0ms 的 setTimeout?
 - 看你简历上有写到 rem 和 vw，能讲讲吗？为什么你选择使用 rem 而不是 vw？
   当时回答是 rem 兼容性更好，且 px 转 rem 后可以避免过长小数。
@@ -7102,7 +6988,6 @@ console.log(newShop.apple)
 - 之前做过的有挑战的项目
 - SSR 为什么要迁移到 CSR，如果不迁移的话如何能做到 CSR 离线包的效果
 - 搜索旋转排序数组 力扣
-- 之前做过的有挑战的项目
 - Vue 和 React 的区别
 - Vue 数据双向绑定原理
 - 页面第一次加载会触发哪些 Vue 的生命周期
@@ -8883,7 +8768,6 @@ console.log('55555')
 - 触发 bfc 的方式
 - rem 和 vw 的使用场景
 - 伪代码实现下懒加载
-- console.log("12345" instanceof Object);
 - 实现一下 some, every
 - flatten 实现
 - 函数组件怎么阻止重复渲染
@@ -8894,19 +8778,15 @@ console.log('55555')
 - 防抖的实现
 - 输入 url 到页面返回结果
 - 缓存的实现方式
-- React 组件重复渲染
 - webpack 分包
 - Webpack 插件，生命周期
 - umi 约定式路由怎么实现的
 - babel 实现远原理
-- fib 实现，如何优化
-- 说出你最擅长的部分，追问
 - webpack 拆包的依据。1.被多个模块使用，cache 起来 2.资源过大
 - canvas 点击线段事件。重合区域怎么处理
 - webWorker 的使用：为什么不在 worker 里面发出请求，做数据转换呢？
 - generate 函数和 async 区别
 - webpack 插件实现
-- Vue， React 使用情况
 - 父子组件的 mounted 调用顺序
 - $nextTick 实现原理
 - 子元素水平垂直居中
@@ -10277,53 +10157,21 @@ console.log(e === f)
   输出：False
   解释：无法切分出长度至少为 3 的子序列。
 
-6.  求下面代码的输出
-
-    function test(a,b) {
-    console.log(b)
-    return {
-    test\:function(c){
-    return test(c,a);
-    }
-    };
-    }
-
-    var retA = test(0);
-    retA.test(2);
-    retA.test(4);
-    retA.test(8);
-    var retB = test(0).test(2).test(4).test(8);
-    var retC = test('good').test('bad');
-    retC.test('good');
-    retC.test('bad');
-
-7.  top k
-
-8.  闭包问题及优化
-
-    for (var i = 0; i < 4; i++) {
-    setTimeout(function() {
-    console.log(i);
-    }, 300);
-    }
-
-9.  节流防抖(实现/场景/源码，如 lodash 实现原理)
-10. 事件循环(浏览器/node/版本差异)
-11. setTimeout 实现原理
-12. react 和 vue 的区别
-13. Promise 原理
-14. 前端错误监控及容灾
-15. 性能优化
-16. 谈谈 node 的内存泄漏
-17. 开发过程中遇到的最大挑战是什么
-18. 学习的动力怎么来的，如何维持
-19. 浏览器的渲染机制是怎样的
-20. SSR 作用及优缺点
-21. 如何进行状态管理
-22. webpack 及浏览器的技术分享目的是什么，分享了什么，怎么做的分享
-23. 如何进行项目重构
-24. 进程与线程的区别
-25. 说说知道的设计模式
+- 节流防抖(实现/场景/源码，如 lodash 实现原理)
+- 事件循环(浏览器/node/版本差异)
+- setTimeout 实现原理
+- react 和 vue 的区别
+- Promise 原理
+- 前端错误监控及容灾
+- 性能优化
+- 谈谈 node 的内存泄漏
+- 浏览器的渲染机制是怎样的
+- SSR 作用及优缺点
+- 如何进行状态管理
+- webpack 及浏览器的技术分享目的是什么，分享了什么，怎么做的分享
+- 如何进行项目重构
+- 进程与线程的区别
+- 说说知道的设计模式
 
 ## 2 常规基础题
 
