@@ -1176,8 +1176,6 @@ function runTask(task) {
 ```
 
 ```css
-/* 黏性定位 */
-position: sticky;
 样式计算 视觉格式化模型
 包含块
 最近可滚动祖先
@@ -2555,7 +2553,6 @@ img{
 }
 
 
-滚动元素到可视区域：scrollIntoView
 平滑滚动
 css:scroll-behavior
 js: window.scrollTo({
@@ -10459,7 +10456,7 @@ Loader 和 Plugin 的区别：
 - script error 怎么捕获
 - 脚手架做了什么功能.
 - webpack 做了什么优化
-- webpack 原理 [webpack]
+- webpack 原理
 - 维护的公共组件需要发布大更新, 如何做?
 - 聊一下高阶组件 hoc
 - 聊一聊组件设计, 领域模型
@@ -10511,21 +10508,6 @@ Loader 和 Plugin 的区别：
 - npx
   - 说一下对 package.json 的理解,它都有哪些作用
 
-## **一面二面**
-
-前两面都是技术面，由于我工作年限较短的原因吧，问题都比较常见，大部分会在面经上看到，因此也不放答案了：
-
-1.  input 中如何监听值的变化，事实上 onchange 无法作用
-
-    可以监听的事件有以下几种
-
-    但唯独没有 `onChange`
-
-2.  - keypress
-    - keydown
-    - keyup
-    - input
-
 3.  什么是事件冒泡和事件捕获，区别是什么。
 
 4.  什么是跨域，如何处理跨域
@@ -10549,39 +10531,29 @@ Loader 和 Plugin 的区别：
 
 9.  当输入 URL 时，整个过程是什么样的
 
-10. React 的声明周期是什么
+10. 关于模块分包的几个细节
 
-11. React 中关于 setState 的一个结果输出题
+11. 有没有接触过 node，你认为 node 怎么样
 
-12. React 中函数组件和普通组件有什么区别
+12. node 引入一个模块的过程是什么
 
-13. 什么是 render prop 的组件 (这个组件听说过，但是基本上没有用过)
+13. https 有什么用，原理是什么
 
-14. fiber 是什么 (这个仅仅只有听说过了)
+14. https 如何保证证书是可信任的
 
-15. 关于模块分包的几个细节
+15. amd 和 cmd 的区别，commonjs，esmodule
 
-16. 有没有接触过 node，你认为 node 怎么样
+16. 什么是函数柯力化
 
-17. node 引入一个模块的过程是什么
+17. virtual DOM 是什么，如何实现
 
-18. https 有什么用，原理是什么
+18. dom diff 是什么
 
-19. https 如何保证证书是可信任的
+19. get 和 post 请求
 
-20. amd 和 cmd 的区别，commonjs，esmodule
+20. 你们持续集成的流水线有什么
 
-21. 什么是函数柯力化
-
-22. virtual DOM 是什么，如何实现
-
-23. dom diff 是什么
-
-24. get 和 post 请求
-
-25. 你们持续集成的流水线有什么
-
-26. Accept 头部的作用什么，如果服务器不支持怎么办
+21. Accept 头部的作用什么，如果服务器不支持怎么办
 
 关于技术面试，大部分属于基础，在网络上都能够找到答案，所以面试大厂基础一定要牢固！
 
@@ -12076,34 +12048,13 @@ base64
 
 - - **<https://docs.nestjs.cn/8/fundamentals?id=%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f%e4%ba%8b%e4%bb%b6>**
 
-每日算法：给定两个数组，编写一个函数来计算它们的交集
+- 每日算法：给定两个数组，编写一个函数来计算它们的交集
 
-给定两个数组，编写一个函数来计算它们的交集。
-
-**示例 1:**
-
-    输入: nums1 = [1,2,2,1], nums2 = [2,2]
-    输出: [2]
-
-**示例 2:**
-
-    输入: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
-    输出: [9,4]
-
-**说明:**
-
-输出结果中的每个元素一定是唯一的。我们可以不考虑输出结果的顺序。
-
-**解题思路：**
-
-- `filter` 过滤
-- `Set` 去重
-
-**代码实现：**
-
-    const intersection = function(nums1, nums2) {
-        return [...new Set(nums1.filter((item)=>nums2.includes(item)))]
-    };
+```javascript
+const intersection = function (nums1, nums2) {
+  return [...new Set(nums1.filter((item) => nums2.includes(item)))]
+}
+```
 
 来源：<https://github.com/sisterAn/JavaScript-Algorithms>
 
@@ -12978,19 +12929,6 @@ base64
 - BOM 和 DOM 的区别,BOM 的方法讲完整一点
 - 点击事件是宏任务还是微任务
 - class 定义类和 function 定义类的区别
-- 以下代码执行结果
-
-![图片](data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==)
-
-- 输出 for 循环中定时器的输出语句结果
-- 打印结果是什么
-
-![图片](https://mmbiz.qpic.cn/sz_mmbiz_png/beNzaWVQLGmDbrwHDk7Hb63nfDZq85eoUd9urjpyCtZBcWshvjMuFN4q5NcQOwveT5ameZUeNwJ5pksFa2WHZA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
-
-- 问如何改造，才能实现真正的效果，闭包可以吗，然后用闭包实现一下这个效果
-
-![图片](https://mmbiz.qpic.cn/sz_mmbiz_png/beNzaWVQLGmDbrwHDk7Hb63nfDZq85eo7OwN3WnuOHQ4F5hAUGicDzuIqzXcRLpOpvgK0rl6guj1UEuXf3PqquA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
-
 - TS 声明文件
 - TS 可选属性
 - 介绍一下 css 盒模型
@@ -13282,7 +13220,6 @@ base64
 - 如果 job 连续三次均返回失败，retry 则不再尝试调用，并返回其最后一次失败的内容。
   ![图片](https://mmbiz.qpic.cn/sz_mmbiz_png/beNzaWVQLGmDbrwHDk7Hb63nfDZq85eoW7DX5ibmhvxxgrUSw9HusERJS3ss8ia4Impa0jIh4qh9XPb1ibpQT7TLg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
   ![图片](https://mmbiz.qpic.cn/sz_mmbiz_png/beNzaWVQLGmDbrwHDk7Hb63nfDZq85eo7asMp4qqg9vtEZAXuIN6OR71TeGSicSGdOKdbAJAMvmj2gEAJU0Ojaw/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
-- 给了一个代码片段，大概就是一个产生随机数的 for 循环，然后把这个随机数当作参数传到一个异步函数，问怎么保证输出顺序也是有序的，其实就是类似于同时发送几个 http 请求，怎么保证响应顺序也按照请求顺序依次返回
 - 写了个类型判断函数
   ![图片](https://mmbiz.qpic.cn/sz_mmbiz_png/beNzaWVQLGmDbrwHDk7Hb63nfDZq85eoI93qoeiaqpLvibU64YqP6DT6f3Ux2X93mU40vcPQicZRbaJYsQy3GkdZg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
 - 遍历根结点下所有子节点
@@ -13671,7 +13608,6 @@ base64
 - 实现拖拽功能，比如把 5 个兄弟节点中的最后一个节点拖拽到节点 1 和节点 2 之间
 - 动画：setTimeout 何时执行，requestAnimationFrame 的优点
 - 编写分页器组件的时候，为了减少服务端查询次数，点击“下一页”怎样能确保还有数据可以加载（请求数据不会为空）？
-- ES6 新增了哪些特性，使用过哪些，也有当场看代码说输出结果的
 - JS 模块化的实践
 - require.js 的实现原理（如果使用过 webpack，进一步会问，两者打包的异同及优缺点）
 - 实现 gulp 的功能
