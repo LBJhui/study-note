@@ -1,4 +1,15 @@
+- 防抖节流
+
 https://fe.duyiedu.com/p/t_pc/goods_pc_detail/goods_detail/course_2VKbErGXkTSzvbl9aQ9HgndEtIz?type=2
+
+```markdown
+# v-for 和 v-if 哪个优先级更高？会产生什么后果？
+
+vue2: v-for > v-if
+vue3: v-if > v-for
+
+心智负担：不要同时使用 v-for 和 v-if
+```
 
 ```javascript
 // 脚本加载失败如何重试
@@ -1039,7 +1050,7 @@ Promise.resolve()
   })
 
 /**
- * thenable
+ * thenable的执行时机
  *  1. 完成，所有注册的 thenable 进队列
  *  2. 调用 then，如果已完成，直接进队列
  */
@@ -1175,10 +1186,27 @@ function runTask(task) {
 }
 ```
 
-```css
-样式计算 视觉格式化模型
-包含块
+```markdown
+- 样式计算
+- 视觉格式化模型 包含块
+  - 元素的 width 百分比相对的是包含块宽度
+  - 元素的 height 百分比相对的是包含块高度
+  - 元素的 margin 百分比相对的是包含块宽度
+  - 元素的 padding 百分比相对是的包含块宽度
+  - 元素的 left 相对的是包含块的左边缘
+  - 元素的 top 相对的是包含块的上边缘
+
 最近可滚动祖先
+
+包含块的确定规则：
+
+1. 常规元素和浮动元素
+   父元素的内容盒
+2. 绝对定位元素
+   第一个定位祖先的填充盒
+3. 固定定位
+   无变形祖先：视口
+   有变形祖先：变形祖先的填充盒
 ```
 
 ```scss
@@ -3182,7 +3210,6 @@ Array.prototype.forEach = function (callback) {
 - 如何性能优化 CDN 优化有哪些
 - 缓存有哪些，区别是什么
 - 手写 bind、reduce
-- 防抖截流
 - 遍历树，求树的最大层数。求某层最多的节点数
 - node 开启进程的方法有哪些，区别是什么
 - node 如何部署的
@@ -3441,7 +3468,6 @@ Array.prototype.forEach = function (callback) {
 - JS 的原型
 - 变量作用域链
 - call、apply、bind 的区别
-- 防抖和节流的区别
 - 介绍各种异步方案
 - 前端性能优化
 - 介绍 DOM 树对比
@@ -9067,6 +9093,7 @@ console.log('55555')
 - 首屏加载如何优化
 - 一个网页从请求到呈现花了很长时间，如何排查
 - CSS 动画和 Js 动画的区别
+- 如何实现精确的 setInterval?
 - 讲讲对函数式编程的理解
 - 页面发了个请求，请求没返回用户就切去另一个页面了，这会有什么影响，怎么处理？fetch 请求怎么取消？
 - 描述了一个输入框输字母就触发请求的场景，问怎么解决(其实就是问 debounce 去抖和 throttle 节流)
