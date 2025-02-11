@@ -21,12 +21,7 @@
 
       widthRatio = lateWidth / designWidth
       heightRatio = lateHeight / designHeight
-      document.body.style =
-        'transform:scale(' +
-        widthRatio +
-        ',' +
-        heightRatio +
-        ');transform-origin:left top;overflow: hidden;'
+      document.body.style = 'transform:scale(' + widthRatio + ',' + heightRatio + ');transform-origin:left top;overflow: hidden;'
     }, 0)
   }
   refreshScale()
@@ -34,12 +29,13 @@
   win.addEventListener(
     'pageshow',
     function (e) {
+      // 只读属性 persisted 代表一个页面是否从缓存中加载的
       if (e.persisted) {
         // 浏览器后退的时候重新计算
         refreshScale()
       }
     },
-    false,
+    false
   )
   win.addEventListener('resize', refreshScale, false)
 })(window)

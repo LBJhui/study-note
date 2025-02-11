@@ -1,5 +1,3 @@
-- 防抖节流
-
 https://fe.duyiedu.com/p/t_pc/goods_pc_detail/goods_detail/course_2VKbErGXkTSzvbl9aQ9HgndEtIz?type=2
 
 ```markdown
@@ -776,34 +774,6 @@ const scrollHandler = debounce(() => {
 }, 100)
 
 window.addEventListener('scroll', scrollHandler)
-```
-
-```ts
-// 对防抖函数进行类型标注
-declare function debounce<T extends any[]>(fn: (...args: T) => any, delay: number): (...args: T) => void
-```
-
-```javascript
-/**
- * 两个超过整数存储范围的大正整数求和
- * @param {String} a
- * @param {String} b
- */
-
-function sum(a, b) {
-  let result = ''
-  const len = Math.max(a.length, b.length)
-  a = a.padStart(len, '0')
-  b = b.padStart(len, '0')
-  let addOne = 0
-  for (let i = len - 1; i >= 0; i--) {
-    const n = +a[i] + +b[i] + addOne
-    addOne = Math.floor(n / 10)
-    result = (n % 10) + result
-  }
-  if (addOne) result = addOne + result
-  return result
-}
 ```
 
 ```ts
@@ -2532,12 +2502,6 @@ observer.observe({ entryTypes: ['longtask'] })
   SSL/TLS/HTTPS
   HTTP2
   WebSocket
-```
-
-```
-微队列
-  MutationObserver
-  ob.observe(target, { childList: true })
 ```
 
 ```
@@ -5477,7 +5441,6 @@ Array.prototype.forEach = function (callback) {
 - options 请求方法有什么用
 - less,sass 它们的作用是什么
 - 写一个 LRU 缓存函数
-- 写个防抖和节流函数
 - 你们服务是怎么部署的？Node Agent 做了什么工作？
 - Grpc 的优缺点？
 - http2 的相关特性？
@@ -5671,7 +5634,6 @@ Array.prototype.forEach = function (callback) {
 - commonjs 和 es module 区别
 - tree sharking 原理
 - loader 会 plugins 区别
-- 防抖和节流区别，大概实现
 - 了解哪些新技术
 - 介绍一下微前端
 - 说一下 npm 包管理机制
@@ -5777,7 +5739,6 @@ Array.prototype.forEach = function (callback) {
 - 实现一下 promise.race
 - 实现一下 task().eat().sleep(2000).eat().sleep(2000)函数
 - 判断链表有环但是空间复杂度是 O(1)
-- 实现防抖节流
 - 实现 sum(1)(2, 3)(4)柯里化
 - 实现一个非树状结构转树状结构函数
 - 一个查找最长子字符串算法
@@ -5797,7 +5758,6 @@ Array.prototype.forEach = function (callback) {
   如何拍平数组 (.flat)
   如何判断一个值是数组
   Object.create
-- 防抖和节流
 - CommonJS/UMD/ESM
 - 如何创建一个数组大小为 100，每个值都为 0 的数组 <https://q.shanyue.tech/fe/js/520.html>
 - JavaScript 基础
@@ -5825,7 +5785,6 @@ Array.prototype.forEach = function (callback) {
 - 手写 Promise 或者 Promise 的静态方法
   答：手写 Promise 尽量写出来 Promise 的状态，静态方法以及 **.then**，**.catch**。当然更细节的还原可以看 **Promise A+** 规范。
   静态方法指 `Promise.allSettled` `Promise.all` `Promise.race` 等等。
-- 手写节流与防抖
 - 手写 bind 函数
 - service worker 使用
   答：缓存，渐进式应用，拦截处理
@@ -6467,7 +6426,6 @@ Array.prototype.forEach = function (callback) {
 
 - 浏览器缓存机制
 - HTTPS 介绍一下
-- 节流和防抖的原理是什么
 - 事件循环介绍一下
 - 输出结果
 
@@ -7752,7 +7710,6 @@ console.log(newShop.apple)
   大数问题就是通过字符串来处理，从后往前加，然后处理进位的问题。
 - 写一个 es6 的继承过程
 - 写一个大数相乘的解决方案。传两个字符串进来，返回一个字符串
-- 写一个防抖函数
 - 算法题: https://leetcode.cn/problems/bu-ke-pai-zhong-de-shun-zi-lcof/description/
 - webpack 原理
   1.  初始化参数：从配置文件和 Shell 语句中读取与合并参数，得出最终的参数；
@@ -8232,7 +8189,6 @@ console.log('55555')
 - 实现自定义 hooks,usePrevious。setcount(count => count + 1)后输出上一次 count 的值
 - 不同域名共享 cookie
 - on, emit, 实现
-- 防抖的实现
 - 输入 url 到页面返回结果
 - 缓存的实现方式
 - webpack 分包
@@ -8699,18 +8655,16 @@ console.log('55555')
 - 怎么同时让多个异步请求并行
 - 跨域
 - xss 和 csrf （聊到跨域基本都会聊跨域安全问题，所以这两个知识点可以一起准备
-- session 和 cooki
+- session 和 cookie
 - 服务器怎么知道 session 过期？
 - 怎么设置 cookie 过期时间
 - sessionStorage 和 localStorage
 - 强缓存和协商缓存
-- ES6 数组新增方法
 - ES6 箭头函数和普通函数区别
 - promise、generator、async/await
 - PureComponent 知道吗
 - JS 垃圾回收
 - JS EventLoop
-- ES6 新特性
 - 知道装饰器吗
 - 数组方法 map、filter、reduce
 - babel 的编译原理
@@ -8723,8 +8677,6 @@ console.log('55555')
 - 一棵二叉树要用数组存储，这棵树要具备哪种条件？（完全二叉树）
 - 实现括号匹配用数据结构怎么做？说说思路 （栈）
 - 快速排序原理
-- 说说项目中遇到的坑，怎么解决的
-- 项目中有考虑到哪些优化的地方？
 - 小程序的富文本为什么选用 wxParse，富文本原理
 - 图片有哪些格式，知道 WebP 格式的图片吗，图片的一些优化手段
 - 图片懒加载原理
@@ -8798,7 +8750,6 @@ console.log('55555')
 - 实现自定义 hooks,usePrevious。setcount(count => count + 1)后输出上一次 count 的值
 - 不同域名共享 cookie
 - on, emit, 实现
-- 防抖的实现
 - 输入 url 到页面返回结果
 - 缓存的实现方式
 - webpack 分包
@@ -8978,7 +8929,6 @@ console.log('55555')
 - position 属性
 - 如何实现一个自适应的正方形
 - 如何用 css 实现一个三角形
-- 防抖和节流
 - 深拷贝
 - 数组去重、数组乱序
 - 手写 call、apply、bind
@@ -9039,7 +8989,6 @@ console.log('55555')
 - position 属性
 - 如何实现一个自适应的正方形
 - 如何用 css 实现一个三角形
-- 防抖和节流
 - 深拷贝
 - 数组去重、数组乱序
 - 手写 call、apply、bind
@@ -9329,7 +9278,6 @@ console.log('55555')
 - 数组去重有哪几种方式
 - 柯里化问题
 - 数字转金额的问题
-- 手写防抖和节流
 - 判断变量的几种方式，有哪些不同
 - 块级作用域和函数作用域
 - call bind new 实现原理
@@ -9347,9 +9295,7 @@ console.log('55555')
 - 如何解决移动端 click300ms 延迟？
 - vue 有哪些全局组件
 - 移动端如何完成拖拽功能？
-- 防抖和节流的区别
 - 一道逻辑题：有 5L 的桶和 3L 的桶，如何拿到 4L 的水
-- 防抖和节流的使用场景，举例说明
 - 居中的几种方案
 - 事件循环
 - 移动 1px
@@ -9796,8 +9742,6 @@ console.log('55555')
 - 那么你能不能告诉我 ESModule 对于 Tree-Shaking 有什么优势呢？(会做一些编译阶段的优化吧)
 
 - async await 经过编译后和 generator 有啥联系？(问了两遍，还是不知道问的啥，直接说了 async await 原理，他说你讲了太深，问的不是这个，过吧过吧)
-
-- 为什么要做你这个开源项目？后台数据哪来的？
 - HTTP 的 GET 和 POST 请求有什么区别？(我说了 4 个区别)
 - 说一说 CSRF 和 XSS 攻击？(说了一堆，他说你讲的太细了，是不是最近看过之类的文章，我说没有)
 - HTTP 缓存能不能说一下？(强缓存，协商缓存，中间扯到代理了，讲了一堆，他说可以了)
@@ -9838,10 +9782,6 @@ console.log('55555')
   答：手写 Promise 尽量写出来 Promise 的状态，静态方法以及 **.then**，**.catch**。当然更细节的还原可以看 **Promise A+** 规范。
 
   静态方法指 `Promise.allSettled` `Promise.all` `Promise.race` 等等。
-
-  1.  手写节流与防抖 🌟
-
-  答：老生常谈，原理很简单，主要还是看会不会封装函数，以及封装的高级与否，考虑的情况是否全面。
 
   1.  手写 bind 函数
 
@@ -10137,7 +10077,6 @@ console.log(e === f)
 - AST 作用 or babel 实现原理
 - 不同域名共享 cookie
 - on, emit, 实现
-- 防抖的实现
 - 输入 url 到页面返回结果
 - 缓存的实现方式
 - webpack 分包
@@ -10181,7 +10120,6 @@ console.log(e === f)
   输出：False
   解释：无法切分出长度至少为 3 的子序列。
 
-- 节流防抖(实现/场景/源码，如 lodash 实现原理)
 - 事件循环(浏览器/node/版本差异)
 - setTimeout 实现原理
 - react 和 vue 的区别
@@ -10512,7 +10450,6 @@ Loader 和 Plugin 的区别：
 - 模块化
 - 深拷贝浅拷贝
 - 异步处理 async await promise
-- 防抖节流
 - http 请求头, http2 http 相关知识
 - webpack 热更新的原理
 - loader 和 plugin 的区别
@@ -10550,37 +10487,35 @@ Loader 和 Plugin 的区别：
 5.  1.  CORS，在服务器端设置几个响应头
     2.  Reverse Proxy，在 nginx/traefik/haproxy 等反向代理服务器中设置为同一域名
 
-6.  什么是节流与防抖，如何实现
+6.  网站的性能优化 (这个在网上有很多文章，但是要注意实践)
 
-7.  网站的性能优化 (这个在网上有很多文章，但是要注意实践)
+7.  浏览器缓存原理
 
-8.  浏览器缓存原理
+8.  当输入 URL 时，整个过程是什么样的
 
-9.  当输入 URL 时，整个过程是什么样的
+9.  关于模块分包的几个细节
 
-10. 关于模块分包的几个细节
+10. 有没有接触过 node，你认为 node 怎么样
 
-11. 有没有接触过 node，你认为 node 怎么样
+11. node 引入一个模块的过程是什么
 
-12. node 引入一个模块的过程是什么
+12. https 有什么用，原理是什么
 
-13. https 有什么用，原理是什么
+13. https 如何保证证书是可信任的
 
-14. https 如何保证证书是可信任的
+14. amd 和 cmd 的区别，commonjs，esmodule
 
-15. amd 和 cmd 的区别，commonjs，esmodule
+15. 什么是函数柯力化
 
-16. 什么是函数柯力化
+16. virtual DOM 是什么，如何实现
 
-17. virtual DOM 是什么，如何实现
+17. dom diff 是什么
 
-18. dom diff 是什么
+18. get 和 post 请求
 
-19. get 和 post 请求
+19. 你们持续集成的流水线有什么
 
-20. 你们持续集成的流水线有什么
-
-21. Accept 头部的作用什么，如果服务器不支持怎么办
+20. Accept 头部的作用什么，如果服务器不支持怎么办
 
 关于技术面试，大部分属于基础，在网络上都能够找到答案，所以面试大厂基础一定要牢固！
 
@@ -10610,7 +10545,6 @@ _// My name is AaDerBrane, I am from GuangZhou_
 
 functionprintf(str, info) {}
 
-- 防抖和节流，你觉得哪个比较容易？把你觉得容易的那个手写出来
 - docContentLoad 和 onload 区别
 - 0.5 像素的边框，怎么做
 - 介绍下缓存
@@ -10690,7 +10624,6 @@ _// 则计算方法为：124+125+13=262_
 7）说说你用过的 ES6 语法的功能点，对 ES2017-9 的新增功能点是否有关注？
 8）解释 JavaScript 的闭包？解释 this 指针指向的问题以及常用改变 this 指针指向的函数? apply, bind, call 三者之间的区别？
 9）JavaScript 继承的几种方式及优缺点？
-10）实现节流或者防抖代码？
 11）fetch 是否可以共享 Cookie?两个 then 分别对应着什么？
 12）手写代码实现红绿灯效果，红灯 3 秒，绿灯 1 秒，黄灯 2 秒，循环重复?
 13）JavaScript 是如何操作 Cookie 的？
@@ -11247,7 +11180,6 @@ rem 和 em 单位一样，都是一个相对单位，不同的是 em 是相对�
   - 复原 IP 地址
   - 子集
 - 手写 Promise
-- 手写防抖节流
 - 不用 sort 实现排序，比如输入 [3,2,6,9,1,4,8] 返回排序后的数组
 - 请 js 实现一个 permute 函数，输入数字 123， 打印出这三个数字的全排列
 - 平时设计过组件吗
@@ -11571,8 +11503,6 @@ rem 和 em 单位一样，都是一个相对单位，不同的是 em 是相对�
 - 路由懒加载 (import)
 - 服务器时间差值
 - Promisify
-- 输入框防抖
-- 防抖与节流的区别
 - 判断是否为数组
 
   18. vue3/vite/webpack
@@ -12154,7 +12084,6 @@ const intersection = function (nums1, nums2) {
 - Vue 如何解析 template 模板，diff 算法两者的不同是什么？？
 - 详细地说说前端的动画种类？
 - canvas 有了解过吗？它适用于什么样的场景？
-- 你刚刚讲了 flutter，Dart 语言能不能说说看？
 - 谈一谈 `css` 盒模型
 - 多种方式实现上面 `100px` 下面自适应的布局
 - `display` 都有哪些属性
@@ -12771,11 +12700,6 @@ const intersection = function (nums1, nums2) {
     - GET 产生一个数据包，POST 产生 2 个数据包
   - 使用方式(习惯上讲)
     - GET 主要拉取数据，POST 主要提交保存数据
-- 谈一下防抖和节流
-  防抖和节流都是希望在同一时间内，不要重复触发请求。一般场景用在搜索和网页滚动事件中。
-  区别：
-  防抖主要是在规定时间内只触发一次，如果再次调用，时间从新计算。
-  节流主要是在固定时间内只触发一次。比如每间隔 1 秒触发一次。
 - 数组如何去重
   - ES6 Set 去重
   - 利用 Object key 去重
@@ -12915,7 +12839,6 @@ const intersection = function (nums1, nums2) {
 - transition 有什么需要注意的地方？
 - js 的错误监控机制有了解吗？
 - 闭包，应用
-- 防抖，节流
 - setTimeout 第二个参数为 0 时和匿名自执行函数区别
 - js 里堆和栈的区别
 - new 操作符之后的操作
@@ -12949,7 +12872,6 @@ const intersection = function (nums1, nums2) {
 - window.onload 和 document.ready，onload 是所有资源包括图片都加载完才执行
 - 如何给不存在的元素绑定事件监听
 - 可以在捕获阶段实现事件代理吗，为什么业界都用冒泡？（原因应该是，捕获和冒泡没有明显的优劣之分，但是冒泡事件流模型被大多数浏览器支持，兼容性更好）
-- promise 中不声明 async，可以用 await 吗
 - 内存泄漏
 - 怎么判断一个元素有没有被引用
 - 全局变量为什么不会被垃圾处理
@@ -13439,7 +13361,6 @@ const intersection = function (nums1, nums2) {
 - 本地存储——从 Cookie 到 Web Storage、IndexedDB
 - 说明一下 SessionStorage 和 localStorage 还有 cookie 的区别和优缺点
 - 事件代理
-- 事件的节流和防抖
 - 页面的回流和重绘
 - EventLoop 事件循环机制
 - 说一说 SessionStorage 和 localStorage 还有 cookie
@@ -13689,7 +13610,6 @@ const intersection = function (nums1, nums2) {
 - BFC、IFC
 - position 有哪些属性
 - 回流，重绘
-- 节流，防抖
 - MVC vs MVVM
 - mobx
 - 快排的稳定性，手撕代码：快排
@@ -14182,9 +14102,13 @@ function sington(className) {
 ```
 
 - 【可视化】主导完成平台可视化渲染引擎（可视化图表的组件、数据协议）设计与开发，基于 echarts（svgRenderer、canvasRenderer 一千万行数据的表格渲染【不能使用虚拟滚动】canvas table，chunk）封装业务图表库，服务于平台可视化场景
+
   - 用库
   - 初级：table dom
   - 中级：虚拟表格
   - 高级： canvas table
   - 专家：canvas+tile 技术
   - 高级专家：skia+webassembly (白板 webassembly+Skia Engine)
+
+- 说说项目中遇到的坑，怎么解决的
+- 项目中有考虑到哪些优化的地方？
