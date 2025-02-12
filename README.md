@@ -1417,21 +1417,6 @@ function demo2(arr) {
 ```
 
 ```js
-// 监听元素的重叠度
-const ob = new IntersectionObserver(entries => {
-  const entry = entries[0]
-  if (entry.isIntersecting) {
-    console.log('加载更多')
-  }
-}, {
-  root: null
-  threshold: 0
-})
-const dom = document.querySelector('.loading')
-ob.observe(dom)
-```
-
-```js
 // 分时函数的封装
 const tasks = Array.from({ length: 300000 }, (_, i) => {
   const div = document.createElement('div')
@@ -2504,14 +2489,6 @@ observer.observe({ entryTypes: ['longtask'] })
   WebSocket
 ```
 
-```
-资源提示符
-  async: 作用于 script 元素
-  defer: 作用于 script 元素
-  prefetch
-  preload
-```
-
 ```text
 动画
 Web Animation API: element.
@@ -3114,13 +3091,10 @@ Array.prototype.forEach = function (callback) {
 - 当你的页面组件无限增加的话，怎么做？
 - requestidlecallback
 - resizeObserver
-- IntersectionObserver
 - 幻影依赖
 - pnpm
-- 自定义属性 dataset
 - mix-blend-mode
 - setup
-- 资源提示符
 - defer 执行时间在 contentloaded 之前
 - defineExpose defineProps defineEmits
 - 前端路由
@@ -3178,14 +3152,20 @@ Array.prototype.forEach = function (callback) {
 - node 开启进程的方法有哪些，区别是什么
 - node 如何部署的
 - node check 阶段做了什么，触发了什么事件
-- 前端模块化的理解
 - node 如何处理错误的
 - 数字在计算机怎么储存的
 - 跨域有哪些
 - 网络安全
 - 链表与数组的区别，链表如何遍历
 - script 标签中 async 跟 defer 的区别
-- 如何检查一个数字是否为整数
+- 如何检查一个数字是否为整数 Number.isInteger()
+
+  ```javascript
+  console.log(Number.isInteger(25))
+  console.log(Number.isInteger(25.0))
+  console.log(Number.isInteger(25.1))
+  ```
+
   检查一个数字是小数还是整数，可以使用一种非常简单的方法，就是将它对 1 进行取模，看看是否有余数。
 
   ```JavaScript
@@ -3585,7 +3565,6 @@ Array.prototype.forEach = function (callback) {
 - 介绍下表单提交，和 formData 有什么关系
 - 介绍 MVP 怎么组织
 - 介绍异步方案
-- promise 如何实现 then 处理
 - koa2 中间件原理
 - 常用的中间件
 - 服务端怎么做统一的状态处理
@@ -3594,7 +3573,6 @@ Array.prototype.forEach = function (callback) {
 - npm2 和 npm3+有什么区别
 - 介绍异步方案
 - 如何处理异常捕获
-- 项目如何管理模块
 - 前端性能优化
 - JS 继承方案
 - 如何判断一个变量是不是数组
@@ -5391,7 +5369,6 @@ Array.prototype.forEach = function (callback) {
 - 深拷贝怎么实现
 - js 的事件轮询机制有了解吗
 - 说说 call,apply,bind
-- 聊聊 es6 的 promise
 - 为什么要用 async，await
 - vue 生命周期
 - vue 双向数据绑定原理
@@ -5612,8 +5589,6 @@ Array.prototype.forEach = function (callback) {
   懒加载
   Image Component -> next.js
   imagemin-webpack-plugin (sharp)
-  <https://developer.mozilla.org/zh-CN/docs/Web/API/IntersectionObserver>
-  IntersectionObserver
   loading.lazy
   lazy/suspense
   react/react-dom
@@ -5859,7 +5834,6 @@ Array.prototype.forEach = function (callback) {
   9.  N+1 Query
   10. /graphql 调试 ❎
   11. apollo-server/apollo-client
-- 图片懒加载
 - 虚拟滚动 -> elementui
 - 小图增加阿里图片压缩后缀
   picture ❎
@@ -6265,7 +6239,6 @@ Array.prototype.forEach = function (callback) {
 - 洗牌算法，如何验证这个洗牌算法可以把牌洗得足够乱
 - node stream 去取一个超大数据量的日志，由于内存限制每次只能取一部分，现在希望在全部日志中随机取一万条，如何做
 - 介绍一下项目 有哪些是由你主导提出的方案做的事情
-- 介绍一下 promise，它为啥叫 promise
 - esmodule 介绍一下，它和 commonjs 的区别，主要的优势是什么
 - 介绍一下 vite 的原理，它会去编译你的代码吗，vite 引用 commonjs 的包的时候怎么处理
 - 如何转成 esm vue3 的组合式 API 有了解吗，它有哪些优势
@@ -7450,9 +7423,7 @@ console.log(newShop.apple)
 - 箭头函数可以用`new`实例化吗？聊聊`this`的指向问题。
 - 聊一聊原型链。
 - 垃圾回收中的堆和栈的区别。
-- `0.1 + 0.2 != 0.3`背后的原理？
 - `TypeScript`用过吗？聊聊你对`TypeScript`的理解？
-- 图片懒加载的原理。
 - `call、apply`和`bind`方法的用法以及区别
 - `Webpack`原理，以及常用插件
 - 项目中遇到的难点，以及解决思路。
@@ -8354,7 +8325,6 @@ console.log('55555')
 - Vue3 proxy 解决了哪些问题？
 - Vue 响应式原理
 - 发布订阅模式和观察者模式的异同
-- 图片懒加载实现
 - css 垂直居中
 - CI/CD 流程
 - 谈谈性能优化
@@ -8679,7 +8649,6 @@ console.log('55555')
 - 快速排序原理
 - 小程序的富文本为什么选用 wxParse，富文本原理
 - 图片有哪些格式，知道 WebP 格式的图片吗，图片的一些优化手段
-- 图片懒加载原理
 - 跨域
 - 前端常见攻击方式
 - 状态码
@@ -11495,7 +11464,6 @@ rem 和 em 单位一样，都是一个相对单位，不同的是 em 是相对�
   200 300 304 400 402 (Payment) 403 404 500
 - HTTP2
 - connection: keep-alive -> http1.1 multiplex
-- 图片懒加载
 
   10. 1.  data-src -> src
       2.  Astro -> 300k->30k 极致的首屏优化
@@ -12998,7 +12966,6 @@ const intersection = function (nums1, nums2) {
 - 前后端通信数据格式
 - 用什么实现离线应用：manifest，原理呢？
 - 如何提高首屏加载速度
-- 图片懒加载怎么实现
 - 博客的话，做过哪些方面的优化呢？
 - 场景题：现在手机 QQ 要做个成语接龙，你怎么去做，说说思路吧
 - 你有什么较好的算法可以尽量减少成语库的数量吗？
@@ -13044,7 +13011,6 @@ const intersection = function (nums1, nums2) {
 - 假如说我们的网页有一个表单，有人模拟 http 的 post 绕过了表单将数据发送到了后台应该怎么办
 - 怎么去实现一个多人在线文档（从技术和需求说，来自腾讯文档，怎么做到数据的渲染、怎么获取到数据、网络上需要做什么处理）
 - 详细说明一下你是怎么通过设置请求头解决了缓存问题吗？
-- 图片懒加载原理（节流是什么）
 - 说说不用 nuxt 框架怎么实现 SSR，数据预取怎么实现的
 - RESTful 的原理
 - 数据库百万条数据，有几种语文，数学，计算平均分，排序出来，如何解决
@@ -13566,7 +13532,7 @@ const intersection = function (nums1, nums2) {
 - 数组乱序
 - for in 和 for of 区别
 - 监听一段时间内用户对我方网页的操作
-- 图片懒加载，预加载
+- 图片预加载
 - css 两列布局，右列定宽，左列自适应。
 - flex，轴
 - addEventListener 细节，如何删除 addEventListener 绑定的事件
