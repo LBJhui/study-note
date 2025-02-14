@@ -146,7 +146,6 @@ font-variant、text-transform
 ElementUI 日期选择器时间选择范围限制
 自定义指令控制权限的弊端 https://blog.csdn.net/layonly/article/details/139402930 DOM 元素删除后，生命周期会正常进行，还会请求数据
 组件循环依赖：动态导入
-图片调色盘：colorThief
 符号绑定
 重绘和回流
 防截屏防录制：Encrypted Media Extensions API
@@ -247,40 +246,6 @@ type GenerateObject<Count extends number> = {
 
 type MyObject = Omit<GenerateObject<99>, 'p0'> & { type: number }
 
-```
-
-```javascript
-// 前端实现图片预加载
-const images = ['https://picsum.photos/id/237/400/400.jpg?grayscale&blur=2', 'https://picsum.photos/id/238/400/400.jpg?grayscale&blur=2']
-
-function preloadImages(max = 3) {
-  const _images = [...images]
-  function loadImage() {
-    const src = _images.shift()
-    return new Promise((resolve, reject) => {
-      const link = document.createElement('link')
-      link.rel = 'preload'
-      link.as = 'image'
-      link.href = src
-      document.head.appendChild(link)
-      link.onload = resolve
-      link.onerror = reject
-      setTimeout(reject, 10000)
-    })
-  }
-
-  function _loadImage() {
-    loadImage().finally(() => {
-      if (_images.length) {
-        loadImage()
-      }
-    })
-  }
-
-  for (let i = 0; i < max; i++) {
-    _loadImage()
-  }
-}
 ```
 
 ```markdown
@@ -990,97 +955,6 @@ console.log(console.log.__proto__ === Function.prototype)
 console.log(console.log.call === Function.prototype.call)
 
 // const r = Function.prototype.call.apply((a) => a, [1, 2])
-```
-
-```js
-// ①
-Promise.resolve()
-  .then(() => {
-    console.log(0)
-    return Promise.resolve(4)
-  })
-  .then((res) => {
-    console.log(res)
-  })
-Promise.resolve()
-  .then(() => {
-    console.log(1)
-  })
-  .then(() => {
-    console.log(2)
-  })
-  .then(() => {
-    console.log(3)
-  })
-  .then(() => {
-    console.log(5)
-  })
-  .then(() => {
-    console.log(6)
-  })
-
-/**
- * thenable的执行时机
- *  1. 完成，所有注册的 thenable 进队列
- *  2. 调用 then，如果已完成，直接进队列
- */
-
-// ②
-new Promise((resolve, reject) => {
-  resolve(2)
-  new Promise((resolve, reject) => {
-    resolve(5)
-  }).then((v) => console.log(v))
-}).then((v) => console.log(v))
-
-// ③
-new Promise((resolve, reject) => {
-  setTimeout(() => {
-    resolve(2)
-    new Promise((resolve, reject) => {
-      resolve(5)
-    }).then((v) => console.log(v))
-  })
-}).then((v) => console.log(v))
-
-// ④
-const promise1 = Promise.resolve('first')
-
-const promise2 = new Promise((resolve) => {
-  setTimeout(() => {
-    resolve('second')
-  }, 1000)
-})
-
-const promise3 = Promise.reject('third')
-
-function handlePromise(promise) {
-  return promise
-    .then((value) => {
-      console.log(value)
-      return value
-    })
-    .catch((error) => {
-      console.log('Error', error)
-      return 'Error handler'
-    })
-}
-
-async function runPromises() {
-  try {
-    const result1 = await handlePromise(promise1)
-    console.log('result1', result1)
-    // const result2 = await handlePromise(promise2)
-    const result2 = handlePromise(promise2)
-    console.log('result2', result2)
-    const result3 = await handlePromise(promise3)
-    console.log('result3', result3)
-  } catch (error) {
-    console.error('Caught error', error)
-  }
-}
-
-runPromises()
 ```
 
 ```js
@@ -3358,7 +3232,6 @@ Array.prototype.forEach = function (callback) {
 - 通过什么做到并发请求
 - http1.1 时如何复用 tcp 连接
 - 介绍 service worker
-- 介绍 Promise，异常捕获
 - 介绍 position 属性包括 CSS3 新增
 - 浏览器事件流向
 - 介绍事件代理以及优缺点
@@ -3405,7 +3278,6 @@ Array.prototype.forEach = function (callback) {
 - 介绍 JSX
 - 介绍虚拟 DOM
 - 如何设计一个 localStorage，保证数据的实效性
-- 如何设计 Promise.all()
 - 介绍高阶组件
 - sum(2, 3)实现 sum(2)(3)的效果
 - 两个对象如何比较
@@ -3466,10 +3338,7 @@ Array.prototype.forEach = function (callback) {
 - 对闭包的看法，为什么要用闭包
 - 手写数组去重函数
 - 手写数组扁平化函数
-- 介绍下 Promise 的用途和性质
-- Promise 和 Callback 有什么区别
 - ES6 新的特性
-- 介绍 Promise
 - 说一下闭包
 - 网站 SEO 怎么处理
 - 介绍下 HTTP 状态码
@@ -3493,7 +3362,6 @@ Array.prototype.forEach = function (callback) {
 - prototype 和`__proto__`区别
 - `_construct`是什么
 - `new`是怎么实现的
-- promise 的精髓，以及优缺点
 - 如何实现 H5 手机端的适配
 - `rem`、`flex`的区别（root em）
 - `em`和`px`的区别
@@ -3507,7 +3375,6 @@ Array.prototype.forEach = function (callback) {
 - base64 为什么能提升性能，缺点
 - 介绍 webp 这个图片文件格式
 - 介绍 koa2
-- Promise 如何实现的
 - 异步请求，低版本 fetch 如何低版本适配
 - ajax 如何处理跨域
 - CORS 如何设置
@@ -3522,9 +3389,7 @@ Array.prototype.forEach = function (callback) {
 - JS 怎么实现异步
 - 异步整个执行周期
 - Async/Await 怎么实现
-- Promise 和 setTimeout 执行先后的区别
 - JS 为什么要区分微任务和宏任务
-- Promise 构造函数是同步还是异步执行，then 呢
 - 发布-订阅和观察者模式的区别
 - JS 执行过程中分为哪些阶段
 - 词法作用域和 this 的区别
@@ -3544,8 +3409,6 @@ Array.prototype.forEach = function (callback) {
 - `node`起服务如何保证稳定性，平缓降级，重启等
 - 什么是单页项目
 - 遇到的复杂业务场景
-- Promise.all 实现原理
-- 介绍 Promise 的特性，优缺点
 - 介绍排序算法和快排原理
 - 堆和栈的区别
 - 介绍闭包
@@ -3594,14 +3457,12 @@ Array.prototype.forEach = function (callback) {
 - setInterval 需要注意的点
 - 定时器为什么是不精确的
 - 介绍宏任务和微任务
-- promise 里面和 then 里面执行有什么区别
 - 介绍 class 和 ES5 的类以及区别
 - 介绍箭头函数和普通函数的区别
 - 介绍 defineProperty 方法，什么时候需要用到
 - for..in 和 object.keys 的区别
 - 使用闭包特权函数的使用场景
 - get 和 post 有什么区别
-- 介绍 Promise 和 then
 - 介绍快速排序
 - 算法：前 K 个最大的元素
 - 使用过程中遇到的问题，如何解决的
@@ -3696,7 +3557,6 @@ Array.prototype.forEach = function (callback) {
 - 数组 flat 展开的各种解法，数组 map 应用
 - 讲下 V8 sort 的大概思路
 - Promise 并发限制
-- 手写 Promise.all
 - 省市区拼接查字段，要求 O(n) 内解出
 - node 限流算法
 - 最有效的性能优化方法
@@ -5289,7 +5149,6 @@ Array.prototype.forEach = function (callback) {
 - 数组 flat 展开的各种解法，数组 map 应用
 - 讲下 V8 sort 的大概思路
 - Promise 并发限制
-- 手写 Promise.all
 - 省市区拼接查字段，要求 O(n) 内解出
 - 中台的理解
 - 项目的复盘优化
@@ -5466,7 +5325,6 @@ Array.prototype.forEach = function (callback) {
 - SSR 的实现原理是什么？
 - 项目中遇到的技术难点有哪些？
 - 你觉得你们比 lazada 做得更好是哪些原因？
-- 实现一个 Promise.all
 - 有用过代码规范相关的吗？Eslint 和 Prettier 冲突怎么解决？
 - 实现一个数组转树形结构的函数
 - 说几个你觉得足够复杂的项目？
@@ -5631,7 +5489,6 @@ Array.prototype.forEach = function (callback) {
 - 自己写的 mock 服务是怎么实现的，为什么不在 webpack 里用相关插件
 - 介绍下项目
 - 说一下微前端实现
-- 写一个 Promise.all 函数
 - 写一个发布订阅模式
 - 一道 setTimeout 事件循环的题目
 - 手写题实现电话号码隔位显示（3 4 4）
@@ -5729,7 +5586,6 @@ Array.prototype.forEach = function (callback) {
   .toString.call
   Map 和 WeakMap 的区别
   Promise.race 及用途(timeout) ...
-  Promise.all 手写实现吗
   如何拍平数组 (.flat)
   如何判断一个值是数组
   Object.create
@@ -5757,9 +5613,6 @@ Array.prototype.forEach = function (callback) {
   其中很多的阶段，可以从这里看到完整的模型介绍：html.spec.whatwg.org/multipage/w…
   需要说出来的点：首先 setTimeout 并没有特殊，也是一个 task。另外每次的执行过 task 和 大量的 microtask（不一定在一次循环全执行完）后，会进行 renderUi 阶段，虽然不是每次事件循环都进行 renderUi ，但每次间隔，也就是传说中 **60hz** 的一帧 **16ms**。
   nodejs 事件循环略有不同...多了 process.nextTick 等
-- 手写 Promise 或者 Promise 的静态方法
-  答：手写 Promise 尽量写出来 Promise 的状态，静态方法以及 **.then**，**.catch**。当然更细节的还原可以看 **Promise A+** 规范。
-  静态方法指 `Promise.allSettled` `Promise.all` `Promise.race` 等等。
 - 手写 bind 函数
 - service worker 使用
   答：缓存，渐进式应用，拦截处理
@@ -6011,7 +5864,6 @@ Array.prototype.forEach = function (callback) {
 - 看代码输出结果（考察变量、函数提升）
 - 看代码输出结果（考察异步代码先后顺序）
 - 手写 instanceof 关键字
-- 手写 Promise
 - 说下输入一个 url 地址的全过程。
 - http 的缓存策略。
 - 说下 https，证书是如何校验的？
@@ -6030,7 +5882,6 @@ Array.prototype.forEach = function (callback) {
 - 为什么 link 要在前，script 标签要在后面呢？原理
 - 场景题：保证浏览器不受脚本的恶意攻击，（xss 攻击，解决方法）
 - 假如说你的富文本编辑器内部要显示脚本，该怎么办呢？（不太清楚，我就尽可能说）
-- 场景题：promise.resolve.then 和 setTimeout（有关事件循环 event loop）
 - 说说 async 和 await 的 es5 实现（我尽可能地说了一点）
 - 场景题：这里有 cat 和 animal 子类和父类，如何进行 es5 继承，至少说出 5 种。
 - 说说你项目做的 Vue spa 首屏优化吧（按需引入，懒加载路由，gzip 压缩，关闭一些插件...）
@@ -6263,7 +6114,6 @@ Array.prototype.forEach = function (callback) {
 - Vue2 的数据响应式有两个缺陷，你知道是哪两个缺陷么，为什么会有这样的缺陷，如何解决
 - Vue 如何实现的数组的监听，为什么 Vue 没有对数组下标修改做劫持
 - 用 Set 获取两个数组的交集，如何做
-- 实现 Promise.all
 - animation 和 transition 有什么区别
 - 写个动画，一个盒子，开始时缩放是 0，50%时是 1，100%时是 0，开始结束都是慢速，持续 2 秒，延迟 2 秒，结束后固定在结束的效果
 - 聊一下最复杂的项目
@@ -6301,23 +6151,6 @@ Array.prototype.forEach = function (callback) {
     console.log('promise2')
   })
   console.log('script end')
-  ```
-
-- 问输出
-
-  ```javascript
-  const promise1 = Promise.resolve('First')
-  const promise2 = Promise.resolve('Second')
-  const promise3 = Promise.reject('Third')
-  const promise4 = Promise.resolve('Fourth')
-  const runPromises = async () => {
-    const res1 = await Promise.all([promise1, promise2])
-    const res2 = await Promise.all([promise3, promise4])
-    return [res1, res2]
-  }
-  runPromises()
-    .then((res) => console.log(res))
-    .catch((err) => console.log(err))
   ```
 
 - Vue 的 nextTick 是做什么的？8.React 的合成事件和原生事件了解吗？
@@ -6852,7 +6685,6 @@ console.log(newShop.apple)
 - js 的数据类型都有哪些，有什么区别，为什么基本数据类型存到栈但是引用数据类型存到堆
 - 数据类型常用的判断方式都有哪些
 - ES6 都用到哪些
-- Promise 都有哪些方法
 - Promise 的 then 的链式调用，返回的一个新的 promise 的状态是什么
 - await 和 promise 的关系，分别的应用场景有哪些
 - esmodule 和 commonjs 区别是什么，还接触过其他的模块化方案么
@@ -7761,7 +7593,6 @@ console.log(newShop.apple)
 - 浏览器缓存的基本策略，什么时候该缓存什么时候不该缓存，以及对于控制缓存的字段的相关设置是否清楚？
 - 你是否可以利用面向对象的思维去抽象你的功能，你会构建一个 class（ES6）吗？你对于前端架构的理解？
 - 你会用 VUE，你会用 React，你读得懂这两个架构的源码吗？你懂他俩的基本设计模式吗？让你去构建一个类似的框架你如何下手？
-- 你了解的 ES6 只是 const、let、promise 吗？你考虑过 ES6 提出的真正趋势吗？
 - 你会用 less，那么让你去写一个 loader 你可以吗？
 - webpack 你也会用，你了解其中原理吗？你知道分析打包依赖的过程吗？你知道 tree-shakeing 是如何干掉无用重复的代码的吗？
 - 你真的熟练使用 css 吗，那你知道 position 有几个属性吗
@@ -8125,36 +7956,6 @@ diff 算法是通过**「同层的树节点」**进行比较而非对树进行�
 - 伪代码实现下懒加载
 - 实现一下 some, every
 - flatten 实现
-
-```javascript
-const promise = new Promise((resolve) => {
-  console.log('11111')
-  setTimeout(() => {
-    console.log('22222')
-  }, 0)
-  resolve()
-  console.log('resolve')
-  throw new Error('error')
-  console.log('error')
-})
-promise
-  .then(
-    () => {
-      console.log('33333')
-      setTimeout(() => {
-        console.log('44444')
-      }, 0)
-    },
-    () => {
-      console.log('reject')
-    }
-  )
-  .catch(() => {
-    console.log('catch')
-  })
-console.log('55555')
-```
-
 - 函数组件怎么阻止重复渲染
 - AST 作用 or babel 实现原理
 - 实现自定义 hooks,usePrevious。setcount(count => count + 1)后输出上一次 count 的值
@@ -8332,9 +8133,7 @@ console.log('55555')
 - webpack 性能优化手段
 - 事件循环
 - 如何解决同步调用代码耗时太高的问题
-- 手写 Promise 实现
 - 场景题：如何实现登录功能
-- Promise 实现原理
 - vue 组件间通信
 - 性能优化
 - vuex 数据流动过程
@@ -8584,8 +8383,6 @@ console.log('55555')
 - 最近在研究哪方面的东西？
 - 请介绍一项你最热爱、最擅长的专业领域，并且介绍的学习规划。
 - 请介绍你参与的印象最深刻的一个项目，为什么？并且介绍你在项目中的角色和发挥的作用。-
-- 如何实现一个 promise，promise 的原理，以及它的两个参数是什么？
-- promise 中第二个参数的 reject 中执行的方法和 promise.catch()都是失败执行的，分别这么写有什么区别，什么情况下会两个都同时用到？
 - http、https、以及 websocket 的区别
 - http 常见的状态码，400,401,403 状态码分别代表什么？
 - 协商缓存和强缓存的区别
@@ -8696,7 +8493,6 @@ console.log('55555')
 - 对 http2 的了解
 - 对新技术的了解
 - 介绍项目特色与难点
-- 性能优化
 - 对 MVC MVP MVVM 的了解
 - 对 SEO 的了解
 - 实现 F12 开发者工具的检查（inspect）功能
@@ -8816,7 +8612,6 @@ console.log('55555')
 - 跨域，常用哪个，解释一下
 - 缓存
 - 重绘回流
-- 性能优化
 - 如果列表组件要新增一些内容，例如标题，简介等，你会怎么对代码进行修改（容器组件 -> 展示组件）
 - csrf 和 xss
 - flex
@@ -9025,8 +8820,6 @@ console.log('55555')
 - this 的是如何确定指向的
 - call，apply, bind 的区别
 - bind 怎么实现 call
-- Promise 是怎么实现的
-- Promise.all 要怎么实现
 - VUE 双向绑定原理 eventloop 原理 原型链原理
 - VueRouter 的原理你能不能说一下呢？(两种路由方式说了一下)
 - 对于 History 路由而言，你觉得在服务端是如何做路由分发的呢？(愣住，面试官接下来跟我解释了一波)
@@ -9095,13 +8888,11 @@ console.log('55555')
 - 数组 flat 展开的各种解法，数组 map 应用
 - 讲下 V8 sort 的大概思路
 - Promise 并发限制
-- 手写 Promise.all
 - 省市区拼接查字段，要求 O(n) 内解出
 - 中台的理解
 - 项目的复盘优化
 - 说下业务上最复杂的点
 - node 限流算法
-- 最有效的性能优化方法
 - 你提到性能指标，能说说都是怎么计算的吗？比如 LCP，FID
 - input type 都有哪些类型，还记得其他 attrs 呢
 - css 的伪类和伪元素有哪些？有什么区别？
@@ -9191,7 +8982,6 @@ console.log('55555')
 - 浏览器缓存
 - vue 如何做权限检验
 - 讲讲 http2.0
-- 你是如何做性能优化的
 - 单元测试如何测试，代码覆盖率如何
 - Koa 中间件原理
 - Koa 如何实现监控处理
@@ -9277,7 +9067,6 @@ console.log('55555')
 - JSONP 实现原理
 - 移动端点击延迟怎么处理
 - git flow 工作流介绍
-- 怎么做性能优化
 - 性能监控如何做
 - 跨域解决方案
 - 简单请求和复杂请求
@@ -9379,12 +9168,10 @@ console.log('55555')
 - 数组 flat 展开的各种解法，数组 map 应用
 - 讲下 V8 sort 的大概思路
 - Promise 并发限制
-- 手写 Promise.all
 - 省市区拼接查字段，要求 O(n) 内解出
 - 中台的理解
 - 说下业务上最复杂的点
 - node 限流算法
-- 最有效的性能优化方法
 - 你提到性能指标，能说说都是怎么计算的吗？比如 LCP，FID
 - 算法题：**数组全排列**[1]
 - 中台业务讨论
@@ -9732,9 +9519,6 @@ console.log('55555')
 - Cache-Control 和 Last-Modified 的区别
 - 说说 String, StringBuilder 和 StringBuffer 的区别
 - 跨域有哪些方案？
-- 你自己在社区做过什么具有推动性的事情？
-- 你能不能说说自己比较擅长的数据结构有哪些?
-- 你希望公司的环境是怎么样的？
 
   1.  浏览器和 nodejs 事件循环？🌟
 
@@ -9745,12 +9529,6 @@ console.log('55555')
   需要说出来的点：首先 setTimeout 并没有特殊，也是一个 task。另外每次的执行过 task 和 大量的 microtask（不一定在一次循环全执行完）后，会进行 renderUi 阶段，虽然不是每次事件循环都进行 renderUi ，但每次间隔，也就是传说中 **60hz** 的一帧 **16ms**。
 
   nodejs 事件循环略有不同...多了 process.nextTick 等
-
-  1.  手写 Promise 或者 Promise 的静态方法
-
-  答：手写 Promise 尽量写出来 Promise 的状态，静态方法以及 **.then**，**.catch**。当然更细节的还原可以看 **Promise A+** 规范。
-
-  静态方法指 `Promise.allSettled` `Promise.all` `Promise.race` 等等。
 
   1.  手写 bind 函数
 
@@ -10092,9 +9870,7 @@ console.log(e === f)
 - 事件循环(浏览器/node/版本差异)
 - setTimeout 实现原理
 - react 和 vue 的区别
-- Promise 原理
 - 前端错误监控及容灾
-- 性能优化
 - 谈谈 node 的内存泄漏
 - 浏览器的渲染机制是怎样的
 - SSR 作用及优缺点
@@ -10406,6 +10182,39 @@ Loader 和 Plugin 的区别：
 - SPA 项目如何监控 pv, uv 值
 - 如何在用户刷新、跳转、关闭浏览器时向服务端发送统计的数据？
 - 错误日志上报遇到的问题.
+
+```markdown
+前端日志上报可以很简单
+
+对业务逻辑的执行收集了日志数据之后可以参数的形式构造一个 url，再通过一个 Image 请求发送到到服务器就完成了日志的上报。
+
+(new Image).src = `/r.png?page=${location.href}&param1=${param1}...`;
+
+这样一行代码就搞定了日志的上报，然鹅，在生产环境中，日志上报所延伸的问题要复杂很多。
+
+日志上报带来的问题
+
+日志上报最终是为了服务业务，监控业务的运行状态，一般而言前端运行的场景中开发者最期望监控的不外乎页面&API 请求是否正常响应和页面 js 逻辑是否正常执行。
+
+为了覆盖这两个监控目标，需要通过很多类型的日志来覆盖，还有一些特殊场景下，开发者还希望能与具体业务灵活结合，实现自定义上报。所以常见的日志类型如下
+
+– 页面&API 请求是否正常响应
+
+– API 调用日志 – API 调用成功与否及其耗时
+
+– 页面性能日志 – 页面连接耗时、首次渲染时间、资源加载耗时等
+
+– 访问统计日志 – PV/UV，短时间内断崖式的量变化很容易反应问题
+
+– 页面 js 逻辑是否正常执行
+
+– 页面稳定性日志 – 页面加载和页面交互产生的 js error 信息
+
+– 业务相关日志
+
+– 自定义上报 – 某些业务逻辑的结果、速度、统计值等自定义内容
+```
+
 - 规范 [eslint, prettier, git commit hook]
 - 如何制定规范？
 - 可视化表单了解过么?
@@ -10456,35 +10265,33 @@ Loader 和 Plugin 的区别：
 5.  1.  CORS，在服务器端设置几个响应头
     2.  Reverse Proxy，在 nginx/traefik/haproxy 等反向代理服务器中设置为同一域名
 
-6.  网站的性能优化 (这个在网上有很多文章，但是要注意实践)
+6.  浏览器缓存原理
 
-7.  浏览器缓存原理
+7.  当输入 URL 时，整个过程是什么样的
 
-8.  当输入 URL 时，整个过程是什么样的
+8.  关于模块分包的几个细节
 
-9.  关于模块分包的几个细节
+9.  有没有接触过 node，你认为 node 怎么样
 
-10. 有没有接触过 node，你认为 node 怎么样
+10. node 引入一个模块的过程是什么
 
-11. node 引入一个模块的过程是什么
+11. https 有什么用，原理是什么
 
-12. https 有什么用，原理是什么
+12. https 如何保证证书是可信任的
 
-13. https 如何保证证书是可信任的
+13. amd 和 cmd 的区别，commonjs，esmodule
 
-14. amd 和 cmd 的区别，commonjs，esmodule
+14. 什么是函数柯力化
 
-15. 什么是函数柯力化
+15. virtual DOM 是什么，如何实现
 
-16. virtual DOM 是什么，如何实现
+16. dom diff 是什么
 
-17. dom diff 是什么
+17. get 和 post 请求
 
-18. get 和 post 请求
+18. 你们持续集成的流水线有什么
 
-19. 你们持续集成的流水线有什么
-
-20. Accept 头部的作用什么，如果服务器不支持怎么办
+19. Accept 头部的作用什么，如果服务器不支持怎么办
 
 关于技术面试，大部分属于基础，在网络上都能够找到答案，所以面试大厂基础一定要牢固！
 
@@ -11014,7 +10821,6 @@ rem 和 em 单位一样，都是一个相对单位，不同的是 em 是相对�
 - 了解 this 嘛，bind，call，apply 具体指什么
 - 手写 bind、apply、call
 - setTimeout(fn, 0)多久才执行，Event Loop
-- 手写题：Promise 原理
 - js 脚本加载问题，async、defer 问题
 - 如何判断一个对象是不是空对象？
 - <script src=’xxx’ ’xxx’/>外部 js 文件先加载还是 onload 先执行，为什么？
@@ -11148,7 +10954,6 @@ rem 和 em 单位一样，都是一个相对单位，不同的是 em 是相对�
   - 括号生成
   - 复原 IP 地址
   - 子集
-- 手写 Promise
 - 不用 sort 实现排序，比如输入 [3,2,6,9,1,4,8] 返回排序后的数组
 - 请 js 实现一个 permute 函数，输入数字 123， 打印出这三个数字的全排列
 - 平时设计过组件吗
@@ -12037,9 +11842,7 @@ const intersection = function (nums1, nums2) {
 - 在这个团队对于项目的功能构建中，你起到了什么作用呢？
 - 你刚才说到了前后端分离，讲讲你和后台同学如何落实好前后端分离的？
 - 对于后台的数据接口，经常会发生一些分歧，你们团队是怎么化解这种分歧的，有没有一种方式增进团队之间的沟通？
-- 同样的，再说说这个小程序性能优化做了哪些呢？
 - 你的博客网站，难道没有分析过用户的行为吗？对于用户量很大的情况下，难道没有做过性能分析吗？
-- 详细地讲一讲你做了哪些性能优化？ 就这么多吗？对于效果你有做过量化的评测吗？
 - 对于首屏中的 FP，FCP，FMP，TTI 你又分别去做量化的考虑吗？
 - 对了，你如何通过代码来分析首屏的 FCP 时间？
 - 除了这些，难道就没有进一步优化吗？
@@ -12061,7 +11864,6 @@ const intersection = function (nums1, nums2) {
 - 函数有没有 `__ proto __` 属性
 - 如何判断数据类型的多种方式，有什么区别，适用场景
 - `Promise` 如何一次进行多个异步请求
-- `Promise.all` 的返回机制是什么
 - 如果想要其中一个请求出错了但是不返回结果怎么办
 - `webpack` 打包优化知道多少
 - 大前端了解吗
@@ -12328,7 +12130,6 @@ const intersection = function (nums1, nums2) {
 - 经常遇到的浏览器的兼容性问题有哪些?原因是什么?如何解决
   由于我的公司是一个致力于培养用户习惯的公司，遇到兼容问题都是**请下载最新版本谷歌浏览器**😝，所以我这个其实没有什么实际的经验，只知道 `babel` 和 `postcss` 。
 - 有哪些常用的 `hack` 技巧
-- 前端开发性能优化,你有什么经验
 - 谈谈你对 `webpack` 的看法
 - 主流的前端框架的优缺点是什么
   只用过 `vue` ，优点上面讲过了，缺点嘛，可能就是不支持 `IE8` 。
@@ -12389,7 +12190,6 @@ const intersection = function (nums1, nums2) {
 - 大数据的表单怎么处理，`select` 选项过多的时候？（优化问题）
 - 自己做过脚手架么？
 - `vue2` 和 `vue3` 有什么区别？
-- 有没有遇到性能优化问题？
 - 从输入 `url` 到页面渲染完成之间发生了什么？
 - 浏览器原理了解过么？
 - `http` 状态码都有哪些？
@@ -12406,7 +12206,6 @@ const intersection = function (nums1, nums2) {
   - 新的内置组件
   - `diff` 算法
   - `Composition API`
-- 有没有遇到性能优化问题
 - 从输入 `url` 到页面渲染完成之间发生了什么
 - 浏览器原理了解过么
 - `http` 状态码都有哪些
@@ -12996,7 +12795,6 @@ const intersection = function (nums1, nums2) {
 - 前端要加载一个图片有哪些方式，然后还问到了 base64 是怎么实现的，有什么缺点，icon 是怎么实现的
 - 后端一下子给你几万条数据，你要怎么处理。（一开始我说，这种情况下后端一定会分页的，然后又问没分页怎么办。然后我说前端手动分页，然后讲了一下具体的实现方法。）
 - 有一个高频触发的请求，你会怎么处理，这个饶了好久，一开始没 get 到面试官的点，一开始谈到了节流和防抖，然后面试官说这样会影响用户体验，而且这个需求就是需要高频触发，然后又说了一下需要高频请求的场景，一开始说到表单，然后说到购物车抢购。然后我又说加个 16 位随机字符串的参数，然后面试官说这样只是可以区分请求，在网络传输过程中，请求不一定是按先后顺序到达服务器的，那么服务器怎么知道请求的先后顺序呢，其实答案很简单，就是加个时间戳参数。不过当时一下子没反应过来，还谈到了域名发散，面试官说太复杂，然后才谈到加表明各个请求之间关系的参数。
-- 性能优化（讲了雅虎军规（资源加载、代码规范、缓存、服务器）下次可以优化讲成通用性能优化的方案雅虎军规+vue 项目的优化）
 - 怎么保证 token 的安全性，拿到你的 token 就可以做全部的事情了吗？
 - 弱类型语言的缺点，平时哪些地方让你抓狂
 - 封装统一的网络请求的好处
@@ -13377,7 +13175,7 @@ const intersection = function (nums1, nums2) {
   5.  服务器收到连接释放请求后，发送 ACK 包表示确认。（此状态下，表示客户端到服务器的连接已经释放，不再接受客户端发的数据了，但是服务器要是还发送数据，客户端依然接收）
   6.  服务器将最后的数据发送完毕后，就向客户端发送连接释放报文 FIN，等待客户端确认。
   7.  客户端收到服务器连接释放报文后，发出 ACK 包表示确认。此时客户端会进入 TIME_WAIT 状态，该状态将持续 2MSL（最大报文段生存时间，指报文段在网络中生存的时间，超时将被抛弃）时间，若该时间段内没有服务器重发请求的话，就进入关闭状态，当服务端接收到 ACK 应答后，立即进入关闭状态。
-      ![图片](https://mmbiz.qpic.cn/mmbiz_png/2FMs2KmmepgVbJ6Eb4icspSsOS7hUd9hF6vSPzyVvbZYQVvImadsFyib8eBuDFWua4xT0S1OFzmF1Kw2RuaCKaRg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+      ![](https://mmbiz.qpic.cn/mmbiz_png/2FMs2KmmepgVbJ6Eb4icspSsOS7hUd9hF6vSPzyVvbZYQVvImadsFyib8eBuDFWua4xT0S1OFzmF1Kw2RuaCKaRg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
 - 为什么连接的时候需要三次握手，关闭时需要四次握手
   在建立 TCP 连接时，Server 端在接收到客户端的 SYN 连接请求后，可以直接发送 SYN+ACK 包，其中 ACK 作为应答，SYN 用来发起连接请求。但是关闭连接时，服务端收到 FIN 包时，可能还没有发送完数据，不能立即关闭，所以只能先回复 ACK 包进行确认，告知客户端已经收到 FIN 报文。然后等到服务端数据都发送完毕，才能向客户端发送 FIN 包，所以需要四次握手。
 - 为什么建立连接要三次握手，为什么不是 2 次，4 次
@@ -13427,7 +13225,7 @@ const intersection = function (nums1, nums2) {
 - https 相关
   想要真正的了解 https，需要了解很多相关知识，比如 SSL，对称加密，非对称加密，CA 证书等知识。
   https 协议本身并不是一种新的协议，在 HTTP 跟 TCP 中间加多了一层加密层 TLS/SSL。通常 HTTP 直接和 TCP 通信，而 HTTPS 要先将数据给到 TLS/SSL，数据经加密后，再给到 TCP 进行传输。
-  ![图片](https://mmbiz.qpic.cn/mmbiz_png/2FMs2KmmepgVbJ6Eb4icspSsOS7hUd9hF892vnxqiaeD7sSyuNCEicma6PiaPGDd3khv8HiaZSp83r9GCvDj3AX4bYA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+  ![](https://mmbiz.qpic.cn/mmbiz_png/2FMs2KmmepgVbJ6Eb4icspSsOS7hUd9hF892vnxqiaeD7sSyuNCEicma6PiaPGDd3khv8HiaZSp83r9GCvDj3AX4bYA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
 - https 和 http 有什么区别？
   在回答这个问题之前，我们先看下 http 请求存在哪些不足：
   1.  通信使用明文（不加密），内容可能会被窃听
@@ -13471,7 +13269,7 @@ const intersection = function (nums1, nums2) {
   6.  中间人再通过与客户端建立的对称加密对响应数据进行加密后传输给客户端
   7.  客户端通过与中间人建立的对称加密的秘钥对数据进行解密
       简单来说，中间人攻击中，中间人首先伪装成服务端和客户端通信，然后又伪装成客户端和服务端进行通信（如图）。 整个过程中，由于缺少了证书的验证过程，虽然使用了 https，但是传输的数据已经被监听，客户端却无法得知。
-      ![图片](https://mmbiz.qpic.cn/mmbiz_png/2FMs2KmmepgVbJ6Eb4icspSsOS7hUd9hFVgYcTUz2rp2Xw233jrFiaFphw6P0IlufAhDpiczbJvzwKo0J7Gicsv8Tg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+      ![](https://mmbiz.qpic.cn/mmbiz_png/2FMs2KmmepgVbJ6Eb4icspSsOS7hUd9hFVgYcTUz2rp2Xw233jrFiaFphw6P0IlufAhDpiczbJvzwKo0J7Gicsv8Tg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
 - HTTPS 握手过程中，客户端如何验证证书的合法性
   CA 证书中会包含颁发机构信息、公钥、公司信息、域名、有效期等信息，浏览器验证证书：
   1.  首先就是要验证域名、有效期等信息是否正确
@@ -13532,7 +13330,6 @@ const intersection = function (nums1, nums2) {
 - 数组乱序
 - for in 和 for of 区别
 - 监听一段时间内用户对我方网页的操作
-- 图片预加载
 - css 两列布局，右列定宽，左列自适应。
 - flex，轴
 - addEventListener 细节，如何删除 addEventListener 绑定的事件
@@ -14078,3 +13875,22 @@ function sington(className) {
 
 - 说说项目中遇到的坑，怎么解决的
 - 项目中有考虑到哪些优化的地方？
+
+```markdown
+正则表达式
+
+- 匹配量的：\* + ? {n} {n,} {n,m} .
+- 匹配位置的：^ $
+- 匹配并且需要支持分组的时候需要括号来包裹：(匹配的模式)
+- 匹配条件的：|
+- 匹配集合的：[]
+- 匹配非集合的：[^]
+```
+
+- position:sticky，不脱离文档流，相对于可滚动的父元素
+
+```shell
+git config pull.rebase true
+git pull --rebase
+优化仓库commit
+```
