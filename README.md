@@ -1,3 +1,6 @@
+- promise
+- 虚拟 DOM
+
 https://fe.duyiedu.com/p/t_pc/goods_pc_detail/goods_detail/course_2VKbErGXkTSzvbl9aQ9HgndEtIz?type=2
 
 ```markdown
@@ -150,45 +153,6 @@ ElementUI 日期选择器时间选择范围限制
 重绘和回流
 防截屏防录制：Encrypted Media Extensions API
 使用data url预览图片 https://blog.csdn.net/u012804440/article/details/136018598
-```
-
-```javascript
-/**
- * 手写 parseInt 的实现
- * 要求简单一些，把字符串型的数字转化为真正的数字即可
- * 但不能使用 JS 原生的字符串转数字的 API，比如 Number
- */
-function _parseInt(str, radix) {
-  let str_type = typeof str
-  let res = 0
-  if (str_type !== 'string' && str_type !== 'number') {
-    // 如果类型不是 string 或 number 类型返回NaN
-    return NaN
-  } // 字符串处理
-
-  str = String(str).trim().split('.')[0]
-  let length = str.length
-  if (!length) {
-    // 如果为空则返回 NaN
-    return NaN
-  }
-
-  if (!radix) {
-    // 如果 radix 为0 null undefined
-    // 则转化为 10
-    radix = 10
-  }
-  if (typeof radix !== 'number' || radix < 2 || radix > 36) {
-    return NaN
-  }
-
-  for (let i = 0; i < length; i++) {
-    let arr = str.split('').reverse().join('')
-    res += Math.floor(arr[i]) * Math.pow(radix, i)
-  }
-
-  return res
-}
 ```
 
 ```javascript
@@ -2347,7 +2311,6 @@ observer.observe({ entryTypes: ['longtask'] })
   五层网络模型
   TCP/IP
   HTTP
-  postman/apifox
   AJAX
   跨域及解决方案
   JWT
@@ -3276,7 +3239,6 @@ Array.prototype.forEach = function (callback) {
 - 介绍纯函数
 - 前端性能优化
 - 介绍 JSX
-- 介绍虚拟 DOM
 - 如何设计一个 localStorage，保证数据的实效性
 - 介绍高阶组件
 - sum(2, 3)实现 sum(2)(3)的效果
@@ -3449,7 +3411,6 @@ Array.prototype.forEach = function (callback) {
 - 工程中闭包使用场景
 - 介绍 this 和原型
 - 使用原型最大的好处
-- 为什么虚拟 DOM 比真实 DOM 性能好
 - 单例、工厂、观察者项目中实际场景
 - 项目中树的使用场景以及了解
 - 添加原生事件不移除为什么会内存泄露
@@ -3607,7 +3568,6 @@ Array.prototype.forEach = function (callback) {
 - 提供一个数字 n，生成一组 0\~n-1 的整数，打乱顺序组成数组，打乱几次，如何能够看起来平衡，说出你能想到的所有方法-
 - 如何处理一个重大事故 bug
 - 监控体系
-- 虚拟 dom 有什么好的地方？框架为什么要设计虚拟 dom？
 - webpack 的缺点，让你设计一个新的构建打包工具，你会怎么设计？
 - 在线文档编辑，如何处理两人的冲突，如何展示，考虑各种场景
 - excel 文档冲突高级处理，文章冲突呢？是上个问题的深化。
@@ -3697,14 +3657,6 @@ Array.prototype.forEach = function (callback) {
   }
   ```
 
-- promise 怎么实现链式调用跟返回不同的状态
-  实现链式调用：使用`.then()`或者`.catch()`方法之后会返回一个`promise`对象，可以继续用`.then()`方法调用，再次调用所获取的参数是上个`then`方法`return`的内容
-  1.  promise 的三种状态是 `fulfilled`(已成功)/`pengding`(进行中)/`rejected`(已拒绝)
-  2.  状态只能由 Pending --> Fulfilled 或者 Pending --> Rejected，且一但发生改变便不可二次修改；
-  3.  Promise 中使用 `resolve` 和 `reject` 两个函数来更改状态；
-  4.  then 方法内部做的事情就是状态判断:
-  - 如果状态是成功，调用成功回调函数
-  - 如果状态是失败，调用失败回调函数
 - 函数柯里化
   `柯里化(Currying)` 是把接收多个参数的原函数变换成接受一个单一参数（原来函数的第一个参数的函数)并返回一个新的函数，新的函数能够接受余下的参数，并返回和原函数相同的结果。
 
@@ -5214,7 +5166,6 @@ Array.prototype.forEach = function (callback) {
 - 业务，业务，还是业务，项目复盘有没有更好的解决方案。
 - 如何处理一个重大事故 bug
 - 监控体系
-- 虚拟 dom 有什么好的地方？框架为什么要设计虚拟 dom？
 - webpack 的缺点，让你设计一个新的构建打包工具，你会怎么设计？
 - 在线文档编辑，如何处理两人的冲突，如何展示，考虑各种场景
 - excel 文档冲突高级处理，文章冲突呢？是上个问题的深化。
@@ -5426,7 +5377,6 @@ Array.prototype.forEach = function (callback) {
 - 继承和原型链的各种问题
 - 浏览器事件循环
 - Symbol 有了解吗，迭代器有了解吗，哪些是可迭代的
-- 虚拟 DOM
 - vue 实现原理
 - 问了个设计题目，比如说你在写点餐业务的时候，有好几个人扫码点餐，怎么处理。基本上是通过 webSocket 来联系多端，比如说 a 加了个毛肚， 发送添加数据至 b 和 c。最后下单时，再次验证购物车是否一样，最后提交。
 - 浏览器的渲染过程，以及缓存
@@ -6261,7 +6211,6 @@ Array.prototype.forEach = function (callback) {
 - 大数加法如何实现
 - v-for 为什么会有 key
 - 为什么 vue 的 data 用一个函数而不是一个对象
-- 虚拟 DOM 介绍一下
 - diff 算法介绍一下
 - webpack 和 Vite 的区别，迁移过程是怎么样的
 - 前端工程化你是怎么理解的
@@ -6931,7 +6880,7 @@ console.log(newShop.apple)
 - 手写代码，实现借用构造函数（看红宝书）
 - Vue 双向绑定原理（事件监听， getter 和 setter ）
 - Virtual DOM 和 diff 算法（ DOM 树，分层比较， key ， DocumentFragment ）
-- jQuery 链式调用的原理（**知乎-jQuery 链式调用**\[17]）
+- jQuery 链式调用的原理
 - 最近碰到的技术难题，不一定是前端（我答了 B 站的爬虫与反爬虫）
   关于反爬虫，请求头中的这两个字段要修改。
   - Host ：发出请求的页面所在的域。
@@ -7156,7 +7105,6 @@ console.log(newShop.apple)
 - 有没有对项目打包做过优化
 - 对 Vue 的认识，Vue 相较于三剑客时代，对于开发人员来说，优化了什么
 - Vue 有哪些特性
-- 追问虚拟 DOM
 - 描述一下 vue-loader 的实现原理，如果让你来实现，你会怎么实现
 - SSR 和正常的渲染的区别，服务端和前端需要怎么做
 - 用户访问你们的系统，渲染过程是什么样子(我答了从 URL 到渲染的过程，继续追问，服务器给用户返回资源 后，怎么渲染)
@@ -7166,7 +7114,6 @@ console.log(newShop.apple)
 - react 的了解？
 - 有没有用 node 写过一些中间件(我说写过一个 token 的中间件用来鉴权，他说不算，他说的是中台那种框架中 间件)
 - 移动端了解过吗？(我说媒体查询适配过，小程序了解过)
-- 讲一讲 jquery 的链式调用
 - 拉回到项目，对第二个开源项目比较感兴趣，问了很多细节，实现了什么功能，从用户出发到使用场景进行分析并提出疑问，跟我探讨，帮我总结 二十多分钟又过去了
 - 第一个项目，你觉得你遇到最大的挑战是什么？
 - 你觉得你带团队的时候，带实验室和带团队，区别是什么，挑战是什么，遇到过什么问题？
@@ -7529,7 +7476,6 @@ console.log(newShop.apple)
   2.  babylon 进行解析得到 AST
   3.  plugin 用 babel-traverse 对 AST 树进行遍历转译,得到新的 AST 树
   4.  用 babel-generator 通过 AST 树生成 ES5 代码
-- 虚拟 DOM 的理解
 - 项目里如何做的性能优化
 - 写过 webpack loader 或者插件吗
 - 讲讲你写的 babel 插件
@@ -7539,9 +7485,7 @@ console.log(newShop.apple)
 - 介绍一下为什么要有 三次握手，四次挥手
 - 写过 babel 插件吗？用来干啥的？怎么写的 babel 插件
 - 知道怎么转化成 AST 的吗？
-- 项目介绍
 - 说一下你的项目有哪些复杂的点，以及怎么解决的
-  这个聊了挺久的，还聊了一些数据量比较大的怎么处理。
 - 你们的业务组件库有多少个，是什么样的组件
 - 权限组件是怎么设计的
 - 介绍一下你对中间件的理解
@@ -8678,8 +8622,6 @@ diff 算法是通过**「同层的树节点」**进行比较而非对树进行�
 - amd，cmd 规范
 - 用户页面打开很慢，有哪些优化方式？
 - react 的虚拟 dom 了解多少？这种类型的框架和传统的 jq 操作 dom 的优势？ diff 算法？说了一下虚拟 dom 如何实现，diff 算法做了什么优化
-- react 的高阶组件？
-- redux？ 讲解了一下 redux 原理
 - 请求头包含哪些部分
 - 服务端渲染？ 答，个人认为服务端渲染的好处在与首屏加载速度和利于 seo，但是目前网络环境下，首屏加载速度没有太多差别，hybrid App 首页一般都是原生的，很少会有白屏，客户端渲染还可以减少服务端的压力
 - webpack 打包？ 讲了一下打包过程，loader，和 plugin 如何起作用的
@@ -8731,7 +8673,6 @@ diff 算法是通过**「同层的树节点」**进行比较而非对树进行�
 - vue.nextTick 实现原理
 - diff 算法
 - 如何做到的双向绑定
-- 虚拟 dom 为什么快
 - 如何设计一个组件
 - 用过哪些 loader 和 plugin
 - loader 的执行顺序为什么是后写的先执行
@@ -9007,7 +8948,6 @@ diff 算法是通过**「同层的树节点」**进行比较而非对树进行�
 - 说说 http
 - 说说 vue 双向绑定
 - diff 算法
-- 虚拟 dom
 - http 缓存
 - 讲讲 http2.0
 - 说说状态逻辑复用问题
@@ -9026,7 +8966,6 @@ diff 算法是通过**「同层的树节点」**进行比较而非对树进行�
 - new 原理实现
 - 状态码 403 404 503 304 说说
 - diff 算法
-- 虚拟 dom
 - 说说事件循环
 - 浏览器缓存
 - nextTick 原理
@@ -9048,7 +8987,6 @@ diff 算法是通过**「同层的树节点」**进行比较而非对树进行�
 - 移动 1px 问题
 - 函数柯里化
 - diff 算法
-- 虚拟 dom
 - nextTick 原理
 - 事件循环
 - 如何解决移动端 click300ms 延迟？
