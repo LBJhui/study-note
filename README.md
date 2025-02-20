@@ -3,19 +3,10 @@
 
 https://fe.duyiedu.com/p/t_pc/goods_pc_detail/goods_detail/course_2VKbErGXkTSzvbl9aQ9HgndEtIz?type=2
 
-```markdown
-# v-for 和 v-if 哪个优先级更高？会产生什么后果？
-
-vue2: v-for > v-if
-vue3: v-if > v-for
-
-心智负担：不要同时使用 v-for 和 v-if
-```
-
 ```javascript
 // 脚本加载失败如何重试
 
-在项目中遇到的一个难点，无论是我们用的原生js还是用的框架最后上线的时候都会是打包好之后，打包好之后的js文件中都会自己或者自动引入script，在生产环境中会出现其中有一个script无法加载成功的时候怎么处理，当js加载不出来的时候页面是显示不出来的，最起码功能是不正常的，现在都是单页面应用，js加载不成功的话对页面影响还是比较大的，所以我们需要去处理这个问题。。。
+// 在项目中遇到的一个难点，无论是我们用的原生js还是用的框架最后上线的时候都会是打包好之后，打包好之后的js文件中都会自己或者自动引入script，在生产环境中会出现其中有一个script无法加载成功的时候怎么处理，当js加载不出来的时候页面是显示不出来的，最起码功能是不正常的，现在都是单页面应用，js加载不成功的话对页面影响还是比较大的，所以我们需要去处理这个问题。。。
 
 // 1. 什么时间重试 捕获
 // 2. 如何重试
@@ -61,10 +52,10 @@ window.addEventListener(
   },
   true
 )
-
 ```
 
 ```markdown
+重绘和回流
 何时发生重排？何时发生重绘？
 **重排**：
 所有对布局树的更改，以及所有对布局树的读取，都会引发重排
@@ -72,11 +63,14 @@ window.addEventListener(
 读取：同步重排
 **重绘**
 对所有非几何信息的读写所造成的可见样式的变化
-```
 
-```text
-栈：变量、参数
-堆：对象
+- 重绘和回流有什么区别？
+  1. 重绘
+  - 元素样式的可见属性发生改变（颜色、背景色），但布局不改变的时候
+  - 重绘不影响页面布局，只会重绘受影响的元素
+  2. 回流
+  - 布局的变化导致元素的尺寸、位置或隐藏状态的变化，需要重新计算整个布局
+  - 回流会造成重绘，但重绘不一定会回流
 ```
 
 ```markdown
@@ -94,7 +88,6 @@ window.addEventListener(
 structuredClone
 [Vue3 之 script-setup 全面解析](https://www.jianshu.com/p/5096bfb42e5a)
 纯前端图片压缩 图转base64读出宽高，canvas画图
-前端打印 printjs
 对等依赖 peerDependencies(package.json) npm i --legacy-peer-deps
 函数管道
 vue3 h函数
@@ -120,7 +113,6 @@ vue方法中属性丢失的问题 methods配置的方法与组件实例的方法
 v-model 父传子值，元素更改后获取值滞后，nextTick
 右键菜单组件的封装 https://blog.csdn.net/DuyiZiChen/article/details/131405493
 SocketIO
-视频文本化 text-image
 全局导入和局部导入的区别
 ESModule 的工作原理
 transform 从右到左 translate3d
@@ -150,56 +142,11 @@ ElementUI 日期选择器时间选择范围限制
 自定义指令控制权限的弊端 https://blog.csdn.net/layonly/article/details/139402930 DOM 元素删除后，生命周期会正常进行，还会请求数据
 组件循环依赖：动态导入
 符号绑定
-重绘和回流
 防截屏防录制：Encrypted Media Extensions API
 使用data url预览图片 https://blog.csdn.net/u012804440/article/details/136018598
 ```
 
-```javascript
-/**
- * 依次顺序执行一系列任务
- * 所有任务全部完成后可以得到每个任务的执行结果
- * 需要返回两个方法，start用于启动任务，pause用于暂停任务
- * 每个任务具有原子性，即不可中断，只能在两个任务之间中断
- * @param {...Function} tasks 任务列表，每个任务无参、异步
- */
-function processTasks(...tasks) {
-  let isRunning = false
-  const result = []
-  let i = 0 // 当前执行的任务索引
-  return {
-    start() {
-      return new Promise(async (resolve, reject) => {
-        if (isRunning) {
-          return
-        }
-        isRunning = true
-        // 依次执行任务
-        while (i < tasks.length) {
-          result.push(await tasks[i]())
-          i++
-          if (!isRunning) {
-            return
-          }
-        }
-        // 所有任务均已完成
-        isRunning = false
-        resolve(result)
-      })
-    },
-    pause() {
-      isRunning = false
-    }
-  }
-}
-```
-
 ```Typescript
-// 使用泛型和keyof约束参数
-function getProperty<T, K extends keyof T>(obj: T, name: K) {
-  return obj[name] // 这里的name是K类型，所以是字符串
-}
-
 // 用TS构建长属性列表
 // type Result = ['p0', 'p1', 'p2']
 type ResultField<Count extends number, Result extends string[] = []> = Result['length'] extends Count ? Result[number] : ResultField<Count, [...Result, `p${Result['length']}`]>
@@ -209,7 +156,6 @@ type GenerateObject<Count extends number> = {
 }
 
 type MyObject = Omit<GenerateObject<99>, 'p0'> & { type: number }
-
 ```
 
 ```markdown
@@ -219,18 +165,6 @@ type MyObject = Omit<GenerateObject<99>, 'p0'> & { type: number }
 ```
 
 ```javascript
-Array.prototype.myForEach = async function (callback, thisArg) {
-  const _arr = this,
-    _isArray = Array.isArray(_arr),
-    _thisArg = thisArg ? Object(thisArg) : globalThis
-  if (!_isArray) {
-    throw new TypeError('The caller of myForEach must be the type an array')
-  }
-  for (let i = 0; i < _arr.length; i++) {
-    await callback.call(_thisArg, _arr[i], i, _arr)
-  }
-}
-
 fun([() => console.log('start'), () => sleep(1000), () => console.log('1'), () => sleep(2000), () => console.log('2'), () => sleep(3000), () => console.log('end')])
 
 function sleep(ms) {
@@ -1696,19 +1630,6 @@ function* walk(str) {
 }
 ```
 
-```ts
-type Props = {
-  onClick: (e: MouseEvent) => void
-  onDrag: (e: DragEvent) => void
-  news1Types: string
-  class2Name: string
-}
-
-type t1 = keyof Props
-type t2 = keyof Props & {}
-type t3 = keyof Props & `on${string}`
-```
-
 ```js
 执行上下文
 // ①
@@ -1975,18 +1896,6 @@ const str = '10000000000'
 const s = str.replace(/\B(?=(\d{3})+$)/g, ',')
 ```
 
-```ts
-// TS中字符串索引带来的类型问题
-const obj = {
-  name: 'LBJhui',
-  age: 18
-}
-
-function method(key: string) {
-  const v = obj[key as keyof typeof obj]
-}
-```
-
 ```js
 // vue-router
 base: '/'
@@ -2048,12 +1957,6 @@ $btnColors: #409eff, #67c23a, #f56c6c, #e6a23c, #909399;
     }
   }
 }
-```
-
-```text
-inital: 默认值
-unset 清除浏览器样式
-revert 使用浏览器的样式
 ```
 
 ```text
@@ -2643,19 +2546,10 @@ text-shadow：只适合小的外描边
   - 仅加载页面所需的字体变体
   - 使用 font-display: swap 属性来优化字体加载
 - 如何将一个字符串转为二进制？
-
   1. 将字符串转为字符数组
   2. 遍历字符数组，使用 charCodeAt() 将每个字符元素转为 ASCII 码
   3. 使用 toString(2) 将 ASCII 码元素转为二进制
-  4. 使用 join() 拼接数组元素，转为二进制字符串
-
-- 如何关闭 ios 键盘首字母自动大写 `<input type="text" autocapoitalize="off" />`
-- 如何检测一个数组中是否包含某一个元素？
-  1. indexOf 返回元素下标，没有返回 -1
-  2. find 查找并返回目标元素，没有 undefined
-  3. findIndex 查找并返回目标元素下标，没有返回 -1
-  4. some 查找数组中是否有符合条件的元素，返回 true/false
-  5. includes 返回数组是否包含指定的元素，返回 true/false
+  4. 使用 join() 拼接数组元素，转为二进制字符串\
 - 微信小程序面试题：组件与普通页面有什么不同？
   1. 组件的 .js 文件执行的 Component() 函数，页面 .js 文件执行的是 Page() 函数
   2. 组件在 .json 文件中必须声明 "component": true 属性
@@ -2692,13 +2586,7 @@ text-shadow：只适合小的外描边
   缓存
   客户端 localStorage（md5 base64）
   服务器
-- 重绘和回流有什么区别？
-  1. 重绘
-  - 元素样式的可见属性发生改变（颜色、背景色），但布局不改变的时候
-  - 重绘不影响页面布局，只会重绘受影响的元素
-  2. 回流
-  - 布局的变化导致元素的尺寸、位置或隐藏状态的变化，需要重新计算整个布局
-  - 回流会造成重绘，但重绘不一定会回流
+
 - SPA 的优缺点，以及在何种场景下更适合使用 SPA
   优点：
   用户体验好
@@ -2925,7 +2813,6 @@ Array.prototype.forEach = function (callback) {
 - 前端路由
 - instanceof 实现原理
 - pushState
-- 函数的 length 属性
 - sass @extend @minin %占位符
 - PageSpy
 - getComputedStyle
@@ -2941,7 +2828,6 @@ Array.prototype.forEach = function (callback) {
 - box-decoration-break
 - resizeobserver
 - lattics
-- width：fit-content
 - 隐式转换
 - 异步代码同步化
 - vite
@@ -2962,7 +2848,6 @@ Array.prototype.forEach = function (callback) {
 - 协变与逆变
 - promise 限制并发数
 - 手写继承
-- 箭头函数跟普通函数的区别
 - flex 1 全写
 - vue 双向绑定原理
 - https 实现原理（越详细越好）
@@ -3181,7 +3066,6 @@ Array.prototype.forEach = function (callback) {
 - 通过什么做到并发请求
 - http1.1 时如何复用 tcp 连接
 - 介绍 service worker
-- 介绍 position 属性包括 CSS3 新增
 - 浏览器事件流向
 - 介绍事件代理以及优缺点
 - 前端怎么控制管理路由
@@ -3222,12 +3106,9 @@ Array.prototype.forEach = function (callback) {
 - 如何判断链表是否有环
 - 介绍二叉搜索树的特点
 - 观察者和发布-订阅的区别
-- 介绍纯函数
 - 前端性能优化
-- 介绍 JSX
 - 如何设计一个 localStorage，保证数据的实效性
-- 介绍高阶组件
-- sum(2, 3)实现 sum(2)(3)的效果
+- sum(2, 3) 实现 sum(2)(3)的效果
 - 两个对象如何比较
 - JS 的原型
 - 变量作用域链
@@ -3345,8 +3226,6 @@ Array.prototype.forEach = function (callback) {
 - 深拷贝和浅拷贝
 - loadsh 深拷贝实现原理
 - ES6 中`let`块作用域是怎么实现的
-- 虚拟 DOM 主要做了什么
-- 虚拟 DOM 本身是什么（JS 对象）
 - 304 是什么
 - 打包时 Hash 码是怎么生成的
 - 随机值存在一样的情况，如何避免
@@ -3356,9 +3235,7 @@ Array.prototype.forEach = function (callback) {
 - `node`接口转发有无做什么优化
 - `node`起服务如何保证稳定性，平缓降级，重启等
 - 什么是单页项目
-- 遇到的复杂业务场景
 - 介绍排序算法和快排原理
-- 堆和栈的区别
 - 介绍闭包
 - 闭包的核心是什么
 - 网络的五层模型
@@ -3405,7 +3282,6 @@ Array.prototype.forEach = function (callback) {
 - 定时器为什么是不精确的
 - 介绍宏任务和微任务
 - 介绍 class 和 ES5 的类以及区别
-- 介绍箭头函数和普通函数的区别
 - 介绍 defineProperty 方法，什么时候需要用到
 - for..in 和 object.keys 的区别
 - 使用闭包特权函数的使用场景
@@ -3748,14 +3624,6 @@ Array.prototype.forEach = function (callback) {
     return Object.prototype.toString.call(res) === '[object Object]' ? res : obj
   }
   ```
-
-- 不应该使用箭头函数一些情况：
-
-  - 当想要函数被提升时(箭头函数是匿名的)
-  - 要在函数中使用`this/arguments`时，由于箭头函数本身不具有`this/arguments`，因此它们取决于外部上下文
-  - 使用命名函数(箭头函数是匿名的)
-  - 使用函数作为构造函数时(箭头函数**没有构造函数**)
-  - 当想在对象字面是以将函数作为**属性**添加并在其中使用对象时，因为咱们无法访问 `this` 即对象本身。
 
 - 判断数组的四种方法
 
@@ -4942,7 +4810,6 @@ Array.prototype.forEach = function (callback) {
 - 小程序有没有 HMR，能不能讲讲 HMR 的原理？
   小程序没有 HMR，当时只讲出来了保存代码小程序是怎么刷新的，HMR 没有讲出来。
 - 讲讲 z-index
-- 讲讲 position
 - 实现一个 ts Include
 - 实现一个 useInterval
 - js event loop 执行顺序
@@ -4962,14 +4829,12 @@ Array.prototype.forEach = function (callback) {
 - http2
 - Tree Shaking 原理
 - 最长回文子串
-- 大数相加
 - 聊了很多工程化相关的问题，主要是项目从开发到上线这一整套流程，聊完之后他也指出了我说的这一套流程有什么不完善的地方。
 - React fiber
 - http2
 - Tree Shaking 原理
 - 项目优化和网络优化
 - 股票最大收益
-- 大数相加
 - 各个模块、按钮怎么设计权限；
 - 分角色、分地域怎么设计？
 - 要加个表头，还要控制展示的顺序，在各个浏览器表现一致，怎么设计？说出所有方案，想到什么自由发挥了……
@@ -5160,7 +5025,6 @@ Array.prototype.forEach = function (callback) {
 - cookie 有哪些属性
 - cookie,session,localstorage,sessionstorage 有什么区别
 - 怎么禁止 js 访问 cookie
-- position 有哪些属性
 - 你知道哪些状态码
 - options 请求方法有什么用
 - less,sass 它们的作用是什么
@@ -5204,7 +5068,6 @@ Array.prototype.forEach = function (callback) {
 - 有没有做过和安全相关的？waf 主要做了什么？
 - 有没有做过埋点和性能上报相关？
 - 如果你们用一个第三方的上报库，但页面加载这个 JS 失败了，还想上报该怎么办？
-- 实现两个大数相加
 - 实现 DOM 字符串转虚拟 DOM 对象（不能用 DOM 相关的 api）
 - 有木有做过你觉得比较困难的项目？
 - 管理系统都做了哪些业务？有没有做一些提高开发效率的东西？
@@ -5229,7 +5092,6 @@ Array.prototype.forEach = function (callback) {
 - 做过 webpack 性能优化吗？有用过 rollup 吗？
 - 什么是 TS 泛型？
 - 从输入 url 到页面展示经过了哪些步骤？
-- 讲一下重绘和回流
 - 知道 BFC 吗？使用场景有哪些？
 - 怎么判断是否为数组？
 - 页面卡顿怎么去定位？
@@ -5256,7 +5118,6 @@ Array.prototype.forEach = function (callback) {
 - 服务发现为什么用 ip，而不用域名？
 - 怎么实现移动端的布局？
 - iOS 下软键盘输入框遮挡遇到过问题么？怎么解决顶不起来的问题？
-- 实现两个大数相加
 - 求一个数组最大子项的和，要求这些子项在数组中的位置不是连续的
 - 做过哪些公共组件？DatePicker 怎么实现的？难点在哪里？
 - 组件封装有哪些原则？
@@ -5307,8 +5168,6 @@ Array.prototype.forEach = function (callback) {
 - 作为前端你认为什么最重要
 - 开发流程一般都是怎么做的
 - 对于 angular vue react 的理解
-- 如果写 react 能接受吗
-- 浏览器的回流与重绘
 - BFC
 - 输入网址后发生了什么
 - 继承和原型链的各种问题
@@ -5448,7 +5307,6 @@ Array.prototype.forEach = function (callback) {
 - esbuild 知道么介绍下
 - 你用过 vue，现在出了 vue3.0 介绍下
 - vue 现在出了一个打包工具 vite，介绍下为什么会比其他的打包工具快
-- 介绍下项目，微前端实现
 - 介绍下 https 加密过程
 - 第三方登录，如果让你去设计，你会怎么考虑
 - 介绍下浏览器和 node 的事件循环
@@ -5605,7 +5463,6 @@ Array.prototype.forEach = function (callback) {
 - 小程序有没有 HMR，能不能讲讲 HMR 的原理？
   小程序没有 HMR，当时只讲出来了保存代码小程序是怎么刷新的，HMR 没有讲出来。
 - 讲讲 z-index
-- 讲讲 position
 - 实现一个 ts Include
 - 实现一个 useInterval
 - js event loop 执行顺序
@@ -5625,13 +5482,11 @@ Array.prototype.forEach = function (callback) {
 - http2
 - Tree Shaking 原理
 - 最长回文子串
-- 大数相加
 - 聊了很多工程化相关的问题，主要是项目从开发到上线这一整套流程，聊完之后他也指出了我说的这一套流程有什么不完善的地方。
 - http2
 - Tree Shaking 原理
 - 项目优化和网络优化
 - 股票最大收益
-- 大数相加
 - 如何解决跨域问题
 - es6 之后的新特性
 - 数组扁平化如何做
@@ -5862,7 +5717,6 @@ Array.prototype.forEach = function (callback) {
 - 双向数据绑定的原理
 - 追问：3.0 会有改进吗？传统的 2.0 数据绑定怎么解决数组问题
 - 响应式你是怎么做的？说说
-- 重排重绘有了解吗？系统地说说
 - 场景题：假如你的博客被脚本注入了？你该怎么去防御？
 - 追问：escapeHTML 怎么转译呢？
 - 你博客有做过鉴权吗？说一说
@@ -6144,9 +5998,7 @@ Array.prototype.forEach = function (callback) {
   console.log('script end')
   ```
 
-- 大数加法如何实现
 - v-for 为什么会有 key
-- 为什么 vue 的 data 用一个函数而不是一个对象
 - diff 算法介绍一下
 - webpack 和 Vite 的区别，迁移过程是怎么样的
 - 前端工程化你是怎么理解的
@@ -6247,7 +6099,6 @@ Array.prototype.forEach = function (callback) {
 - 实现一下 koa 中间件原理，如何判断调用了多次 next 并抛出错误
 - 事件循环介绍一下，Node 事件循环中如果在 Poll 阶段不停地产生新的事件会怎样
 - Node 中如果要对很大的字符串做 JSON.parse 应该怎样处理
-- 讲一下浏览器中的重绘和重排
 - 介绍一下浏览器的合成层
 - 如果一个页面需要同时适配 PC 端和移动端，应该怎么做，rem 和 vw 方案有什么区别
 - typescript 定义一个对象应该如何定义，如果定义对象的 key 必须是字符串，应该如何定义
@@ -6261,7 +6112,6 @@ Array.prototype.forEach = function (callback) {
 - serverless 有多少了解，它适合做什么，都用它写过什么
 - 客户端提供 API 版本不一致这类兼容性问题你是如何做的处理
 - webpack 迁移 Vite 有遇到什么问题，snowpack 有了解过么，它和 vite 有什么区别
-- 对 React 熟悉么，hooks 有哪些最佳实践
 - 性能优化都做过哪些
 - 一个页面的性能指标都有哪些，你是如何做监控的，如何监控 node 服务的性能监控
 - 实现一个二叉树中序遍历的迭代器，时间复杂度最好是多少，最差是多少，空间复杂度是多少
@@ -6407,11 +6257,9 @@ console.log(newShop.apple)
  **/
 ```
 
-- 如果需要你实现扫码登录、单点登录，有什么方案 做的业务不太感兴趣，后续没有继续面
+- 如果需要你实现扫码登录、单点登录，有什么方案
 - 为什么之前用 SSR，为什么又从 SSR 迁移成 CSR
 - 离线包的原理是什么
-- React hooks 比 class component 的优势在哪，如何在 hooks 中实现 shouldComponentUpdate 这个生命周期，有实现过自定义的 hooks 么，useCallback 和 useMemo 的区别是什么
-- 为什么你们移动端选择 vue，pc 选择 react，这两个在性能上有什么区别么
 - 有做过哪些性能优化
 - vite 的原理是什么，迁移 vite 有遇到什么问题么
 - serverless 有什么了解，它背后的实现原理是什么，你用它做过哪些东西
@@ -6456,7 +6304,6 @@ console.log(newShop.apple)
 - 提升开发效率你们有做过什么么
 - 性能上优化有做过哪些事情
 - 解释一下事件循环
-- 解释浏览器渲染机制：重绘、重排，如何优化？
 - 对 B 端和 C 端在技术开发上侧重点都有哪些
 - 请写一个抽奖程序 ，已有参与抽奖的员工工号组成的数组 staffIds。
   规则 1：同一员工不可重复中奖。
@@ -6495,10 +6342,7 @@ console.log(newShop.apple)
 - 在 git CI 做过哪些事，做的动机是什么
 - 业务上，前端和后端的工作占比是怎样的
 - 有升级到 Vue3 么，觉得 Vue 的优点是怎样的
-- Vue 和 React 觉得哪个更优雅
 - 脚手架用的是什么，有自己做过脚手架么，Vite 的原理是什么，如何区分环境
-- Vue3 的组合式 API 有了解么
-- typescript 和 Vue2 遇到过兼容性问题么
 - 为什么要把 SSR 迁移到 CSR
 - 离线包的原理是什么，有做离线包增量更新么
 - bridge 原理有了解么
@@ -6511,8 +6355,6 @@ console.log(newShop.apple)
 - 有没有遇到过移动端浏览器兼容问题
 - js 的数据类型都有哪些，有什么区别，为什么基本数据类型存到栈但是引用数据类型存到堆
 - 数据类型常用的判断方式都有哪些
-- ES6 都用到哪些
-- Promise 的 then 的链式调用，返回的一个新的 promise 的状态是什么
 - await 和 promise 的关系，分别的应用场景有哪些
 - esmodule 和 commonjs 区别是什么，还接触过其他的模块化方案么
 - 浏览器都有过哪些了解，内核都有哪些，chrome 浏览器开启一个页签时开启了多少个进程，对应开启了哪些线程
@@ -6567,7 +6409,6 @@ console.log(newShop.apple)
 - commonjs 和 esm 的模块引入和加载执行的区别是什么
 - node 调用 RPC 是怎么做的，对 thrift 有哪些了解
 - SSR 和 CSR 的优势分别是什么
-- Node 用的什么框架
 - 如果页面中有大量的 DOM 更新，导致页面变卡，有哪些方案可以优化
 - 换肤方案是如何做的
 - 如果在 js 中执行 location.href = url，这个行为有可能会有哪些安全问题
@@ -6575,7 +6416,6 @@ console.log(newShop.apple)
 - XSS 都有哪些方式，如果过滤都需要过滤哪些内容
 - Vue 和 React 的区别，项目是如何做选型的
 - 介绍一个之前重构的项目
-- typescript 的优缺点
 - 有没有经历过需求无法实现或实现难度较大的情况，这种情况如何处理呢
 - 之前做过最有挑战的问题
 - 实现一个类似微信聊天列表页的布局，有如下需求
@@ -6620,7 +6460,6 @@ console.log(newShop.apple)
 - Vue 和 React 的区别
 - proxy 和 defineproperty 的在 Vue 中区别是什么
 - Vue-router 原理
-- js 和 ts 混合开发有没有最佳实践
 - Vite 为什么会比 webpack 快
 - Rollup 和 webpack 打包结果有什么异同
 - 问输出，解释一下函数调用栈和作用域链的关系
@@ -6641,7 +6480,6 @@ console.log(newShop.apple)
 
 - 对 js 的异步是如何理解的
 - 如何理解闭包
-- 求一个字符串的不重复的最长字串的长度 力扣
 - 判断一个对象是否是循环引用对象
 - 团队内部 eslint 的规范是如何指定的
 - 从输入 url 到渲染页面，都发生了什么
@@ -6652,11 +6490,9 @@ console.log(newShop.apple)
 - 安全问题遇到过哪些，CSRF 的加签名是如何做的
 - 单向链表反转
 - 快速排序
-- 输出数组中频率第二高的元素的下标
 - 幂等与非幂等的区别
 - get 请求是否可以传图片
 - 有没有遇到过前端安全问题
-- 线上问题一般如何处理
 - 简述 Vue 的生存周期（创建，挂载，更新，销毁）
 - 你用过 Bootstrap 写过库吗？让你用 Bootstrap 设计一个系统，怎么设计？（这问题我现在都不知道怎么答）
 - Express 和 Koa 框架的区别、优缺点
@@ -6680,7 +6516,6 @@ console.log(newShop.apple)
 - 在线写代码， CSS 的单行和多行截断？（ overflow ， text-overflow ）
 - Vue 的双向绑定原理（事件监听， getter 和 setter ）
 - 在线写代码，给定一个二叉树，求根节点到叶子节点的路径上所有节点值之和（DFS，先序遍历，递归）
-- 在线写代码，给定两个有序数组，合并为一个有序数组。不许使用 js 的 concat 和 sort 方法（两个指针）
 - 在线写代码，两栏布局，左边定宽右边自适应，等高（ flex ， grid ， float ， position ，方法很多随便说几个）
 - 简述自定义事件实现方法（参看红宝书）
 - 简述 getter 和 setter 写法（参看红宝书）
@@ -6691,8 +6526,6 @@ console.log(newShop.apple)
 - document.cookie 的格式，写一个封装后的函数（格式同上，函数就是花式处理字符串）
 - session 原理（基于 Cookie ，或查询字符串，或 ETag ）
 - 手写代码，不产生新数组，删除数组里的重复元素（排序， splice() ）
-- 项目细节（问了我一堆后端，还好当年项目搭档的源码我还有印象）
-- 你有什么要问我的吗？（见后文小结里的 HR 相关文章）
 - 6 道基本技术问题，居中、闭包、块级元素和行内元素等（答案略）
 - 某个项目的页面布局方式，缓存的设计和优化方式（本地存储和协议相关的）
 - ajax 的原生写法（创建 XHR 对象， open() ， setRequestHeader() ， send() ， onreadystatechange ）
@@ -6750,11 +6583,10 @@ console.log(newShop.apple)
 - webpack 用过吗？如何处理图片、 CSS 文件？（各种 loader ）
 - 使用 flex 布局写移动端布局（注意 flex-direction 要改）
 - jQuery 的 delegate 原理（事件冒泡与捕获）
-- position 的取值和含义（**W3Cschool-position 属性**[19]）
 - z-index 的蜜汁用法（这是一个“拼爹”的属性）
 - CORS 跨域文件共享的请求头（询问允许的方法和域）
 - 获取页面滚动高度（ window.pageYOffset ）
-- 箭头函数、闭包、异步（老生常谈，参见上文）
+- 闭包、异步（老生常谈，参见上文）
 - 高阶函数（呃……我真不太清楚这是啥，听起来挺像闭包的）
 - 求 N 的阶乘末尾有多少个 0，在线码代码或讲思路（求因数，统计 2、5、10 的个数）
 - 给一个小于一百万的数，求和它最接近的 Fibo 数（我的思路是简单地求数列然后求差，面试官说 Fibo 数超过 34 个以后就超过一百万，可以把 34 个数都求出来然后研究状态转换……）
@@ -6783,7 +6615,6 @@ console.log(newShop.apple)
   console.log(c.b)
   ```
 
-- 给定一个升序整型数组[0,1,2,4,5,7,13,15,16],找出其中连续出现的数字区间，输出为 ["0->2","4->5","7","13","15->16"]
 - 请实现以下的函数，可以批量请求数据，所有的 URL 地址在 urls 参数中，同时可以通过 max 参数控制请求的并发度，当所有请求结束之后，需要执行 callback 回调函数。发请求的函数可以直接使用 fetch 即可
 - 实现一个字符串反转：输入：[www.toutiao.com.cn](http://www.toutiao.com.cn) 输出：cn.com.toutiao.www
   要求：1.不使用字符串处理函数 2.空间复杂度尽可能小
@@ -6795,7 +6626,6 @@ console.log(newShop.apple)
 - 性能指标，如何理解 TTI，如何统计，与 FID 有什么区别，如何实现统计，还聊了很多性能的东西
 - 说说你所了解的安全问题及防护方法（[Web 安全总结(面试必备良药)](http://mp.weixin.qq.com/s?__biz=MzI0MzIyMDM5Ng==&mid=2649825865&idx=1&sn=a049c26b3f81d8657a6066b8e11a7f05&chksm=f175e88ac602619cd82cca9716d7054007470ac77ba1a2d5b23d667cd0e7af73ebeba62ce835&scene=21#wechat_redirect)）
 - 说说你知道的设计模式，并举个对应的模式例子
-- h5 首页为什么做成了服务端渲染？
 - 打包结果优化，具体做了哪些优化
 - vue 中 beforeCreate 和 created 的区别
 - vue 中用过哪些修饰器？
@@ -6902,7 +6732,6 @@ console.log(newShop.apple)
 - Vue 的特性
 - Vue-loader
 - Eslint 的使用及原理(原理没答上来，他建议我去了解一下计算机的基础编译原理)
-- 重排和重绘
 - 手撕事件发送和接收(裂开了，讲了思路,没有撕出来)
 - 闭包
 - extends
@@ -7052,7 +6881,7 @@ console.log(newShop.apple)
 - 有了【`Last-Modified，If-Modified-Since`】为何还要有【`ETag、If-None-Match`】
   ![图片](https://mmbiz.qpic.cn/mmbiz_jpg/icnrNBicEhkVW1cB9GKLR79AZ7pWcRCJshjFfJ3Gk8vBz3ibWNHZSibjrt8qur84JlKpaXZXocXtFia8K1mwSiaPkjrQ/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
 - 弹性盒子中 `flex: 0 1 auto` 表示什么意思？
-- 箭头函数可以用`new`实例化吗？聊聊`this`的指向问题。
+- 聊聊`this`的指向问题。
 - 聊一聊原型链。
 - 垃圾回收中的堆和栈的区别。
 - `TypeScript`用过吗？聊聊你对`TypeScript`的理解？
@@ -7309,8 +7138,6 @@ console.log(newShop.apple)
 
 - 笔试题：写一个处理加法可能产生精度的函数，比如 0.1 + 0.2 = 0.3
   思路：对于浮点数在底层处理是有问题的，所以目的就是想办法将所以的浮点数转化为整数进行处理，同时乘以一个倍数(A)，然后加起来后再除以这个倍数(A)，这个倍数应该是两个数中最小的那个数的倍数，比如 0.1 + 0.02 ,那么应该同时乘以 100，变为 10 + 2，然后再将值除以 100。
-- 1000000000 + 1000000000 允许返回字符串 处理大数
-  大数问题就是通过字符串来处理，从后往前加，然后处理进位的问题。
 - 写一个 es6 的继承过程
 - 写一个大数相乘的解决方案。传两个字符串进来，返回一个字符串
 - 算法题: https://leetcode.cn/problems/bu-ke-pai-zhong-de-shun-zi-lcof/description/
@@ -7392,7 +7219,6 @@ console.log(newShop.apple)
 - 你会用 VUE，你会用 React，你读得懂这两个架构的源码吗？你懂他俩的基本设计模式吗？让你去构建一个类似的框架你如何下手？
 - 你会用 less，那么让你去写一个 loader 你可以吗？
 - webpack 你也会用，你了解其中原理吗？你知道分析打包依赖的过程吗？你知道 tree-shakeing 是如何干掉无用重复的代码的吗？
-- 你真的熟练使用 css 吗，那你知道 position 有几个属性吗
 - 你可以用 js 去实现一个单向、双向、循环链表吗？你可以实现查找、插入、删除操作吗？
 - 你了解基本常见算法吗？快速排序写一个？要是限制空间利用你该如何写？
 - 你是如何理解前端架构的？你了解持续集成吗？
@@ -7855,13 +7681,11 @@ diff 算法是通过**「同层的树节点」**进行比较而非对树进行�
 - cookie 有哪些属性
 - cookie,session,localstorage,sessionstorage 有什么区别
 - 怎么禁止 js 访问 cookie
-- position 有哪些属性
 - 你知道哪些状态码
 - options 请求方法有什么用
 - less,sass 它们的作用是什么
 - 项目中生成 PDF 的会占用 CPU 很多吧，如果大量访问怎么处理
 - 有什么通知用户的方法
-- ES 6 箭头函数
 - HTTPS 原理
 - 浏览器的同源策略，不做限制会造成什么影响
 - XSS
@@ -7978,7 +7802,6 @@ diff 算法是通过**「同层的树节点」**进行比较而非对树进行�
 - 代码实现一个对象的深拷贝
 - 从发送一个 url 地址到返回页面，中间发生了什么
 - 说下工作中你做过的一些性能优化处理
-- 箭头函数中的 this 指向谁？
 - HTML5 新特性，语义化
 - 浏览器的标准模式和怪异模式
 - xhtml 和 html 的区别
@@ -7994,7 +7817,7 @@ diff 算法是通过**「同层的树节点」**进行比较而非对树进行�
 - CSS3 新特性，伪类，伪元素，锚伪类
 - CSS 实现隐藏页面的方式
 - 如何实现水平居中和垂直居中。
-- 说说 position，display
+- 说说 display
 - 请解释{box-sizing\:border-box;}的作用，并说明使用它的好处
 - 浮动元素引起的问题和解决办法？绝对定位和相对定位，元素浮动后的 display 值
 - 解释一下 css3 的 flexbox，以及适用场景
@@ -8023,7 +7846,6 @@ diff 算法是通过**「同层的树节点」**进行比较而非对树进行�
 - CSS 的加载是异步的吗？表现在什么地方？
 - 常遇到的浏览器兼容性问题有哪些？常用的 hack 的技巧
 - 外边距合并
-- Object 是引用类型嘛？引用类型和基本类型有什么区别？哪个是存在堆哪一个是存在栈上面的？
 - JS 常见的 dom 操作 api
 - 解释一下事件冒泡和事件捕获
 - 事件委托（手写例子），事件冒泡和捕获，如何阻止冒泡？如何组织默认事件？
@@ -8065,7 +7887,6 @@ diff 算法是通过**「同层的树节点」**进行比较而非对树进行�
 - promise 封装 ajax
 - es6 generator 是什么，async/await 实现原理
 - ES6 和 node 的 commonjs 模块化规范区别
-- 箭头函数，以及它的 this-
 - HTTP 协议头含有哪些重要的部分，HTTP 状态码
 - 网络 url 输入到输出怎么做？
 - 性能优化为什么要减少 HTTP 访问次数？
@@ -8141,7 +7962,6 @@ diff 算法是通过**「同层的树节点」**进行比较而非对树进行�
 - node 的异步问题是如何解决的？
 - node 是如何实现高并发的？
 - 说一下 Nodejs 的 event loop 的原理-
-- 基本数据结构：（数组、队列、链表、堆、二叉树、哈希表等等）
 - 8 种排序算法，原理，以及适用场景和复杂度
 - 说出越多越好的费波拉切数列的实现方法？-
 - cdn 的用法是什么？什么时候用到？
@@ -8193,7 +8013,6 @@ diff 算法是通过**「同层的树节点」**进行比较而非对树进行�
 - js 的原型链，继承
 - js 的 bind、apply、call 有什么区别
 - new 操作符原理（手动实现 new 给出思路）
-- 箭头函数，箭头函数 this 问题，箭头函数是否可以被 new
 - promise.all 应用场景
 - promise 和 async/await 的区别
 - vue 的生命周期（我说我 React 比较熟）
@@ -8210,7 +8029,7 @@ diff 算法是通过**「同层的树节点」**进行比较而非对树进行�
 - 圣杯布局、双飞翼布局
 - CSS 媒体查询
 - CSS 动画、CSS 对网页性能优化
-- 浏览器渲染原理、回流与重绘
+- 浏览器渲染原理
 - JS 单线程、EventLoop、宏队列、微队列
 - Ajax 和 Fetch
 - 怎么同时让多个异步请求并行
@@ -8221,7 +8040,6 @@ diff 算法是通过**「同层的树节点」**进行比较而非对树进行�
 - 怎么设置 cookie 过期时间
 - sessionStorage 和 localStorage
 - 强缓存和协商缓存
-- ES6 箭头函数和普通函数区别
 - promise、generator、async/await
 - PureComponent 知道吗
 - JS 垃圾回收
@@ -8405,7 +8223,6 @@ diff 算法是通过**「同层的树节点」**进行比较而非对树进行�
 - 如何实现继承
 - 跨域，常用哪个，解释一下
 - 缓存
-- 重绘回流
 - 如果列表组件要新增一些内容，例如标题，简介等，你会怎么对代码进行修改（容器组件 -> 展示组件）
 - csrf 和 xss
 - flex
@@ -8459,7 +8276,7 @@ diff 算法是通过**「同层的树节点」**进行比较而非对树进行�
 - HTTPS
 - ES6 generator、async、await 了解吗
 - 盒模型，bfc
-- float，position，清除浮动
+- float，清除浮动
 - 请解释一下 CSS3 的 Flexbox（弹性盒布局模型）,以及适用场景？
 - JavaScript 原型，原型链 ? 有什么特点？
 - Javascript 如何实现继承？ 构造函数继承，非构造函数继承
@@ -8482,7 +8299,6 @@ diff 算法是通过**「同层的树节点」**进行比较而非对树进行�
 - 清除浮动的方法
 - flex
 - 什么是 BFC、可以解决哪些问题
-- position 属性
 - 如何实现一个自适应的正方形
 - 如何用 css 实现一个三角形
 - 深拷贝
@@ -8498,7 +8314,6 @@ diff 算法是通过**「同层的树节点」**进行比较而非对树进行�
 - 实现数组 flat、filter 等方法
 - lazyMan
 - 函数 currying
-- 箭头函数与普通函数的区别
 - 变量的结构赋值
 - promise、async await、Generator 的区别
 - ES6 的继承与 ES5 相比有什么不同
@@ -8541,7 +8356,6 @@ diff 算法是通过**「同层的树节点」**进行比较而非对树进行�
 - 清除浮动的方法
 - flex
 - 什么是 BFC、可以解决哪些问题
-- position 属性
 - 如何实现一个自适应的正方形
 - 如何用 css 实现一个三角形
 - 深拷贝
@@ -8557,8 +8371,6 @@ diff 算法是通过**「同层的树节点」**进行比较而非对树进行�
 - 实现数组 flat、filter 等方法
 - lazyMan
 - 函数 currying
-- 箭头函数与普通函数的区别
-- 变量的结构赋值
 - promise、async await、Generator 的区别
 - ES6 的继承与 ES5 相比有什么不同
 - js 模块化（commonjs/AMD/CMD/ES6）
@@ -8606,7 +8418,6 @@ diff 算法是通过**「同层的树节点」**进行比较而非对树进行�
 - 如何实现一个全局单例(答工厂模式，又问工厂模式和全局直接挂载对象有什么区别，当时没想到，工厂模式是第一次用时才生成实例的)
 - Vue 里数组是怎么实现响应式的
 - vue 计算属性原理和特点，问怎么实现的缓存避免重复计算的(卡壳了，我说是 computedWatcher 被通知更新时可能可以查看依赖，后来面试官告诉我是依赖时候更新时会修改标记位，响应式的重点是【被动】)
-- 箭头函数的特点，适用场景和不适用场景(适用的场景我说原来需要保存外层 this 时现在可以穿透调用，不适用的我说比如定义原型方法时容易用错使得 this 提前绑定到外部词法作用域，让我举个具体例子，一时没反应过来这个问题的点是啥，就说想不出来)
 - this 的是如何确定指向的
 - call，apply, bind 的区别
 - bind 怎么实现 call
@@ -8775,7 +8586,6 @@ diff 算法是通过**「同层的树节点」**进行比较而非对树进行�
 - 函数式编程 如何理解纯函数
 - Node 原生 api 错误处理有了解吗
 - 说说浏览器渲染流程
-- 说说重绘和重排
 - 说说那些属性可以直接避免重绘和重排
 - treeshaking 原理
 - 按需加载的原理
@@ -9205,11 +9015,6 @@ diff 算法是通过**「同层的树节点」**进行比较而非对树进行�
 
 - - 还有吗？关于 https 的一个字段(擦，不知道，过吧)
 
-- 说说箭头函数和普通函数的区别(说了写法，原型，this，还有呢？愣了一会，寻求提示)
-
-- - 箭头函数可以 new 吗 ？说一说 new 的原理。
-  - 箭头函数的 this 是声明时确定还是运行时确定？(运行时确定吧)
-
 - TCP 三次握手
 
 - 你应该对 React 原理很了解吗？(我打断了，React 原理不熟，问我 Vue 吧，后来问了一个 diff 就完事了)
@@ -9287,8 +9092,6 @@ diff 算法是通过**「同层的树节点」**进行比较而非对树进行�
 - CSS 当中以 @ 开头的属性有哪些？(我说了@media, @keyframes，后来提醒我还有@import，我补充这个是串行加载 CSS)
 - 了解过前端当前的发展趋势吗，比如一些新的技术方向。(说了对 PWA 的看法，为什么会凉，flutter、electron、微前端，serverless)
 - 了解过云计算吗？能不能讲一讲云计算的发展方向和前景？(没了解过)
-- 对自己的职业规划是怎样的？(说了一大堆，他笑了笑，说今天就到这里吧，明天笔试)
-- 项目中遇到了哪些挑战？
 - 说说你对前端架构的认识，如何设计出一个架构方案(说实话，我顶不住，没研究过)
 - 在一个大型项目中，如何定位发生内存泄露的代码？(没有实践过)
 - Last-Modified 和 Etag 有什么区别？
@@ -10082,89 +9885,61 @@ functionprintf(str, info) {}
 - session 应该存在哪里
 - 给定一棵树，请你输出所有从根节点到叶子节点的路径组成的数字之和
 
+```javascript
 let tree = {
-
-val: 1,
-
-left: {
-
-val: 2,
-
-left: {
-
-val: 4,
-
-left: null,
-
-right: null
-
-},
-
-right: {
-
-val: 5,
-
-left: null,
-
-right: null
-
+  val: 1,
+  left: {
+    val: 2,
+    left: {
+      val: 4,
+      left: null,
+      right: null
+    },
+    right: {
+      val: 5,
+      left: null,
+      right: null
+    }
+  },
+  right: {
+    val: 3,
+    left: null,
+    right: null
+  }
 }
 
-},
+// 例如以上的树，总共有从根节点到叶子节点的路径 3 条，分别为：1->2->4,1->2->5,1->3_
+// 则计算方法为：124+125+13=262_
+```
 
-right: {
-
-val: 3,
-
-left: null,
-
-right: null
-
-}
-
-}
-
-_// 例如以上的树，总共有从根节点到叶子节点的路径 3 条，分别为：1->2->4,1->2->5,1->3_
-
-_// 则计算方法为：124+125+13=262_
-
-考察 JavaScript 的细节问题是最多的，通常包括但不限于：
-1）JavaScript 的基本类型
-2）setTimeout、Promise、async/await 三者之间异步解决方案的区别？
-3）宏任务和微任务，通常会给出一段代码，让你给出输出结果，并解释？
-4）解释 JavaScript 的单线程模型，以及为什么这样设计？setTimeout 的延时为何做不到精确？
-6）原型链知识的考察，形式也是给出一段代码，让你给出输出结果，并解释?
-7）说说你用过的 ES6 语法的功能点，对 ES2017-9 的新增功能点是否有关注？
-8）解释 JavaScript 的闭包？解释 this 指针指向的问题以及常用改变 this 指针指向的函数? apply, bind, call 三者之间的区别？
-9）JavaScript 继承的几种方式及优缺点？
-11）fetch 是否可以共享 Cookie?两个 then 分别对应着什么？
-12）手写代码实现红绿灯效果，红灯 3 秒，绿灯 1 秒，黄灯 2 秒，循环重复?
-13）JavaScript 是如何操作 Cookie 的？
-1）如何翻转 DOM？冒泡和捕获机制，实际应用有哪些？
-2）冒泡和捕获机制，以及实际应用？
-
-1.  性能优化
-    1）浏览器的渲染原理是一定会被问到的？
-    2）浏览器输入一个 url 之后的过程，以及过程中应用了哪些缓存，如何优化？
-    3）script 标签和 link 标签的先后顺序对页面加载的影响？
-    4）async 和 defer 的区别？
-1.  计算机网络
-    1）解释 TCP/IP 的三次握手和四次挥手？
-    2）解释跨域问题以及前端常用的解决方案？
-    3）CORS 的细节，哪些是简单请求？哪些是非简单请求？
-    4）解释 HTTPS? 解释 HTTP/2？
-    5）HTTP 报文的格式？
-1.  算法
-    1）手写冒泡排序？
-    2）给定两组数，分别以链表方式存储，求和？注意进位
-    3）数组去重？
-    4）微信红包是如何实现的？
-    5）给定一组数，求和函数是带延时的网络请求，如何在最快的时间内计算出这组数据的和？
-1.  前端工程化
-    1）webpack 如何拆分大文件？
-    2）webpack 打包的过程?
-    3）webpack 的基本配置？
-
+- JavaScript 的基本类型
+- setTimeout、Promise、async/await 三者之间异步解决方案的区别？
+- 宏任务和微任务，通常会给出一段代码，让你给出输出结果，并解释？
+- 解释 JavaScript 的单线程模型，以及为什么这样设计？setTimeout 的延时为何做不到精确？
+- 原型链知识的考察，形式也是给出一段代码，让你给出输出结果，并解释?
+- 说说你用过的 ES6 语法的功能点，对 ES2017-9 的新增功能点是否有关注？
+- 解释 JavaScript 的闭包？解释 this 指针指向的问题以及常用改变 this 指针指向的函数? apply, bind, call 三者之间的区别？
+- JavaScript 继承的几种方式及优缺点？
+- fetch 是否可以共享 Cookie?两个 then 分别对应着什么？
+- 手写代码实现红绿灯效果，红灯 3 秒，绿灯 1 秒，黄灯 2 秒，循环重复?
+- JavaScript 是如何操作 Cookie 的？
+- 如何翻转 DOM？冒泡和捕获机制，实际应用有哪些？
+- 冒泡和捕获机制，以及实际应用？
+- 浏览器的渲染原理是一定会被问到的？
+- 浏览器输入一个 url 之后的过程，以及过程中应用了哪些缓存，如何优化？
+- script 标签和 link 标签的先后顺序对页面加载的影响？
+- async 和 defer 的区别？
+- 解释 TCP/IP 的三次握手和四次挥手？
+- 解释跨域问题以及前端常用的解决方案？
+- CORS 的细节，哪些是简单请求？哪些是非简单请求？
+- 解释 HTTPS? 解释 HTTP/2？
+- HTTP 报文的格式？
+- 手写冒泡排序？
+- 数组去重？
+- 给定一组数，求和函数是带延时的网络请求，如何在最快的时间内计算出这组数据的和？
+- webpack 如何拆分大文件？
+- webpack 打包的过程?
+- webpack 的基本配置？
 - 买卖股票的最佳时机
 - 二维矩阵
   ![图片](https://mmbiz.qpic.cn/mmbiz_png/ZWVxrQ7G0WSCs5Z45JzPQw0YVicT0JZbwd5V3ibpAdDhgWRAZ1faiaibL4WmWFhDAjQ1yOYZXwp6ySITT31nY139Xw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
@@ -10211,19 +9986,12 @@ _// 则计算方法为：124+125+13=262_
   - 分片渲染
   - ……
 - git eslint， 这些要怎么集成，写脚本？如何设置警告值，加邮件提醒？
-- 运维这边，前端是如何发布代码的？
 - node 的 qps 是多少？为什么这么设置？
 - 日志多的情况，如何处理？
 - babel 细节
 - 你了解 koa 中间件么？
 - 手写一个 koa 中间件。
-- 为什么要跳槽？
-- 职业规划
-- 链表
-  合并两个有序链表
-  旋转链表
 - 树
-  二叉树的中序遍历
   二叉树的最大深度
   路径总和
   首个公共祖先
@@ -10252,8 +10020,6 @@ _// 则计算方法为：124+125+13=262_
   - slot 插槽方式
 - Vue 中的常见指令有那些？？
   v-text/v-html/v-for/v-show/v-if/v-else/v-cloak/v-bind/v-on/v-model/v-slot...
-- v-show 和 v-if 有什么区别？？
-  v-show 是 css 切换，v-if 是完整的销毁和重新创建，如果频繁切换时用 v-show，运行时较少改变用 v-if
 - 谈谈你对 vuex 的理解？
   vuex 是一个专门为 vue.js 开发的状态管理模式，每一个 vuex 应用核心就是 store(仓库)。store 基本上就是一个容器，它包含着你的应用中大部分的 state(状态)
   - `vuex`的状态存储是响应式的，当 `vue`组件中 store 中读取状态时候，若`store`中的状态发生变化，那么相应的组件也会相应地得到高效更新。
@@ -10303,10 +10069,6 @@ _// 则计算方法为：124+125+13=262_
   - ViewModel 向 View 暴露了它所需要的数据和指令
   - ViewModel 接收来自 Model 的数据
     > 概括起来就是，MVVM 由 MVC 发展而来，通过在 Model 之上而在 View 之下增加一个非视觉的组件将来自 Model 的数据映射到 View 中。
-
-1.  Vue 中的组件 data 为什么必须是函数？？
-
-因为组件是可以复用的，js 里对象是引用关系，如果组件 data 是一个对象，那么子组件中的 data 属性值会互相污染，产生不必要的麻烦。所以一个组件中的 data 必须是一个函数，因此每个实例可以维护一份被返回对象独立的拷贝。也因为`new Vue`的实例是不会被复用，所以不存在以上问题。官方文档讲的很详细，想要深入了解可以看下文档中的解释。
 
 ### 其他
 
@@ -10540,8 +10302,6 @@ rem 和 em 单位一样，都是一个相对单位，不同的是 em 是相对�
 - 了解 box-sizing 吗？
 - 什么是 BFC
 - 了解盒模型吗？
-- 说一下你知道的 position 属性，都有啥特点？
-- 两个 div 上下排列，都设 margin，有什么现象？
 - 清除浮动有哪些方法？
 - 写代码：实现函数能够深度克隆基本类型
 - 事件流
@@ -10571,20 +10331,17 @@ rem 和 em 单位一样，都是一个相对单位，不同的是 em 是相对�
 - PWA 使用过吗？serviceWorker 的使用原理是啥？
 - ES6 之前使用 prototype 实现继承
 - 如果一个构造函数，bind 了一个对象，用这个构造函数创建出的实例会继承这个对象的属性吗？为什么？
-- 箭头函数和普通函数有啥区别？箭头函数能当构造函数吗？
 - 知道 ES6 的 Class 嘛？Static 关键字有了解嘛
 - 事件循环机制 （Event Loop）
 - 手写题：数组扁平化
 - 手写题：实现柯里化
 - 手写题：数组去重
 - let 闭包
-- 变量提升
 - instance 如何使用
 - active-class 是哪个组件的属性？嵌套路由怎么定义？
 - 怎么定义 vue-router 的动态路由？怎么获取传过来的动态参数？
 - vue-router 有哪几种导航钩子？
 - scss 是什么？在 vue.cli 中的安装使用步骤是？有哪几大特性？
-- mint-ui 是什么？怎么使用？说出至少三个组件使用方法？
 - v-model 是什么？怎么使用？vue 中标签怎么绑定事件？
 - axios 是什么？怎么使用？描述使用它实现登录功能的流程？
 - axios+tp5 进阶中，调用 axios.post(‘api/user’)是进行的什么操作？axios.put(‘api/user/8′)呢？
@@ -12340,11 +12097,10 @@ const intersection = function (nums1, nums2) {
 - js 的错误监控机制有了解吗？
 - 闭包，应用
 - setTimeout 第二个参数为 0 时和匿名自执行函数区别
-- js 里堆和栈的区别
 - new 操作符之后的操作
 - this 指向
 - ES6 的使用，相比 ES5 的好处
-- ES6 的新特性（变量声明，字符串模板，数组的新方法 flat，函数的默认值，箭头函数、class 继承，await/async 讲的很详细）
+- ES6 的新特性（变量声明，字符串模板，数组的新方法 flat，函数的默认值、class 继承，await/async 讲的很详细）
 - 如果要同时启动两个异步任务，怎么做
 - 深拷贝/浅拷贝问题
 - 说一下链表的实现
@@ -12364,7 +12120,7 @@ const intersection = function (nums1, nums2) {
 - cookie 的几个字段的功能
 - 怎么创建一个 Promise，参数是什么，怎么中断一个 promise，除了抛异常和 return new Promise()还有什么
 - 怎么判断一个空数组
-- 箭头函数跟普通函数的区别，普通函数的作用域
+- 普通函数的作用域
 - let const, babel 中的实现
 - fetch 的使用，考察通信是否了解
 - 事件机制，捕获和冒泡，如何阻止冒泡？
@@ -12381,7 +12137,6 @@ const intersection = function (nums1, nums2) {
 - TS 声明文件
 - TS 可选属性
 - 介绍一下 css 盒模型
-- position 的值有哪些，区别是什么
 - bfc 是什么。怎么样形成 bfc，bfc 有哪些用
 - 实现一个垂直水平居中
 - 左右布局，sider + 右侧自适应如何实现
@@ -12582,7 +12337,6 @@ const intersection = function (nums1, nums2) {
 - 给定一个 haystack 字符串和一个 needle 字符串，在 haystack 字符串中找出 needle 字符串出现的第一个位置 (从 0 开始)。如果不存在，则返回 -1
 - 实现 string 的 indexOf() 函数
 - ![图片](https://mmbiz.qpic.cn/sz_mmbiz_png/beNzaWVQLGmDbrwHDk7Hb63nfDZq85eoej3EwP7IVClaBS74XKJiaK3eDQBxWJzuN5P22dhu2By737dFgQCicBkg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
-- 大数相加
 - 链表反转
 - 二叉树排序
 - 二叉树的翻转
@@ -13068,7 +12822,6 @@ const intersection = function (nums1, nums2) {
 - 手撕代码：实现一个函数，每隔 wait 秒执行 func，一共执行 times 次
 - 手撕代码：实现一个函数,该函数接收一个 obj, 一个 path, 一个 value，实现 obj[path] = value，obj 类似 json 格式
 - 手撕代码：数组扁平化
-- 箭头函数
 - this 指向的问题
 - 上下文
 - dva 解决了什么？如何解决？为什么使用？
@@ -13100,7 +12853,6 @@ const intersection = function (nums1, nums2) {
 - 对栅格的理解
 - （水平）居中有哪些实现方式
 - BFC、IFC
-- position 有哪些属性
 - 回流，重绘
 - MVC vs MVVM
 - mobx
@@ -13616,24 +13368,8 @@ function sington(className) {
 - 匹配非集合的：[^]
 ```
 
-- position:sticky，不脱离文档流，相对于可滚动的父元素
-
 ```shell
 git config pull.rebase true
 git pull --rebase
 优化仓库commit
-```
-
-```javascript
-// 原型
-function F() {}
-Object.prototype.a = function () {
-  console.log('a')
-}
-Function.prototype.b = function () {
-  console.log('b')
-}
-const f = new F()
-f.a()
-f.b()
 ```
