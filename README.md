@@ -3629,8 +3629,30 @@ Array.prototype.forEach = function (callback) {
 
   1. **Array.isArray()** 判断
   2. **instanceof** 判断: 检验构造函数的 prototype 属性是否出现在对象的原型链中，返回一个布尔值。`let a = []; a instanceof Array; //true`
+
+  ```javascript
+  const obj = {}
+  Object.setPropertyOf(obj, Array.prototype)
+
+  console.log(obj instanceof Array)
+
+  // 页面中有 iframe 时
+  const Array1 = window.Array
+  const frame = document.querySelector('iframe')
+  const Array2 = frame.contentWindow.Array
+  console.log(Array1 === Array2)
+  ```
+
   3. **constructor**判断: 实例的构造函数属性 constructor 指向构造函数`let a = [1,3,4]; a.constructor === Array;//true`
   4. **Object.prototype.toString.call()** 判断`let a = [1,2,3]; Object.prototype.toString.call(a) === '[object Array]';//true`
+
+  ```javascript
+  const obj = {
+    [Symbol.toStringTag]: 'Array'
+  }
+
+  console.log(Object.prototype.toString.call(obj))
+  ```
 
 - TS 有什么优势
   1. 静态输入：静态类型化是一种功能，可以在开发人员编写脚本时检测错误。
