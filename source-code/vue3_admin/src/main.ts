@@ -11,6 +11,7 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import 'virtual:svg-icons-register'
 import gloablComponent from './components/index'
 import '@/styles/index.scss'
+import '@/assets/iconfont/iconfont.css'
 import router from '@/router'
 const app = createApp(App)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
