@@ -73,7 +73,7 @@
               <div class="sub-nav-main-container" v-if="state.activeMenu.children">
                 <div class="sub-nav-item-container" v-for="child in state.activeMenu.children">
                   <div class="sub-nav-item-title">{{ child.title }}</div>
-                  <div class="sub-nav-item" v-for="navItem in child.children" @click="goToPage(navItem)">{{ navItem.title }}</div>
+                  <div class="sub-nav-item" v-for="navItem in child.children" @click="goToPage(navItem)">{{ navItem.title }} </div>
                 </div>
               </div>
             </div>
@@ -83,9 +83,24 @@
           </div>
         </div>
 
-        <div class="history-container" v-if="state.historyRouter.length !== 0"></div>
-        <div class="main-container"> <router-view></router-view> </div
-      ></div>
+        <div class="history-container" v-if="state.historyRouter.length !== 0">
+          <div
+            class="history-tab-item"
+            :class="{ active: state.activeRouter.fullPath === item.fullPath }"
+            v-for="(item, index) in state.historyRouter"
+            :key="item.fullPath"
+            @click.self="goToPage(item)"
+            >{{ item.title }}<span v-if="item.title !== DASHBOARD" class="iconfont icon-close" @click="closeHistoryTab(index)"></span
+          ></div>
+
+          <div class="history-tab-item active close-all" @click="closeAll">关闭全部</div>
+        </div>
+
+        <div class="main-container">
+          <div class="title-container" v-if="isNotDashBoard"> {{ state.activeRouter.title }} </div>
+          <router-view> </router-view>
+        </div>
+      </div>
     </template>
   </div>
 </template>
@@ -93,12 +108,17 @@
 <script setup lang="ts">
 import vResize from '@/directs/sizeDirect'
 import { HORIZONTAL, VERTICAL, menuMode } from '@/settings'
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import { useRouter, RouteRecordRaw } from 'vue-router'
 import routes from '@/router/routes'
 
 const router = useRouter()
 const hiddenMenu = ref(false)
+const DASHBOARD = '首页'
+
+const isNotDashBoard = computed(() => {
+  return state.activeRouter.title !== DASHBOARD
+})
 
 router.afterEach((to) => {
   hiddenMenu.value = to.meta.hidden as boolean
@@ -113,7 +133,8 @@ const menuList = routes as RouteRecordRaw[]
 const state = reactive({
   showSubMenu: false,
   activeMenu: {} as RouteRecordRaw,
-  historyRouter: [],
+  historyRouter: [] as RouteRecordRaw[],
+  activeRouter: {} as RouteRecordRaw,
 })
 const openSubMenu = (item: RouteRecordRaw) => {
   state.activeMenu = item
@@ -126,8 +147,35 @@ const closeSubMenu = () => {
 }
 
 const goToPage = (navItem: RouteRecordRaw) => {
-  router.push(navItem)
-  console.log('%c 🍆 navItem', 'font-size:16px;color:#3f7cff', navItem)
+  if (navItem.title !== DASHBOARD && !state.historyRouter.find((item) => item.fullPath === navItem.fullPath)) {
+    if (state.historyRouter.length === 0) {
+      state.historyRouter.push(menuList[0])
+    }
+    state.historyRouter.push(navItem)
+  }
+  state.activeRouter = navItem
+  closeSubMenu()
+  router.push(navItem.fullPath)
+}
+
+const goToDashBoard = () => {
+  goToPage(menuList[0])
+}
+const closeHistoryTab = (index: number) => {
+  state.historyRouter.splice(index, 1)
+  if (state.historyRouter.length === 1) {
+    state.historyRouter = []
+    goToDashBoard()
+  }
+  const newIndex = state.historyRouter[index] ? index : index - 1
+  state.activeRouter = state.historyRouter[newIndex]
+  goToPage(state.activeRouter)
+}
+
+const closeAll = () => {
+  state.activeRouter = {} as RouteRecordRaw
+  state.historyRouter = []
+  goToDashBoard()
 }
 </script>
 
@@ -200,6 +248,7 @@ const goToPage = (navItem: RouteRecordRaw) => {
       .nav-container {
         display: flex;
         flex: 1;
+        z-index: 10;
         .nav-item {
           padding: 8px;
           width: 80px;
@@ -313,9 +362,34 @@ const goToPage = (navItem: RouteRecordRaw) => {
     }
 
     .history-container {
-      border-top: 1px solid #fff;
-      height: $verticalhistoryheight;
       background-color: $verticalTopNavColor;
+      display: flex;
+      line-height: $verticalhistoryheight;
+      position: relative;
+      .history-tab-item {
+        font-size: 14px;
+        text-align: center;
+        padding: 0 10px 0 12px;
+        color: #fff;
+        background-color: #2a4090;
+        border-radius: 4px 4px 0 0;
+        box-sizing: border-box;
+        cursor: pointer;
+        .iconfont {
+          font-size: 10px;
+          margin-left: 8px;
+        }
+      }
+      .history-tab-item.active {
+        color: #313836;
+        background-color: #fff;
+      }
+
+      .close-all {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+      }
     }
 
     .main-container {

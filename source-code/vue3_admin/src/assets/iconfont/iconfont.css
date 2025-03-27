@@ -1,10 +1,10 @@
 @font-face {
-  font-family: 'iconfont'; /* Project id  */
-  src: url('iconfont.ttf?t=1743038792687') format('truetype');
+  font-family: "iconfont"; /* Project id  */
+  src: url('iconfont.ttf?t=1743062072541') format('truetype');
 }
 
 .iconfont {
-  font-family: 'iconfont' !important;
+  font-family: "iconfont" !important;
   font-size: 16px;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
@@ -12,45 +12,50 @@
 }
 
 .icon-transaction:before {
-  content: '\e786';
+  content: "\e786";
+}
+
+.icon-close:before {
+  content: "\e7fe";
 }
 
 .icon-jixiao:before {
-  content: '\e684';
+  content: "\e684";
 }
 
 .icon-guzhihesuan:before {
-  content: '\e688';
+  content: "\e688";
 }
 
 .icon-shuifeizhongxin:before {
-  content: '\e68a';
+  content: "\e68a";
 }
 
 .icon-xinxipilou:before {
-  content: '\e68b';
+  content: "\e68b";
 }
 
 .icon-xitongguanli:before {
-  content: '\e68d';
+  content: "\e68d";
 }
 
 .icon-zongheguanli:before {
-  content: '\e68e';
+  content: "\e68e";
 }
 
 .icon-huaxinlogo:before {
-  content: '\e68f';
+  content: "\e68f";
 }
 
 .icon-nsight-logo:before {
-  content: '\e690';
+  content: "\e690";
 }
 
 .icon-chanpinzhouqi:before {
-  content: '\e692';
+  content: "\e692";
 }
 
 .icon-tuoguanhutazhilinghuakuan:before {
-  content: '\e6a5';
+  content: "\e6a5";
 }
+
