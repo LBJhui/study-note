@@ -1,37 +1,65 @@
-import type { RouteRecordRaw } from 'vue-router'
+import { RouteRecordRaw } from 'vue-router'
+
 const constantRouter: RouteRecordRaw[] = [
   {
     path: '/dashboard',
     component: () => import('@/views/dashboard/index.vue'),
-    meta: {
-      title: '首页',
-      hidden: false,
-      icon: 'House',
-    },
+    title: '首页',
+    isNav: false,
+    icon: 'House',
   },
   {
     path: '/login',
     component: () => import('@/views/login/index.vue'),
-    meta: {
-      title: '登录',
-      hidden: true,
-    },
+    title: '登录',
+    isNav: false,
   },
   {
     path: '/slot',
     component: () => import('@/views/slot/index.vue'),
-    meta: {
-      title: 'vue插槽的实现原理',
-      hidden: false,
-    },
+    title: 'vue插槽的实现原理',
+    isNav: false,
   },
   {
     path: '/uploadFile',
     component: () => import('@/views/uploadFile/index.vue'),
-    meta: {
-      title: '文件上传',
-      hidden: false,
-    },
+    title: '文件上传',
+    isNav: false,
+  },
+  {
+    path: '/ta',
+    title: '直销与TA',
+    isNav: true,
+    icon: 'tuoguanhutazhilinghuakuan',
+    children: [
+      {
+        path: 'transactionApplication',
+        title: '直销交易申请管理',
+        children: [
+          {
+            path: 'redeem',
+            title: '赎回申请',
+            component: () => import('@/views/TA/transactionApplication/redeem/index.vue'),
+          },
+        ],
+      },
+      {
+        path: 'statistics',
+        title: '直销统计查询',
+        children: [
+          {
+            path: 'apply',
+            title: '直销交易申请查询',
+            component: () => import('@/views/TA/statistics/apply/index.vue'),
+          },
+          {
+            path: 'confirm',
+            title: '直销交易确认查询',
+            component: () => import('@/views/TA/statistics/confirm/index.vue'),
+          },
+        ],
+      },
+    ],
   },
 ]
 
@@ -77,7 +105,42 @@ const routes = [
     },
   },
   ...constantRouter,
-  ...asyncRouter,
+  // ...asyncRouter,
 ]
 
 export default routes
+
+// const menuListVertical = [
+//   {
+//     title: '产品周期',
+//     icon: 'chanpinzhouqi',
+//   },
+//   {
+//     title: '转账划款',
+//     icon: 'transaction',
+//   },
+//   {
+//     title: '估值核算',
+//     icon: 'guzhihesuan',
+//   },
+//   {
+//     title: '税费中心',
+//     icon: 'shuifeizhongxin',
+//   },
+//   {
+//     title: '信息披露',
+//     icon: 'xinxipilou',
+//   },
+//   {
+//     title: '绩效分析',
+//     icon: 'jixiao',
+//   },
+//   {
+//     title: '综合管理',
+//     icon: 'zongheguanli',
+//   },
+//   {
+//     title: '系统管理',
+//     icon: 'xitongguanli',
+//   },
+// ]

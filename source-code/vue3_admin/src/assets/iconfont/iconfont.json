@@ -6,6 +6,76 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "108227190",
+      "name": "transaction",
+      "font_class": "transaction",
+      "unicode": "e786",
+      "unicode_decimal": 59270
+    },
+    {
+      "icon_id": "119659635",
+      "name": "绩效",
+      "font_class": "jixiao",
+      "unicode": "e684",
+      "unicode_decimal": 59012
+    },
+    {
+      "icon_id": "113666141",
+      "name": "估值核算",
+      "font_class": "guzhihesuan",
+      "unicode": "e688",
+      "unicode_decimal": 59016
+    },
+    {
+      "icon_id": "113668558",
+      "name": "税费中心",
+      "font_class": "shuifeizhongxin",
+      "unicode": "e68a",
+      "unicode_decimal": 59018
+    },
+    {
+      "icon_id": "113670592",
+      "name": "信息披露",
+      "font_class": "xinxipilou",
+      "unicode": "e68b",
+      "unicode_decimal": 59019
+    },
+    {
+      "icon_id": "113673586",
+      "name": "系统管理",
+      "font_class": "xitongguanli",
+      "unicode": "e68d",
+      "unicode_decimal": 59021
+    },
+    {
+      "icon_id": "113674491",
+      "name": "综合管理",
+      "font_class": "zongheguanli",
+      "unicode": "e68e",
+      "unicode_decimal": 59022
+    },
+    {
+      "icon_id": "113699527",
+      "name": "华鑫logo",
+      "font_class": "huaxinlogo",
+      "unicode": "e68f",
+      "unicode_decimal": 59023
+    },
+    {
+      "icon_id": "113700134",
+      "name": "nsight-logo",
+      "font_class": "nsight-logo",
+      "unicode": "e690",
+      "unicode_decimal": 59024
+    },
+    {
+      "icon_id": "113716240",
+      "name": "产品周期",
+      "font_class": "chanpinzhouqi",
+      "unicode": "e692",
+      "unicode_decimal": 59026
+    },
+    {
       "icon_id": "117062014",
       "name": "托管户ta指令划款",
       "font_class": "tuoguanhutazhilinghuakuan",
