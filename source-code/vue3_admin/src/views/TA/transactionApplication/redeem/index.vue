@@ -3,7 +3,14 @@
 </template>
 
 <script setup lang="ts">
-console.log(1)
+const init = () => {
+  console.log(1)
+}
+
+init()
+defineExpose({
+  init,
+})
 </script>
 
 <style scoped lang=""></style>

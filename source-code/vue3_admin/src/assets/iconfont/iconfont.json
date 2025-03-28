@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "110422248",
+      "name": "sync",
+      "font_class": "sync",
+      "unicode": "e787",
+      "unicode_decimal": 59271
+    },
+    {
       "icon_id": "108227190",
       "name": "transaction",
       "font_class": "transaction",

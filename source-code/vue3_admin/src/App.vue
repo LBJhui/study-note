@@ -97,8 +97,20 @@
         </div>
 
         <div class="main-container">
-          <div class="title-container" v-if="isNotDashBoard"> {{ state.activeRouter.title }} </div>
-          <router-view> </router-view>
+          <div class="title-container" v-if="isNotDashBoard && state.activeRouter.title">
+            <div>
+              {{ state.activeRouter.title }}
+            </div>
+            <div class="refresh" @click="refresh">
+              <span class="iconfont icon-sync"></span>
+              刷新</div
+            >
+          </div>
+          <router-view v-slot="{ Component }">
+            <keep-alive>
+              <component :is="Component" :key="route.query.refresh" />
+            </keep-alive>
+          </router-view>
         </div>
       </div>
     </template>
@@ -109,19 +121,16 @@
 import vResize from '@/directs/sizeDirect'
 import { HORIZONTAL, VERTICAL, menuMode } from '@/settings'
 import { ref, reactive, computed } from 'vue'
-import { useRouter, RouteRecordRaw } from 'vue-router'
+import { useRouter, useRoute, RouteRecordRaw } from 'vue-router'
 import routes from '@/router/routes'
 
 const router = useRouter()
+const route = useRoute()
 const hiddenMenu = ref(false)
 const DASHBOARD = '首页'
 
 const isNotDashBoard = computed(() => {
   return state.activeRouter.title !== DASHBOARD
-})
-
-router.afterEach((to) => {
-  hiddenMenu.value = to.meta.hidden as boolean
 })
 
 const resize = (value: any) => {
@@ -130,12 +139,34 @@ const resize = (value: any) => {
 
 const menuList = routes as RouteRecordRaw[]
 
+const findMenuListItem = (fullPath: string) => {
+  const _find = (fullPath: string, list: RouteRecordRaw[]) => {
+    for (const item of list) {
+      if (item.fullPath === fullPath) {
+        return item
+      } else if (fullPath.includes(item.fullPath) && item.children) {
+        return _find(fullPath, item.children)
+      }
+    }
+  }
+  return _find(fullPath, menuList)
+}
+
+router.afterEach((to) => {
+  const navItem = findMenuListItem(to.path)
+  if (navItem) {
+    getHistoryRouter(navItem)
+  }
+})
+
 const state = reactive({
   showSubMenu: false,
   activeMenu: {} as RouteRecordRaw,
-  historyRouter: [] as RouteRecordRaw[],
+  historyRouter: [] as HistoryRouter[],
   activeRouter: {} as RouteRecordRaw,
+  refreshKey: 0,
 })
+
 const openSubMenu = (item: RouteRecordRaw) => {
   state.activeMenu = item
   state.showSubMenu = true
@@ -146,36 +177,63 @@ const closeSubMenu = () => {
   state.activeMenu = {} as RouteRecordRaw
 }
 
-const goToPage = (navItem: RouteRecordRaw) => {
+type HistoryRouter = { refresh: number } & RouteRecordRaw
+
+const getHistoryRouter = (navItem: RouteRecordRaw) => {
+  const refresh = new Date().getTime()
   if (navItem.title !== DASHBOARD && !state.historyRouter.find((item) => item.fullPath === navItem.fullPath)) {
     if (state.historyRouter.length === 0) {
-      state.historyRouter.push(menuList[0])
+      state.historyRouter.push({ refresh, ...menuList[0] })
     }
-    state.historyRouter.push(navItem)
+    state.historyRouter.push({ refresh, ...navItem })
   }
   state.activeRouter = navItem
+}
+
+const goToPage = (navItem: RouteRecordRaw, isRefresh: boolean = false) => {
+  let refresh
+  if (!isRefresh) {
+    for (const item of state.historyRouter) {
+      if (item.fullPath === navItem.fullPath) {
+        refresh = item.refresh
+        break
+      }
+    }
+  }
+  router.push({
+    path: navItem.fullPath,
+    query: {
+      refresh: refresh ? refresh : new Date().getTime(),
+    },
+  })
   closeSubMenu()
-  router.push(navItem.fullPath)
 }
 
 const goToDashBoard = () => {
   goToPage(menuList[0])
 }
+
 const closeHistoryTab = (index: number) => {
   state.historyRouter.splice(index, 1)
+
+  const newIndex = state.historyRouter[index] ? index : index - 1
   if (state.historyRouter.length === 1) {
     state.historyRouter = []
+    state.activeRouter = {} as RouteRecordRaw
     goToDashBoard()
+  } else {
+    goToPage(state.historyRouter[newIndex])
   }
-  const newIndex = state.historyRouter[index] ? index : index - 1
-  state.activeRouter = state.historyRouter[newIndex]
-  goToPage(state.activeRouter)
 }
 
 const closeAll = () => {
   state.activeRouter = {} as RouteRecordRaw
   state.historyRouter = []
   goToDashBoard()
+}
+
+const refresh = () => {
+  goToPage(state.activeRouter, true)
 }
 </script>
 
@@ -395,6 +453,23 @@ const closeAll = () => {
     .main-container {
       height: calc(100vh - $verticalTopNavHeight);
       overflow: auto;
+      .title-container {
+        padding: 0 24px;
+        line-height: $titleHeigth;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #fff;
+        font-size: 18px;
+        font-weight: 600;
+        color: #313836;
+        .refresh {
+          font-size: 14px;
+          color: #5870cb;
+          cursor: pointer;
+          font-weight: 400;
+        }
+      }
     }
   }
 
