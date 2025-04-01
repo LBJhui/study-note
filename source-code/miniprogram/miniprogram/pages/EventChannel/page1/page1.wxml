@@ -1,0 +1,3 @@
+<!--pages/EventChannel/page1/page1.wxml-->
+<text>pages/EventChannel/page1/page1.wxml</text>
+<button bindtap="goToPage2">goToPage2</button>
