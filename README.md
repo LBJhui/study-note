@@ -13395,16 +13395,3 @@ git config pull.rebase true
 git pull --rebase
 优化仓库commit
 ```
-
-```markdown
-# 同一个 URL 如何实现适配手机和电脑？
-
-1. 流体布局 百分比，相对单位 rem flex grid lfr
-2. 媒体查询（media query）
-   css 判断（@media） js 逻辑（matchMedia）
-   差异化越大，开发维护成本越大
-   打包体积（pc+mobile）
-   结论：适合差异化较小的站点
-3. 独立开发，分开开发，独立部署
-   服务器判断请求头（user-agent）
-```

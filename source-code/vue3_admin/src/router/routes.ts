@@ -9,6 +9,15 @@ const constantRouter: RouteRecordRaw[] = [
     keepalive: true,
   },
   {
+    path: '/communication',
+    fullPath: '/communication',
+    component: () => import('@/views/communication/06_ref-children-parent/RefChildrenParentTest.vue'),
+    title: 'Vue组件通信',
+    isNav: false,
+    icon: 'House',
+    keepalive: true,
+  },
+  {
     path: '/dashboard',
     fullPath: '/dashboard',
     component: () => import('@/views/dashboard/index.vue'),

@@ -7,10 +7,10 @@
 
 <script setup lang="ts">
 //引入$bus对象
-import $bus from '../../bus';
+import $bus from '@/bus'
 //点击按钮回调
 const handler = () => {
-  $bus.emit('car', { car: "法拉利" });
+  $bus.emit('car', { car: '法拉利' })
 }
 </script>
 
