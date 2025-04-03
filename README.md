@@ -13395,3 +13395,5 @@ git config pull.rebase true
 git pull --rebase
 优化仓库commit
 ```
+
+- `npm cache clean --force` 命令强制清理缓存
