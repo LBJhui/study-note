@@ -4,6 +4,7 @@ const map = new WeakMap()
 
 const ob = new ResizeObserver((entries) => {
   for (let entry of entries) {
+    console.log('%c 🥛 entry', 'font-size:16px;color:#ea7e5c', entry)
     // 运行回调
     const handler = map.get(entry.target)
     handler &&

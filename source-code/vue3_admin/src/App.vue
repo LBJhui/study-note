@@ -1,5 +1,5 @@
 <template>
-  <div v-resize="resize" id="app">
+  <div id="app">
     <template v-if="menuMode === HORIZONTAL">
       <template v-if="!hiddenMenu">
         <div class="horizontal-container">
@@ -55,25 +55,25 @@
           <div class="logo-container"></div>
           <div class="nav-container" @mouseleave="closeSubMenu">
             <template v-for="item in menuList" :key="item.path">
-              <div class="nav-item" @mouseenter="openSubMenu(item)" :class="{ active: state.activeMenu.title === item.title }" v-if="item?.isNav">
+              <div class="nav-item" @mouseenter="openSubMenu(item)" :class="{ active: state.activeMenu.meta?.title === item.meta?.title }" v-if="item.meta?.isNav">
                 <div class="nav-item-inset">
                   <div class="icon-container">
-                    <span :class="`iconfont icon-${item?.icon}`"></span>
+                    <span :class="`iconfont icon-${item.meta?.icon}`"></span>
                   </div>
-                  <div class="title">{{ item.title }}</div>
+                  <div class="title">{{ item.meta?.title }}</div>
                 </div>
               </div>
             </template>
 
             <div class="sub-nav-container" v-if="state.showSubMenu">
               <div class="title-container">
-                <span :class="`iconfont icon-${state.activeMenu.icon}`"></span>
-                {{ state.activeMenu.title }}</div
+                <span :class="`iconfont icon-${state.activeMenu.meta?.icon}`"></span>
+                {{ state.activeMenu.meta?.title }}</div
               >
               <div class="sub-nav-main-container" v-if="state.activeMenu.children">
                 <div class="sub-nav-item-container" v-for="child in state.activeMenu.children">
-                  <div class="sub-nav-item-title">{{ child.title }}</div>
-                  <div class="sub-nav-item" v-for="navItem in child.children" @click="goToPage(navItem)">{{ navItem.title }} </div>
+                  <div class="sub-nav-item-title">{{ child.meta?.title }}</div>
+                  <div class="sub-nav-item" v-for="navItem in child.children" @click="goToPage(navItem)">{{ navItem.meta?.title }} </div>
                 </div>
               </div>
             </div>
@@ -86,20 +86,20 @@
         <div class="history-container" v-if="state.historyRouter.length !== 0">
           <div
             class="history-tab-item"
-            :class="{ active: state.activeRouter.fullPath === item.fullPath }"
+            :class="{ active: state.activeRouter.meta?.fullPath === item.meta?.fullPath }"
             v-for="(item, index) in state.historyRouter"
-            :key="item.fullPath"
+            :key="item.meta?.fullPath"
             @click.self="goToPage(item)"
-            >{{ item.title }}<span v-if="item.title !== DASHBOARD" class="iconfont icon-close" @click="closeHistoryTab(index)"></span
+            >{{ item.meta?.title }}<span v-if="item.meta?.title !== DASHBOARD" class="iconfont icon-close" @click="closeHistoryTab(index)"></span
           ></div>
 
           <div class="history-tab-item active close-all" @click="closeAll">关闭全部</div>
         </div>
 
         <div class="main-container">
-          <div class="title-container" v-if="isNotDashBoard && state.activeRouter.title">
+          <div class="title-container" v-if="isNotDashBoard && state.activeRouter.meta?.title">
             <div>
-              {{ state.activeRouter.title }}
+              {{ state.activeRouter.meta?.title }}
             </div>
             <div class="refresh" @click="refresh">
               <span class="iconfont icon-sync"></span>
@@ -118,7 +118,6 @@
 </template>
 
 <script setup lang="ts">
-import vResize from '@/directs/sizeDirect'
 import { HORIZONTAL, VERTICAL, menuMode } from '@/settings'
 import { ref, reactive, computed } from 'vue'
 import { useRouter, useRoute, RouteRecordRaw } from 'vue-router'
@@ -130,21 +129,17 @@ const hiddenMenu = ref(false)
 const DASHBOARD = '首页'
 
 const isNotDashBoard = computed(() => {
-  return state.activeRouter.title !== DASHBOARD
+  return state.activeRouter.meta?.title !== DASHBOARD
 })
-
-const resize = (value: any) => {
-  console.log(value)
-}
 
 const menuList = routes as RouteRecordRaw[]
 
 const findMenuListItem = (fullPath: string) => {
   const _find = (fullPath: string, list: RouteRecordRaw[]) => {
     for (const item of list) {
-      if (item.fullPath === fullPath) {
+      if (item.meta?.fullPath === fullPath) {
         return item
-      } else if (fullPath.includes(item.fullPath) && item.children) {
+      } else if (fullPath.includes(item.meta?.fullPath as string) && item.children) {
         return _find(fullPath, item.children)
       }
     }
@@ -181,7 +176,7 @@ type HistoryRouter = { refresh: number } & RouteRecordRaw
 
 const getHistoryRouter = (navItem: RouteRecordRaw) => {
   const refresh = new Date().getTime()
-  if (navItem.title !== DASHBOARD && !state.historyRouter.find((item) => item.fullPath === navItem.fullPath)) {
+  if (navItem.meta?.title !== DASHBOARD && !state.historyRouter.find((item) => item.meta?.fullPath === navItem.meta?.fullPath)) {
     if (state.historyRouter.length === 0) {
       state.historyRouter.push({ refresh, ...menuList[0] })
     }
@@ -194,14 +189,14 @@ const goToPage = (navItem: RouteRecordRaw, isRefresh: boolean = false) => {
   let refresh
   if (!isRefresh) {
     for (const item of state.historyRouter) {
-      if (item.fullPath === navItem.fullPath) {
+      if (item?.meta?.fullPath === navItem?.meta?.fullPath) {
         refresh = item.refresh
         break
       }
     }
   }
   router.push({
-    path: navItem.fullPath,
+    path: navItem?.meta?.fullPath,
     query: {
       refresh: refresh ? refresh : new Date().getTime(),
     },
@@ -454,7 +449,7 @@ const refresh = () => {
       height: calc(100vh - $verticalTopNavHeight);
       overflow: auto;
       .title-container {
-        padding: 0 24px;
+        padding: 0 $paddingLeft;
         line-height: $titleHeigth;
         display: flex;
         justify-content: space-between;
