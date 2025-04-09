@@ -89,13 +89,9 @@ const handleCurrentChange = (val: number) => {
       height: 100%;
       .el-pagination {
         height: 100%;
-
         .el-pager li.is-active {
-          background-color: #5870cb;
+          background-color: #5870cb !important;
         }
-      }
-      el-pager li.is-active {
-        background-color: #5870cb;
       }
     }
   }

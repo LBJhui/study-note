@@ -1,0 +1,9 @@
+$base-padding: 10px;
+$section-margin: 20px;
+
+$el-color-primary: red;
+
+div {
+  color: var(--el-color-primary);
+  padding: $base-padding;
+}

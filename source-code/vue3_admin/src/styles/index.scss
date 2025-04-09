@@ -1,1 +1,12 @@
 @use './reset.scss';
+
+.el-button:hover {
+  background-color: var(--el-color-primary-light-3);
+  border-color: var(--el-color-primary-light-3);
+  color: #fff;
+  outline: none;
+}
+
+.el-select__placeholder {
+  font-size: 13px;
+}

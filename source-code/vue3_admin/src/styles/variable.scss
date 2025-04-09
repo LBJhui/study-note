@@ -1,12 +1,21 @@
+:root {
+  --el-color-primary: #5870cb;
+  --el-color-primary-light-3: #4c61ae;
+  --el-font-size-base: 13px;
+}
+
+$primaryColor: #5870cb;
+
+// 左右布局导航栏
 $leftNavwidth: 300px;
 $logoHeight: 60px;
 $topNavHeight: 150px;
 
+// 上下布局导航栏
 $verticalTopNavHeight: 80px;
 $verticalhistoryheight: 32px;
 $titleHeigth: 56px;
 $paddingLeft: 24px;
-
 $verticalTopNavColor: #1f2f68;
 
 $formLayoutFooterHeight: 80px;
