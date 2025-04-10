@@ -69,6 +69,7 @@ const handleCurrentChange = (val: number) => {
   position: relative;
   .form-container {
     padding: 0 $paddingLeft;
+    border-bottom: 12px solid #f8f9fb;
   }
 
   .footer-container {

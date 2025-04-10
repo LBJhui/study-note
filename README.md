@@ -1,5 +1,6 @@
 - promise
 - 虚拟 DOM
+- Vue3 中 watch 和 watchEffect
 
 https://fe.duyiedu.com/p/t_pc/goods_pc_detail/goods_detail/course_2VKbErGXkTSzvbl9aQ9HgndEtIz?type=2
 

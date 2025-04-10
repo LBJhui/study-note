@@ -5,7 +5,15 @@
       <template #form>
         <el-form :model="state.formData" :inline="true">
           <el-form-item label="创建日期：" prop="date">
-            <el-date-picker v-model="state.formData.date" type="daterange" range-separator="~" start-placeholder="开始日期" end-placeholder="结束日期" />
+            <el-date-picker
+              v-model="state.formData.date"
+              type="daterange"
+              range-separator="~"
+              start-placeholder="开始日期"
+              end-placeholder="结束日期"
+              value-format="yyyy-MM-dd"
+              placement="bottom-start"
+            />
           </el-form-item>
           <el-form-item label="产品：" prop="product">
             <MultipleSelect
@@ -25,24 +33,97 @@
             <MultipleSelect v-model="state.formData.workflowStatus" :options="workflowStatusList" placeholder="请选择流程状态" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="getTableList">查询</el-button>
-            <el-button @click="resetForm">重置</el-button>
-            <el-button type="primary">批量导出</el-button>
+            <FilterButton @resetForm="resetForm" @getTableList="getTableList" :buttonList="['查询', '重置', '批量导出']" />
           </el-form-item>
         </el-form>
       </template>
       <template #table>
-        <el-table height="100%"></el-table>
+        <div class="main-container">
+          <div class="btn">
+            <el-button type="primary" @click="addApply">新增合同变更申请</el-button>
+          </div>
+          <div class="table">
+            <el-table height="100%" :data="state.tableData">
+              <el-table-column property="product" label="产品" width="240" show-overflow-tooltip />
+              <el-table-column property="changeType" label="合同变更方式" show-overflow-tooltip />
+              <el-table-column property="validateDate" label="生效日期" show-overflow-tooltip />
+              <el-table-column property="dqjd" label="当前节点" show-overflow-tooltip />
+              <el-table-column property="status" label="流程状态" show-overflow-tooltip />
+              <el-table-column property="apply" label="申请人" show-overflow-tooltip />
+              <el-table-column property="createTime" label="创建时间" show-overflow-tooltip />
+              <el-table-column fixed="right" label="操作" min-width="120">
+                <template #default>
+                  <el-button link type="primary" size="small"> 详情 </el-button>
+                  <el-button link type="primary" size="small">下载合同变更文件</el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+          </div>
+        </div>
       </template>
     </FormLayout>
+
+    <el-dialog class="dialog" v-model="state.dialogVisible" align-center>
+      <template #header>
+        <div class="dialog-title">新增合同变更申请</div>
+      </template>
+      <div class="dialog-main-container">
+        <el-form ref="addFormRef" v-model="state.addFormData" :inline="true" label-width="105px" :rules="rules">
+          <div class="info base-info">
+            <div class="info-title">基本信息</div>
+            <el-form-item prop="product" label="产品">
+              <el-select v-model="state.addFormData.product" placeholder="请选择产品">
+                <el-option v-for="item in productList" :key="item.fundRegCode" :label="item.fundShowName" :value="item.fundRegCode"></el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item prop="changeType" label="合同变更方式">
+              <el-radio-group v-model="state.addFormData.changeType">
+                <el-radio v-for="item in changeTypeList" :key="item.dictUnit" :value="item.dictUnit" :label="item.unitDesc"></el-radio>
+              </el-radio-group>
+            </el-form-item>
+            <el-form-item prop="changeContent" label="变更内容">
+              <el-input v-model="state.addFormData.changeContent" style="width: 390px" :rows="2" type="textarea" placeholder="请填写合同变更内容或上传变更后的合同" />
+            </el-form-item>
+            <el-form-item label=" " prop="changeDescriptionFileList">
+              <Upload v-model="state.addFormData.changeDescriptionFileList" type="dashbutton"></Upload>
+            </el-form-item>
+          </div>
+          <div class="info business-contact-info">
+            <div class="info-title">业务联系人</div>
+            <el-form-item prop="contactPersonName" label="姓名">
+              <el-select v-model="state.contactPersonInfo.contactPersonName" placeholder="请选择业务联系人" clearable>
+                <el-option v-for="item in productList" :key="item.fundRegCode" :label="item.fundShowName" :value="item.fundRegCode"></el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item prop="contactPersonMobile" label="手机号">
+              <el-input v-model="state.contactPersonInfo.contactPersonMobile" disabled></el-input>
+            </el-form-item>
+            <el-form-item prop="contactPersonPhone" label="电话">
+              <el-input v-model="state.contactPersonInfo.contactPersonPhone" disabled></el-input>
+            </el-form-item>
+            <el-form-item prop="contactPersonEmail" label="邮箱">
+              <el-input v-model="state.contactPersonInfo.contactPersonEmail" disabled></el-input>
+            </el-form-item>
+          </div>
+        </el-form>
+      </div>
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button @click="closeDialog">取消</el-button>
+          <el-button type="primary" @click="state.dialogVisible = false"> 保存 </el-button>
+          <el-button type="primary" @click="state.dialogVisible = false"> 确认 </el-button>
+        </div>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import FormLayout from '@/components/FormLayout/index.vue'
 import MultipleSelect from '@/components/MultipleSelect/index.vue'
-
+import FilterButton from '@/components/FilterButton/index.vue'
+import Upload from '@/components/Upload/index.vue'
 import type { PageInfo } from '@/types/index'
 
 const productList = [
@@ -130,18 +211,50 @@ const workflowStatusList = [
   },
 ]
 
+const addFormRef = ref()
+const rules = {
+  product: [{ required: true }],
+  changeType: [{ required: true }],
+  changeContent: [{ required: true }],
+  contactPersonName: [{ required: true }],
+}
+
 const state = reactive({
-  pageInfo: {
-    total: 400,
-    currentPage: 1,
-    pageSize: 10,
-  } as PageInfo,
+  dialogVisible: true,
   formData: {
     date: [],
     product: [] as string[],
     changeType: [] as string[],
     workflowStatus: [] as string[],
   },
+  tableData: [
+    {
+      product: '明湾-鑫科FOF18号',
+      changeType: '以补充协议形式变更合同',
+      validateDate: '2021-06-28',
+      dqjd: '合同变更',
+      status: '办理中',
+      apply: '张三',
+      createTime: '2021-06-28',
+    },
+  ],
+  addFormData: {
+    product: '',
+    changeType: '',
+    changeContent: '',
+    changeDescriptionFileList: [],
+  },
+  contactPersonInfo: {
+    contactPersonName: 'contactPersonName',
+    contactPersonMobile: 'contactPersonName',
+    contactPersonPhone: 'contactPersonName',
+    contactPersonEmail: 'contactPersonName',
+  },
+  pageInfo: {
+    total: 400,
+    currentPage: 1,
+    pageSize: 10,
+  } as PageInfo,
 })
 
 const getTableList = () => {
@@ -158,6 +271,15 @@ const resetForm = () => {
   getTableList()
 }
 
+const addApply = () => {
+  state.dialogVisible = true
+}
+
+const closeDialog = () => {
+  addFormRef.value.resetFields()
+  state.dialogVisible = false
+}
+
 const handleSizeChange = (val: number) => {
   state.pageInfo.pageSize = val
 }
@@ -167,4 +289,55 @@ const handleCurrentChange = (val: number) => {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.main-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  .btn {
+    height: $tableContainerButtonHeight;
+    padding-left: $paddingLeft;
+    display: flex;
+    align-items: center;
+  }
+  .table {
+    flex: 1;
+  }
+}
+
+.dialog {
+  .dialog-title {
+    line-height: $elDialogHeaderHeight;
+    padding-left: $elDialogHeaderPaddingLeft;
+    font-weight: bold;
+    border-bottom: 1px solid #e5e7ec;
+  }
+  .dialog-main-container {
+    max-height: 482px;
+    overflow-y: auto;
+    padding: 15px 72px;
+    .info {
+      .info-title {
+        font-size: 14px;
+
+        font-weight: 600;
+        color: #0f1a30;
+        line-height: 22px;
+        padding: 16px 0;
+        margin-left: 36px;
+      }
+
+      .el-select,
+      .el-input {
+        width: 290px;
+      }
+    }
+  }
+
+  .dialog-footer {
+    padding: 30px 0 20px;
+    text-align: center;
+    box-shadow: rgba(28, 50, 122, 0.15) 0 -1px 6px 0;
+  }
+}
+</style>

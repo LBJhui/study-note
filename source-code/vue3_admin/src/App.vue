@@ -57,8 +57,8 @@
             <template v-for="item in menuList" :key="item.path">
               <div class="nav-item" @mouseenter="openSubMenu(item)" :class="{ active: state.activeMenu.meta?.title === item.meta?.title }" v-if="item.meta?.isNav">
                 <div class="nav-item-inset">
-                  <div class="icon-container">
-                    <span :class="`iconfont icon-${item.meta?.icon}`"></span>
+                  <div class="icon">
+                    <i :class="`iconfont icon-${item.meta?.icon}`"></i>
                   </div>
                   <div class="title">{{ item.meta?.title }}</div>
                 </div>
@@ -312,7 +312,7 @@ const refresh = () => {
             display: flex;
             flex-direction: column;
             align-items: center;
-            .icon-container {
+            .icon {
               margin: 7px auto 8px;
               .iconfont {
                 font-size: 24px;
