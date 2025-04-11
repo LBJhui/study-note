@@ -49,7 +49,6 @@
       <template v-else> <router-view></router-view> </template>
     </template>
     <template v-if="menuMode === VERTICAL">
-      <!-- 内容区域 -->
       <div class="vertical-container">
         <div class="top-nav">
           <div class="logo-container"></div>
@@ -108,8 +107,9 @@
           </div>
           <router-view v-slot="{ Component }">
             <keep-alive>
-              <component :is="Component" :key="route.query.refresh" />
+              <component :is="Component" :key="refreshMap.get(route.meta.fullPath)" v-if="route.meta.keepalive"></component>
             </keep-alive>
+            <component :is="Component" v-if="!route.meta.keepalive"></component>
           </router-view>
         </div>
       </div>
@@ -127,6 +127,7 @@ const router = useRouter()
 const route = useRoute()
 const hiddenMenu = ref(false)
 const DASHBOARD = '首页'
+const refreshMap = reactive(new Map())
 
 const isNotDashBoard = computed(() => {
   return state.activeRouter.meta?.title !== DASHBOARD
@@ -157,9 +158,8 @@ router.afterEach((to) => {
 const state = reactive({
   showSubMenu: false,
   activeMenu: {} as RouteRecordRaw,
-  historyRouter: [] as HistoryRouter[],
+  historyRouter: [] as RouteRecordRaw[],
   activeRouter: {} as RouteRecordRaw,
-  refreshKey: 0,
 })
 
 const openSubMenu = (item: RouteRecordRaw) => {
@@ -172,34 +172,25 @@ const closeSubMenu = () => {
   state.activeMenu = {} as RouteRecordRaw
 }
 
-type HistoryRouter = { refresh: number } & RouteRecordRaw
-
 const getHistoryRouter = (navItem: RouteRecordRaw) => {
-  const refresh = new Date().getTime()
   if (navItem.meta?.title !== DASHBOARD && !state.historyRouter.find((item) => item.meta?.fullPath === navItem.meta?.fullPath)) {
     if (state.historyRouter.length === 0) {
-      state.historyRouter.push({ refresh, ...menuList[0] })
+      state.historyRouter.push(menuList[0])
     }
-    state.historyRouter.push({ refresh, ...navItem })
+    state.historyRouter.push(navItem)
   }
   state.activeRouter = navItem
+  if (!refreshMap.has(navItem.meta?.fullPath)) {
+    refreshMap.set(navItem.meta?.fullPath, new Date().getTime())
+  }
 }
 
 const goToPage = (navItem: RouteRecordRaw, isRefresh: boolean = false) => {
-  let refresh
-  if (!isRefresh) {
-    for (const item of state.historyRouter) {
-      if (item?.meta?.fullPath === navItem?.meta?.fullPath) {
-        refresh = item.refresh
-        break
-      }
-    }
+  if (isRefresh || !state.historyRouter.filter((item) => item.meta?.fullPath === navItem.meta?.fullPath)) {
+    refreshMap.set(navItem.meta?.fullPath, new Date().getTime())
   }
   router.push({
     path: navItem?.meta?.fullPath,
-    query: {
-      refresh: refresh ? refresh : new Date().getTime(),
-    },
   })
   closeSubMenu()
 }
@@ -209,22 +200,27 @@ const goToDashBoard = () => {
 }
 
 const closeHistoryTab = (index: number) => {
+  const fullPath = state.historyRouter[index].meta?.fullPath
   state.historyRouter.splice(index, 1)
-
   const newIndex = state.historyRouter[index] ? index : index - 1
   if (state.historyRouter.length === 1) {
-    state.historyRouter = []
-    state.activeRouter = {} as RouteRecordRaw
+    clearHistoryRouter()
     goToDashBoard()
   } else {
     goToPage(state.historyRouter[newIndex])
+    refreshMap.delete(fullPath)
   }
 }
 
 const closeAll = () => {
+  clearHistoryRouter()
+  goToDashBoard()
+}
+
+const clearHistoryRouter = () => {
   state.activeRouter = {} as RouteRecordRaw
   state.historyRouter = []
-  goToDashBoard()
+  refreshMap.clear()
 }
 
 const refresh = () => {

@@ -1,14 +1,13 @@
 <template>
   <div>
-    <!-- <el-upload v-model:file-list="fileList" class="upload" action="" multiple :limit="3" :show-file-list="false">
-      <div class="upload-btn">上传</div>
-    </el-upload> -->
-    <el-upload v-model:file-list="fileList" :="attrs" @change="handleChange" v-if="attrs.type === 'dashbutton'">
-      <!-- <div class="upload-btn">上传</div> -->
-      <el-button class="upload-btn" type="primary">
+    <el-upload v-model:file-list="fileList" :="attrs" @change="handleChange">
+      <el-button class="upload-btn" type="primary" v-if="attrs.type === 'dashbutton'">
         <span class="iconfont icon-attachment"></span>
         上传
       </el-button>
+      <template #tip>
+        <span class="tip">{{ tip }}</span>
+      </template>
     </el-upload>
   </div>
 </template>
@@ -17,12 +16,10 @@
 import { ref, useAttrs } from 'vue'
 
 let attrs = useAttrs()
-console.log('%c 🍰 attrs', 'font-size:16px;color:#93c0a4', attrs)
-const props = defineProps(['modelValue'])
-const emit = defineEmits(['update:modelValue'])
-
+const model = defineModel()
+defineProps(['tip'])
 const handleChange = (file: any) => {
-  emit('update:modelValue', file.raw)
+  model.value = file.raw
 }
 
 const fileList = ref([])
@@ -36,5 +33,10 @@ const fileList = ref([])
   color: $primaryColor;
   font-size: 14px;
   width: 90px;
+}
+.tip {
+  margin-left: 9px;
+  font-size: 14px;
+  white-space: nowrap;
 }
 </style>

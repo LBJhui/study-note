@@ -7,10 +7,6 @@
   outline: none;
 }
 
-.el-select__placeholder {
-  font-size: 13px;
-}
-
 .el-dialog {
   padding: 0;
   .el-dialog__header {
@@ -22,4 +18,14 @@
   .el-dialog__footer {
     padding-top: 0;
   }
+}
+
+// 自定义表单样式
+
+.el-select__placeholder {
+  font-size: 13px;
+}
+
+.el-form-item__error {
+  white-space: nowrap;
 }

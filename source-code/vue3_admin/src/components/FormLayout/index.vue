@@ -4,7 +4,7 @@
     <div class="table-container" ref="tableContainerRef"><slot name="table"></slot></div>
     <div class="footer-container" ref="footerContainerRef">
       <div class="total-container">
-        共 <span class="num">{{ pageInfo.total }}</span> 条数据，已选中 <span class="num">{{ pageInfo.currentPage }}</span> 条数据
+        共 <span class="num">{{ pageInfo.total }}</span> 条数据，已选中 <span class="num">{{ pageInfo.selectedNum }}</span> 条数据
       </div>
       <div class="pagination-container">
         <el-pagination
@@ -31,7 +31,7 @@ const formContainerRef = ref()
 const tableContainerRef = ref()
 const footerContainerRef = ref()
 
-const props = defineProps(['pageInfo'])
+defineProps(['pageInfo'])
 const emit = defineEmits(['sizeChange', 'currentChange'])
 const init = () => {
   computedHeight()

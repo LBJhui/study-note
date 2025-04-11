@@ -13,19 +13,16 @@
         </el-option>
       </template>
     </el-checkbox-group>
-    <template #tag v-if="tag">
-      <span class="tag">{{ tag }}</span>
+    <template #tag v-if="tagText">
+      <span class="tag">{{ tagText }}</span>
     </template>
   </el-select>
 </template>
 
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
+import type { Option } from '@/types/index'
 
-// 定义选项的类型
-interface Option {
-  [key: string]: any // 动态键值对，可根据实际需求调整为更具体的类型
-}
 const emit = defineEmits(['update:modelValue', 'change'])
 const props = defineProps({
   options: {
@@ -57,13 +54,13 @@ watch(
     selectedList.value = val
     isCheckedAll()
     if (checkAll.value) {
-      tag.value = '全部'
+      tagText.value = '全部'
     } else if (selectedList.value.length === 1) {
-      tag.value = props?.options?.find((_) => _[props.value] === selectedList.value[0])?.[props.label]
+      tagText.value = props?.options?.find((_) => _[props.value] === selectedList.value[0])?.[props.label]
     } else if (selectedList.value.length > 1) {
-      tag.value = `已选 ${selectedList.value.length} 项`
+      tagText.value = `已选 ${selectedList.value.length} 项`
     } else {
-      tag.value = ''
+      tagText.value = ''
     }
   },
 )
@@ -72,20 +69,18 @@ const showCheckAll = computed(() => {
   return props?.options?.find((_) => _[props.label].includes(search.value))
 })
 
-const root = document.documentElement.style
-root.setProperty('--tag-width', +props.width * 0.7 + 'px')
-
 const selectedList = ref<string[]>(props.modelValue)
 const search = ref('')
 const checkAll = ref(false)
 const indeterminate = ref(false)
-const tag = ref('')
+const tagText = ref('')
 
 const handleCheckAll = (val: any) => {
   indeterminate.value = false
   let value: string[] = []
   if (val) {
-    value = props.options.map((_) => _[props.value])
+    const options = getFilterOptions()
+    value = options.map((item) => item[props.value])
   } else {
     value = []
   }
@@ -112,8 +107,13 @@ const handleChange = (value: string[]) => {
 
 const isCheckedAll = () => {
   const checkedCount = selectedList.value.length
-  checkAll.value = !!checkedCount && checkedCount === props.options.length
-  indeterminate.value = checkedCount > 0 && checkedCount < props.options.length
+  let options = getFilterOptions()
+  checkAll.value = !!checkedCount && checkedCount === options.length
+  indeterminate.value = checkedCount > 0 && checkedCount < options.length
+}
+
+const getFilterOptions = () => {
+  return props.isFilter && search.value ? props.options.filter((item) => item[props.label].includes(search.value)) : props.options
 }
 </script>
 
@@ -125,9 +125,7 @@ const isCheckedAll = () => {
 .tag {
   margin-left: 12px;
   overflow: hidden;
-  line-clamp: 1;
   white-space: nowrap;
   text-overflow: ellipsis;
-  width: var(--tag-width);
 }
 </style>
