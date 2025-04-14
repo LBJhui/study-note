@@ -86,7 +86,7 @@ window.addEventListener(
 ```
 
 ```text
-structuredClone
+structuredClone https://www.zhangxinxu.com/wordpress/2025/01/js-api-structuredclone/
 [Vue3 之 script-setup 全面解析](https://www.jianshu.com/p/5096bfb42e5a)
 纯前端图片压缩 图转base64读出宽高，canvas画图
 对等依赖 peerDependencies(package.json) npm i --legacy-peer-deps
@@ -2608,11 +2608,12 @@ text-shadow：只适合小的外描边
   1. 立即执行函数
   2. 严格模式
 - 谈谈移动端布局的几种方式
+
   1. 流式布局
-    相对单位定义元素的宽高
+     相对单位定义元素的宽高
   2. 固定宽度布局
   3. 响应式布局
-    弹性布局+媒体查询
+     弹性布局+媒体查询
   4. 栅格布局
   5. flex 布局（弹性布局）
   6. 瀑布流

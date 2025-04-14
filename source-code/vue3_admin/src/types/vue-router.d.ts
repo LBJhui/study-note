@@ -1,5 +1,3 @@
-import { _RouteRecordBase } from 'vue-router'
-
 declare module 'vue-router' {
   interface RouteMeta {
     title: string
