@@ -121,7 +121,7 @@
 import { HORIZONTAL, VERTICAL, menuMode } from '@/settings'
 import { ref, reactive, computed } from 'vue'
 import { useRouter, useRoute, RouteRecordRaw } from 'vue-router'
-import routes from '@/router/routes'
+import routes from '@/router/routers/index'
 
 const router = useRouter()
 const route = useRoute()

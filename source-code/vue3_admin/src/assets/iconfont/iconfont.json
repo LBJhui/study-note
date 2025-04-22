@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "23096192",
+      "name": "practice",
+      "font_class": "practice",
+      "unicode": "e9e7",
+      "unicode_decimal": 59879
+    },
+    {
       "icon_id": "11132415",
       "name": "todo-list",
       "font_class": "todo-list",
