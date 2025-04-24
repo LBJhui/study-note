@@ -816,3 +816,23 @@ pnpm install axios
 ```
 
 最后通过 axios 测试接口！！！
+
+# 第三方库
+
+[inspira-ui(Vue3 动效库)](https://github.com/unovue/inspira-ui)
+
+[radash: Functional utility library - modern, simple, typed, powerful(功能函数)](https://github.com/sodiray/radash)
+
+[dayjs: Fast 2kB alternative to Moment.js with the same modern API(日期)](https://github.com/iamkun/dayjs)
+
+[driver.js: Powerful, highly customizable vanilla JavaScript engine to drive the user's focus across the page(引导页组件)](https://github.com/kamranahmedse/driver.js)
+
+[drag-and-drop(拖放库)](https://github.com/formkit/drag-and-drop)
+
+[LogicFlow 是一款流程图编辑框架，提供了一系列流程图交互、编辑所必需的功能和简单灵活的节点自定义、插件等拓展机制，方便我们快速在业务系统内满足类流程图的需求。](https://github.com/didi/LogicFlow)
+
+[progressbar.js: Responsive and slick progress bars with animated SVG paths.(进度条)](https://github.com/kimmobrunfeldt/progressbar.js)
+
+[Tesseract.js is a javascript library that gets words in almost any language out of images. (OCR)](https://github.com/naptha/tesseract.js)
+
+[lottie: 跨平台的动画库](https://github.com/airbnb/lottie-web)

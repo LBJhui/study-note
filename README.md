@@ -838,6 +838,7 @@ run(main)
 ```
 
 ```javascript
+// 如果 call()方法的第一个参数是 Number、String 或 Boolean 基本类型，最终 this 会指向对应的包装类型对象。
 // call 方法第一个参数为 null 或 undefined，this 会被设置为全局对象
 // call和apply的链式调用
 const r = console.log.call.call.call.call.call.call.call.apply((a) => a, [1, 2])
