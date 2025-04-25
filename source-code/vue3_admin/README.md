@@ -821,6 +821,8 @@ pnpm install axios
 
 [inspira-ui(Vue3 动效库)](https://github.com/unovue/inspira-ui)
 
+[Anime.js is a fast, multipurpose and lightweight JavaScript animation library with a simple, yet powerful API.](https://github.com/juliangarnier/anime)
+
 [radash: Functional utility library - modern, simple, typed, powerful(功能函数)](https://github.com/sodiray/radash)
 
 [dayjs: Fast 2kB alternative to Moment.js with the same modern API(日期)](https://github.com/iamkun/dayjs)
