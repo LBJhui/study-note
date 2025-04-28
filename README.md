@@ -5726,6 +5726,10 @@ Array.prototype.forEach = function (callback) {
 - 你刚才说了缓存，讲一讲 cookie 吧
 - 还有什么种类的缓存，有什么样的不同呢？说说
 - 肯定遇到过跨域吧，说说跨域吧（CORS,JSONP）
+  CORS 相关的响应头如下：
+  • Access-Control-Allow-Origin：允许的域名，该字段是必须的，可以设置为特定的前台项目的地址，如 http://localhost：8080，表示只允许此地址发送跨域请求；也可以设置为\*，表示允许任意域名的跨域请求。
+  • Access-Control-Allow-Credentials：该字段可选。它的值是一个布尔值，表示是否允许发送 Cookie。在默认情况下，Cookie 不包括在 CORS 请求中。
+  • Access-Control-Expose-Headers：该字段可选。进行 CORS 请求时，XMLHttpRequest 对象的 getResponseHeader()方法只能获取六个基本字段：Cache-Control、Content-Language、Content-Type、Expires、Last-Modified、Pragma。如果想获取其他字段，就必须在 Access-Control-Expose-Headers 里面指定。
 - 好吧，我的问题就问这么多，顺便了解一下，你家人同意你来深圳吗？
 - 您对我有什么样的评价？我觉得你项目大的挺好的，但是基础的话，我觉得你答的还有点疏漏，回去再好好想想，好吧？
 - 后面要是有面试会在一周之内，通知你。
@@ -13392,3 +13396,44 @@ git pull --rebase
 
 - `npm cache clean --force` 命令强制清理缓存
 - `color: light-dark(#000, #fff);` 这会根据用户的设备主题自动更改文本颜色。在暗模式下，文本变为白色，在亮模式下，文本变为黑色。
+
+- 请求头字段
+
+|   请求头名称    |                                    含义                                    |
+| :-------------: | :------------------------------------------------------------------------: |
+|     Accept      |                 客户端可以处理的内容类型，如 `Accept: */*`                 |
+| Accept-Charset  |           客户端可以处理的字符集类型，如 `Accept-Charset: utf-8`           |
+| Accept-Encoding |       客户端可以处理的压缩编码，如 `Accept-Encoding: gzip, deflate`        |
+| Accept-Language |         客户端当前设置的语言，如 `Accept-Language: zh-CN,zh;q=0.9`         |
+|   Connection    |         客户端与服务器之间连接的类型，如 `Connection: keep-alive`          |
+|     Cookie      |                         当前页面设置的任何 Cookie                          |
+|      Host       |                            发送请求页面所在的域                            |
+|     Referer     |   当前请求页面的来源页面的地址，即当前页面是通过此来源页面里的链接进入的   |
+|   User-Agent    | 客户端的用户代理字符串，一般包含浏览器、浏览器内核和操作系统的版本型号信息 |
+|  Content-Type   |  客户端告诉服务器实际发送的数据类型，如 `Content-Type: application/json`   |
+
+```javascript
+const first = () =>
+  new Promise((resolve, reject) => {
+    console.log(3)
+    let p = new Promise((resolve, reject) => {
+      console.log(7)
+      setTimeout(() => {
+        console.log(5)
+        resolve(6)
+      }, 0)
+      resolve(1)
+    })
+    resolve(2)
+    p.then((arg) => {
+      console.log(arg)
+    })
+  })
+
+first().then((arg) => {
+  console.log(arg)
+})
+console.log(4)
+```
+
+- 与获取普通对象的属性值不同，使用 for...in、for...of、Object.keys()、Object.values()、Object.entries()、Object.getOwnPropertyNames()这些方法并不能获取 Symbol 类型的属性名。ES6 专门提供了 Object.getOwnPropertySymbols()方法，用来获取一个给定对象自身的所有 Symbol 属性，返回的结果为一个数组。
