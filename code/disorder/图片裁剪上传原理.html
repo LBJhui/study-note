@@ -16,6 +16,7 @@
     <script>
       const input = document.querySelector('input')
       const preview = document.querySelector('.preview')
+      // 预览
       input.onchange = (e) => {
         const file = e.target.files[0]
         const reader = new FileReader()
@@ -36,7 +37,7 @@
           oWidth: 1000,
           oHeight: 1000,
           width: 200,
-          height: 200,
+          height: 200
         }
         const cvs = document.createElement('canvas')
         const ctx = cvs.getContext('2d')
@@ -45,7 +46,7 @@
         ctx.drawImage(preview, cutInfo.x, cutInfo.y, cutInfo.oWidth, cutInfo.oHeight, 0, 0, cutInfo.width, cutInfo.height)
         cvs.toBlob((blob) => {
           const file = new File([blob], 'cut.png', {
-            type: 'image/png',
+            type: 'image/png'
           })
         })
       }

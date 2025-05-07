@@ -121,7 +121,6 @@ transform 从右到左 translate3d
 mask-image
 vue3 expose defineExpose markRaw、withModifiers
 正则匹配的贪婪模式和惰性模式有什么区别
-浏览器的自动播放策略
 BFF 层 backends for frontends
 函数签名 = 函数名称 + 函数参数 + 函数参数类型 + 返回值类型
 改变 webkit 表单输入框 placeholder 的颜色值：input::-webkit-input-placehold
@@ -417,10 +416,10 @@ function captureFrame(file, time = 0) {
   return new Promise((resolve, reject) => {
     const vdo = document.createElement('video')
     vdo.currentTime = time
-    vdo.mute = true
+    vdo.muted = true
     vdo.autoplay = true
     vdo.src = URL.createObjectURL(file)
-    vdo = oncanplay = () => {
+    vdo.oncanplay = () => {
       const cvs = document.createElement('canvas')
       cvs.width = vdo.videoWidth
       cvs.height = vdo.videoHeight
@@ -3263,6 +3262,7 @@ Array.prototype.forEach = function (callback) {
 - 介绍单页面应用和多页面应用
 - 介绍 localstorage 的 API
 - html 语义化的理解
+- 语义化版本
 - `<b>`和`<strong>`的区别
 - 对闭包的理解
 - 工程中闭包使用场景
