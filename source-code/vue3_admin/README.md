@@ -838,3 +838,5 @@ pnpm install axios
 [Tesseract.js is a javascript library that gets words in almost any language out of images. (OCR)](https://github.com/naptha/tesseract.js)
 
 [lottie: 跨平台的动画库](https://github.com/airbnb/lottie-web)
+
+[pinyin](https://github.com/hotoo/pinyin)

@@ -13395,7 +13395,6 @@ git pull --rebase
 ```
 
 - `npm cache clean --force` 命令强制清理缓存
-- `color: light-dark(#000, #fff);` 这会根据用户的设备主题自动更改文本颜色。在暗模式下，文本变为白色，在亮模式下，文本变为黑色。
 
 - 请求头字段
 
@@ -13437,3 +13436,5 @@ console.log(4)
 ```
 
 - 与获取普通对象的属性值不同，使用 for...in、for...of、Object.keys()、Object.values()、Object.entries()、Object.getOwnPropertyNames()这些方法并不能获取 Symbol 类型的属性名。ES6 专门提供了 Object.getOwnPropertySymbols()方法，用来获取一个给定对象自身的所有 Symbol 属性，返回的结果为一个数组。
+- font-size-adjust
+- offset-position 和 offset-path
