@@ -13438,3 +13438,23 @@ console.log(4)
 - 与获取普通对象的属性值不同，使用 for...in、for...of、Object.keys()、Object.values()、Object.entries()、Object.getOwnPropertyNames()这些方法并不能获取 Symbol 类型的属性名。ES6 专门提供了 Object.getOwnPropertySymbols()方法，用来获取一个给定对象自身的所有 Symbol 属性，返回的结果为一个数组。
 - font-size-adjust
 - offset-position 和 offset-path
+
+```javascript
+typedof NaN
+9999999999999999
+0.5+0.1==0.6
+0.1+0.2==0.3
+Math.max()
+Math.min()
+[]+[]
+[]+{}
+{}+[]
+true+true+true===3
+true-true
+true==1
+true===1
+(!+[]+[]+![]).length
+9+'1'
+91-'1'
+[]==0
+```

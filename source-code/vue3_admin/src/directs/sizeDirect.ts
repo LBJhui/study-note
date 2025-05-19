@@ -1,4 +1,4 @@
-import { VueElement, DirectiveBinding, Directive } from 'vue'
+import type { VueElement, DirectiveBinding, Directive } from 'vue'
 
 const map = new WeakMap()
 
