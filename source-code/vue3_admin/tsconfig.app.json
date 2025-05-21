@@ -26,7 +26,7 @@
       //路径映射，相对于baseUrl
       "@/*": ["src/*"]
     },
-    "types": ["element-plus/global", "vite-plugin-svg-icons/client"]
+    "types": ["element-plus/global"]
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"]
 }

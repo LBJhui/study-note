@@ -8,8 +8,6 @@ import 'element-plus/dist/index.css'
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 //svg插件需要配置代码
-import 'virtual:svg-icons-register'
-import gloablComponent from './components/index'
 import '@/styles/index.scss'
 import '@/assets/iconfont/iconfont.css'
 import router from '@/router'
@@ -23,5 +21,4 @@ app.use(ElementPlus, {
 //注册模板路由
 app.use(router)
 app.use(pinia)
-app.use(gloablComponent)
 app.mount('#app')

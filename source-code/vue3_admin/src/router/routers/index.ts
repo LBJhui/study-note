@@ -16,17 +16,6 @@ const constantRouter: Array<RouteRecordRaw> = [
     },
   },
   {
-    path: '/communication',
-    component: () => import('@/views/communication/06_ref-children-parent/RefChildrenParentTest.vue'),
-    meta: {
-      title: 'Vue组件通信',
-      isNav: false,
-      icon: 'House',
-      keepalive: true,
-      fullPath: '/communication',
-    },
-  },
-  {
     path: '/dashboard',
     component: () => import('@/views/dashboard/index.vue'),
     meta: {
