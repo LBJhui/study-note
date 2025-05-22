@@ -10,7 +10,7 @@
         第一:相当有给子组件传递props[modelValue] = 10000
         第二:相当于给子组件绑定自定义事件update:modelValue
     -->
-    <Child v-model="money"></Child>
+    <Child v-model.number="money"></Child>
     <hr />
     <Child1 v-model:pageNo="pageNo" v-model:pageSize="pageSize"></Child1>
   </div>

@@ -18,7 +18,18 @@ const practice: RouteRecordRaw = {
         keepalive: true,
         isNav: true,
       },
-      children: [],
+      children: [
+        {
+          path: 'communication',
+          meta: {
+            fullPath: '/practice/work/communication',
+            title: 'v-model',
+            keepalive: true,
+            isNav: true,
+          },
+          component: () => import('@/views/practice/communication/04_v-model/ModelTest.vue'),
+        },
+      ],
     },
   ],
 }
