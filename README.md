@@ -2305,6 +2305,13 @@ addEventListener('onerror', {
 
 // Clipboard API
 navigator.clipboard.readText().then((text) => {})
+
+// 事件
+copy paste
+document.addEventListener('copy', (e) => {
+  e.preventDefault()
+  navigator.clipboard.writeText("不准复制")
+})
 ```
 
 ```css
@@ -13489,4 +13496,25 @@ true===1
   非阻塞加载：带有 type="module"的脚本加载是异步的，这类标签视为 ES6 模块来处理，而 ES6 模块是设计为异步加载的，当浏览器遇到此类标签时，会开始异步下载改模块及其依赖项，不会暂停页面的解析和渲染工作，当 HTML 文档被解析完成后，会在触发 DOMContentLoaded 事件之前执行这些脚本。所以它的表现有点类似 defer。
   模块化支持：带有 type="module"的脚本会自动分割成不同的模块，并且相互之间作用域是隔离的，浏览器会自动加载这些模块，无需手动管理依赖关系。
   支持静态导入和动态导入：可以使用 import 语句静态地导入其它模块，这些导入的模块加载时自动解析和执行。还可以使用 import()函数动态地导入模块，根据需要在运行时加载模块，进一步控制模块的加载和执行时机。
+```
+
+- 磨砂玻璃效果 backdrop-filter
+
+```javascript
+// 打印三角形
+function print(n) {
+  const result = new Array(n)
+    .fill('')
+    .map((_, i) => {
+      const line = new Array(2 * n - 1).fill(' ')
+      line[n - 1] = 1
+      for (let j = 2; j <= i + 1; j++) {
+        line[n - j] = j
+        line[n + j - 2] = j
+      }
+      return line.join('')
+    })
+    .join('\n')
+  console.log(result)
+}
 ```
