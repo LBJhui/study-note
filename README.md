@@ -343,7 +343,7 @@ fetch('url', {
 
 // 文件上传
 //   单文件上传 multiport/form-data
-//   二进制格式上传文件 binary/application/octet-stream
+//   二进制格式上传文件 binary/application/octet-stream Content-Type:application/octet-stream
 
 // 文件下载
 // 下载的流式传输
@@ -1101,6 +1101,25 @@ add + 4 // 期望结果 4
 const r1 = add[1][2][3] + 4 // 期望结果 10
 const r2 = add[10][20] + 30 // 期望结果 60
 const r3 = add[100][200][300] + 400 // 期望结果 1000
+
+const add = new Proxy(
+  { sum: 0 },
+  {
+    get(target, key, receiver) {
+      // 遇到 + 操作，会触发隐式类型转换
+      if (key === Symbol.toPrimitive) {
+        const tmp = target.sum
+        // 清零，可以重复调用多次
+        target.sum = 0
+        // Symbol.toPrimitive 是函数内部属性，所以需要返回一个函数
+        return () => tmp
+      } else {
+        target.sum += Number(key)
+        return receiver
+      }
+    }
+  }
+)
 
 // 链式调用
 function chain (value) {
@@ -2354,7 +2373,7 @@ import.meta.glob('../views/**/page.js', {
 ```
 保持元素宽高比
 css 属性: aspect-ratio
-padding 相对于父元素宽度
+padding 相对于包含块宽度
 ```
 
 ```js
@@ -8992,9 +9011,6 @@ diff 算法是通过**「同层的树节点」**进行比较而非对树进行�
   \7. 看到你也去美团面试过，如果这面过了的话你会怎么选？
 
   > 1.  腾讯成立时间将近是美团的两倍，它平台资源也很丰富，能给我提供更好的发展机会。
-  > 2.  美团的 base 在北京，如果可以选择的话，我更希望南下，个人意愿。
-
-  \8. 现在是大三吗？可以实习多久？
 
   \9. 对 TCP 和 UDP 了解吗？比如具体的区别是什么？
 
@@ -13517,4 +13533,36 @@ function print(n) {
     .join('\n')
   console.log(result)
 }
+```
+
+```javascript
+// 函数的链式调用
+class MyCalculator {
+  constructor(value) {
+    this.value = value
+  }
+
+  add(num) {
+    this.value += num
+    return this
+  }
+  minus(num) {
+    this.value -= num
+    return this
+  }
+  multiply(num) {
+    this.value *= num
+    return this
+  }
+  divide(num) {
+    this.value /= num
+    return this
+  }
+  toString() {
+    return this.value
+  }
+}
+
+const calculartor = new MyCalculator(121)
+console.log(calculartor.add(1).minus(2).multiply(3).divide(4) == 90)
 ```
