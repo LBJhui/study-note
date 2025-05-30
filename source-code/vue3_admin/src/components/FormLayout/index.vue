@@ -1,10 +1,16 @@
 <template>
   <div class="container" ref="containerRef" v-resize="resize">
     <div class="form-container" ref="formContainerRef"><slot name="form"></slot> </div>
-    <div class="table-container" ref="tableContainerRef"><slot name="table"></slot></div>
+    <div class="table-container" ref="tableContainerRef">
+      <div :class="{ 'table-container-btn': slots.btn }"> <slot name="btn"></slot> </div>
+      <div class="table-container-table"> <slot name="table"></slot></div>
+    </div>
     <div class="footer-container" ref="footerContainerRef">
       <div class="total-container">
-        共 <span class="num">{{ pageInfo.total }}</span> 条数据，已选中 <span class="num">{{ pageInfo.selectedNum }}</span> 条数据
+        共 <span class="num">{{ pageInfo.total }}</span> 条数据
+        <span v-if="pageInfo.selectedNum !== undefined"
+          >，已选中 <span class="num">{{ pageInfo.selectedNum }}</span> 条数据</span
+        >
       </div>
       <div class="pagination-container">
         <el-pagination
@@ -23,8 +29,10 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, useSlots } from 'vue'
 import vResize from '@/directs/sizeDirect'
+
+const slots = useSlots()
 
 const containerRef = ref()
 const formContainerRef = ref()
@@ -70,6 +78,18 @@ const handleCurrentChange = (val: number) => {
   .form-container {
     padding: 0 $paddingLeft;
     border-bottom: 12px solid #f8f9fb;
+  }
+
+  .table-container {
+    display: flex;
+    flex-direction: column;
+    .table-container-btn {
+      padding-left: $paddingLeft;
+      line-height: $tableContainerButtonHeight;
+    }
+    .table-container--table {
+      flex: 1;
+    }
   }
 
   .footer-container {

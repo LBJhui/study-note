@@ -22,6 +22,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import type { Option } from '@/types/index'
+import { selectWidth } from '@/utils/index'
 
 const emit = defineEmits(['update:modelValue', 'change'])
 const props = defineProps({
@@ -44,7 +45,7 @@ const props = defineProps({
   },
   width: {
     type: String,
-    default: '200',
+    default: selectWidth,
   },
 })
 

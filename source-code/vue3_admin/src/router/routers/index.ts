@@ -2,6 +2,7 @@ import { RouteRecordRaw } from 'vue-router'
 import productCycle from './productCycle'
 import ta from './ta'
 import generalManage from './generalManage'
+import systemManage from './systemManage'
 import practice from './practice'
 
 const constantRouter: Array<RouteRecordRaw> = [
@@ -59,6 +60,7 @@ const constantRouter: Array<RouteRecordRaw> = [
   productCycle,
   ta,
   generalManage,
+  systemManage,
   practice,
 ]
 

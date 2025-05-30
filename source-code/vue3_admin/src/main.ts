@@ -11,10 +11,14 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import '@/styles/index.scss'
 import '@/assets/iconfont/iconfont.css'
 import router from '@/router'
+import { setupGlobComp } from '@/components'
 const app = createApp(App)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
+
+setupGlobComp(app)
+
 app.use(ElementPlus, {
   locale: zhCn,
 })

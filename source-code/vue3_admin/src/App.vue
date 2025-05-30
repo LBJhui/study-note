@@ -63,6 +63,7 @@ import VerticalNav from '@/components/VerticalNav/index.vue'
 #app {
   width: 100vw;
   height: 100vh;
+  min-width: 1250px;
   overflow: hidden;
   font-family:
     PingFangSC,
