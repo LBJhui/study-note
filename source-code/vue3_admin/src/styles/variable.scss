@@ -2,6 +2,7 @@
   --el-color-primary: #5870cb;
   --el-color-primary-light-3: #4c61ae;
   --el-font-size-base: 13px;
+  --el-switch-off-color: #dcdfe6;
 }
 
 $primaryColor: #5870cb;
@@ -22,4 +23,5 @@ $tableContainerButtonHeight: 56px;
 $formLayoutFooterHeight: 80px;
 
 $elDialogHeaderHeight: 50px;
-$elDialogHeaderPaddingLeft: 20px;
+$elDialogHeaderPadding: 20px;
+$elDialogHrColor: #ebeef5;

@@ -2,7 +2,7 @@ type PageInfo = {
   total: number
   currentPage: number
   pageSize: number
-  selectedNum: number
+  selectedNum?: number
 }
 
 // 定义选项的类型

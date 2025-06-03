@@ -1,0 +1,12 @@
+const field = {
+  用户账户: 'userAccount',
+  用户姓名: 'userName',
+  所属机构: 'party',
+  角色: 'role',
+  用户状态: 'userStatus',
+  邮箱: 'email',
+  座机电话: 'telephone',
+  证件类型: 'IDType',
+  证件号码: 'IDNumber',
+  备注: 'comment',
+}
