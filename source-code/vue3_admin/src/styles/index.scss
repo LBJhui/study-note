@@ -29,3 +29,9 @@
 .el-form-item__error {
   white-space: nowrap;
 }
+
+.tip-text {
+  color: $warningColor;
+  font-size: 12px;
+  line-height: 40px;
+}

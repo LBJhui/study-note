@@ -9,4 +9,7 @@ const field = {
   证件类型: 'IDType',
   证件号码: 'IDNumber',
   备注: 'comment',
+  手机号: 'mobilePhone',
+  联系人类型: 'contactType',
+  是否添加至联系人: 'isAddToContact',
 }
