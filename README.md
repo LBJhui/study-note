@@ -1,7 +1,3 @@
-- promise
-- 虚拟 DOM
-- Vue3 中 watch 和 watchEffect
-
 https://fe.duyiedu.com/p/t_pc/goods_pc_detail/goods_detail/course_2VKbErGXkTSzvbl9aQ9HgndEtIz?type=2
 
 ```javascript
@@ -213,20 +209,8 @@ async function fun(arr) {
 }
 ```
 
-```text
-跨标签页通信常见方案
-  BroadcastChannel API https://www.zhangxinxu.com/wordpress/2025/01/js-broadcast-channel-api/
-  Service Worker
-  LocalStorage  window.onstorage 监听
-  Shared Worker 定时器轮询 setInterval
-  IndexedDB 定时器轮询
-  cookie 定时器轮询
-  window.open、window.postMessage
-  WebSocket
-```
-
 ```javascript
-// 任务执行的洋葱模型
+// 任务执行的洋葱模型 Koa
 class TaskPro {
   #tasksList
   #isRunning
@@ -884,6 +868,8 @@ function runTask(task) {
     }, 0)
   })
 }
+// requestIdleCallback
+// requestAnimationFrame 渲染之前
 
 // requestAnimationFrame 阻塞
 function runTask(task) {
@@ -967,6 +953,7 @@ $_n: 6; // 私有变量
 ```
 
 ```scss
+// SASS中的扩展和占位符 % 占位符
 // sass 混合 @mixin @include
 // sass 继承 extends %(抽象类)
 
@@ -1869,17 +1856,7 @@ sync:回调函数会同步执行，也就是在响应式数据发生变化时立
 
 watch 只能收集同步代码的依赖，如果存在 await 依赖收集会出现问题
 
-①
-watchEffect 会自动追踪函数内部使用的数据变化，数据变化时重新执行该函数
-watch 需要显示地指定监听的数据，若指定的数据发生变化，重新执行该函数
 
-②
-watchEffect 的函数会立即执行一次，并在依赖的数据变化时再次执行
-watch 的回调函数只有在侦听的数据源发生变化时才会执行，不会立即执行
-
-③
-watch 可以更精细地控制监听行为，如 deep、immediate、flush
-watchEffect 更适合简单的场景，不需要额外的配置。相当于默认开启了 deep、immediate
 ```
 
 ```vue
@@ -2598,15 +2575,8 @@ text-shadow：只适合小的外描边
   5. 减轻源服务器的负担
   6. 提高网站的可用性
 - 文字转语音
-  如何把文字转语音
-  web api：语音不统一/兼容性
-  第三方平台
-  优化：
-  断句
-  并发控制
-  缓存
-  客户端 localStorage（md5 base64）
-  服务器
+  如何把文字转成音频数据 ① web api：语音不统一/兼容性 ② 第三方平台（讯飞）
+  优化： ① 断句 ② 并发控制 ③ 缓存 客户端 localStorage（键 md5 值 base64） 服务器
 
 - SPA 的优缺点，以及在何种场景下更适合使用 SPA
   优点：
@@ -3732,10 +3702,6 @@ Array.prototype.forEach = function (callback) {
   // 提供isRef，用于检查一个对象是否是ref对象
   ```
 
-- watchEffect 监听函数
-  watchEffect 不需要手动传入依赖
-  watchEffect 会先执行一次用来自动收集依赖
-  watchEffect 无法获取到变化前的值， 只能获取变化后的值
 - computed 可传入 get 和 set
   用于定义可更改的计算属性
 
@@ -13328,6 +13294,8 @@ function createRequestWithTimeout(timeout = 5000) {
 ```
 
 ```javascript
+// TS中的重载
+
 // js 实现函数重载
 function createOverload() {
   const fnMap = new Map()
@@ -13349,6 +13317,29 @@ function createOverload() {
   }
   return overload
 }
+
+const getUser = createOverload()
+getUser.addImpl(function (id) {})
+getUser.addImpl(function (id,callback) {})
+
+getUser(1)
+
+function addMethod(object,name,fn){
+  const old = object[name]
+  object[name] = function (...args) {
+    if(args.length===fn.length){
+      return fn.apply(this,args)
+    }else if(typedof old ==='function'){
+      return old.apply(this,args)
+    }
+  }
+}
+
+const searcher = {}
+addMethod(searcher,'search',function () {})
+addMethod(searcher,'search',function (name) {})
+addMethod(searcher,'search',function (name,age) {})
+searcher.search()
 ```
 
 ```javascript
@@ -13590,12 +13581,819 @@ console.log(calculartor.add(1).minus(2).multiply(3).divide(4) == 90)
 
 ```markdown
 css 属性值计算过程简介
-1. 确定声明值：参考样式表中没有冲突的声明，作为css属性值
-2. 层叠冲突：对样式表有冲突声明使用层叠规则，确定css属性值
-  - 比较重要性
-  - 比较特殊性
+
+1. 确定声明值：参考样式表中没有冲突的声明，作为 css 属性值
+2. 层叠冲突：对样式表有冲突声明使用层叠规则，确定 css 属性值
+
+- 比较重要性
+- 比较特殊性
+
 3. 使用继承：对仍然没有值的属性，若可以继承，则继承父元素的值
 4. 使用默认值：对仍然没有值的属性，使用默认值
 ```
 
 - first-of-type
+
+```scss
+$word: 'a', 'b';
+$max: 1920px;
+h1::after {
+  content: 'abc';
+  font-size: 20px;
+  color: red;
+  text-shadow: 0 0 5px red;
+  text-transform: uppercase;
+  @each $w in $word {
+    @media screen and (max-width: #{$max}) {
+      content: 'be #{w}';
+    }
+    $max: $max - 10px;
+  }
+}
+```
+
+- 浏览器原生弹窗 https://blog.csdn.net/qq_41429765/article/details/134727476 backdrop backdrop-filter
+- NProgress.js，一款神奇的 JavaScript 开源库——页面进度条
+- useTemplateRef
+- snippets lab
+- screenbrush
+- 使用正则前瞻检查密码强度 (?=) https://blog.csdn.net/weixin_58762718/article/details/146301212
+
+```markdown
+如何控制异步代码的执行顺序？
+
+1. 回调函数
+2. Promise
+3. async/await
+4. promise.all
+```
+
+```text
+跨标签页通信常见方案
+  BroadcastChannel API https://www.zhangxinxu.com/wordpress/2025/01/js-broadcast-channel-api/
+  Service Worker
+  LocalStorage  window.onstorage 监听
+  Shared Worker 定时器轮询 setInterval
+  IndexedDB 定时器轮询
+  cookie 定时器轮询
+  window.open、window.postMessage
+  WebSocket
+```
+
+````markdown
+# 多标签页数据通信的几种方式
+
+- BroadcastChannel 的方式
+
+  - [BroadcastChannel API](https://www.zhangxinxu.com/wordpress/2025/01/js-broadcast-channel-api/) 可以实现同源下浏览器不同窗口，tab 页，frame 或者 iframe 下的浏览器上下文（通常是同一个网站下不同的页面）之间的简单通讯
+
+  - A 标签页
+
+  ```javascript
+  const btn = document.getElementById('btn')
+  const channel = new BroadcastChannel('my-channel')
+  btn.addEventListener('click', () => {
+    channel.postMessage('hello world')
+  })
+  ```
+
+  - B 标签页
+
+  ```javascript
+  const channel = new BroadcastChannel('my-channel')
+  channel.onmessage = (event) => {
+    console.log(event.data)
+  }
+  ```
+
+  - 优点：专门针对浏览器不同窗口的通信
+  - 缺点：不能跨域，兼容性一般，不是特别好
+
+- LocalStorage 的方式
+  - LocalStorage 主要是用来做本地存储的
+  - A 标签页
+  ```javascript
+  localStorage.setItem('message', 'hello world')
+  ```
+  - B 标签页
+  ```javascript
+  window.addEventListener('storage', (event) => {
+    console.log(event.key, event.newValue)
+  })
+  ```
+  - 优点：实现比较简单
+  - 缺点：不能跨域，storage 客户端可更改
+- Web Worker 的方式
+  - Web Worker 是 HTML5 标准的一部分，它允许我们在 js 主线程之外开辟新的 Worker 线程
+  - A 标签页
+  ```javascript
+  const btn = document.querySelector('#btn')
+  const worker = new SharedWorker('worker.js')
+  btn.addEventListener('click', () => {
+    worker.port.postMessage('hello')
+  })
+  ```
+  - B 标签页
+  ```javascript
+  const worker = new SharedWorker('worker.js')
+  worker.port.onmessage = (e) => {
+    console.log(e.data)
+  }
+  ```
+  - worker.js 文件
+  ```javascript
+  const set = new Set()
+  onconnect = (event) => {
+    const port = event.ports[0]
+    set.add(port)
+    // 接收信息
+    port.onmessage = (e) => {
+      // 广播信息
+      set.forEach((p) => p.postMessage(e.data))
+    }
+  }
+  ```
+  - 优点：...
+  - 缺点：本身并不是用来通信的，实现起来比较麻烦，也不能跨域
+- cookie + 定时器的方式
+  - A 标签页
+  ```javascript
+  const btn = document.querySelector('#btn')
+  btn.addEventListener('click', () => {
+    const num = Number(cookie.get('num') || 0)
+    cookie.set('num', num + 1)
+    cookie.set('name', 'LBJhui')
+  })
+  ```
+  - B 标签页
+  ```javascript
+  let num = Number(cookie.get('num'))
+  setInterval(() => {
+    const newNum = Number(cookie.get('num'))
+    if (newNum !== num) {
+      console.log('获得数据啦', cookie.get('name'))
+      num = newNum
+    }
+  }, 500)
+  ```
+  - 优点：兼容性好，连 IE6 都支持
+  - 缺点：实现起来有点麻烦，依靠定时器，性能不会很好，实时性也不高，也不能跨域
+- websocket 的方式
+  - 优点：可以跨域
+  - 缺点：实现起来最复杂，需要后端配合
+
+# 多标签页跨域通信
+
+postMessage
+````
+
+- 渐进式图片
+
+```markdown
+vue 中如何监听子组件的生命周期
+
+vue2 `<Child @hook:mounted="childMounted"></Child>`
+vue3 `<Child @vue:mounted="childMounted"></Child>` 子结点也可以
+```
+
+- offset-path 支持基本形状函数
+
+````markdown
+# 如何实现网页加载进度条
+
+怎么拿到进度
+
+- 方法兼容性
+- fetch、Ajax
+
+怎么绘制进度
+
+- Dom
+- svg
+
+## 背景
+
+为了提升整站用户加载等待体验，考虑使用加载进度条反馈给用户加载过程。
+
+## 方案
+
+### 页面加载
+
+监听页面加载事件，来控制进度条绘制
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #progress-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: #29d;
+        z-index: 999;
+        transition: width 0.4s ease;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="progress-bar"></div>
+    <script>
+      function simulateLoadingProgress() {
+        const progressBar = document.getElementById('progress-bar')
+        let progress = 0
+        const interval = setInterval(() => {
+          if (width >= 100) {
+            clearInterval(interval)
+            progressBar.style.width = '100%'
+            setTimeout(() => {
+              progressBar.style.display = 'none'
+            }, 500)
+          } else {
+            width += 10
+            progressBar.style.width = `${progress}%`
+          }
+        }, 2000)
+      }
+
+      window.addEventListener('load', simulateLoadingProgress)
+    </script>
+  </body>
+</html>
+```
+
+### 请求实现
+
+ajax 拿到进度， svg/dom 绘制
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #progress-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: #29d;
+        z-index: 999;
+        transition: width 0.4s ease;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="progress-bar"></div>
+    <script>
+      function loadResource(url) {
+        const xhr = new XMLHttpRequest()
+        xhr.open('GET', url, true)
+        xhr.onprogress = function (e) {
+          if (e.lengthComputable) {
+            const percentComplete = (e.loaded / e.total) * 100
+            document.getElementById('progress-bar').style.width = percentComplete + '%'
+          }
+        }
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            document.getElementById('progress-bar').style.width = '100%'
+            setTimeout(() => {
+              document.getElementById('progress-bar').style.display = 'none'
+            }, 500)
+          }
+        }
+        xhr.send()
+      }
+    </script>
+  </body>
+</html>
+```
+
+### 框架
+
+React、Vue 页面加载进度条
+
+`nprogress`
+
+Vue 通过借助导航守卫
+
+`router.beforeEach((to, from, next) => {})`
+````
+
+````markdown
+# 如何修改第三方 npm 包
+
+稳定库，直接爬下来，node_modules，直接修改
+
+patch 方案
+
+fork package，自己来维护
+
+## 背景
+
+难言之隐，来自于设计、产品、老板 boss
+
+## 方案
+
+- 稳定库，node_modules 直接改
+- patch 方案
+  patch-package，自动化
+  `pnpm i patch-package postinstall`
+
+  npm hook
+
+  - prepare
+  - postinstall
+  - publish
+
+  ```json
+  {
+    "scripts": {
+      "postinstall": "patch-package"
+    }
+  }
+  ```
+
+  创建补丁
+
+  ```bash
+  npx patch-package 'package-name'
+  ```
+
+- fork package，自己来维护
+
+直接改源码，源码改完之后，构建，发布到 npm 私服
+修改的一些内容，如果想贡献给社区，给原来的作者提 PR，code review，test，合并了，你的代码就贡献给社区，提升知名度
+````
+
+````markdown
+# web 应用中如何对静态资源加载失败的场景做降级处理
+
+## 场景
+
+1. 图片
+2. css 文件
+3. JavaScript 文件
+4. CDN
+5. 字体文件
+6. 服务端渲染失败
+
+## 解决方案
+
+### 图片处理
+
+1. 占位图，alt 来描述图片
+2. 重试机制（404、无权限）
+3. 上报
+
+```html
+<img src="" alt="图片描述" onerror="handleImageError(this)" />
+
+<script>
+  function handleImageError(img) {
+    img.onerror = null // 防止死循环
+    img.src = 'placeholder.png' // 使用占位图
+  }
+</script>
+```
+
+### css 文件处理
+
+资源没加载到
+
+1. 关键性样式，通过内联
+2. 备用样式
+3. 上报
+
+```html
+<style>
+  /* 内联关键样式 */
+  body {
+    font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
+  }
+</style>
+<link rel="stylesheet" href="style.css" onerror="handleStyleError()" />
+
+<script>
+  function handleStyleError() {
+    // 加载备用样式
+    const fallbackCSS = document.createElement('link')
+    fallbackCSS.rel = 'stylesheet'
+    fallbackCSS.href = 'fallback.css'
+    document.head.appendChild(fallbackCSS)
+  }
+</script>
+```
+
+### JavaScript 文件处理
+
+网络异常，导致资源没加载
+
+1. 内联脚本
+2. 备用脚本
+3. 上报
+
+```html
+<script>
+  // 内联脚本
+  function basicFunctionality() {
+    console.log('This is a basic functionality.')
+  }
+  basicFunctionality()
+</script>
+<script src="script.js" onerror="handleScriptError()"></script>
+
+<script>
+  function handleScriptError() {
+    // 加载备用脚本
+    const fallbackScript = document.createElement('script')
+    fallbackScript.src = 'fallback.js'
+    document.head.appendChild(fallbackScript)
+  }
+</script>
+```
+
+### CDN
+
+1. 本地备份，如果 cdn 出错了，就使用本地备份
+2. 动态切换，切到另一个有用的 cdn 服务
+
+```html
+<script src="https://cdn.example.com/library.js" onerror="handleCdnError()"></script>
+<script>
+  function handleCdnError() {
+    // 加载本地备份
+    const localBackup = document.createElement('script')
+    localBackup.src = 'local-backup.js'
+    document.head.appendChild(localBackup)
+
+    // 或者动态切换到另一个 cdn
+    const alternativeCdn = document.createElement('script')
+    alternativeCdn.src = 'https://alternative.cdn.com/library.js'
+    document.head.appendChild(alternativeCdn)
+  }
+</script>
+```
+
+### 字体文件处理
+
+1. 使用降级字体 apple、微软雅黑
+2. webfont 处理字体问题
+
+```css
+@font-face {
+  font-family: 'MyFont';
+  src: url('myFont.woff2') format('woff2');
+  font-display: swap;
+}
+
+body {
+  font-family: 'MyFont', 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
+}
+```
+
+### 服务端渲染失败 ssr
+
+1. 降级的 html 用作渲染
+2. 切换为 CSR
+````
+
+````markdown
+# H5 移动端适配问题如何解决
+
+## 背景
+
+项目想支持 PC、移动端
+
+## 方案
+
+- 根据端来开发不同页面（成本最高）
+- 根据不同端加载不同 css 样式（可取）
+- 根据响应式，来运行不同的样式规则（**常用**）
+- style 预处理器来做
+
+考虑的问题：
+
+1. 设置视窗，通过元信息配置 meta
+
+```html
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+```
+
+2. 掌握媒体查询
+
+```css
+body {
+  font-size: 16px;
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+  body {
+    font-size: 12px;
+  }
+}
+```
+
+3. 弹性布局
+
+flex 局部
+
+4. 图片响应式
+
+```html
+<picture>
+  <source srcset="./images/logo-large.png" type="image/png" media="(min-width: 600px)" />
+</picture>
+```
+
+5. rem
+
+rem 单位的基础值由 html 的 font-size 决定
+
+6. em
+````
+
+```markdown
+# 大文件上传
+
+## 背景
+
+背景作为佐证，不像是在网上抄来的
+
+经常遇到一些问题：
+
+- 网络断开之后，之前传的没了
+- 传者传者，网络波动了，结果啥都没了
+- 关机了，想接着传，做不到
+
+专业术语
+
+- 断点续传
+- 断开重连重传
+- 切片上传
+
+## 方案
+
+- 前端切片 chunk
+- 将切片传递给后端，切的片要取名：hash，index
+- 后端组合切片
+
+给面试官加料
+
+- 前端切片：主进程卡顿，web-worker 多线程切片，处理完后交给主进程发送
+- 切完后，将 blob 存储到 indexDB，下次用户进来之后，嗅探一下是否存在未完成上传的切片，有就尝试继续上传
+- websocket，实时通知，和请求序列的控制 wss
+- 整体说一说我主导这个大文件上传器整体设计
+  - 组件设计
+  - props、事件、状态
+  - 拖拽上传、多文件选择
+  - 通用化不同文件的上传，上传统一协议
+
+## 反思和优化
+```
+
+````markdown
+# 如何解决页面请求接口大规模并发问题
+
+滑动窗口，算法，专门来控制流量的
+
+## 背景
+
+我们的数据采集平台，低代码编辑平台，有序相对稳定发送到后端
+
+## 方案
+
+### 请求队列
+
+```javascript
+const queue = []
+
+queue.push()
+queue.shift()
+```
+
+```javascript
+class RequestQueue {
+  constructor(maxConcurrent) {
+    this.maxConcurrent = maxConcurrent // 最大并发请求数
+    this.currentConcurrent = 0 // 当前并发请求数
+    this.queue = [] // 请求队列
+  }
+  add(request) {
+    return new Promise((resolve, reject) => {
+      this.queue.push({ request, resolve, reject })
+      this.processQueue()
+    })
+  }
+  processQueue() {
+    if (this.queue.length > 0 && this.currentConcurrent < this.maxConcurrent) {
+      const { request, resolve, reject } = this.queue.shift()
+      this.currentConcurrent++
+      request()
+        .then(resolve)
+        .catch(reject)
+        .finally(() => {
+          this.currentConcurrent--
+          this.processQueue()
+        })
+    }
+  }
+}
+
+// 示例请求函数
+function fetchData(url) {
+  return fetch(url).then((response) => response.json())
+}
+
+// 使用请求队列
+const requestQueue = new RequestQueue(5) // 最大并发请求数设为5
+
+const urls = [
+  'https://api.example.com/data1',
+  'https://api.example.com/data2'
+  // ... 其他 URL
+]
+
+const requests = urls.map((url) => () => fetchData(url))
+
+Promise.all(requests.map((request) => requestQueue.add(request))).then(
+  results=>{
+    console.log('所有请求完成'，results)
+  }
+).catch(error=>{
+  console.error('请求失败', error)
+})
+```
+
+### 防抖/节流
+
+- 防抖 debounce
+- 节流 throttle
+
+### 分页加载
+
+```javascript
+let currentPage = 1
+const pageSize = 20
+let isLoading = false
+
+function loadMoreData() {
+  if (isLoading) {
+    return
+  }
+  isLoading = true
+  fetch(`/api/items?page=${currentPage}&pageSize=${pageSize}`)
+    .then((response) => response.json())
+    .then((data) => {
+      // 处理数据并更新页面
+      const container = document.getElementById('data-container')
+      data.items.forEach((item) => {
+        const itemElement = document.createElement('div')
+        itemElement.textContent = item.name
+        container.appendChild(itemElement)
+      })
+      currentPage++
+      isLoading = false
+    })
+    .catch((error) => {
+      console.error('加载数据失败', error)
+      isLoading = false
+    })
+}
+
+// 监听滚动事件，当滚动到接近底部时触发加载更多数据
+window.addEventListener('scroll', () => {
+  if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
+    loadMoreData()
+  }
+})
+
+// 初始化加载第一页数据
+loadMoreData()
+```
+
+## 落地、反思
+
+1. 大数据量的场景下，我们选用了请求队列，我**主导**封装了请求队列
+2. 防抖节流，用户交互层面上去解决减少请求的处理
+3. 分页、滚动加载，**可视区绘制**
+````
+
+```markdown
+# 前端怎么实现页面截图
+
+## 背景
+
+- 飞书文档，内容在列表页想要查看
+- 内容导出为 png
+- 设计类软件，出图
+
+以内容导出为 png 来讲解
+
+- 医疗，医疗单子
+- 文档，导出 png
+
+## 方案
+
+- 截图
+  - canvas
+  - Puppeteer(无头浏览器)、无头表格、无头 UI 库
+  - html2canvas(canvas)
+- 上传 cdn
+
+全页面截图、局部截图、特定区域截图
+
+## 落地
+
+- 封装截图工具的时候，需要考虑通用性，`selector`
+- 设计具体协议
+  - 函数式、设计式
+  - 隐藏 canvas
+- 代码编写
+```
+
+````markdown
+# 当 QPS 达到峰值时, 该如何处理？当 QPS 达到峰值时, 该如何处理？
+
+## 背景
+
+当前端应用的 QPS（每秒查询次数）达到峰值时，会对服务器和应用的性能造成很大的压力，甚至可能导致系统崩溃。为了解决这个问题，我们需要采取一系列措施来优化和管理高并发请求
+
+## 方案
+
+### 请求限流
+
+node.js 为例，限流
+
+<!-- rate-limit -->
+
+```javascript
+const rateLimit = require('express-rate-limit')
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100,
+  message: 'Too many requests, please try again later.'
+})
+```
+
+### 请求合并
+
+短时间内的请求进行合并，以此降低服务端压力
+
+debounce、throttle
+
+### 请求缓存
+
+swr 里面针对于请求的内容缓存
+请求参数、请求方法、请求逻辑依赖的内容没有发生变化，直接命中缓存
+
+### 任务队列
+
+针对于请求，我们设计一个任务队列，滑动窗口
+
+任务 job 视频转码
+`bull`
+
+```javascript
+const Bull = require('bull')
+const taskQueue = new Bull('task queue')
+
+app.post('/api/startTask', (req, res) => {
+  const taskId = Date.now().toString()
+  taskQueue.add({ taskId })
+  res.send({ taskId })
+})
+
+app.get('/api/getTaskStatus/:taskId', (req, res) => {
+  const taskId = req.params.taskId
+  // 检查任务状态并返回
+  taskQueue.getJob(taskId).then((job) => {
+    if (job) {
+      res.send({ status: job.finished() ? 'complete' : 'pending' })
+    } else {
+      res.send({ status: 'not found' })
+    }
+  })
+})
+
+// 处理队列中的任务
+taskQueue.process((job, done) => {
+  // 模拟耗时操作
+  setTimeout(() => {
+    done()
+  }, 10000)
+})
+```
+````
+
+
+
