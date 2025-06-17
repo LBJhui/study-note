@@ -12,4 +12,6 @@ const field = {
   手机号: 'mobilePhone',
   联系人类型: 'contactType',
   是否添加至联系人: 'isAddToContact',
+  最后操作时间: 'lastOperationTime',
+  已分配产品权限: 'productPremission',
 }

@@ -311,7 +311,7 @@ const getTableList = () => {
 
 const resetForm = () => {
   filterFormRef.value.resetFields()
-  handleSetPageInfo({ ...state.pageInfo, currentPage: 1, pageSize: 10 })
+  state.pageInfo = { ...state.pageInfo, currentPage: 1, pageSize: 10 }
   getTableList()
 }
 
@@ -340,19 +340,13 @@ const handleViewProductPermissions = (row: TableDataItem) => {
   console.log(row)
 }
 
-const handleSetPageInfo = (option: PageInfo) => {
-  state.pageInfo.currentPage = option.currentPage
-  state.pageInfo.total = option.total
-  state.pageInfo.pageSize = option.pageSize
-}
-
 const handleSizeChange = (val: number) => {
-  handleSetPageInfo({ ...state.pageInfo, currentPage: 1, pageSize: val })
+  state.pageInfo = { ...state.pageInfo, currentPage: 1, pageSize: val }
   getTableList()
 }
 
 const handleCurrentChange = (val: number) => {
-  handleSetPageInfo({ ...state.pageInfo, currentPage: val })
+  state.pageInfo = { ...state.pageInfo, currentPage: val }
   getTableList()
 }
 
