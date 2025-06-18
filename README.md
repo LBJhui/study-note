@@ -6508,7 +6508,6 @@ console.log(newShop.apple)
 - 在线写代码， CSS 的单行和多行截断？（ overflow ， text-overflow ）
 - Vue 的双向绑定原理（事件监听， getter 和 setter ）
 - 在线写代码，给定一个二叉树，求根节点到叶子节点的路径上所有节点值之和（DFS，先序遍历，递归）
-- 在线写代码，两栏布局，左边定宽右边自适应，等高（ flex ， grid ， float ， position ，方法很多随便说几个）
 - 简述自定义事件实现方法（参看红宝书）
 - 简述 getter 和 setter 写法（参看红宝书）
 - TCP 三次握手和四次挥手，拥塞控制（参看计算机网络教材）
@@ -15057,3 +15056,496 @@ reaDir(__dirname)
 
 其他情况下，都会被识别为 commonjs。现在 node 已经支持 esm 和 commonjs 了，我们在使用的时候，最好还是指明一下模块的类型。
 ```
+
+````markdown
+# 输出是什么
+
+```javascript
+const add = (x) => x + x
+
+function myFunc(num = 2, value = add(num)) {
+  console.log(num, value)
+}
+
+myFunc() //2 4
+myFunc(3) //3 6
+```
+
+---
+
+```javascript
+async function async1() {
+  await async2()
+  console.log('async1')
+  return 'async1 success'
+}
+
+async function async2() {
+  return new Promise((resolve, reject) => {
+    console.log('async2')
+    reject('error')
+  })
+}
+
+async1().then((res) => console.log(res))
+
+//async2
+//Promise {<rejected>: 'error'}
+```
+
+---
+
+```javascript
+const promise = new Promise((resolve, reject) => {
+  console.log(1)
+  resolve('success')
+  console.log(2)
+})
+
+promise.then(() => {
+  console.log(3)
+})
+
+console.log(4)
+```
+
+**过程分析**
+
+- 从上至下，先遇到 `new Promise`，执行其中的同步代码 1
+- 再遇到 `resolve('success')`，将 promise 的状态改为了 resolved 并且将值保存下来
+- 继续执行同步代码 2
+- 跳出 promise，往下执行，碰到 `promise.then` 这个微任务，将其加入微任务队列
+- 执行同步代码 4
+- 本轮宏任务全部执行完毕，检查微任务队列，发现 `promise.then` 这个微任务且状态为 resolved，执行它 3
+
+**结果**
+
+```
+1 2 4 3
+```
+
+---
+
+**如何能打印出 console.log 语句后注释掉的值？**
+
+```javascript
+function* startGame() {
+  const answer = yield 'Do you love JavaScript?'
+  if (answer !== 'Yes') {
+    return "Oh wow... Guess we're gone here"
+  }
+  return 'JavaScript loves you back'
+}
+
+const game = startGame()
+
+console.log(/*1*/) //"Do you love JavaScript?"
+console.log(/*2*/) //JavaScript loves you back
+```
+
+`generator` 函数在遇到 `yield` 关键字时会 “暂停” 其执行。首先，我们需要让函数产生字符串 `Do you love JavaScript?`，这可以通过调用 `game.next().value` 来完成。上述函数的第一行就有一个 `yield` 关键字，那么运行立即停止了，`yield` 表达式本身没有返回值，或者说总是返回 `undefined`，这意味着此时变量 `answer` 为 `undefined`
+
+`next` 方法可以带一个参数，该参数会被当作上一个 `yield` 表达式的返回值。当我们调用 `game.next('Yes').value` 时，先前的 `yield` 的返回值将被替换为传递给 `next()` 函数的参数 `"Yes"`。此时变量 `answer` 被赋值为 `"Yes"`，`if` 语句返回 `false`，所以 `JavaScript loves you back` 被打印。
+
+**答案**
+
+```javascript
+game.next().value
+game.next('Yes').value
+```
+````
+
+```markdown
+# GET 和 POST 请求的本质区别是什么？
+
+GET 和 POST 是 HTTP 请求的两种基本方法，要说它们的区别，接触过 WEB 开发的人都能说出一二。
+
+最直观的区别就是 GET 把参数包含在 URL 中，POST 通过 request body 传递参数。
+
+**“标准答案”**
+
+- GET 在浏览器回退时是无害的，而 POST 会再次提交请求。
+
+- GET 产生的 URL 地址可以被 Bookmark，而 POST 不可以。
+
+- GET 请求会被浏览器主动 cache，而 POST 不会，除非手动设置。
+
+- GET 请求只能进行 url 编码，而 POST 支持多种编码方式。
+
+- GET 请求参数会被完整保留在浏览器历史记录里，而 POST 中的参数不会被保留。
+
+- GET 请求在 URL 中传送的参数是有长度限制的，而 POST 没有。
+
+- 对参数的数据类型，GET 只接受 ASCII 字符，而 POST 没有限制。
+
+- GET 比 POST 更不安全，因为参数直接暴露在 URL 上，所以不能用来传递敏感信息。
+
+- GET 参数通过 URL 传递，POST 放在 Request body 中。
+
+**“本质区别”**
+
+GET 和 POST 是什么？HTTP 协议中的两种发送请求的方法。
+
+HTTP 是什么？HTTP 是基于 TCP/IP 的关于数据如何在万维网中如何通信的协议。
+
+HTTP 的底层是 TCP/IP。所以 GET 和 POST 的底层也是 TCP/IP，也就是说，GET/POST 都是 TCP 链接。GET 和 POST 能做的事情是一样一样的。你要给 GET 加上 request body，给 POST 带上 url 参数，技术上是完全行的通的。
+
+那么，“标准答案” 里的那些区别是怎么回事？
+
+在大万维网世界中，TCP 就像汽车，我们用 TCP 来运输数据，它很可靠，从来不会发生丢件少件的现象。但是如果路上跑的全是看起来一模一样的汽车，那这个世界看起来是一团混乱，送急件的汽车可能被前面满载货物的汽车拦堵在路上，整个交通系统一定会瘫痪。
+
+为了避免这种情况发生，交通规则 HTTP 诞生了。HTTP 给汽车运输设定了好几个服务类别，有 GET, POST, PUT, DELETE 等等，HTTP 规定，当执行 GET 请求的时候，要给汽车贴上 GET 的标签（设置 method 为 GET），而且要求把传送的数据放在车顶上（url 中）以方便记录。如果是 POST 请求，就要在车上贴上 POST 的标签，并把货物放在车厢里。
+
+当然，你也可以在 GET 的时候往车厢内偷偷藏点货物，但是这是很不光彩；也可以在 POST 的时候在车顶上也放一些数据，让人觉得傻乎乎的。HTTP 只是个行为准则，而 TCP 才是 GET 和 POST 怎么实现的基本。
+
+但是，我们只看到 HTTP 对 GET 和 POST 参数的传送渠道（url 还是 requrest body）提出了要求。“标准答案” 里关于参数大小的限制又是从哪来的呢？
+
+在大万维网世界中，还有另一个重要的角色：运输公司。不同的浏览器（发起 http 请求）和服务器（接受 http 请求）就是不同的运输公司。虽然理论上，你可以在车顶上无限的堆货物（url 中无限加参数）。
+
+但是运输公司可不傻，装货和卸货也是有很大成本的，他们会限制单次运输量来控制风险，数据量太大对浏览器和服务器都是很大负担。业界不成文的规定是，（大多数）浏览器通常都会限制 url 长度在 2K 个字节，而（大多数）服务器最多处理 64K 大小的 url。
+
+超过的部分，恕不处理。如果你用 GET 服务，在 request body 偷偷藏了数据，不同服务器的处理方式也是不同的，有些服务器会帮你卸货，读出数据，有些服务器直接忽略，所以，虽然 GET 可以带 request body，也不能保证一定能被接收到哦。
+
+好了，现在你知道，GET 和 POST 本质上就是 TCP 链接，并无差别。但是由于 HTTP 的规定和浏览器/服务器的限制，导致他们在应用过程中体现出一些不同。
+
+GET 和 POST 还有一个重大区别，简单的说：
+
+GET 产生一个 TCP 数据包；POST 产生两个 TCP 数据包。
+
+长的说：
+
+- 对于 GET 方式的请求，浏览器会把 http header 和 data 一并发送出去，服务器响应 200（返回数据）；
+
+- 而对于 POST，浏览器先发送 header，服务器响应 100 continue，浏览器再发送 data，服务器响应 200 ok（返回数据）。
+
+也就是说，GET 只需要汽车跑一趟就把货送到了，而 POST 得跑两趟，第一趟，先去和服务器打个招呼“嗨，我等下要送一批货来，你们打开门迎接我”，然后再回头把货送过去。
+
+因为 POST 需要两步，时间上消耗的要多一点，看起来 GET 比 POST 更有效。因此 Yahoo 团队有推荐用 GET 替换 POST 来优化网站性能。但这是一个坑！跳入需谨慎。为什么？
+
+1. GET 与 POST 都有自己的语义，不能随便混用。
+
+2. 据研究，在网络环境好的情况下，发一次包的时间和发两次包的时间差别基本可以无视。而在网络环境差的情况下，两次包的 TCP 在验证数据包完整性上，有非常大的优点。
+
+3. 并不是所有浏览器都会在 POST 中发送两次包，Firefox 就只发送一次。
+```
+
+- `<wx-open-launch-weapp>` 打开小程序
+- `<wx-open-launch-app>` 打开 app
+
+````markdown
+## H5 项目如何适配暗黑模式
+
+### 一、背景
+
+> 随着 iOS 13 的发布，深色模式（Dark Mode）越来越多地出现在大众的视野中，支持深色模式已经成为现代移动应用和网站的一个潮流，前段时间更是因为微信的适配再度引起热议。深色模式不仅可以大幅减少电量的消耗，减弱强光对比,还能 提供更好的可视性和沉浸感。
+
+**如何切换深色模式**
+
+- iOS：“设置”--“显示与亮度”--“外观”，选择“深色”
+- Android：“系统设置”--“显示”--“深色模式”。
+
+### 二、问题
+
+如果系统设置了深色模式，H5 页面不做相应的处理，会出现背景色冲突、深色文字显示异常，深色图标显示异常等一些显示上的问题。
+
+所以，需要对深色模式进行一些适配。
+
+我尝试了一些方案：
+
+### 三、H5 项目适配深色模式方案
+
+#### 1.声明 color-scheme
+
+`color-scheme`
+
+有两种方式。
+
+##### 1.1 meta
+
+在 head 中声明`<meta name="color-scheme" content="light dark">`，声明当前页面支持 light 和 dark 两种模式，系统切换到深色模式时，浏览器默认样式也会切换到深色；
+
+##### 1.2 CSS
+
+下面的 css 同样可以实现上面 meta 声明的效果
+
+```css
+:root {
+  color-scheme: light dark;
+}
+```
+
+> 注意：此声明并非为页面做自动适配，只影响浏览器默认样式
+>
+> 更多信息可查阅 W3C 文档 《CSS Color Adjustment Module Level 1》
+
+#### 2.通过 CSS 媒体查询
+
+prefers-color-scheme CSS 媒体特性用于检测用户是否有将系统的主题色设置为亮色或者暗色。
+
+- no-preference
+
+表示系统未得知用户在这方面的选项。在布尔值上下文中，其执行结果为 false。
+
+- light
+
+表示用户已告知系统他们选择使用浅色主题的界面。
+
+- dark
+
+表示用户已告知系统他们选择使用暗色主题的界面。
+
+```css
+:root {
+  color-scheme: light dark;
+  background: white;
+  color: black;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    background: black;
+    color: white;
+  }
+}
+//颜色较多的情况，建议使用CSS变量对颜色值进行管理
+```
+
+#### 3.图片适配
+
+利用 picture+source 标签，设置不同模式下的图片 url。
+
+HTML `<picture>`元素通过包含零或多个 `<source>` 元素和一个 `<img>` 元素来为不同的显示/设备场景提供图像版本。浏览器会选择最匹配的子 `<source>` 元素，如果没有匹配的，就选择 `<img>` 元素的 src 属性中的 URL。然后，所选图像呈现在`<img>`元素占据的空间中。
+
+```html
+<picture>
+  <!-- 深色模式下的图片 -->
+  <source srcset="dark.jpg" media="(prefers-color-scheme: dark)" />
+  <!-- 默认模式下的图片 -->
+  <img src="light.jpg" />
+</picture>
+```
+
+#### 4. JavaScript 中判断当前模式&监听模式变化
+
+##### 4.1 matchMedia
+
+Window 的 matchMedia() 方法返回一个新的 MediaQueryList 对象，表示指定的媒体查询 (en-US)字符串解析后的结果。返回的 MediaQueryList 可被用于判定 Document 是否匹配媒体查询，或者监控一个 document 来判定它匹配了或者停止匹配了此媒体查询。
+
+##### 4.2 addListener()
+
+MediaQueryList 接口的 addListener()方法向 MediaQueryListener 添加一个侦听器，该侦听器将运行自定义回调函数以响应媒体查询状态的更改。
+
+##### JavaScript 监听判断
+
+```javascript
+const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+
+function darkModeHandler() {
+  if (mediaQuery.matches) {
+    console.log('现在是深色模式')
+  } else {
+    console.log('现在是浅色模式')
+  }
+}
+
+// 判断当前模式
+darkModeHandler()
+// 监听模式变化
+mediaQuery.addListener(darkModeHandler)
+```
+
+```css
+html[theme='dark-mode'] {
+  filter: invert(1) hue-rotate(180deg);
+}
+```
+````
+
+```markdown
+# 跨域
+
+## CORS 策略
+
+CORS（Cross-Origin Resource Sharing）
+
+CORS 是一套机制，用于浏览器校验跨域请求
+
+它的基本理念是：
+
+只要服务器明确表示允许，则校验通过
+
+服务器明确拒绝或没有表示，则校验不通过
+
+CORS 将请求分为两类
+
+**简单请求**
+
+- 请求方法为 GET、HEAD、POST
+- 头部字段满足 CORS 安全规范
+- 请求头的 Content-Type 为
+  text/plain
+  multipart/form-data
+  application/x-www-form-urlencoded
+
+**预检请求**
+
+非简单请求
+```
+
+````markdown
+## 5.布局
+
+### 5.1 水平方向的布局
+
+我们之前说过，水平方向的布局等式：
+
+```css
+margin-left + border-left + padding-left + width + padding-right + border-right + margin-right = 其父元素的宽度
+```
+
+当使用绝对定位时，需要添加`left`和`right`两个值（此时规则和之前一样，只是多添加了两个值）
+
+```css
+left + margin-left + border-left + padding-left + width + padding-right + border-right + margin-right + right = 其父元素的宽度
+```
+
+当发生过度约束时
+
+- 如果 9 个值中没有`auto`，则自动调整`right`值以使等式满足（之前 7 个值是`margin-right`）
+
+- 如果 9 个值中有`auto`，则自动调整`auto`的值以使等式满足
+
+可设置`auto`的值：`margin-left`/`margin-right` /`width`/`left`/`right`
+
+因为`left`和`right`的值默认是`auto`，所以如果没有设置`left`和`right`，当等式不满足时，则会自动调整这两个值
+
+### 5.2 水平居中
+
+```html
+<style>
+  .box1 {
+    width: 500px;
+    height: 500px;
+    background-color: #bfa;
+    position: relative;
+  }
+
+  .box2 {
+    width: 100px;
+    height: 100px;
+    background-color: orange;
+    /* 左右外边距设置为auto */
+    margin-left: auto;
+    margin-right: auto;
+    /* 绝对定位 */
+    position: absolute;
+    left: 0;
+    right: 0;
+  }
+</style>
+
+<div class="box1">
+  <div class="box2"></div>
+</div>
+```
+
+![image-20220727230449308](https://i0.hdslb.com/bfs/album/dacb961ba950eea5d1d2af36e0d2bdbcb4288fa7.png)
+
+### 5.3 垂直方向的布局
+
+垂直方向布局的等式的也必须要满足
+
+```css
+top + margin-top + border-top + padding-top + height + padding-bottom + border-bottom + margin-bottom + top = 其父元素的高度
+```
+
+### 5.4 垂直居中
+
+```css
+.box2 {
+  width: 100px;
+  height: 100px;
+  background-color: orange;
+  /* 左右外边距设置为auto */
+  margin-top: auto;
+  margin-bottom: auto;
+  /* 绝对定位 */
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+```
+
+![image-20220727230549386](https://i0.hdslb.com/bfs/album/18a634217ebcab0cfaa9f411f90cb351d5557160.png)
+
+### 5.5 水平垂直居中
+
+目前，我们可以根据绝对定位进行元素的水平垂直双方向居中，所以这个方法只是其中之一
+
+```css
+.box2 {
+  width: 100px;
+  height: 100px;
+  background-color: orange;
+  /* 左右外边距设置为auto */
+  margin: auto;
+  /* 绝对定位 */
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+```
+
+![image-20220727230720123](https://i0.hdslb.com/bfs/album/fc30c32dd054568b17df1fbccce519edc36f7569.png)
+
+### 5.6 小结
+
+- 水平布局等式：`left + margin-left + border-left + padding-left + width + padding-right + border-right + margin-right + right = 其父元素的宽度`
+
+- 垂直布局等式：`top + margin-top + border-top + padding-top + height + padding-bottom + border-bottom + margin-bottom + top = 其父元素的高度`
+
+- 只是在没有`auto`时，会自动调整`top`/`bottom`/`left`/`right`
+
+**（1）绝对定位的盒子居中**
+
+加了绝对定位的盒子不能通过 `margin: 0 auto` 水平居中，但是可以通过以下计算方法实现水平和垂直居中。
+
+1. `left: 50%;`：让盒子的左侧移动到父级元素的水平中心位置。
+2. `margin-left: -0.5widthpx;`：让盒子向左移动自身宽度的一半。
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>绝对定位水平垂直居中</title>
+    <style>
+      .box {
+        position: absolute;
+        /* 1. left 走 50%  父容器宽度的一半 */
+        left: 50%;
+        /* 2. margin 负值 往左边走 自己盒子宽度的一半 */
+        margin-left: -100px;
+        /* 垂直居中同理 */
+        top: 50%;
+        margin-top: -100px;
+        width: 200px;
+        height: 200px;
+        background-color: pink;
+        /* margin: auto; */
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="box"></div>
+  </body>
+</html>
+```
+
+![](https://i0.hdslb.com/bfs/album/6a4eca189816a1833b0e882040c408f2593c7a37.jpg)
+````
