@@ -1,5 +1,7 @@
 https://fe.duyiedu.com/p/t_pc/goods_pc_detail/goods_detail/course_2VKbErGXkTSzvbl9aQ9HgndEtIz?type=2
 
+- 全局注册和局部注册的区别
+
 ```javascript
 // 脚本加载失败如何重试
 
@@ -89,7 +91,7 @@ structuredClone https://www.zhangxinxu.com/wordpress/2025/01/js-api-structuredcl
 函数管道
 vue3 h函数
 effectScope 嵌套 https://www.jianshu.com/p/1a1731806e19
-box-shadow
+`box-shadow` `filter: drop-shadow(0 0 10px #fff)`
 协同处理 yjs+crdt算法+oj
 依赖倒置原则
 prefetch preload
@@ -934,13 +936,14 @@ function runTask(task) {
 
 ```scss
 // SASS中的模块化开发
-// @import
+① @import url('./common.scss') // css 模块化
+② @import './common.scss'
 //   运行时 css
 //   编译时
 //     混淆
 //     污染 变量污染
 //     无私有
-// @use
+// @use 带命名空间
 
 @use 'common.scss';
 @use 'var.scss' as b;
@@ -1904,25 +1907,10 @@ publicPath: '/' // 浏览器如何找资源
 }
 
 /* js */
-const match =matchMedia
-
-(
-'(prefers-color-scheme: dark)')
-match.
-addEventListener
-
-(
-'change'
-,
-(
-e
-
-)
-=
-> {
-}
-
-)
+/* 系统主题 */
+const match = matchMedia('(prefers-color-scheme: dark)')
+/* 主题变化 */
+match.addEventListener('change',(e)=> {})
 ```
 
 ```scss
@@ -2181,7 +2169,7 @@ import pinyin from 'pinyin';
 ```
 
 ```js
-// 监控页面是否出现卡顿 performance API
+// 监控页面是否出现卡顿 监控页面卡顿 performance API
 const observer = new PerformanceObserver((list) => {
   for (const entry of list.getEntries()) {
   }
@@ -2285,8 +2273,8 @@ mix-blend-mode background-blend-mode
 <img
   srcset="https:picsum.photos/200/300?random=1 200w, https:picsum.photos/400/600?random=1 400w"
   sizes="
-    (max-width: 300px)50vw,
-    (max-width: 600px) 50vw,
+    (max-width: 300px) 200px,
+    (max-width: 600px) 400px,
     50vw
   " />
 
@@ -12841,7 +12829,7 @@ Function.prototype.myCall = function (ctx, ...args) {
 }
 ```
 
-```markdown
+````markdown
 - url 到显示页面全过程，输入 url 到渲染的全过程，页面的渲染过程 1.读取缓存：搜索自身的 DNS 缓存。(如果 DNS 缓存中找到 IP 地址就跳过了接下来查找 IP 地址步骤，直接访问该 IP 地址。)
   2.DNS 解析:将域名解析成 IP 地址
   3.TCP 连接：TCP 三次握手，简易描述三次握手
@@ -12915,8 +12903,40 @@ Function.prototype.myCall = function (ctx, ...args) {
 3. dig
 4. 在线 dns.google.com, dnschecker.org
 
-<!-- DNS预解析 -->
+<!-- DNS预解析 DNS解析和优化 -->
 <link rel="dns-prefetch" href="xxxx" />
+
+```javascript
+// DNS解析和优化
+const fs = require('fs')
+const path = require('path')
+const { parse } = require('node-html-parser')
+const { glob } = require('glob')
+const urlRegex = require('url-regex')
+const { strict, match } = require('assert')
+
+// 获取外部链接的正则表达式
+
+const urlPattern = /(https?:\/\/[^/]*)/i
+const url = new Set()
+// 遍历 dist 目录中所有的 html、js、css 文件
+async function searchDomain() {
+  const files = await glob('dist/**/*.{html,js,css}')
+  for (const file of files) {
+    const source = fs.readFileSync(file, 'utf-8')
+    const matches = source.match(urlRegex({ strict: true }))
+    if (matches) {
+      matches.forEach((url) => {
+        const match = url.match(urlPattern)
+        if (match && match[1]) {
+          url.add(match[1])
+        }
+      })
+    }
+  }
+}
+```
+````
 
 - 从输入 URL 到页面展现这一过程中，浏览器都做了哪些工作
 
@@ -13017,7 +13037,8 @@ GPU 绘制**多进程的浏览器**：主控进程，插件进程，GPU，tab �
 在生成 `Render` 树的过程中，浏览器就开始调用`GPU` 绘制，合成图层，将内容显示在屏幕上了。
 
 - DNS 解析会出错吗，为什么
-```
+
+````
 
 ```javascript
 /**
@@ -13067,7 +13088,7 @@ async function findShortestRTT(ips, parallelCount = 10) {
   }
   return result.ip
 }
-```
+````
 
 ```javascript
 /**
@@ -15549,3 +15570,191 @@ top + margin-top + border-top + padding-top + height + padding-bottom + border-b
 
 ![](https://i0.hdslb.com/bfs/album/6a4eca189816a1833b0e882040c408f2593c7a37.jpg)
 ````
+
+```typescript
+// 从字段到函数的推导
+type Watcher<T>={
+  on<K extends string & keyof T>(
+    eventName:`${K}Change`,
+    callback:(newValue:T[K],oldValue:T[K])=>void
+  ):void
+}
+
+declare function watch<T>(obj:T):Watcher<T>
+
+const personWatcher=watch({
+  firstName:'',
+  lastName:''，
+  age:0
+  sex:'male'
+})
+
+personWatcher.on('firstNameChange',(newValue,oldValue)=>{})
+
+```
+
+```javascript
+// withResolvers语法糖
+
+let res, rej
+const promise = new Promise((resolve, reject) => {
+  res = resolve
+  rej = reject
+})
+
+const { promise, resolve, reject } = Promisee.withResolvers()
+```
+
+- vite-plugin-inspect
+- script setup 到底做了什么
+
+```javascript
+// class转function
+// 将下面的代码转换为普通构造函数的写法
+class Example {
+  constructor(name) {
+    this.name = name
+  }
+  func() {
+    console.log(this.name)
+  }
+}
+
+;('use strict')
+function Example(name) {
+  if (!new.target) {
+    throw new Error('Class constructor Example cannot be invoked without new')
+  }
+}
+
+// 属性不可被遍历，直接赋值可遍历
+// Example.prototype.func = function () {}
+// const desc = Object.getOwnPropertyDescriptor(Example.prototype, 'func')
+
+Object.defineProperty(Example.prototype, 'func', {
+  value: function () {
+    if (new.target) {
+      throw new Error('Example.prototype.func is not a constructor')
+    }
+    console.log(this.name)
+  },
+  enumerable: false
+})
+```
+
+```markdown
+<!-- 项目问题的表述结构 -->
+
+# 项目怎么说才能拿下 offer？
+
+1. 有难点亮点
+2. 表达结构
+   S:Situation 情景、动机、背景
+   T:Task 任务、方案、分析
+   A:Action 行动、实现
+   R:Result 结果、效果
+```
+
+```javascript
+/**
+ * 腾讯面试题
+ * 异步执行一个函数
+ * 如果可以，尽量将函数放入到微队列中
+ * @params {Function} func 无参，无返回
+ */
+
+function asyncRun(func) {
+  if (typeof Promise !== 'undefined') {
+    Promise.resolve().then(func)
+  } else if (typeof MutationObserver !== 'undefined') {
+    const observer = new MutationObserver(func)
+    const textNode = document.createTextNode(1)
+    observer.observe(textNode, { characterData: true })
+    textNode.data = 2
+  } else {
+    setTimeout(func, 0)
+  }
+}
+```
+
+```javascript
+/**
+ * 内存泄漏：有垃圾没有被回收
+ * 闭包：函数+词法环境
+ *
+ * 1. 有本该被回收的函数没有回收，从而导致其关联的词法环境也无法被回收，最终造成内存泄漏
+ * 2. 当多个函数共享词法环境时，可能会造成词法环的境膨胀，从而导致无法访问且无法回收的内存空间
+ */
+function createIncrease() {
+  const doms = new Array(100000).fill(0).map((_, i) => {
+    const dom = document.createElement('div')
+    dom.innerHTML = i
+    return dom
+    function increase() {}
+    function _temp() {
+      doms
+    }
+    return increase
+  })
+}
+```
+
+```javascript
+// 并发任务控制
+function timeout(time) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve()
+    }, time)
+  })
+}
+
+class SuperTask {
+  constructor(parallelCount) {
+    this.parallelCount = parallelCount // 并发数量
+    this.runningCount = 0 // 正在进行的任务数量
+    this.tasks = []
+  }
+
+  add(task) {
+    return new Promise((resolve, reject) => {
+      this.tasks.push({
+        task,
+        resolve,
+        reject
+      })
+
+      this._run()
+    })
+  }
+
+  // 依次运行tasks队列里的所有任务
+  _run() {
+    while (this.runningCount < this.parallelCount && this.tasks.length > 0) {
+      const { task, resolve, reject } = this.tasks.shift()
+      this.runningCount++
+      task()
+        .then(resolve, reject)
+        .finally(() => {
+          this.runningCount--
+          this._run()
+        })
+    }
+  }
+}
+
+const superTask = new SuperTask(2)
+function addTask(time, name) {
+  superTask
+    .add(() => timeout(time))
+    .then(() => {
+      console.log(`任务${name}完成`)
+    })
+}
+
+addTask(10000, '1') // 10000ms后输出，任务1完成
+addTask(5000, '2') // 5000ms后输出，任务2完成
+addTask(3000, '3') // 8000ms后输出，任务3完成
+addTask(4000, '4') // 12000ms后输出，任务3完成
+addTask(5000, '5') // 15000ms后输出，任务3完成
+```

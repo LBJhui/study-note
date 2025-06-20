@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>光标跟随效果</title>
+    <style>
+      .text-container {
+        position: relative;
+        font-size: 20px;
+        line-height: 1.5;
+        padding: 10px;
+        overflow-y: auto;
+        height: 600px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      .cursor {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background-color: black;
+        animation: blink 1s infinite;
+        top: 0;
+        left: 0;
+        border-radius: 50%;
+      }
+      @keyframes blink {
+        0% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!--
+      1. 找到最后一个文本节点
+      2. 创建新的文本节点
+      3. 获取新文本的位置
+      4. 设置光标位置
+      5. 移除文本节点
+    -->
+    <div class="text-container">
+      <div class="text"></div>
+      <div class="cursor"></div>
+    </div>
+    <script>
+      const textContainer = document.querySelector('.text-container')
+      const textElem = document.querySelector('.text')
+      const cursor = document.querySelector('.cursor')
+
+      async function autoAppend() {
+        function delay(duration) {
+          return new Promise((resolve) => setTimeout(resolve, duration))
+        }
+        function transfer(text) {
+          let result = text
+            .split('\n')
+            .map((t) => `<p>${t}</p>`)
+            .join('')
+          return result
+        }
+        const content = `在遥远的数字森林深处，有一个被遗忘的村庄，名叫比特村。
+        这里的居民不是普通人，而是由各种代码和算法构成的数字生物。他们每天的生活围绕着解决复杂的逻辑谜题和优化自身的运行效率。
+
+        有一天，比特村的小邮差——一个轻盈的JSON对象，名字叫小杰，收到了一封来自未知来源的消息。消息的内容加密成了Base64编码，
+      似乎隐藏着关于如何拯救即将枯竭的数据湖的秘密。
+
+
+        小杰决定踏上一段寻找解密大师的旅程，希望能够解开这个谜团。
+      他的旅途将带领他穿越HTML山脉，越过CSS峡谷，直到到达传说中的JavaScript高峰，在那里居住着一位智者，据说他已经掌握了所有编程语言的秘密。
+
+
+      旅途中，小杰遇到了许多挑战，包括但不限于调试陷阱、兼容性迷宫以及性能风暴。
+      然而，凭借智慧与勇气，小杰一一克服了这些困难。
+
+
+      最终，小杰找到了那位智者，并学会了如何解码那封神秘的信息。
+      原来，信息中包含了恢复数据湖健康状态的方法：必须收集齐五大设计模式，并用它们编织一个新的框架来支持整个生态系统的运转。
+
+
+      带着新学到的知识和技术，小杰返回了比特村，成功地实施了解决方案。
+      从那天起，比特村再次繁荣起来，而小杰也成为了村子的英雄。`
+
+        for (let i = 0; i < content.length; i++) {
+          let text = content.slice(0, i)
+          let result = transfer(text)
+          textElem.innerHTML = result
+          updateCursor()
+          await delay(300)
+        }
+      }
+
+      autoAppend()
+
+      // 找到最后一个文字节点
+      function getLastTextNode(node) {
+        if (node.nodeType === Node.TEXT_NODE) {
+          return node
+        }
+        for (let i = node.childNodes.length - 1; i >= 0; i--) {
+          const childNode = node.childNodes[i]
+          const lastTextNode = getLastTextNode(childNode)
+          if (lastTextNode) {
+            return lastTextNode
+          }
+        }
+        return null
+      }
+
+      function updateCursor() {
+        // 1 找到最后一个文本节点
+        const lastTextNode = getLastTextNode(textElem)
+        // 2 追加最后一个文字
+        const tempNode = document.createTextNode('|')
+        if (lastTextNode) {
+          lastTextNode.after(tempNode)
+        } else {
+          textElem.appendChild(tempNode)
+        }
+        // 3 获取文字的位置 相当于选中效果 只是不可见
+        const range = document.createRange() // 获取文本节点的位置
+        range.setStart(tempNode, 0)
+        range.setEnd(tempNode, 0)
+        const rect = range.getBoundingClientRect()
+        const textReace = textContainer.getBoundingClientRect()
+        let left = rect.left - textReace.left
+        let top = rect.top - textReace.top
+        // 4 设置光标的位置
+        cursor.style.transform = `translate(${left}px, ${top}px)`
+        // 5. 移除文本节点
+        tempNode.remove()
+      }
+    </script>
+  </body>
+</html>

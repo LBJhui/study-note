@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>在canvas中绘制和拖动</title>
+    <style>
+      canvas {
+        background: #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="color" />
+    <canvas></canvas>
+    <script>
+      const colorPicker = document.querySelector('input')
+      const cvs = document.querySelector('canvas')
+      const ctx = cvs.getContext('2d')
+
+      function init() {
+        const w = 500,
+          h = 300
+        cvs.width = w * devicePixelRatio
+        cvs.height = h * devicePixelRatio
+        cvs.style.width = w + 'px'
+        cvs.style.height = h + 'px'
+      }
+      init()
+
+      const shapes = []
+      class Rectangle {
+        constructor(startX, startY, color) {
+          this.startX = startX
+          this.startY = startY
+          this.color = color
+          this.endX = startX
+          this.endY = startY
+        }
+
+        get minX() {
+          return Math.min(this.startX, this.endX)
+        }
+        get minY() {
+          return Math.min(this.startY, this.endY)
+        }
+        get maxX() {
+          return Math.max(this.startX, this.endX)
+        }
+        get maxY() {
+          return Math.max(this.startY, this.endY)
+        }
+
+        draw() {
+          ctx.fillStyle = this.color
+          ctx.fillRect(this.minX * devicePixelRatio, this.minY * devicePixelRatio, (this.maxX - this.minX) * devicePixelRatio, (this.maxY - this.minY) * devicePixelRatio)
+
+          // 绘制边框
+          ctx.strokeStyle = '#fff'
+          ctx.lineWidth = 3 * devicePixelRatio
+          ctx.strokeRect(this.minX * devicePixelRatio, this.minY * devicePixelRatio, (this.maxX - this.minX) * devicePixelRatio, (this.maxY - this.minY) * devicePixelRatio)
+        }
+
+        isInside(x, y) {
+          return x >= this.minX && x <= this.maxX && y >= this.minY && y <= this.maxY
+        }
+      }
+
+      function getShape(x, y) {
+        for (let i = shapes.length - 1; i >= 0; i--) {
+          const shape = shapes[i]
+          if (shape.isInside(x, y)) {
+            return shape
+          }
+        }
+        return null
+      }
+
+      cvs.onmousedown = function (e) {
+        const shape = getShape(e.offsetX, e.offsetY)
+        const cvsRect = cvs.getBoundingClientRect()
+
+        if (shape) {
+          const sx = e.offsetX,
+            sy = e.offsetY
+          const { startX, startY, endX, endY } = shape
+          window.onmousemove = function (e) {
+            const x = e.clientX - cvsRect.left
+            const y = e.clientY - cvsRect.top
+            const dx = x - sx
+            const dy = y - sy
+            shape.startX = startX + dx
+            shape.startY = startY + dy
+            shape.endX = endX + dx
+            shape.endY = endY + dy
+          }
+          console.log('拖动')
+        } else {
+          const rect = new Rectangle(e.offsetX, e.offsetY, colorPicker.value)
+          shapes.push(rect)
+          window.onmousemove = function (e) {
+            //  改变矩形的结束坐标
+            const x = e.clientX - cvsRect.left
+            const y = e.clientY - cvsRect.top
+            rect.endX = x
+            rect.endY = y
+          }
+        }
+        window.onmouseup = function (e) {
+          // 清除mousemove和mouseup事件
+          window.onmousemove = null
+          window.onmouseup = null
+        }
+      }
+
+      function draw() {
+        requestAnimationFrame(draw)
+        ctx.clearRect(0, 0, cvs.width, cvs.height)
+        for (const shape of shapes) {
+          shape.draw()
+        }
+      }
+      draw()
+    </script>
+  </body>
+</html>
