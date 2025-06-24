@@ -2333,6 +2333,29 @@ import.meta.glob('../views/**/page.js', {
   eager: true,
   import: 'default'
 })
+
+// 目录结构到对象结构
+// webpack require.context
+// vite import.meta.glob
+const moduleMap = import.meta.glob([`./bar/**/*.js`, `./foo/**/*.js`], {
+  eager: true,
+  import: 'default'
+})
+
+const result = {}
+for (const path in moduleMap) {
+  const moduleDefault = moduleMap[path]
+  const matches = path.match(/[^\.\/]+/g).slice(0, -1)
+  let current = result
+  for (let i = 0; i < matches.length; i++) {
+    const match = matches[i]
+    current[match] = current[match] || {}
+    if (i === matches.length - 1) {
+      current[match] = moduleDefault
+    }
+    current = current[match]
+  }
+}
 ```
 
 ```
@@ -2416,10 +2439,11 @@ function transform(value: number) {
 ```
 
 ```text
+文字描边
 -webkit-text-stroke 居中描边
 paint-order 配合 -webkit-text-stroke 使用，值为 stroke 时，外描边
 paint-order:markers|stroke|fill
-text-shadow：只适合小的外描边
+text-shadow：只适合小的外描边 8个方向
 ```
 
 - 简单介绍 requestIdleCallback 及使用场景
@@ -10496,12 +10520,10 @@ rem 和 em 单位一样，都是一个相对单位，不同的是 em 是相对�
 
   18. 1.  作用域提升
 
-  19. 项目水印功能
-
-  20. 1.  canvas
+  19. 1.  canvas
       2.  mutation observer
 
-  21.
+  20.
 
 # 一道 JS 基础编程题（闭包）
 
@@ -15757,4 +15779,198 @@ addTask(5000, '2') // 5000ms后输出，任务2完成
 addTask(3000, '3') // 8000ms后输出，任务3完成
 addTask(4000, '4') // 12000ms后输出，任务3完成
 addTask(5000, '5') // 15000ms后输出，任务3完成
+```
+
+````markdown
+# 了解过前端水印功能吗
+
+## 背景
+
+为了保证用户隐私，数据相对安全，实现水印，飞书（名字） waterMark
+
+- 文档保护
+- 图片保护
+- 视频保护
+
+## 方案
+
+- 肉眼可见的水印，明水印
+- 肉眼不可见的，暗水印
+
+### 明水印
+
+背景添加水印
+
+#### 背景水印
+
+内容生成 svg
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        border-image: url('data:image/svg+xml;base64,<BASE64_ENCODED_SVG>');
+        background-repeat: repeat;
+        /* opacity: 0.1; */
+        width: 100vw;
+        height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Watermarked Content</h1>
+    <p>This page has a watermark</p>
+    <script>
+      function createWatermarkSVG(text) {
+        const svg = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+            <text x="50%" y="50%" dy=".35em" text-anchor="middle" font-size="30" fill="rgba(0, 0, 0, 0.1)" transform="rotate(-45, 100, 100)">${text}</text>
+          </svg>
+        `
+
+        return `data:image/svg+xml;base64,${btoa(svg)}`
+      }
+
+      const watermarkText = 'LBJhui'
+      document.body.style.backgroundImage = `url('${createWatermarkSVG(watermarkText)}')`
+    </script>
+  </body>
+</html>
+```
+
+#### 图片水印
+
+canvas
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <img src="./1.png" alt="" id="sourceImage" />
+    <canvas> </canvas>
+    <img src="" alt="" id="watermarkedImage" />
+    <script>
+      function addWatermark(imageSrc, watermarkText) {
+        const canvas = document.createElement('canvas')
+        const ctx = canvas.getContext('2d')
+        const image = new Image()
+        image.src = imageSrc
+        image.onload = function () {
+          canvas.width = image.width
+          canvas.height = image.height
+          ctx.drawImage(image, 0, 0)
+          ctx.font = '40px Arial'
+          ctx.fillStyle = 'rgba(0,0,0,0.5)'
+          ctx.fillText(watermarkText, image.width - 150, image.height - 30)
+          const watermarkedImage = document.getElementById('watermarkedImage')
+          watermarkedImage.src = canvas.toDataURL('image/png')
+        }
+      }
+
+      const imgageSrc = document.getElementById('sourceImage').src
+      addWatermark(imgageSrc, 'LBJhui')
+    </script>
+  </body>
+</html>
+```
+
+### 暗水印
+
+黑科技，将信息写入到文件二进制代码里面去
+
+服务端，二进制的编辑处理，保证文件不变化，暗水印服务
+
+## 总结
+
+canvas 性能好
+svg dom 更友好
+````
+
+- https://blog.csdn.net/qq_52395343/article/details/141608098
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button>打开文件夹</button>
+    <script>
+      // 访问文件夹
+      /**
+       * 1. 如何弹出文件夹选择框
+       * 2. 如何获取文件夹里面的内容
+       * 3. 如何读取文件内容
+       * 4. 如何实现代码着色 highlight.js
+       */
+      const btn = document.querySelector('button')
+      btn.addEventListener('click', async () => {
+        const handle = await showDirectoryPicker()
+        await processHandle(handle)
+        const fileHandle = handle.children[2]
+        const file = await fileHandle.getFile()
+        const reader = new FileReader()
+        reader.onload = function (e) {
+          console.log(e.target.result)
+        }
+        reader.readAsText(file)
+      })
+
+      async function processHandle(handle) {
+        if (handle.kind === 'file') {
+          return
+        }
+        const iter = await handle.entries()
+        for await (const entry of iter) {
+          const subHandle = entry[1]
+          handle.children.push(subHandle)
+          processHandle(subHandle)
+        }
+      }
+    </script>
+  </body>
+</html>
+```
+
+```markdown
+# 前端性能优化核心点
+
+- 首屏加载优化
+  首屏性能指标
+  减少首屏加载资源体积
+  预加载关键内容
+  预渲染和静态生成
+- 动画卡顿优化
+- 应用状态管理优化
+  Vue 状态管理
+- 应用视图层更新优化
+  Vue 的视图更新优化
+- 事件和渲染细节优化
+
+1. 打开速度怎么变快 - 首屏加载优化
+2. 再次打开速度怎么变快 - 缓存优化
+3. 操作怎么才顺滑 - 渲染优化
+4. 动画怎么保证流畅 - 长任务拆分
+```
+
+```typescript
+// 如何获取组件的类型
+import { ref } from 'vue'
+
+export function useRef<T extends abstract new (...args: any[]) => any>() {
+  return ref<InstanceType<typeof T>>()
+}
 ```

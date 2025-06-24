@@ -62,7 +62,7 @@ import { reactive, useTemplateRef } from 'vue'
 import { selectWidthLarge } from '@/utils/index.ts'
 import type { PageInfo } from '@/types/index'
 import type { ElForm } from 'element-plus'
-// 可以单独定义一个类型
+// 可以单独定义一个类型 如何获取组件的类型
 type FormInstance = InstanceType<typeof ElForm>
 
 const state = reactive({
@@ -98,7 +98,9 @@ const resetForm = () => {
 
 const getTableList = () => {}
 
-const handleEidt = (row) => {}
+const handleEidt = (row: any) => {
+  console.log(row)
+}
 
 const handleSizeChange = (val: number) => {
   state.pageInfo = { ...state.pageInfo, currentPage: 1, pageSize: val }

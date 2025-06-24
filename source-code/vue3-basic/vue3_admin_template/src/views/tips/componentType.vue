@@ -8,6 +8,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { ElForm } from 'element-plus'
+
 const formRef = ref<InstanceType<typeof ElForm>>()
 /**
  * 模板(构造器)
