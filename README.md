@@ -144,7 +144,7 @@ ElementUI 日期选择器时间选择范围限制
 使用data url预览图片 https://blog.csdn.net/u012804440/article/details/136018598
 ```
 
-```Typescript
+```typescript
 // 用TS构建长属性列表
 // type Result = ['p0', 'p1', 'p2']
 type ResultField<Count extends number, Result extends string[] = []> = Result['length'] extends Count ? Result[number] : ResultField<Count, [...Result, `p${Result['length']}`]>
@@ -426,7 +426,7 @@ function captureFrame(file, time = 0) {
 }
 ```
 
-```js
+```javascript
 // 深度克隆的一般实现
 const cache = new WeakMap()
 
@@ -501,7 +501,7 @@ js 引用传递 具名导入 import { n as main } from 'a.js'
 https://blog.csdn.net/brilliantSt/article/details/136300491
 ```
 
-```js
+```javascript
 // 手写memoize
 class MemoizeMap {
   #map
@@ -619,8 +619,8 @@ const scrollHandler = debounce(() => {
 window.addEventListener('scroll', scrollHandler)
 ```
 
-```ts
-协变和逆变
+```typescript
+// 协变和逆变
 //blog.csdn.net/u014676858/article/details/141826960
 // https: 类型安全 所有成员可用
 
@@ -645,9 +645,13 @@ fans = ikun
 ikun = fans // 不能赋值
 
 // 联合类型转交叉类型
+// 联合类型进行三目运算是分开进行的
+// 协变和逆变
 type UnionToIntersection<T> = (T extends any ? (x: T) => any : never) extends (x: infer R) => any ? R : never
 
 type Test = UnionToIntersection<{ a: 1; b: 2 } | { c: 3; d: 4 }>
+
+// 联合类型（或）和交叉类型（且）
 ```
 
 ```javascript
@@ -741,7 +745,7 @@ console.log(move(matrix, 'up'))
  */
 ```
 
-```js
+```javascript
 // 消除异步的传染性 https://blog.csdn.net/weixin_51351053/article/details/140050295
 async function getUser() {
   return await fetch('./1.json')
@@ -836,7 +840,7 @@ console.log(console.log.call === Function.prototype.call)
 // const r = Function.prototype.call.apply((a) => a, [1, 2])
 ```
 
-```js
+```javascript
 // 高量级任务执行优化
 /**
  * 运行一个耗时任务
@@ -994,7 +998,7 @@ $themeMap: ();
 }
 ```
 
-```js
+```javascript
 // CommonJS的本质 https://blog.csdn.net/huangpb123/article/details/138473608
 // 2.js
 this.a = 1
@@ -1013,7 +1017,7 @@ const a = require('./2')
 console.log(a)
 ```
 
-```js
+```javascript
 // 可缓存的方法 计算属性如何传参
 import { computed } from 'vue'
 
@@ -1033,7 +1037,7 @@ function useComputed(fn) {
 }
 ```
 
-```js
+```javascript
 // 数组扁平化
 Array.prototype.customFlatten = function () {
   // 转化结果
@@ -1049,7 +1053,7 @@ Array.prototype.customFlatten = function () {
 }
 ```
 
-```js
+```javascript
 // 访问器成员
 function Product(name, unitPrice, chooseNumber) {
   this.name = name
@@ -1070,7 +1074,7 @@ function Product(name, unitPrice, chooseNumber) {
 }
 ```
 
-```js
+```javascript
 // 使用代理拦截动态属性
 function createProxy (values = []) {
   return new Proxy(
@@ -1132,7 +1136,7 @@ function chain (value) {
 }
 ```
 
-```js
+```javascript
 // 循环转递归
 // 实现一个求和函数，不能使用循环，不能使用数组方法
 function sum(arr, i = 0) {
@@ -1192,7 +1196,7 @@ function demo2(arr) {
 }
 ```
 
-```js
+```javascript
 // 分时函数的封装
 const tasks = Array.from({ length: 300000 }, (_, i) => {
   const div = document.createElement('div')
@@ -1344,24 +1348,12 @@ $breakpoints= {
 }
 ```
 
-```text
-https://juejin.cn/post/7362587412067385354
-拖拽API
-<div draggable="true></div>
-
-
-dragstart
-e.dataTransfer.effect = 'move'
-dragend
-dragenter
-```
-
 - 如何封装命令式组件
 - https://blog.csdn.net/qq_42582773/article/details/140424340
 - https://blog.csdn.net/qq_45487080/article/details/142994198
 - https://blog.csdn.net/weixin_52648900/article/details/143166740
 
-```js
+```javascript
 const o = (function () {
   const obj = {
     a: 1,
@@ -1400,7 +1392,7 @@ const o = (function () {
 })()
 ```
 
-```js
+```javascript
 // 手写 call
 Function.prototype.myCall = function (ctx, ...args) {
   ctx = ctx === null || ctx === undefined ? globalThis : Object(ctx)
@@ -1428,7 +1420,7 @@ Function.prototype.myBind = function (ctx, ...args) {
 }
 ```
 
-```js
+```javascript
 // 并发请求
 function concurRequest(urls, maxNum) {
   if (urls.length === 0) return Promise.resolve([])
@@ -1498,7 +1490,7 @@ function pipe (...fns) {
 }
 ```
 
-```js
+```javascript
 // 构造函数内和外的方法有什么区别
 class Person {
   constructor (name) {
@@ -1550,42 +1542,7 @@ border-image-slice
 border-image-repeat
 ```
 
-```js
-// 如何将 class 转换为 function
-// 初始化之前不能new
-class Example {
-  constructor(name) {
-    this.name = name
-  }
-
-  func() {
-    console.log(this.name)
-  }
-}
-
-;('use strict') // 严格模式
-function Example(name) {
-  // 验证 this 的指向
-  if (!(this instanceof Example)) {
-    throw new TypeError('Class constructor Example cannot be invoked without "new"')
-  }
-  this.name = name
-}
-
-// 不可枚举
-Object.defineProperty(Example.prototype, 'func', {
-  value: function () {
-    // 不可通过 new 调用
-    if (!(this instanceof Example)) {
-      throw new TypeError('Class constructor Example cannot be invoked without "new"')
-    }
-    console.log(this.name)
-  },
-  enumerable: false
-})
-```
-
-```js
+```javascript
 // 字符串比较
 /**
  * 比较两个字符串的大小
@@ -1634,7 +1591,7 @@ function* walk(str) {
 }
 ```
 
-```js
+```javascript
 执行上下文
 // ①
 var name = 'global'
@@ -1746,7 +1703,7 @@ obj.innerFunction2()
   3.安全和隐私考量
 ```
 
-```js
+```javascript
 // 原型方法和实例方法
 function Person() {
   Person.say = function () {
@@ -1880,7 +1837,7 @@ watchEffect(async () => {
 </script>
 ```
 
-```js
+```javascript
 // 统计字符频率的风骚写法
 const str = 'dlskdlkdsowjfood'
 const result = [...str].reduce((a, b) => (a[b]++ || (a[b] = 1), a), {})
@@ -1890,7 +1847,7 @@ const str = '10000000000'
 const s = str.replace(/\B(?=(\d{3})+$)/g, ',')
 ```
 
-```js
+```javascript
 // vue-router
 base: '/'
 
@@ -2006,7 +1963,7 @@ management
   5.消息帧格式
 ```
 
-```js
+```javascript
 // 状态仓库持久化
 // vuex 全部
 //store.js
@@ -2065,7 +2022,7 @@ export default function(context) {
 }
 ```
 
-```js
+```javascript
 // 统一vite中的图片转换逻辑
 import fs from 'node:fs'
 
@@ -2122,20 +2079,21 @@ export default definConfig({
 })
 ```
 
-```
+```markdown
 什么是 vue 的响应式？
 **vue 数据响应式设计的初衷是为了实现数据和函数的联动**，当数据变化后，用到该数据的联动函数会自动重新运行。
 具体在 vue 开发中，数据和组件的 render 函数关联在一起，从而实现了数据变化自动运行 render，在感官上就看到了组件的重新渲染。
 除了 vue 自动关联的 render 函数，其他还有很多使用到 vue 响应式的场景，比如 computed、watch 等等，不能仅把 vue 的数据响应式想象成和 render 的关联。
 
 函数与数据的关联
-  1. 被监控的函数
-    render
-    computed 回调
-    watch
-    watchEffect
-  2. 函数运行期间用到了响应式数据
-  3. 响应式数据变化会导致函数重新运行
+
+1. 被监控的函数
+   render
+   computed 回调
+   watch
+   watchEffect
+2. 函数运行期间用到了响应式数据
+3. 响应式数据变化会导致函数重新运行
 ```
 
 ```txt
@@ -2145,7 +2103,7 @@ GET 和 POST 的区别？
 浏览器层面：
 ```
 
-```js
+```javascript
 // 打包体积的分析和优化:webpack-bundle-analyzer
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 if (process.env.NODE_ENV === 'production') {
@@ -2168,7 +2126,7 @@ import pinyin from 'pinyin';
 判断是不是中文
 ```
 
-```js
+```javascript
 // 监控页面是否出现卡顿 监控页面卡顿 performance API
 const observer = new PerformanceObserver((list) => {
   for (const entry of list.getEntries()) {
@@ -2282,7 +2240,7 @@ mix-blend-mode background-blend-mode
 dom.style.width DOM树 getComputedStyle(dom).width CSSOM树 layout tree 布局树 几何信息
 ```
 
-```js
+```javascript
 addEventListener('onerror', {
   passive: false
 })
@@ -2309,7 +2267,7 @@ text-align:start/end;
 text-orientation
 ```
 
-```js
+```javascript
 // 读取文件原始内容
 // webpack: raw-loader
 module.exports = defineConfig({
@@ -2364,7 +2322,7 @@ css 属性: aspect-ratio
 padding 相对于包含块宽度
 ```
 
-```js
+```javascript
 // 手动解析 DOM 树: removeTag
 new DOMParser().parseFromString(str, 'text/html')
 ```
@@ -2387,7 +2345,7 @@ show,showModel
 "ignoreUploadUnusedFiles": false,
 ```
 
-```js
+```javascript
 // js将大数字单位转化成 千、万、千万、亿
 function transform(value: number) {
   let newValue = ['', '', '']
@@ -2606,9 +2564,6 @@ text-shadow：只适合小的外描边 8个方向
   项目侧重于用户体验
   对于一些需要保持高度一致性的 UI 设计和交互
   对项目有足够的资源投入，并且可以承担初始化加载时间较长
-- 如何避免 JavaScript 中的全局变量污染？
-  1. 立即执行函数
-  2. 严格模式
 - 谈谈移动端布局的几种方式
 
   1. 流式布局
@@ -9086,10 +9041,6 @@ diff 算法是通过**「同层的树节点」**进行比较而非对树进行�
 
   聊到 **worker** 可能还会聊到 **web worker， shared worder** 等等，如果有自信，或者工作对这方面有深入理解，可以秀一下。能体现出自己的优势...
 
-  1.  严格模式
-
-  答：this 的 undefined，禁止 with，arguments 不允许更改，给只读对象赋值抛异常，变量需要先声明，call，apply 第一个参数不会被转换...
-
   能答出来一些就行。
 
 - 原型链以及继承
@@ -12447,9 +12398,6 @@ const intersection = function (nums1, nums2) {
      class 跟 let、const 一样：不存在变量提升、不能重复声明...
      ES6 的 class 可以看作只是一个语法糖，它的绝大部分功能
      ES5 都可以做到，新的 class 写法只是让对象原型的写法更加清晰、更像面向对象编程的语法而已。
-     15.Module
-     ES6 的模块自动采用严格模式，不管你有没有在模块头部加上"use strict";。
-     import 和 export 命令以及 export 和 export default 的区别
 - Css3 新特性 1.过渡 transition 2.动画 animation 3.形状转换 transform 4.阴影 box-shadow 5.滤镜 Filter 6.颜色 rgba 7.栅格布局 gird 8.弹性布局 flex
 - 说一说什么是跨域，怎么解决
   因为浏览器出于安全考虑，有同源策略。也就是说，如果协议、域名或者端口有一个不同就是跨域，Ajax 请求会失败。
@@ -15952,18 +15900,4 @@ import { ref } from 'vue'
 export function useRef<T extends abstract new (...args: any[]) => any>() {
   return ref<InstanceType<typeof T>>()
 }
-```
-
-```javascript
-// JSON转换中的精度问题
-const json = `{bigNumber:1234567891234567891234567891323236565}`
-
-const obj = JSON.parse(json)
-console.log(obj)
-
-const obj1 = JSON.parse(json, (key, value, ctx) => {
-  if (key === 'bigNumber') {
-    return ctx.source
-  }
-})
 ```
