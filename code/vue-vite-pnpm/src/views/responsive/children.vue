@@ -1,24 +1,23 @@
 <template>
-  <div>
-    得到传入的属性:{{ count }}
-  </div>
+  <div>得到传入的属性:{{ count }}</div>
   <div>doubled:{{ doubleCount }}</div>
-
 </template>
 
 <script setup lang="ts">
 const props = defineProps<{
-  count: number;
-}>();
+  count: number
+}>()
 /**
+ *
+ * vue响应式的本质
  * vue 的数据响应式：数据变化时，依赖数据的函数重新运行
  * 响应式：函数和数据进行关联
- *  函数：
+ *  函数：被监控的函数
  *    render
  *    computed
  *    watch
  *    watchEffect
- *  数据：
+ *  数据：函数中读取到的数据，该数据是响应式对象的某个属性
  *    响应式数据
  *    必须在函数中用到
  */

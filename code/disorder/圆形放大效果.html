@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>圆形放大效果</title>
+    <style>
+      .avatar {
+        background: url('https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2Ff941d0eb-6e66-4e6d-8e5e-a5918dfdcd23%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1694876906&t=deeffccc2da6733346c25d5aedf5a75c');
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        cursor: pointer;
+        background-size: cover;
+        position: relative;
+      }
+
+      .avatar::before,
+      .avatar::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+      }
+
+      .avatar::before {
+        background: rgba(0, 0, 0, 0.7);
+      }
+
+      .avatar::after {
+        background: inherit;
+        clip-path: circle(0% at 50% 50%);
+        transition: 0.5s;
+      }
+
+      .avatar:hover::after {
+        clip-path: circle(50% at 50% 50%);
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <div class="avatar"></div>
+    </div>
+  </body>
+</html>

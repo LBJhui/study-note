@@ -14,11 +14,24 @@
 
     // 并集
     const union = [...new Set([...arr1, ...arr2])]
+    console.log([...new Set(arr1).union(new Set(arr2))])
 
     // 交集
     const cross = [...new Set(arr1)].filter((item) => arr2.includes(item))
+    console.log([...new Set(arr1).intersection(new Set(arr2))])
 
     // 差集
     const diff = union.filter((item) => !cross.includes(item))
+    console.log([...new Set(arr1).difference(new Set(arr2))]) // [33, 11, 5]
+    console.log([...new Set(arr1).symmetricDifference(new Set(arr2))]) // [33, 11, 5, 77, 88, 99]
+
+    // 是否无重合
+    console.log(new Set(arr1).isDisjointFrom(new Set(arr2))) // false
+
+    // 是否被包含
+    console.log(new Set(arr1).isSubsetOf(new Set(arr2)))
+
+    // 是否包含
+    console.log(new Set(arr1).isSupersetOf(new Set(arr2)))
   </script>
 </html>

@@ -84,7 +84,7 @@ window.addEventListener(
 ```
 
 ```text
-structuredClone https://www.zhangxinxu.com/wordpress/2025/01/js-api-structuredclone/
+深拷贝structuredClone https://www.zhangxinxu.com/wordpress/2025/01/js-api-structuredclone/
 [Vue3 之 script-setup 全面解析](https://www.jianshu.com/p/5096bfb42e5a)
 纯前端图片压缩 图转base64读出宽高，canvas画图
 对等依赖 peerDependencies(package.json) npm i --legacy-peer-deps
@@ -134,7 +134,6 @@ Object.defineProperty 只能监听到对象属性的读取或者是写入，而 
 object-fit
 addEventListener 'contextmenu'
 禁止触发系统菜单和长按选中：`touch-callout:none` contextmenu
-数组新增的纯函数 API：toSorted、toReversed、toSpliced、with(修改数组)
 font-variant、text-transform
 ElementUI 日期选择器时间选择范围限制
 自定义指令控制权限的弊端 https://blog.csdn.net/layonly/article/details/139402930 DOM 元素删除后，生命周期会正常进行，还会请求数据
@@ -330,10 +329,14 @@ fetch('url', {
 // 文件上传
 //   单文件上传 multiport/form-data
 //   二进制格式上传文件 binary/application/octet-stream Content-Type:application/octet-stream
+//  base64 格式的文件上传
 
 // 文件下载
 // 下载的流式传输
-// 如果前端直接打开文件，没有触发下载 a 元素 download
+// 如果前端直接打开文件，没有触发下载 a 元素 download，只能是同源的文件
+
+// 服务器处理
+res.setHeader('Content-Disposition', 'attachment;filename=es6.pdf')
 
 // 数据的流式获取
 async function getRespnse(content) {
@@ -2023,7 +2026,7 @@ export default function(context) {
 ```
 
 ```javascript
-// 统一vite中的图片转换逻辑
+// 统一vite中的图片转换逻辑 大图url，小图base64
 import fs from 'node:fs'
 
 const myPlugin = (limit = 4096) => {
@@ -2051,7 +2054,7 @@ const myPlugin = (limit = 4096) => {
 export default definConfig({
   build: {
     // 统一vite中的图片转换逻辑
-    assetsInlineLimit: 0,
+    assetsInlineLimit: 0, // 内嵌资源
     rollupOptions: {
       // 在vite中手动分包
       manualChunks(id) {
@@ -8524,7 +8527,6 @@ diff 算法是通过**「同层的树节点」**进行比较而非对树进行�
 - commonjs 的实现原理
 - 讲讲垃圾回收机制
 - Vue 和 React 的区别
-- 函数式编程 如何理解纯函数
 - Node 原生 api 错误处理有了解吗
 - 说说浏览器渲染流程
 - 说说那些属性可以直接避免重绘和重排
@@ -13271,8 +13273,6 @@ console.log(4)
 ```
 
 - 与获取普通对象的属性值不同，使用 for...in、for...of、Object.keys()、Object.values()、Object.entries()、Object.getOwnPropertyNames()这些方法并不能获取 Symbol 类型的属性名。ES6 专门提供了 Object.getOwnPropertySymbols()方法，用来获取一个给定对象自身的所有 Symbol 属性，返回的结果为一个数组。
-- font-size-adjust
-- offset-position 和 offset-path
 
 ```javascript
 typedof NaN
@@ -15900,4 +15900,156 @@ import { ref } from 'vue'
 export function useRef<T extends abstract new (...args: any[]) => any>() {
   return ref<InstanceType<typeof T>>()
 }
+```
+
+```markdown
+# WebAssembly 极端性能优化方案
+
+前端架构师必知 WebAssembly 极端性能优化方案，特邀高级前端专家分享顶级优化秘诀
+直播回放：https://e2gaa.hk.xet.citv.cn/sl/3WdSko
+飞书链接：https://u19tul1sz9g.feishu.cn/docx/AFzzdRO9toGPkux6ci4czi6xnKe 密码：@898X439
+
+https://webassembly.org/
+
+- 【初中级】你有用过 webassembly 吗？这个技术方案主要是解决什么问题，请详细说明在你项目中的实践
+- 【中高级】看你过往经历很多与 webassembly 有关，请具体说说对应业务以及实现方案细节
+- 【专家级】对于复杂 3D、WebGL、千万行数据表绘制场景的更有解决方案，我看你自研了 Rust+WebAssembly 渲染器，请详细说明你的架构与实现
+
+## 你有用过 webassembly 吗？这个技术方案主要是解决什么问题，请详细说明在你项目中的实践
+
+WebAssembly (wasm)，一种二进制代码格式，C、C++、Rust、Go 编译成 wasm 在浏览器中运行
+
+### 主要使用场景
+
+1. 非常复杂的计算，计算密集型任务，rust、c 然后在浏览器端执行
+2. 图形渲染，skia+webassembly = canvaskit
+3. 音视频剪辑，webcodecs、FFmpeg（这个是脚本，那怎么在浏览器端执行呢？wasm）
+   WebCodecs API 为 web 开发者提供了对视频流的单个帧和音频数据块的底层访问能力。
+4. 高性能渲染库，3D、webGis、rust（photon）、skia
+
+### 简单入门
+
+- 编写代码
+- 将代码编译为 wasm
+- 在前端加载 wasm
+- 调用 wasm 提供的方法
+
+Typescript 能够去做 wasm 事情， **assemblyscript**
+
+## 看你过往经历很多与 webassembly 有关，请具体说说对应业务以及实现方案细节
+
+### 图形渲染
+
+1. 通过 assemblyscript 实现了编译还有使用
+2. assemblyscript 如何操作图形计算，关注图形渲染数据，矩阵运算
+
+### 音视频处理
+
+- ffmpeg
+- webdcodecs
+
+## 对于复杂 3D、WebGL、千万行数据表绘制场景的更有解决方案，我看你自研了 Rust+WebAssembly 渲染器，请详细说明你的架构与实现
+
+1. 先初始化项目 react、vue
+2. 在项目中创建一个 rust 项目，rust-rendeerer
+3. 借助 web_sysy，wasm-pack 构建
+4. 引入 wasm
+```
+
+- 减弱透明度的 CSS 媒体查询 `@media(prefers-reduced-transparency: reduce)`
+
+```javascript
+// JS with等数组新方法
+const arr = [, '唐探1900', '侠之大者', '蛟龙行动']
+console.log(arr.with(0, '哪吒魔童闹海')) // [ '哪吒魔童闹海', '唐探1900', '侠之大者', '蛟龙行动' ]
+console.log(arr) // [ undefined, '唐探1900', '侠之大者', '蛟龙行动' ]
+
+数组新增的纯函数 API：toSorted、toReversed、toSpliced、with(修改数组)
+```
+
+```css
+font-size-adjust: 不同字体下字形大小保持一致;
+```
+
+- offset-position 和 offset-path
+- offset-path 支持基本形状函数
+
+```css
+/* 字体技术检测 */
+/* 浏览器是否支持 color-COLRv1 字体（一种彩色字体技术）技术 */
+@supports font-tech(color-COLRv1) {
+}
+/* 字体格式检测 */
+@supports font-format(woff2) {
+  /* 浏览器支持 woff2 字体 */
+}
+```
+
+````markdown
+# 请说说你对函数式编程思想的理解
+
+函数式编程，基本概念
+
+## 基本概念
+
+1. 函数为一等公民，函数封装的方式解决问题
+2. 核心概念：
+
+- 纯函数，没有任何副作用，相同输入（参数）得到相同输出（返回值）
+- 不可变性
+- 高阶函数，函数柯里化
+
+```javascript
+function add(a, b) {
+  return a + b
+}
+function withLogging(fn) {
+  return function (...args) {
+    console.log('Arguments:', args)
+    const result = fn(...args)
+    console.log('Result:', result)
+    return result
+  }
+}
+
+const addWithLogging = withLogging(add)
+addWithLogging(1, 2)
+```
+
+- 函数组合，类似于面向对象继承
+
+```javascript
+const compose = (...fns)=>(x)=>fns.reduceRight((v,fn)=>fn(v),x)
+
+const double = x =>x*2
+const square = x => x*x
+
+const doubleAndSquare = compose(square，double)
+console.log(doubleAndSquare(3))
+```
+
+## 总结优点
+
+1. 可测试性，更好写单元测试
+2. 可维护性
+3. 并发
+4. 简洁
+````
+
+```javascript
+// Promise.try
+function fetchData() {
+  if (Math.random() < 0.5) {
+    throw new Error('同步错误')
+  }
+  return Promise.resolve('数据成功获取')
+}
+
+Promise.try(fetchData)
+  .then((data) => {
+    console.log('成功', data)
+  })
+  .catch((error) => {
+    console.error('失败', error)
+  })
 ```
