@@ -2719,6 +2719,7 @@ Array.prototype.forEach = function (callback) {
   - POST 请求都可能会产生不同的结果（例如，创建新的资源或更新现有资源）。
   6. **浏览器限制**：
   - 某些浏览器可能会对 GET 请求的 URL 长度施加限制（尽管这个限制可能因浏览器和版本而异）。如果 URL 超过了这个限制，那么 GET 请求可能会失败。相比之下，POST 请求没有这样的限制，因为数据可以包含在请求体中而不是 URL 中。因此，在需要发送大量数据或复杂查询参数的跨域场景中，POST 请求可能更合适。
+- CSP内容安全策略
 - 解释一下 CSP 与跨域的关系
   CSP（Content Security Policy）与跨域（Cross-Origin）在 Web 安全领域中是两个重要的概念，但它们各自关注的安全问题和实现机制有所不同。以下是关于 CSP 与跨域关系的详细解释：
 - CSP（内容安全策略）
@@ -13944,7 +13945,7 @@ rem 单位的基础值由 html 的 font-size 决定
 ````
 
 ```markdown
-# 大文件上传
+# 请说说大文件上传
 
 ## 背景
 
@@ -14140,6 +14141,8 @@ loadMoreData()
   - 函数式、设计式
   - 隐藏 canvas
 - 代码编写
+
+getDisplayMedia API
 ```
 
 ````markdown
@@ -15873,7 +15876,31 @@ svg dom 更友好
 ```
 
 ```markdown
-# 前端性能优化核心点
+# 前端性能优化核心点全面解析
+
+- 【初中级】看你之前项目中都有做过性能优化相关的，请说说你都做了哪些性能优化相关的工作
+- 【中高级】你们的前端项目性能有重点关注过吗，是如何评估的，有做具体的性能指标体系和评估策略吗
+- 【专家级】看你之前带了十几个人的前端团队，能详细说说你是如何落地实用优化这部分工作的，团队代码质量和整体管理怎么落实
+
+## 【初中级】看你之前项目中都有做过性能优化相关的，请说说你都做了哪些性能优化相关的工作
+
+### 首屏加载优化
+
+首屏加载是用户访问网页的第一印象，优化这一环节可以显著提升用户体验，以下是我采取的优化措施
+
+####首屏性能指标
+
+为了精准评估和优化首屏性能，我关注了以下指标：
+
+- FP(First Paint)：首次绘制，网页首次呈现任何视觉元素的时间
+- FCP(Fisrt contentful paint)：首次内容绘制，从网页开始加载到任何内容呈现在屏幕上的时间
+- FMP(Fisrt Meaningful Paint):首次有效绘制，页面主要内容首次呈现的时间
+- LCP(Largest Contentful Paint):最大内容绘制，从加载开始到最大的内容块呈现的时间
+
+此外，还关注以下额外指标：
+
+- INP(Interaction to Next Paint):用户交互到页面响应时间
+- TBT(Total Blocking Time):从 FCP 到
 
 - 首屏加载优化
   首屏性能指标
@@ -15909,23 +15936,40 @@ export function useRef<T extends abstract new (...args: any[]) => any>() {
 直播回放：https://e2gaa.hk.xet.citv.cn/sl/3WdSko
 飞书链接：https://u19tul1sz9g.feishu.cn/docx/AFzzdRO9toGPkux6ci4czi6xnKe 密码：@898X439
 
-https://webassembly.org/
-
 - 【初中级】你有用过 webassembly 吗？这个技术方案主要是解决什么问题，请详细说明在你项目中的实践
 - 【中高级】看你过往经历很多与 webassembly 有关，请具体说说对应业务以及实现方案细节
 - 【专家级】对于复杂 3D、WebGL、千万行数据表绘制场景的更有解决方案，我看你自研了 Rust+WebAssembly 渲染器，请详细说明你的架构与实现
 
-## 你有用过 webassembly 吗？这个技术方案主要是解决什么问题，请详细说明在你项目中的实践
+## 【初中级】你有用过 webassembly 吗？这个技术方案主要是解决什么问题，请详细说明在你项目中的实践
 
-WebAssembly (wasm)，一种二进制代码格式，C、C++、Rust、Go 编译成 wasm 在浏览器中运行
+### WebAssembly 概念
 
-### 主要使用场景
+WebAssembly(简称 WASM)是一种新的二进制代码格式，旨在为现代 Web 浏览器提
+供一种高效的方式来运行编译过的代码。WASM 是一种与平台无关的虚拟机，它能通
+过现代浏览器直接运行，从而提升 Web 应用程序的性能。WebAssembly 使得开发者
+能够将低级语言(如 C/C++、Rust、Go)编译成 Web 可执行文件，进而在浏览器中
+运行。这种方式大大提高了 Web 应用的计算能力，尤其适用于复杂的计算、图形处理
+和多媒体编辑等场景。
 
-1. 非常复杂的计算，计算密集型任务，rust、c 然后在浏览器端执行
-2. 图形渲染，skia+webassembly = canvaskit
-3. 音视频剪辑，webcodecs、FFmpeg（这个是脚本，那怎么在浏览器端执行呢？wasm）
-   WebCodecs API 为 web 开发者提供了对视频流的单个帧和音频数据块的底层访问能力。
-4. 高性能渲染库，3D、webGis、rust（photon）、skia
+### 官方介绍
+
+根据 [WebAssembly 的官方网站](https://webassembly.org/)，WebAssembly 是一种高效、体积小且可在浏览器中
+运行的二进制格式。它的目标是为 Web 应用提供与原生应用相媲美的性能，同时保持
+Web 的开放性和可移植性。WebAssembly 运行在沙箱环境中，具有内存安全性和模块
+化特性，使其成为 Web 开发中强有力的补充。
+
+### WebAssembly 使用场景
+
+1. 复杂计算: WebAssembly 主要解决 JavaScript 在计算密集型任务中的性能瓶颈。通过将这些计算任务交给 WebAssembly 执行，可以大大提高处理效率。举个例子，某些科学计算、数据处理、机器学习任务等，可以通过 Rust 或 C++ 编写,然后编译成 WASM 进行浏览器端执行。
+2. 图形绘制:在图形渲染领域，WebAssembly 能够加速基于 WebGL 或其他图形渲染库的任务。例如，使用 Rust 编写高效的图形绘制库，如 `skia`，并将其编译为 WebAssembly，从而在浏览器中实现高性能的图形渲染。
+3. 音视频编辑: WebAssembly 适用于音视频编辑、处理和转换等高性能应用。与 JavaScript 相比，WebAssembly 提供了更强的性能，能够实时处理音视频流，进行高质量的编辑和渲染。
+4. 高性能渲染库: 使用 Rust 或类似语言编写的高性能渲染库可以通过 WebAssembly 在浏览器中运行，提供比 JavaScript 更高效的渲染能力。例如，Rust 与 skia(一个高效的 2D 图形渲染库)结合，能够在浏览器中提供极快的渲染性能，适用于图形密集型应用如游戏或 UI 动画。
+
+### WebAssembly 和 Typescript 配合使用：基于 AssemblyScript 实现
+
+AssemblyScript 是一个将 TypeScript 编译为 WebAssembly 的工具，它能够让开发者在熟悉的 JavaScript/TypeScript 环境中，快速开发出高性能的 WebAssembly 模块。
+
+下面是一个最简单的示例，展示了如何使用 AssemblyScript 实现一个基本的 WebAssembly 模块:
 
 ### 简单入门
 
@@ -16052,4 +16096,272 @@ Promise.try(fetchData)
   .catch((error) => {
     console.error('失败', error)
   })
+```
+
+````markdown
+# 怎样设计一个全站请求耗时统计工具
+
+## 背景
+
+通过这个统计工具，可以更清晰的看到整个站点性能情况，首屏加载时间（FP/FCP）
+
+1. 监控请求耗时：HTTP、中间件、axios
+2. 前端监控：监控整个请求，记录耗时数据
+3. 后端监控：后端记录
+4. 数据汇总：数据清洗加工，数据可视化，可视化图表
+
+## 解决方案
+
+```javascript
+;(function () {
+  const originalXhrOpen = XMLHttpRequest.prototype.open
+  XMLHttpRequest.prototype.open = function (...args) {
+    this._startTime = performance.now()
+    this.addEventListener('load', function () {
+      const duration = performance.now() - this._startTime
+      console.log(`XHR ${arg[1]} took ${duration} ms`)
+      reportQuestDuration(args[1], duration, 'XHR')
+    })
+    originalXhrOpen.apply(this, args)
+  }
+  const originalFetch = window.fetch
+  window.fetch = async function (...args) {
+    const startTime = performance.now()
+    const response = await originalFetch.apply(this, args)
+    const duration = performance.now() - startTime
+    console.log(`Fetch ${args[0]} took ${duration} ms`)
+    reportQuestDuration(args[0], duration, 'Fetch')
+    return response
+  }
+
+  // fetch 上报
+  function reportQuestDuration(url, duration, type) {
+    const data = {
+      url,
+      duration,
+      type
+    }
+    console.log(data)
+    fetch('https://your-server.com/report', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+  }
+
+  // 图片上报
+  const img = document.createElement('img')
+  img.src = '/xxx/xxx'
+})
+```
+
+```javascript
+const express = require('express')
+const app = express()
+
+app.use((req, res, next) => {
+  const startHrTime = process.hrtime()
+  res.on('finish', () => {
+    const elapsedHrTime = process.hrtime(startHrTime)
+    const elapsedTimeInMs = elapsedHrTime[0] * 1000 + elapsedHrTime[1] / 1e6
+    console.info(`${req.method} ${req.originalUrl} ${res.statusCode} ${elapsedTimeInMs}ms`)
+    reportRequestDuration(req.url, elapsedTimeInMs, 'Backend')
+  })
+  next()
+})
+
+app.post('/api/report-request-duration', express.json(), (req, res) => {
+  console.log('Received request duration report:', req.body)
+  res.sendStatus(200)
+})
+
+app.listen(3000, () => console.log('Server listening on port 3000'))
+
+function reportRequestDuration(url, duration, serviceName) {
+  // Implement your own logic to report the request duration to your monitoring system
+}
+```
+
+```sql
+CREATE TABLE request_duration (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  url VARCHAR(255) NOT NULL,
+  duration DECIMAL(10, 2) NOT NULL,
+  type ENUM('XHR', 'Fetch', 'Backend') NOT NULL,
+  timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)
+```
+
+```javascript
+const mysql = require('mysql')
+const connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'password',
+  database: 'demo'
+})
+
+function generateReport() {
+  const query = `
+  SELECT
+    url,
+    AVG(duration) as avg_duration
+    MAX(duration) as max_duration,
+    MIN(duration) as min_duration,
+    COUNT(*) as request_count,
+  FROM request_durations
+  GROUP BY url,type
+  `
+  connection.query(query, (error, results) => {
+    if (error) throw error
+    console.log(results)
+  })
+}
+
+setInterval(generateReport, 24 * 60 * 60 * 1000)
+
+generateReport()
+```
+````
+
+```javascript
+// 将函数打印成原始类型
+// ② 重写console.log
+const originalLog = console.log
+ console.log = function (...args){
+  for(let i =0;i<args.length;i++){
+    const arg = args[i]
+    if(typedof arg === 'function' && arg.hasOwnProperty('toString')){
+      args[i] = arg.toString()
+    }
+  }
+  originalLog.apply(this,args)
+ }
+// 实现add函数
+function add(...args) {
+  _sum.restArgs = []
+  function _sum(...restArgs) {
+    _sum.restArgs = restArgs
+    return add(...args, ...restArgs)
+  }
+  _sum.toString = function () {
+     return [...args, ..._sum.restArgs].reduce((acc, cur) => acc + cur, 0)
+  }
+  // ① node环境
+  _sum[Symbol.for('nodejs.util.inspect.custom')] = function () {
+    return [...args, ..._sum.restArgs].reduce((acc, cur) => acc + cur, 0)
+  }
+  return _sum
+}
+const r = add(1, 2)(3, 4, 5)(6, 7)(8) // 返回的一定是一个函数
+console.log(r) // expect：36
+```
+
+````markdown
+height:auto 也能使用 transition 动画效果
+
+任意祖先元素设置
+
+```html
+<style>
+  p {
+    height: 0;
+    transition: height 0.25s;
+    overflow: hidden;
+  }
+  .active + p {
+    height: auto;
+    height: calc-size(auto, size);
+  }
+</style>
+
+<button onClick="this.classList.toggle('active')">点击我</button>
+<p>
+  <img src="https://picsum.photos/200/300" alt="" width="200" />
+</p>
+```
+
+```html
+<style>
+  p {
+    width: 320px;
+    padding: 1em;
+    transition: width 0.25s;
+    interpolate-size: allow-keywords;
+    background: deepskyblue;
+  }
+  .active + p {
+    width: fit-content;
+  }
+</style>
+
+<button onClick="this.classList.toggle('active')">点击我</button>
+<p>
+  <img src="https://picsum.photos/200/300" alt="" width="200" />
+</p>
+```
+````
+
+- canvas measureText
+
+````markdown
+# 使用同一个链接， 如何实现 PC 打开是 web 应用，手机打开是一个 H5 应用
+
+## 背景
+
+老板为了省钱，一个链接访问页面，想同时适配 PC、Mobile
+
+## 方案
+
+区分 PC、Mobile
+
+- 先识别端
+- 端内容渲染器（内容加载器）
+
+### 识别端
+
+1. js 识别
+
+```javascript
+console.log(navigator.userAgent)
+// 判断
+function isMobile() {
+  return /Mobi|Android/i.test(navigator.userAgent)
+}
+```
+
+2. Vue
+
+```javascript
+// 非常重要的api
+provide('deviceType', isMobile())
+
+// 子组件使用
+const deviceType = inject('deviceType')
+```
+
+### 响应式来做
+
+媒体查询，flex
+
+### 框架内完成匹配
+````
+
+- 可让普通元素表单化的 attachInternals 方法 https://www.zhangxinxu.com/wordpress/?p=11570
+
+```javascript
+// vue实现全局状态管理 https://www.bilibili.com/video/BV1jBKbzrEZd
+
+const scope = getCurrentScope()
+
+function defineStore(fn) {
+  let state
+  return () => {
+    if (state) return state
+    const scope = effectScope(true)
+    return (state = scope.run(fn))
+  }
+}
 ```
