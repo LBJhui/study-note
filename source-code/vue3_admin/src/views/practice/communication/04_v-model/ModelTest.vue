@@ -29,10 +29,10 @@ let info = ref('')
 //父组件的数据钱数
 let money = ref(10000)
 //自定义事件的回调
-const handler = (num: number) => {
-  //将来接受子组件传递过来的数据
-  money.value = num
-}
+// const handler = (num: number) => {
+//   //将来接受子组件传递过来的数据
+//   money.value = num
+// }
 
 //父亲的数据
 let pageNo = ref(1)

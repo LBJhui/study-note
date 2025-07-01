@@ -2719,7 +2719,7 @@ Array.prototype.forEach = function (callback) {
   - POST 请求都可能会产生不同的结果（例如，创建新的资源或更新现有资源）。
   6. **浏览器限制**：
   - 某些浏览器可能会对 GET 请求的 URL 长度施加限制（尽管这个限制可能因浏览器和版本而异）。如果 URL 超过了这个限制，那么 GET 请求可能会失败。相比之下，POST 请求没有这样的限制，因为数据可以包含在请求体中而不是 URL 中。因此，在需要发送大量数据或复杂查询参数的跨域场景中，POST 请求可能更合适。
-- CSP内容安全策略
+- CSP 内容安全策略
 - 解释一下 CSP 与跨域的关系
   CSP（Content Security Policy）与跨域（Cross-Origin）在 Web 安全领域中是两个重要的概念，但它们各自关注的安全问题和实现机制有所不同。以下是关于 CSP 与跨域关系的详细解释：
 - CSP（内容安全策略）
@@ -16365,3 +16365,29 @@ function defineStore(fn) {
   }
 }
 ```
+
+```javascript
+// 模拟微队列
+function runMicroTask(func) {
+  if(typedof Promise !== 'undefined'){
+    Promise.resolve().then(func)
+    return
+  }
+  // Web API 浏览器环境
+  if(typeof MutationObserver !== 'undefined'){
+    const observer = new MutationObserver(func)
+    const textNode = document.createTextNode(1)
+    observer.observe(textNode, { characterData: true })
+    textNode.data = 2
+    return
+  }
+  if(process && process.nextTick){
+    process.nextTick(func)
+    return
+  }
+  setTimeout(func, 0)
+}
+
+```
+
+- 字符串截取 bug 码点和码元

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>蜂巢布局</title>
+    <style>
+      /* html {
+        overflow: hidden;
+      }
+
+      // 每行个数 10(为了解决会有半个空缺情况,处理方法是减少一个元素或者在偶数行末尾增加一个元素)
+      $n: 9;
+      // 宽度 = 视口宽 / 每行个数
+      $size: 100vw / $n;
+      .line {
+        display: flex;
+        margin-top: -$size / 6;
+        &:nth-child(even) {
+          transform: translateX(-$size / 2);
+        }
+      }
+      .item {
+        width: $size;
+        height: $size;
+        background: #aa092e;
+        transition: transform 0.5s ease;
+        // 设置不压缩
+        flex-shrink: 0;
+        // 轮廓线设置
+        // outline: 2px solid #f40;
+        clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 0% 75%, 0% 25%);
+        -webkit-clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 0% 75%, 0% 25%);
+      } */
+
+      html {
+        overflow: hidden;
+      }
+
+      .line {
+        display: flex;
+        margin-top: -1.8518518519vw;
+      }
+      .line:nth-child(even) {
+        transform: translateX(-5.5555555556vw);
+      }
+
+      .item {
+        width: 11.1111111111vw;
+        height: 11.1111111111vw;
+        background: #aa092e;
+        transition: transform 0.5s ease;
+        flex-shrink: 0;
+        clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 0% 75%, 0% 25%);
+        -webkit-clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 0% 75%, 0% 25%);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="line">
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+      </div>
+      <div class="line">
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+      </div>
+      <div class="line">
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+      </div>
+    </div>
+  </body>
+  <script>
+    const allDom = document.querySelectorAll('.line')
+    function isOdd(number) {
+      // true 为奇数 false 为偶数
+      return number % 2 !== 0
+    }
+    function addMouseOverEvent(childrenNodes, item, index) {
+      item.addEventListener('mouseover', (event) => {
+        const inde = Array.from(childrenNodes).indexOf(event.target)
+        if (inde === -1) return
+        // 左
+        inde !== 0 && childrenNodes[inde - 1] && (childrenNodes[inde - 1].style.transform = 'scale(0.8)')
+        // 右
+        childrenNodes[inde + 1] && (childrenNodes[inde + 1].style.transform = 'scale(0.8)')
+        // 上
+        if (index !== 0) {
+          const flag = this.isOdd(index)
+          const bortherNode = allDom[index - 1]
+          const bortherChildrenNodes = bortherNode.children
+          if (!flag) {
+            bortherChildrenNodes[inde].style.transform = 'scale(0.8)'
+            bortherChildrenNodes[inde + 1] && (bortherChildrenNodes[inde + 1].style.transform = 'scale(0.8)')
+          } else {
+            bortherChildrenNodes[inde - 1].style.transform = 'scale(0.8)'
+            bortherChildrenNodes[inde] && (bortherChildrenNodes[inde].style.transform = 'scale(0.8)')
+          }
+        }
+        // 下
+        if (index != allDom.length) {
+          const flag = this.isOdd(index)
+          const bortherNode = allDom[index + 1]
+          const bortherChildrenNodes = bortherNode.children
+          if (!flag) {
+            inde !== 0 && bortherChildrenNodes[inde] && (bortherChildrenNodes[inde].style.transform = 'scale(0.8)')
+            bortherChildrenNodes[inde + 1] && (bortherChildrenNodes[inde + 1].style.transform = 'scale(0.8)')
+          } else {
+            inde !== 0 && bortherChildrenNodes[inde - 1] && (bortherChildrenNodes[inde - 1].style.transform = 'scale(0.8)')
+            bortherChildrenNodes[inde] && (bortherChildrenNodes[inde].style.transform = 'scale(0.8)')
+          }
+        }
+      })
+    }
+    function addMouseOutEvent(childrenNodes, item, index) {
+      item.addEventListener('mouseout', (event) => {
+        const inde = Array.from(childrenNodes).indexOf(event.target)
+        if (inde === -1) return
+        // 左
+        inde !== 0 && childrenNodes[inde - 1] && (childrenNodes[inde - 1].style.transform = 'scale(1)')
+        // 右
+        childrenNodes[inde + 1] && (childrenNodes[inde + 1].style.transform = 'scale(1)')
+        // 上
+        if (index !== 0) {
+          const bortherNode = allDom[index - 1]
+          const bortherChildrenNodes = bortherNode.children
+          bortherChildrenNodes[inde].style.transform = 'scale(1)'
+          bortherChildrenNodes[inde + 1] && (bortherChildrenNodes[inde + 1].style.transform = 'scale(1)')
+        }
+        // 下
+        if (index != allDom.length - 1) {
+          const bortherNode = allDom[index + 1]
+          const bortherChildrenNodes = bortherNode.children
+          inde !== 0 && childrenNodes[inde] && (childrenNodes[inde].style.transform = 'scale(1)')
+          childrenNodes[inde + 1] && (childrenNodes[inde + 1].style.transform = 'scale(1)')
+        }
+      })
+    }
+    if (allDom?.length > 0) {
+      allDom.forEach((item, index) => {
+        const childrenNodes = allDom[index].children
+        this.addMouseOverEvent(childrenNodes, item, index)
+        this.addMouseOutEvent(childrenNodes, item, index)
+      })
+    }
+  </script>
+</html>
