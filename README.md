@@ -2221,6 +2221,7 @@ animation-range
 cubic-bezier
 css 动画只支持数值类的属性
 Houdini API @property https://developer.mozilla.org/zh-CN/docs/Web/API/Houdini_APIs
+https://www.zhangxinxu.com/study/202410/css-@property-animation-seed-demo.php
 
 剪切函数 clip-path
 background-clip
@@ -2239,8 +2240,12 @@ mix-blend-mode background-blend-mode
     50vw
   " />
 
-原始尺寸=样式尺寸*缩放倍率 元素尺寸： - clientWidth：content + padding - offsetWidth：content + padding + scroll(滚动条) + border - scrollWidth：visible + invisible - 可见尺寸 getBoundingClientRect()
-dom.style.width DOM树 getComputedStyle(dom).width CSSOM树 layout tree 布局树 几何信息
+<!-- 原始尺寸=样式尺寸*缩放倍率 元素尺寸：
+- clientWidth：content + padding
+- offsetWidth：content + padding + scroll(滚动条) + border
+- scrollWidth：visible + invisible
+- 可见尺寸 getBoundingClientRect()
+dom.style.width DOM树 getComputedStyle(dom).width CSSOM树 layout tree 布局树 几何信息 -->
 ```
 
 ```javascript
@@ -3227,7 +3232,7 @@ Array.prototype.forEach = function (callback) {
 - 介绍单页面应用和多页面应用
 - 介绍 localstorage 的 API
 - html 语义化的理解
-- 语义化版本
+- 语义化版本 https://zhuanlan.zhihu.com/p/10972167086
 - `<b>`和`<strong>`的区别
 - 对闭包的理解
 - 工程中闭包使用场景
@@ -13295,7 +13300,6 @@ true===1
 []==0
 ```
 
-- 数字计算类库 Math.js, decimal.js, big.js
 - 组合函数、管道函数、函数柯里化
 
 ```markdown
@@ -15888,7 +15892,7 @@ svg dom 更友好
 
 首屏加载是用户访问网页的第一印象，优化这一环节可以显著提升用户体验，以下是我采取的优化措施
 
-####首屏性能指标
+#### 首屏性能指标
 
 为了精准评估和优化首屏性能，我关注了以下指标：
 
@@ -15900,7 +15904,10 @@ svg dom 更友好
 此外，还关注以下额外指标：
 
 - INP(Interaction to Next Paint):用户交互到页面响应时间
-- TBT(Total Blocking Time):从 FCP 到
+- TTI 可交互时间
+- TBT(Total Blocking Time 阻塞时间从 FCP 到 TTI):总阻塞时间
+- CLS(Cumulative Layout Shift 累计布局偏移):累计布局偏移
+- TTFB(Time to First Byte):首字节时间，请求发出后到接收到数据中间的时间
 
 - 首屏加载优化
   首屏性能指标
@@ -16391,3 +16398,280 @@ function runMicroTask(func) {
 ```
 
 - 字符串截取 bug 码点和码元
+
+```javascript
+// 属性到底存在不存在
+const obj = {}
+
+console.log('方式1：布尔判定')
+// 若 a：0，也为不存在
+if (obj.a) {
+  console.log('存在')
+} else {
+  console.log('不存在')
+}
+
+console.log('方式2：对比undefined')
+// 若 a：undefined，也为不存在
+if (obj.a !== undefined) {
+  console.log('存在')
+} else {
+  console.log('不存在')
+}
+
+console.log('方式3：使用Object.keys') // 自身可枚举属性名
+if (Object.keys(obj).includes('a')) {
+  console.log('存在')
+} else {
+  console.log('不存在')
+}
+
+console.log('方式4：使用hasOwnProperty') // 自身的属性名
+if (obj.hasOwnProperty('a')) {
+  console.log('存在')
+} else {
+  console.log('不存在')
+}
+
+console.log('方式5：使用in运算符')
+if ('a' in obj) {
+  console.log('存在')
+} else {
+  console.log('不存在')
+}
+```
+
+```markdown
+Object.is() 和 ===
+
+1. NaN 的比较
+   console.log(NaN === NaN) // false
+   console.log(Object.is(NaN, NaN)) // true
+
+2. +0 和 -0 的比较
+
+console.log(+0 === -0) // true
+console.log(Object.is(+0, -0)) // false
+
+字符串 concat() 和直接 + 有何区别？
+
+加法强制将表达式转为基本类型，优先调用 valueOf()；
+concat()方法（模版字符串亦然）则强制为字符串，优先调用 toString()。
+
+数组 at 和直接索引有何区别？
+
+substring() 和 slice() 有何区别？
+
+1. 参数值为负，substring 视为 0
+2. 第 1 个参数大于第 2 个，substring 会自动交换
+```
+
+````markdown
+# 深度 SEO 优化，你都知道哪些细节？
+
+## SEO 优化思路
+
+1. 页面结构优化
+   语义化标签
+2. 内容优化
+   保证页面中关键词的覆盖率
+3. 技术向 SEO 优化
+   站点地图
+   结构化数据
+   ```html
+   <script type="application/ld+json">
+     {
+       "@context": "https://schema.org"
+       "@type": "WebSite",
+       "headline": "Your Headline",
+       "autor":'Your Name',
+       "datePublished": "2023-07-01",
+       "image": "https://example.com/image.jpg",
+     }
+   </script>
+   ```
+   移动端兼容
+````
+
+- https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLLinkElement/blocking
+- 数字计算类库 Math.js, decimal.js, big.js
+
+````markdown
+# js 超过 Number 最大值的数怎么处理？
+
+`Number.MAX_VALUE`
+
+## 背景
+
+### 大数据的计算
+
+### 格式展示
+
+### 用户输入
+
+大数据做处理
+
+- 金融
+- 科学计算
+- 数据分析
+
+## 解决方案
+
+- BigInt
+
+```javascript
+const bigNum = BigInt('1321313564596315494652032064984984984')
+```
+
+- decimal.js
+- big.js
+
+比如我们用户输入场景，需要限制输入数字大小
+
+## 总结
+
+1. bigint 来处理大数据
+2. decimal 来处理
+3. 格式化，格式化成用户好读的格式
+4. 表单校验，不允许用户输入超过多少位的数字
+````
+
+````markdown
+# 移动端上拉加载，下拉刷新实现方案
+
+长列表，需要通过上拉加载提升性能
+
+## 上拉加载
+
+长列表，需要通过上拉加载提升性能
+
+### 实现步骤
+
+1. 滚动事件监听
+2. 怎么判断触底
+3. 回调触发列表加载更多
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="list"></div>
+    <script>
+      const list = document.getElementById('list')
+      let page = 1
+      function loadMoreData(page) {
+        return fetch(`https://example.com/api/data?page=${page}`)
+          .then((response) => response.json())
+          .then((data) => {
+            data.items.forEach((item) => {
+              const div = document.createElement('div')
+              div.className = 'item'
+              div.textContent = item.text
+              list.appendChild(div)
+            })
+          })
+      }
+
+      function handleScroll() {
+        if (list.scrollTop + list.clientHeight >= list.scrollHeight - 10) {
+          page++
+          loadMoreData()
+        }
+      }
+
+      list.addEventListener('scroll', handleScroll)
+
+      loadMoreData()
+    </script>
+  </body>
+</html>
+```
+
+## 下拉刷新
+
+用在用户在页面顶部向下拉时，触发页面重新渲染
+
+### 实现步骤
+
+1. 监听触摸事件，touch、tap
+2. 显示刷新指示器，显示有没有达到下拉阈值
+3. 触发刷新操作
+
+```javascript
+const list = document.getElementById('list')
+const refreshIndicator = document.getElementById('refreshIndicator')
+let startY = 0
+let isPulling = false
+
+function loadData() {
+  return fetch('url')
+    .then((response) => response.json())
+    .then((data) => {
+      list.innerHTML = ''
+      data.items.forEach((item) => {
+        const div = document.createElement('div')
+        div.className = 'item'
+        div.textContent = item.text
+        list.appendChild(div)
+      })
+    })
+}
+
+list.addEventListener('touchstart', (event) => {
+  if (list.scrollTop === 0) {
+    startY = event.touches[0].pageY
+    isPulling = true
+  }
+})
+
+list.addEventListener('touchmove', (event) => {
+  if (isPulling) {
+    const currentY = event.touches[0].pageY
+    if (currentY > startY) {
+      refreshIndicator.style.display = 'block'
+      refreshIndicator.style.height = `${currentY - startY}px`
+    }
+  }
+})
+
+list.addEventListener('touchend', (event) => {
+  if (isPulling) {
+    const refreshHeight = parseInt(refreshIndicator.style.height, 10)
+    if (refreshHeight >= 50) {
+      loadData()
+    } else {
+      refreshIndicator.style.display = 'none'
+    }
+    isPulling = false
+    refreshIndicator.style.height = '50px'
+  }
+})
+
+loadData()
+```
+
+## 考虑的点
+
+### 性能优化
+
+1. 节流、防抖
+2. 懒加载
+
+### 用户体验
+
+1. 视觉反馈，下拉刷新的指示器
+2. 平滑动画
+3. 错误处理
+
+## 兼容
+
+1. 触摸事件
+2. css hack
+````
+
+- https://www.zhangxinxu.com/wordpress/2024/11/css-grid-subgrid/
