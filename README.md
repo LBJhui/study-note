@@ -15338,7 +15338,7 @@ html[theme='dark-mode'] {
 ```
 ````
 
-```markdown
+````markdown
 # 跨域
 
 ## CORS 策略
@@ -15367,7 +15367,15 @@ CORS 将请求分为两类
 **预检请求**
 
 非简单请求
+
+```mermaid
+graph TB
+A[能更改服务器吗] --能--> B[浏览器指出CORS吗]
+A -- 不能 --> C[代理]
+B -- 支持 --> D[CORS]
+B -- 不支持 --> E[JSONP]
 ```
+````
 
 ````markdown
 ## 5.布局
@@ -16442,17 +16450,6 @@ if ('a' in obj) {
 ```
 
 ```markdown
-Object.is() 和 ===
-
-1. NaN 的比较
-   console.log(NaN === NaN) // false
-   console.log(Object.is(NaN, NaN)) // true
-
-2. +0 和 -0 的比较
-
-console.log(+0 === -0) // true
-console.log(Object.is(+0, -0)) // false
-
 字符串 concat() 和直接 + 有何区别？
 
 加法强制将表达式转为基本类型，优先调用 valueOf()；
@@ -16675,3 +16672,29 @@ loadData()
 ````
 
 - https://www.zhangxinxu.com/wordpress/2024/11/css-grid-subgrid/
+
+```javascript
+// 私有属性
+
+/**
+ * ① 使用 Symbol
+ */
+let nameSymbol = Symbol('name')
+let obj  ={
+  [nameSymbol]: 'zhangsan',
+  getName:fucntion(){
+    return this[nameSymbol]
+  }
+}
+
+for(let key in obj){
+  console.log(key)
+}
+console.log(Object.keys(obj))
+
+/**
+ * 缺点
+ */
+console.log(obj[nameSymbol])
+console.log(Object.getOwnPropertySymbols(obj))
+```

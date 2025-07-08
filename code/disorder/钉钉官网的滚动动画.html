@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>钉钉官网的滚动动画</title>
+    <style>
+      .hrader {
+        height: 500px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .hrader2 {
+        height: 200px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fee;
+      }
+      .playground {
+        height: 200vh;
+        width: 100%;
+        background: #000;
+      }
+      .animation-container {
+        height: 100vh;
+        width: 100%;
+        position: sticky;
+        top: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #eee;
+        /* flex-direction: column; */
+      }
+      .list {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+        /* margin-top: 100px; */
+        flex-direction: column;
+        position: relative;
+      }
+      .list-continer {
+        display: grid;
+        grid-template-columns: repeat(7, 100px);
+        grid-column-gap: 10px;
+        grid-row-gap: 10px;
+      }
+      .list-item {
+        width: 60px;
+        height: 60px;
+        border-radius: 6px;
+        background: #790;
+        /* transform-origin: 50% 50%; */
+        margin-top: 80px;
+        margin: 30px;
+      }
+      .list-item:nth-child(odd) {
+        background: #f99;
+      }
+
+      .title {
+        width: 200px;
+        height: 200px;
+        position: absolute;
+        top: 200px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+      .name {
+        font-size: 30px;
+        font-weight: bold;
+      }
+      .nameLogo {
+        width: 160px;
+        height: 160px;
+        border-radius: 6px;
+        background: #790;
+        margin: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hrader">hrader</div>
+    <div class="hrader2">cont1111</div>
+    <div class="playground">
+      <div class="animation-container">
+        <div class="list">
+          <div class="title" data-order="0" data-name="title">
+            <div data-order="0" class="nameLogo"></div>
+            <span class="name">我是标题</span>
+          </div>
+          <div class="list-continer">
+            <div data-order="0" class="list-item"></div>
+            <div data-order="1" class="list-item"></div>
+            <div data-order="4" class="list-item"></div>
+            <div data-order="6" class="list-item"></div>
+            <div data-order="4" class="list-item"></div>
+            <div data-order="1" class="list-item"></div>
+            <div data-order="0" class="list-item"></div>
+            <div data-order="0" class="list-item"></div>
+            <div data-order="1" class="list-item"></div>
+            <div data-order="4" class="list-item"></div>
+            <div data-order="6" class="list-item"></div>
+            <div data-order="4" class="list-item"></div>
+            <div data-order="1" class="list-item"></div>
+            <div data-order="0" class="list-item"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hrader">footer</div>
+    <div class="hrader">footer</div>
+  </body>
+</html>
+<script>
+  const items = document.querySelectorAll('.list-item')
+  const playGroud = document.querySelector('.playground')
+  const list = document.querySelector('.list')
+
+  const title = document.querySelector('.title')
+
+  function createAnimation(scrollStart, scorllEnd, valueStart, valueEnd) {
+    return function (scroll) {
+      if (scroll <= scrollStart) {
+        return valueStart
+      }
+      if (scroll >= scorllEnd) {
+        return valueEnd
+      }
+      return valueStart + ((valueEnd - valueStart) * (scroll - scrollStart)) / (scorllEnd - scrollStart)
+    }
+  }
+
+  const animationMap = new Map()
+
+  function getDomAnimation(scrollStart, scrollEnd, dom) {
+    scrollStart = scrollStart + dom.dataset.order * 50
+    // 渐显
+    const opacityAimation = createAnimation(scrollStart, scrollEnd, 0, 1)
+    // 渐出
+    const opacityOutAimation = createAnimation(scrollEnd, scrollEnd + 300, 1, 0)
+    //进入-放大
+    const scaleAnimation = createAnimation(scrollStart, scrollEnd, 0.5, 1)
+    //退出-放大
+    const scaleOutAnimation = createAnimation(scrollEnd, scrollEnd + 400, 1, 2)
+    //X轴 中心点至-水平位置
+    const xAnimation = createAnimation(scrollStart, scrollEnd, list.clientWidth / 2 - dom.offsetLeft - dom.clientWidth / 2, 0)
+    //Y轴 中心点至-垂直位置
+    const yAnimation = createAnimation(scrollStart, scrollEnd, list.clientHeight / 2 - dom.offsetTop - dom.clientHeight / 2, 0)
+    //Y轴 垂直初始位置至- 垂直退出
+    const yOutAnimation = createAnimation(scrollEnd, scrollEnd + 400, 0, -(list.clientHeight / 2 - dom.clientHeight / 2))
+
+    // 透明函数
+    const opacity = function (scroll) {
+      if (scroll >= scrollEnd && dom.dataset.name == 'title') {
+        return opacityOutAimation(scroll)
+      }
+      return opacityAimation(scroll)
+    }
+
+    // 变换函数
+    const transform = function (scroll) {
+      if (scroll >= scrollEnd && dom.dataset.name == 'title') {
+        return `translate(${xAnimation(scroll)}px, ${yOutAnimation(scroll)}px) scale(${scaleOutAnimation(scroll)})`
+      }
+      return `translate(${xAnimation(scroll)}px, ${yAnimation(scroll)}px) scale(${scaleAnimation(scroll)})`
+    }
+
+    return {
+      opacity,
+      transform
+    }
+  }
+
+  function updateMap() {
+    animationMap.clear()
+    const playGroudRect = playGroud.getBoundingClientRect()
+
+    // 菜单模块
+    const scrollStart = playGroudRect.top + window.scrollY //当playGroudRect的top为0作为开始位置、
+    const scrollEnd = playGroudRect.bottom + window.scrollY - window.innerHeight
+    for (const item of items) {
+      animationMap.set(item, getDomAnimation(scrollStart, scrollEnd, item))
+    }
+
+    // 标题logo模块
+    const title_scrollStart = (playGroudRect.top + window.scrollY) / 4
+    const title_scrollEnd = playGroudRect.top + window.scrollY
+    animationMap.set(title, getDomAnimation(title_scrollStart, title_scrollEnd, title))
+  }
+
+  updateMap()
+
+  function updateStyles() {
+    const scroll = window.scrollY
+    for (let [dom, value] of animationMap) {
+      for (const cssprop in value) {
+        dom.style[cssprop] = value[cssprop](scroll)
+      }
+    }
+  }
+  updateStyles()
+
+  window.addEventListener('scroll', updateStyles)
+</script>
