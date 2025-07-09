@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>四角线框的跟随移动</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      ::-webkit-scrollbar {
+        width: 0;
+      }
+
+      body {
+        background-color: #655643;
+      }
+
+      .box {
+        position: relative;
+        width: 90%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 50px;
+        margin: 68px auto;
+
+        > .item {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+            display: block;
+          }
+        }
+
+        .pointer {
+          /* 圆角线框的长度 */
+          --l: 32px;
+          /* 线框的粗细 */
+          --t: 1px;
+          /* 线框与图片的间隙 */
+          --g: 12px;
+          /* 图片宽度 */
+          --w: 0px;
+          /* 图片高度 */
+          --h: 0px;
+          /* 图片左上角的横坐标 */
+          --x: 0px;
+          /* 图片左上角的横坐标 */
+          --y: 0px;
+          position: absolute;
+          z-index: -1;
+          display: none;
+          width: calc(var(--w) + var(--g) * 2);
+          height: calc(var(--h) + var(--g) * 2);
+          left: calc(var(--x) - var(--g));
+          top: calc(var(--y) - var(--g));
+          transition: all 0.5s;
+          mask: conic-gradient(at var(--l) var(--l), transparent 75%, blue 75% 100%) 0 0 / calc(100% - var(--l)) calc(100% - var(--l)) repeat;
+          border: var(--t) solid #ffffff;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <div class="pointer"></div>
+    </div>
+  </body>
+  <script>
+    const box = document.querySelector('.box')
+    const pointer = document.querySelector('.pointer')
+    const picturesLinkingList = [
+      'https://cn.bing.com/th?id=OHR.SleepingFox_ZH-CN2622967726_1920x1080.jpg',
+      'https://cn.bing.com/th?id=OHR.GoldenGateLight_ZH-CN3874822904_1920x1080.jpg',
+      'https://cn.bing.com/th?id=OHR.BlueAmsterdam_ZH-CN0483591394_1920x1080.jpg',
+      'https://cn.bing.com/th?id=OHR.BukhansanSeoul_ZH-CN8002920750_1920x1080.jpg',
+      'https://cn.bing.com/th?id=OHR.SantaCruzSunrise_ZH-CN3074203377_1920x1080.jpg',
+      'https://cn.bing.com/th?id=OHR.LeapingSquirrel_ZH-CN9112090462_1920x1080.jpg',
+      'https://cn.bing.com/th?id=OHR.LeucisticHummingbird_ZH-CN2921653789_1920x1080.jpg',
+      'https://cn.bing.com/th?id=OHR.ElephantRock_ZH-CN9293300383_1920x1080.jpg',
+      'https://cn.bing.com/th?id=OHR.WhiteEyes_ZH-CN1130380430_1920x1080.jpg',
+      'https://cn.bing.com/th?id=OHR.SolarEclipseOregon_EN-US2134131862_1920x1080.jpg',
+      'https://cn.bing.com/th?id=OHR.TulouFujian_ZH-CN4287018074_1920x1080.jpg',
+      'https://cn.bing.com/th?id=OHR.ChestnutBeeEater_ZH-CN3514753872_1920x1080.jpg',
+      'https://cn.bing.com/th?id=OHR.SummerSolstice2024_ZH-CN6141918663_1920x1080.jpg'
+    ]
+
+    function init(list = []) {
+      let el = ''
+
+      list.forEach((item) => {
+        let div = document.createElement('div')
+        let img = document.createElement('img')
+
+        div.className = 'item'
+        img.src = item
+        img.alt = '图片加载失败'
+        img.onmouseenter = function () {
+          hoverOnmouseenter(this)
+        }
+        img.onmouseout = () => hoverOnmouseout()
+        div.appendChild(img)
+
+        box.appendChild(div)
+      })
+    }
+
+    init(picturesLinkingList)
+
+    function hoverOnmouseenter(el) {
+      pointer.style.display = 'block'
+      setTimeout(() => {
+        pointer.style.setProperty('--w', el.offsetWidth + 'px')
+        pointer.style.setProperty('--h', el.offsetHeight + 'px')
+        pointer.style.setProperty('--x', el.offsetLeft + 'px')
+        pointer.style.setProperty('--y', el.offsetTop + 'px')
+      }, 0)
+    }
+
+    function hoverOnmouseout() {
+      pointer.style.display = 'none'
+    }
+  </script>
+</html>
