@@ -1690,15 +1690,6 @@ obj.innerFunction2()
 ```
 
 ```text
-如何处理跨域请求中的安全问题
-  1.CORS策略
-  2.HTTPS
-  3.预检请求
-  4.限制跨站请求伪造
-  5.token验证
-```
-
-```text
 禁用了js，本地存储还能使用吗
 不能使用
   1.技术依赖
@@ -2144,7 +2135,6 @@ observer.observe({ entryTypes: ['longtask'] })
   TCP/IP
   HTTP
   AJAX
-  跨域及解决方案
   JWT
   cookie
   sessionnavigator.hardwareConcurrency
@@ -2831,7 +2821,6 @@ Array.prototype.forEach = function (callback) {
 - node check 阶段做了什么，触发了什么事件
 - node 如何处理错误的
 - 数字在计算机怎么储存的
-- 跨域有哪些
 - 网络安全
 - 链表与数组的区别，链表如何遍历
 - script 标签中 async 跟 defer 的区别
@@ -3010,7 +2999,6 @@ Array.prototype.forEach = function (callback) {
 - 路由的动态加载模块
 - 服务端渲染 SSR
 - 介绍路由的 history
-- 如何解决跨域的问题
 - 常见 Http 请求头
 - 移动端适配 1px 的问题
 - 介绍 flex 布局
@@ -3054,7 +3042,6 @@ Array.prototype.forEach = function (callback) {
 - 安卓 Activity 之间数据是怎么传递的
 - 安卓 4.0 到 6.0 过程中 WebView 对 js 兼容性的变化
 - WebView 和原生是如何通信
-- 跨域怎么解决，有没有使用过 Apache 等方案
 - 对 async、await 的理解，内部原理
 - 介绍下 Promise，内部实现
 - 清除浮动
@@ -3067,7 +3054,6 @@ Array.prototype.forEach = function (callback) {
 - bind、call、apply 的区别
 - 动画的了解
 - 介绍下原型链（解决的是继承问题吗）
-- 对跨域的了解
 - 介绍冒泡排序，选择排序，冒泡排序如何优化
 - transform 动画和直接使用 left、top 改变位置有什么优缺点
 - 如何判断链表是否有环
@@ -3093,8 +3079,6 @@ Array.prototype.forEach = function (callback) {
 - 常用的 plugins
 - pm2 怎么做进程管理，进程挂掉怎么处理
 - 不用 pm2 怎么做进程管理
-- 介绍下浏览器跨域
-- 怎么去解决跨域问题
 - jsonp 方案需要服务端怎么配合
 - Ajax 发生跨域要设置什么（前端）
 - 加上 CORS 之后从发起到请求正式成功的过程
@@ -3145,7 +3129,6 @@ Array.prototype.forEach = function (callback) {
 - 介绍下数字签名的原理
 - 前后端通信使用什么方案
 - RESTful 常用的 Method
-- 介绍下跨域
 - Access-Control-Allow-Origin 在服务端哪里配置
 - csrf 跨站攻击怎么解决
 - localStorage 和 cookie 有什么区别
@@ -3209,7 +3192,6 @@ Array.prototype.forEach = function (callback) {
 - 介绍垃圾回收
 - cookie 的引用为了解决什么问题
 - cookie 和 localStorage 的区别
-- 如何解决跨域问题
 - 前端性能优化
 - 使用 canvas 绘图时如何组织成通用组件
 - formData 和原生的 ajax 有什么区别
@@ -5066,7 +5048,6 @@ Array.prototype.forEach = function (callback) {
 - tcp 和 udp 的区别和使用场景？
 - quic 基于 udp 怎么保证可靠性？
 - 讲一下同源策略和跨域方案？CORS 的几个头部是什么？
-- 讲一下 react fiber？
 - vue 双向绑定原理？
 - 实现一个 bind 函数
 - 求数组里面最大连续项的和
@@ -9001,7 +8982,6 @@ diff 算法是通过**「同层的树节点」**进行比较而非对树进行�
 - Last-Modified 和 Etag 有什么区别？
 - Cache-Control 和 Last-Modified 的区别
 - 说说 String, StringBuilder 和 StringBuffer 的区别
-- 跨域有哪些方案？
 
   1.  浏览器和 nodejs 事件循环？🌟
 
@@ -9112,9 +9092,8 @@ diff 算法是通过**「同层的树节点」**进行比较而非对树进行�
 
 1.  浏览器页面加载过程，越详细越好 🌟
 2.  浏览器缓存 🌟
-3.  跨域问题及处理 🌟
-4.  v8 快数组慢数组，hidden class 或者其他模块？
-5.  xss 和 csrc 的意思？如何防范？🌟
+3.  v8 快数组慢数组，hidden class 或者其他模块？
+4.  xss 和 csrc 的意思？如何防范？🌟
 
 答：美团的两篇文章摆出来，面试官直接问下一题！
 
@@ -12378,26 +12357,6 @@ const intersection = function (nums1, nums2) {
      ES6 的 class 可以看作只是一个语法糖，它的绝大部分功能
      ES5 都可以做到，新的 class 写法只是让对象原型的写法更加清晰、更像面向对象编程的语法而已。
 - Css3 新特性 1.过渡 transition 2.动画 animation 3.形状转换 transform 4.阴影 box-shadow 5.滤镜 Filter 6.颜色 rgba 7.栅格布局 gird 8.弹性布局 flex
-- 说一说什么是跨域，怎么解决
-  因为浏览器出于安全考虑，有同源策略。也就是说，如果协议、域名或者端口有一个不同就是跨域，Ajax 请求会失败。
-  为来防止 CSRF 攻击
-  - JSONP
-    JSONP 的原理很简单，就是利用 \<script> 标签没有跨域限制的漏洞。
-    通过 \<script> 标签指向一个需要访问的地址并提供一个回调函数来接收数据当需要通讯时。 \<script src="<http://domain/api?param1=a&param2=b&callback=jsonp"></script>> \<script>
-    function jsonp(data) {
-    console.log(data)
-    } \</script>
-    JSONP 使用简单且兼容性不错，但是只限于 get 请求。
-  - CORS
-    CORS 需要浏览器和后端同时支持。IE 8 和 9 需要通过 XDomainRequest 来实现。
-  - document.domain
-    该方式只能用于二级域名相同的情况下，比如 a.test.com 和 b.test.com 适用于该方式。
-    只需要给页面添加 document.domain = 'test.com' 表示二级域名都相同就可以实现跨域
-  - webpack 配置 proxyTable 设置开发环境跨域
-  - nginx 代理跨域
-  - iframe 跨域
-  - postMessage
-    这种方式通常用于获取嵌入页面中的第三方页面数据。一个页面发送消息，另一个页面判断来源并接收消息
 - 说一说前端性能优化方案
   一：webapck 优化与开启 gzip 压缩
   1. babel-loader 用 include 或 exclude 来帮我们避免不必要的转译，不转译 node_moudules 中的 js 文件
@@ -12594,10 +12553,6 @@ const intersection = function (nums1, nums2) {
 - 用一个 div 模拟 textarea 的实现 `<div contenteditable="true"></div>`
 - 实现页面加载进度条
 - 实现 extend 函数
-- 为什么会有跨域的问题以及解决方式
-- http 请求跨域问题，你都知道哪些解决跨域的方法
-- cors 预请求
-- jsonp 原理、postMessage 原理
 - 实现拖拽功能，比如把 5 个兄弟节点中的最后一个节点拖拽到节点 1 和节点 2 之间
 - 动画：setTimeout 何时执行，requestAnimationFrame 的优点
 - 编写分页器组件的时候，为了减少服务端查询次数，点击“下一页”怎样能确保还有数据可以加载（请求数据不会为空）？
@@ -15311,45 +15266,6 @@ html[theme='dark-mode'] {
 ````
 
 ````markdown
-# 跨域
-
-## CORS 策略
-
-CORS（Cross-Origin Resource Sharing）
-
-CORS 是一套机制，用于浏览器校验跨域请求
-
-它的基本理念是：
-
-只要服务器明确表示允许，则校验通过
-
-服务器明确拒绝或没有表示，则校验不通过
-
-CORS 将请求分为两类
-
-**简单请求**
-
-- 请求方法为 GET、HEAD、POST
-- 头部字段满足 CORS 安全规范
-- 请求头的 Content-Type 为
-  text/plain
-  multipart/form-data
-  application/x-www-form-urlencoded
-
-**预检请求**
-
-非简单请求
-
-```mermaid
-graph TB
-A[能更改服务器吗] --能--> B[浏览器指出CORS吗]
-A -- 不能 --> C[代理]
-B -- 支持 --> D[CORS]
-B -- 不支持 --> E[JSONP]
-```
-````
-
-````markdown
 ## 5.布局
 
 ### 5.1 水平方向的布局
@@ -16669,4 +16585,40 @@ console.log(Object.keys(obj))
  */
 console.log(obj[nameSymbol])
 console.log(Object.getOwnPropertySymbols(obj))
+```
+
+```javascript
+var a, b
+;(function () {
+  console.log(a)
+  console.log(b)
+  var a = (b = 3)
+  console.log(a)
+  console.log(b)
+})()
+console.log(a)
+console.log(b)
+```
+
+```javascript
+function a() {
+  var temp = 10
+  function b() {
+    console.log(temp)
+  }
+  b()
+}
+
+a()
+
+function a() {
+  var temp = 10
+  b()
+}
+
+function b() {
+  console.log(temp)
+}
+
+a()
 ```
