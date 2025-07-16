@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3d卡片的移入效果</title>
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .card {
+      width: 210px;
+      height: 315px;
+      /* border: 1px solid; */
+      margin: 0 50px;
+      position: relative;
+    }
+    .card img {
+      width: 100%;
+      position: absolute;
+      transition: 0.5s;
+    }
+    .title {
+      bottom: 0;
+    }
+
+    .card .cover {
+      opacity: 0;
+    }
+    .card:hover .hero {
+      transform: perspective(500px) rotateX(30deg);
+      box-shadow: 0 35px 35px 5px rgba(0, 0, 0, 0.75);
+    }
+    .card:hover .cover {
+      transform: perspective(500px) translate3d(0, -35px, 35px);
+      opacity: 1;
+    }
+    .card:hover .title {
+      transform: perspective(500px) translate3d(0, -35px, 35px);
+    }
+  </style>
+  <body>
+    <div class="container">
+      <div class="card">
+        <img class="hero" src="./img/hero1.jpeg" alt="" />
+        <img class="cover" src="./img/3D-cover1.webp" alt="" />
+        <img class="title" src="./img/title1.png" alt="" />
+      </div>
+      <div class="card">
+        <img class="hero" src="./img/hero2.jpeg" alt="" />
+        <img class="cover" src="./img/3D-cover2.webp" alt="" />
+        <img class="title" src="./img/title2.png" alt="" />
+      </div>
+    </div>
+  </body>
+</html>
