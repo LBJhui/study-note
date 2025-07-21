@@ -149,4 +149,4 @@ exports { increment, sum }
 
 `require.js`
 
-### 7. CMD
+## 7. CMD

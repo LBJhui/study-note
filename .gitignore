@@ -5,7 +5,6 @@ bin-release/
 [Bb]in/
 node_modules
 dist
-__pycache__
 
 # Other files and folders
 .settings/

@@ -1,4 +1,4 @@
-# 35【Storage接口】
+# 35【Storage 接口】
 
 ## 1.概述
 
@@ -17,28 +17,28 @@ Storage 接口只有一个属性。
 - `Storage.length`：返回保存的数据项个数。
 
 ```js
-window.localStorage.setItem('foo', 'a');
-window.localStorage.setItem('bar', 'b');
-window.localStorage.setItem('baz', 'c');
+window.localStorage.setItem('foo', 'a')
+window.localStorage.setItem('bar', 'b')
+window.localStorage.setItem('baz', 'c')
 
 window.localStorage.length // 3
 ```
 
-该接口提供5个方法。
+该接口提供 5 个方法。
 
 ### 2.1 Storage.setItem()
 
 `Storage.setItem()`方法用于存入数据。它接受两个参数，第一个是键名，第二个是保存的数据。如果键名已经存在，该方法会更新已有的键值。该方法没有返回值。
 
 ```js
-window.sessionStorage.setItem('key', 'value');
-window.localStorage.setItem('key', 'value');
+window.sessionStorage.setItem('key', 'value')
+window.localStorage.setItem('key', 'value')
 ```
 
 注意，`Storage.setItem()`两个参数都是字符串。如果不是字符串，会自动转成字符串，再存入浏览器。
 
 ```js
-window.sessionStorage.setItem(3, { foo: 1 });
+window.sessionStorage.setItem(3, { foo: 1 })
 window.sessionStorage.getItem('3') // "[object Object]"
 ```
 
@@ -50,9 +50,9 @@ window.sessionStorage.getItem('3') // "[object Object]"
 
 ```js
 // 下面三种写法等价
-window.localStorage.foo = '123';
-window.localStorage['foo'] = '123';
-window.localStorage.setItem('foo', '123');
+window.localStorage.foo = '123'
+window.localStorage['foo'] = '123'
+window.localStorage.setItem('foo', '123')
 ```
 
 ### 2.2 Storage.getItem()
@@ -71,8 +71,8 @@ window.localStorage.getItem('key')
 `Storage.removeItem()`方法用于清除某个键名对应的键值。它接受键名作为参数，如果键名不存在，该方法不会做任何事情。
 
 ```js
-sessionStorage.removeItem('key');
-localStorage.removeItem('key');
+sessionStorage.removeItem('key')
+localStorage.removeItem('key')
 ```
 
 ### 2.4 Storage.clear()
@@ -89,7 +89,7 @@ window.localStorage.clear()
 `Storage.key()`方法接受一个整数作为参数（从零开始），返回该位置对应的键名。
 
 ```js
-window.sessionStorage.setItem('key', 'value');
+window.sessionStorage.setItem('key', 'value')
 window.sessionStorage.key(0) // "key"
 ```
 
@@ -97,16 +97,16 @@ window.sessionStorage.key(0) // "key"
 
 ```js
 for (var i = 0; i < window.localStorage.length; i++) {
-  console.log(localStorage.key(i));
+  console.log(localStorage.key(i))
 }
 ```
 
-## 3. storage 事件 
+## 3. storage 事件
 
 Storage 接口储存的数据发生变化时，会触发 storage 事件，可以指定这个事件的监听函数。
 
 ```js
-window.addEventListener('storage', onStorageChange);
+window.addEventListener('storage', onStorageChange)
 ```
 
 监听函数接受一个`event`实例对象作为参数。这个实例对象继承了 StorageEvent 接口，有几个特有的属性，都是只读属性。
@@ -121,10 +121,10 @@ window.addEventListener('storage', onStorageChange);
 
 ```js
 function onStorageChange(e) {
-  console.log(e.key);
+  console.log(e.key)
 }
 
-window.addEventListener('storage', onStorageChange);
+window.addEventListener('storage', onStorageChange)
 ```
 
 注意，该事件有一个很特别的地方，就是它不在导致数据变化的当前页面触发，而是在同一个域名的其他窗口触发。也就是说，如果浏览器只打开一个窗口，可能观察不到这个事件。比如同时打开多个窗口，当其中的一个窗口导致储存的数据发生改变时，只有在其他窗口才能观察到监听函数的执行。可以通过这种机制，实现多个窗口之间的通信。

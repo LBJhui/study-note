@@ -75,7 +75,7 @@ window.addEventListener(
 ```markdown
 [es6](https://es6.ruanyifeng.com/)
 [Pinia 中文文档](https://pinia.web3doc.top/)
-[webpack](https://www.webpackjs.com/)
+
 [vite](https://vitejs.cn/)
 [蚂蚁金服前端团队](https://www.yuque.com/ant-h5)
 [张鑫旭](https://www.zhangxinxu.com/)
