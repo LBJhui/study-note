@@ -40,52 +40,62 @@ module.exports = {
   // 加载器
   module: {
     rules: [
-      // loader 的配置
       {
-        test: /\.css$/i,
-        // use 执行顺序，从右到左（从下到上）
-        use: getStyleLoader() // 执行顺序：从右到左（从下到上）
-      },
-      {
-        test: /\.less$/i,
-        // loader:'xxx',  // 只能使用一个 loader
-        // use 可以使用多个 loader
-        use: getStyleLoader('less-loader')
-      },
-      {
-        test: /\.s[ac]ss$/i,
-        use: getStyleLoader('sass-loader')
-      },
-      {
-        test: /\.(png|jpe?g|gif|webp)$/,
-        type: 'asset',
-        parser: {
-          dataUrlCondition: {
-            // 优点：减少请求数量，缺点：体积会更大
-            maxSize: 10 * 1024 // 小于 10kb 的图片转 base64
+        // 每个文件只能被其中一个 loader 配置处理
+        oneOf: [
+          // loader 的配置
+          {
+            test: /\.css$/i,
+            // use 执行顺序，从右到左（从下到上）
+            use: getStyleLoader() // 执行顺序：从右到左（从下到上）
+          },
+          {
+            test: /\.less$/i,
+            // loader:'xxx',  // 只能使用一个 loader
+            // use 可以使用多个 loader
+            use: getStyleLoader('less-loader')
+          },
+          {
+            test: /\.s[ac]ss$/i,
+            use: getStyleLoader('sass-loader')
+          },
+          {
+            test: /\.(png|jpe?g|gif|webp)$/,
+            type: 'asset',
+            parser: {
+              dataUrlCondition: {
+                // 优点：减少请求数量，缺点：体积会更大
+                maxSize: 10 * 1024 // 小于 10kb 的图片转 base64
+              }
+            },
+            generator: {
+              // 输出图片名称
+              // [hash:10] hash 的前 10 位
+              // [ext]: 使用之前的文件扩展名
+              // [query]: 添加之前的query参数
+              filename: 'static/images/[hash:10][ext][query]'
+            }
+          },
+          {
+            test: /\.(ttf|woff2?|map4|map3|avi)$/,
+            type: 'asset/resource',
+            generator: {
+              filename: 'static/media/[hash:10][ext][query]'
+            }
+          },
+          {
+            test: /\.(?:js|mjs|cjs)$/,
+            exclude: /node_modules/, // 排除 node_modules 目录
+            // include: path.resolve(__dirname, '../src'), // 只处理 src 目录下的文件
+            use: {
+              loader: 'babel-loader',
+              options: {
+                cacheDirectory: true, // 开启babel缓存
+                cacheCompression: false // 关闭缓存文件压缩
+              }
+            }
           }
-        },
-        generator: {
-          // 输出图片名称
-          // [hash:10] hash 的前 10 位
-          // [ext]: 使用之前的文件扩展名
-          // [query]: 添加之前的query参数
-          filename: 'static/images/[hash:10][ext][query]'
-        }
-      },
-      {
-        test: /\.(ttf|woff2?|map4|map3|avi)$/,
-        type: 'asset/resource',
-        generator: {
-          filename: 'static/media/[hash:10][ext][query]'
-        }
-      },
-      {
-        test: /\.(?:js|mjs|cjs)$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader'
-        }
+        ]
       }
     ]
   },
@@ -101,6 +111,8 @@ module.exports = {
     new ESLintPlugin({
       // 检测哪些文件
       // context: path.resolve(__dirname, 'src'),
+      cache: true, // 开启缓存
+      cacheLocation: path.resolve(__dirname, '../node_modules/.cache/eslintcache')
     }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, '../public/index.html')
@@ -110,5 +122,6 @@ module.exports = {
     })
   ],
   // 模式
-  mode: 'production'
+  mode: 'production',
+  devtool: 'cheap-module-source-map'
 }

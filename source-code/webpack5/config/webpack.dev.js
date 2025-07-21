@@ -99,6 +99,10 @@ module.exports = {
   devServer: {
     host: 'localhost',
     port: 3000,
-    static: './dist'
-  }
+    static: './dist',
+    open: false, // 是否自动打开浏览器
+    hot: true, // 开启 HMR 功能
+    compress: true // 开启 gzip 压缩
+  },
+  devtool: 'source-map'
 }
