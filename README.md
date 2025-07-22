@@ -3049,7 +3049,6 @@ Array.prototype.forEach = function (callback) {
 - 从输入 URL 到页面加载全过程
 - tcp3 次握手
 - tcp 属于哪一层（1 物理层 -> 2 数据链路层 -> 3 网络层(ip)-> 4 传输层(tcp) -> 5 应用层(http)）
-- webpack 介绍
 - == 和 ===的区别，什么情况下用相等==
 - bind、call、apply 的区别
 - 动画的了解
@@ -3099,8 +3098,6 @@ Array.prototype.forEach = function (callback) {
 - 在哪个生命周期里写
 - 其中有几个 name 不存在，通过异步接口获取，如何做
 - 渲染的时候 key 给什么值，可以使用 index 吗，用 id 好还是 index 好
-- webpack 如何配 sass，需要配哪些 loader
-- 配 css 需要哪些 loader
 - 如何配置把 js、css、html 单独打包成一个文件
 - div 垂直水平居中（flex、绝对定位）
 - 两个元素块，一左一右，中间相距 10 像素
@@ -12239,8 +12236,14 @@ const intersection = function (nums1, nums2) {
   通过利用 JSON.parse(JSON.stringify(Object))来达到深拷贝的目的
   但是 JSON 深拷贝的缺点是 undefined 和 function 还有 symbol 类型是无法进行深拷贝的
   如有需要可以自己手动封装函数来达到目的
+  1. 通过递归实现深拷贝
+  2. lodash 的 cloneDeep
+  3. 通过 JSON.stringify()实现
   浅拷贝：
   通过 ES6 新特性 Object.assign()与扩展运算符来达到浅拷贝的目的
+  1. 拷贝对象：`Object.assgin() `/ 展开运算符 `{...obj} `拷贝对象
+  2. 拷贝数组：`Array.prototype.concat() `或者 `[...arr]`
+  3.使用 for...in... 循环也可实现对象的浅拷贝。
 - Vue 通信
   第一种：props 和`$emit
 第二种：中央事件总线 EventBus(基本不用)
@@ -35938,7 +35941,7 @@ isFinite()
 
 Number.NEGATIVE_INFINITY、Number.NEGATIVE_INFINITY
 
-isNaN()
+isNaN() isNaN(undefined) // true
 
 Number()、parseInt()和 parseFloat()
 

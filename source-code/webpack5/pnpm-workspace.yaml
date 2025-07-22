@@ -1,2 +1,6 @@
 ignoredBuiltDependencies:
   - '@parcel/watcher'
+
+onlyBuiltDependencies:
+  - gifsicle
+  - optipng-bin
