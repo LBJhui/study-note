@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CSS3弧形曲线循环菜单导航DEMO演示</title>
+    <style>
+      body {
+        background-color: #4682b4;
+      }
+
+      a:hover,
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+
+      .c-menu {
+        position: relative;
+        height: 440px;
+        width: 800px;
+        overflow: hidden;
+        margin-left: 50px;
+        margin-top: 50px;
+      }
+
+      .top,
+      .bottom {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 50px;
+        background: transparent;
+      }
+
+      .top {
+        top: 0;
+        background: linear-gradient(to bottom, steelblue 0%, rgba(70, 130, 180, 0) 100%);
+      }
+
+      .bottom {
+        bottom: 0;
+        background: linear-gradient(to bottom, rgba(70, 130, 180, 0) 0%, steelblue 100%);
+      }
+
+      .img-box,
+      .hide {
+        position: absolute;
+        left: 7px;
+        top: 177px;
+        width: 111px;
+        height: 82px;
+        opacity: 1;
+        transition: opacity, 2s;
+      }
+
+      .hide {
+        opacity: 0;
+        transition: opacity, 0.5s;
+      }
+
+      .items-list {
+        position: absolute;
+        left: -400px;
+        top: -101px;
+        width: 500px;
+        height: 498px;
+        border: 2px solid #a2c0d9;
+        border-radius: 50%;
+        margin: 70px;
+      }
+
+      .item {
+        position: absolute;
+        width: 600px;
+        padding-left: 25px;
+        font-size: 18px;
+        transition: font-size 1s;
+        text-align: left;
+        cursor: pointer;
+      }
+      .item:nth-child(7) {
+        font-size: 28px;
+        margin-top: -4px;
+        transition: font-size 0.5s;
+      }
+      .item:before {
+        content: '';
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background-color: #dae6ef;
+        border-radius: 50%;
+        left: 5px;
+        top: 4px;
+      }
+      .item:nth-child(7):before {
+        top: 10px;
+      }
+      .item a {
+        color: #dae6ef;
+        transition: color 0.5s;
+      }
+      .item a:hover {
+        color: white;
+        transition: color 0.5s;
+      }
+      .item:nth-child(2),
+      .item:nth-child(3),
+      .item:nth-child(11),
+      .item:nth-child(12) {
+        opacity: 0.7;
+      }
+
+      .btn {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+        left: 60px;
+        font-size: 20pt;
+        color: #dae6ef;
+        -webkit-transform: scale(3, 1);
+        transform: scale(3, 1);
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+      .btn:hover {
+        color: white;
+        transition: color 0.5s;
+      }
+
+      .prev {
+        top: 110px;
+      }
+
+      .next {
+        bottom: 120px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="c-menu">
+        <div id="list" class="items-list">
+          <div class="item">
+            <a href="" data-img="img/1.jpg" target="_blank" rel="noopener"> Sass: Документация на русском языке </a>
+          </div>
+          <div class="item">
+            <a href="" data-img="img/2.jpg" target="_blank" rel="noopener"> Color Hex Color Codes </a>
+          </div>
+          <div class="item">
+            <a href="" data-img="img/3.jpg" target="_blank" rel="noopener"> WebReference </a>
+          </div>
+          <div class="item">
+            <a href="" data-img="img/4.jpg" target="_blank" rel="noopener"> W3Schools Online Web Tutorials </a>
+          </div>
+          <div class="item">
+            <a href="" data-img="img/5.jpg" target="_blank" rel="noopener"> Современный учебник Javascript </a>
+          </div>
+          <div class="item">
+            <a href="" data-img="img/6.jpg" target="_blank" rel="noopener"> Can I use... Support tables for HTML5, CSS3, etc </a>
+          </div>
+          <div class="item">
+            <a href="" data-img="img/7.jpg" target="_blank" rel="noopener"> CSS-Tricks </a>
+          </div>
+          <div class="item">
+            <a href="" data-img="img/8.jpg" target="_blank" rel="noopener"> CodePen </a>
+          </div>
+          <div class="item">
+            <a href="" data-img="img/9.jpg" target="_blank" rel="noopener"> Таблица символов Юникода® </a>
+          </div>
+          <div class="item">
+            <a ref="" data-img="img/10.jpg" target="_blank" rel="noopener"> Font Awesome </a>
+          </div>
+          <div class="item">
+            <a href="" data-img="img/11.jpg" target="_blank" rel="noopener"> Vue.js </a>
+          </div>
+          <div class="item">
+            <a href="" data-img="img/12.jpg" target="_blank" rel="noopener"> PHP: Что такое PHP? - Manual </a>
+          </div>
+          <div class="item">
+            <a href="" data-img="img/13.jpg" target="_blank" rel="noopener"> SQL.ru - все про SQL </a>
+          </div>
+        </div>
+        <div class="top"></div>
+        <div class="btn prev" onClick="animation({}, 1);">˄</div>
+        <div id="pic" class="img-box"></div>
+        <div class="btn next" onClick="animation({}, 0);">˅</div>
+        <div class="bottom"></div>
+      </div>
+    </div>
+
+    <script>
+      const srart_pos = 90.75
+      const item_count = 13
+      const s = (0.52 * Math.PI) / 180 //Вычислим угол смещения
+
+      var pos = []
+      var elem = document.getElementsByClassName('item')
+
+      function allocationItems() {
+        var i
+        var pp = elem[6].getElementsByTagName('a')[0].getAttribute('data-img')
+        document.getElementById('pic').style.backgroundImage = "url('" + pp + "')"
+        document.getElementById('pic').className = 'img-box'
+        pos[0] = srart_pos
+        for (i = 1; i < item_count; i++) {
+          pos[i] = pos[i - 1] - 0.2
+          last_pos = pos[i]
+        }
+        for (i = 0; i < item_count + 1; i++) {
+          elem[i].style.left = 240 + 250 * Math.sin(pos[i]) + 'px'
+          elem[i].style.top = 240 + 250 * Math.cos(pos[i]) + 'px'
+        }
+      }
+
+      allocationItems()
+
+      function animation(args, flag) {
+        // некоторые аргументы определим на будущее
+        var $ = {
+          radius: 250, // радиус окружности
+          speed: 10 // скорость/задержка ( в js это мс, например 10 мс = 100 кадров в секунду)
+        }
+        var e = elem
+        document.getElementById('pic').className = 'hide'
+        function animate(draw, duration, callback) {
+          var start = performance.now()
+          requestAnimationFrame(function animate(time) {
+            // определить, сколько прошло времени с начала анимации
+            var timePassed = time - start
+            console.log(time, start)
+            // возможно небольшое превышение времени, в этом случае зафиксировать конец
+            if (timePassed > duration) timePassed = duration
+            // нарисовать состояние анимации в момент timePassed
+            draw(timePassed)
+            // если время анимации не закончилось - запланировать ещё кадр
+            if (timePassed < duration) {
+              requestAnimationFrame(animate)
+            } else callback()
+          })
+        }
+        animate(
+          function (timePassed) {
+            var i
+            for (i = 0; i < item_count; i++) {
+              e[i].style.left = 240 + $.radius * Math.sin(pos[i]) + 'px'
+              e[i].style.top = 240 + $.radius * Math.cos(pos[i]) + 'px'
+              if (flag) {
+                pos[i] += s
+              } else {
+                pos[i] -= s
+              }
+            } /* callback function */
+          },
+          400,
+          function changeItems() {
+            var list = document.getElementById('list')
+            var ch = flag ? list.firstElementChild : list.lastElementChild
+            ch.remove()
+            if (flag) {
+              list.appendChild(ch)
+            } else {
+              list.insertBefore(ch, list.firstChild)
+            }
+            allocationItems()
+          }
+        )
+      }
+    </script>
+  </body>
+</html>
