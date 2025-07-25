@@ -12239,11 +12239,10 @@ const intersection = function (nums1, nums2) {
   1. 通过递归实现深拷贝
   2. lodash 的 cloneDeep
   3. 通过 JSON.stringify()实现
-  浅拷贝：
-  通过 ES6 新特性 Object.assign()与扩展运算符来达到浅拷贝的目的
-  1. 拷贝对象：`Object.assgin() `/ 展开运算符 `{...obj} `拷贝对象
-  2. 拷贝数组：`Array.prototype.concat() `或者 `[...arr]`
-  3.使用 for...in... 循环也可实现对象的浅拷贝。
+     浅拷贝：
+     通过 ES6 新特性 Object.assign()与扩展运算符来达到浅拷贝的目的
+  4. 拷贝对象：`Object.assgin() `/ 展开运算符 `{...obj} `拷贝对象
+  5. 拷贝数组：`Array.prototype.concat() `或者 `[...arr]` 3.使用 for...in... 循环也可实现对象的浅拷贝。
 - Vue 通信
   第一种：props 和`$emit
 第二种：中央事件总线 EventBus(基本不用)
@@ -36088,7 +36087,6 @@ import { on } from ''''events'''';
 - EditContext API
 - 可视化、编辑器、云表格、低代码、SaaS 产品、数字孪生、三维可视化
 
-
 ```markdown
 - clientWidth: padding + content - scroll
 - offsetLeft 和 left 区别
@@ -36098,4 +36096,18 @@ import { on } from ''''events'''';
 
 clientWidth 和 offsetWidth
 offsetWidth = content + padding + scroll + border
+```
+
+```markdown
+# 什么时候使用 webworker
+
+1. 大量的 CPU 密集型任务（大文件上传、图表计算）
+2. 任务可被独立拆分
+
+# 页面上有 100 万个任务需要执行，如何保证页面不卡顿
+
+- requestIdleCallback
+- webworker
+- setTimeout
+- postMessage
 ```
