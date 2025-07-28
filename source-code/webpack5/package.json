@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack serve --config ./config/webpack.dev.js",
+    "loader": "webpack --config ./config/webpack.loader.js",
     "codesplit": "webpack --config ./config/webpack.codesplit.js",
     "build": "webpack --config ./config/webpack.prod.js"
   },
