@@ -36110,4 +36110,51 @@ offsetWidth = content + padding + scroll + border
 - webworker
 - setTimeout
 - postMessage
+
+# JS 方面的优化策略
+
+1. 避免在循环中逐个节点进行 DOM 操作，考虑使用批量处理或一次性操作;
+2. 避免频繁操作样式，最好一次性重写 syle 属性，或者一次性更改 class 属性;
+3. 使用 DocumentFragment ，将多个 DOM 节点、样式等进行封装，批量插入文档;
+4. 使用 requestAnimationFrame 确保在每一帧之前执行动画代码，能更好地优化渲染;
+5. 避免在读取布局信息前修改样式强制同步布局，减少回流;
+6. 避免频繁读取会引发回流重绘的属性，如果需要多次使用，可用变量进行缓存
+
+# CSS 方面的优化策略
+
+1. 避免直接操作元素的 style 属性，尽量使用 classList 操作类;
+2. 使用 visibility:hidden 或 opacity:0 替代 display:none，以避免引发回流;
+3. 使用 transform 和 opacity 属性进行动画，因为它们不会引起回流;
+4. 避免使用 table 布局、避免设置多层内联样式，减少 CSS 表达式的使用
+5. 使用 wil-change 提前告诉浏览器哪些属性将会被改变，以便进行优化;
+6. 合并相似的样式规则，减小样式表大小，使用压缩工具对 CSS 文件进行压缩。
+
+# 引起回流的操作
+
+1. 页面的初始渲染
+2. 改变浏览器窗口大小
+3. 修改元素的位置、尺寸、内容
+4. 添加或删除 DOM 元素
+5. 激活 CSS 伪类，如 :hover
+6. 修改字体大小
+
+# 引起重绘的操作
+
+1. 修改元素背景色、文字颜色等样式属性
+2. 添加或删除不影响布局的 DOM 元素
+3. 不改变布局的前提下，修改元素的可见性
+4. 修改元素的 box-shadow、opacity 属性
+
+# 分析比较 opacity:0 display:none 和 visibility:hidden 优劣和适用场景
+- 结构
+  - display:none; 完全消失 不占任何空间 不能点击
+  - visibility:hidden;  不会消失 占据空间 内容不可见 不能点击
+  - opacity:0;  占据空间 内容不可见 可点击
+- 继承
+  - display:none; opacity:0 非继承属性
+  - visibility:hidden;  继承属性
+- 性能
+  - display:none;  文档回流
+  - visibility:hidden;  文档重绘 性能消耗较小
+  - opacity:0;  文档重绘 性能消耗较小
 ```
