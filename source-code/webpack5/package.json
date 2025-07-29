@@ -35,6 +35,7 @@
     "jpegtran-bin": "^7.0.0",
     "less": "^4.4.0",
     "less-loader": "^12.3.0",
+    "loader-utils": "^3.3.1",
     "mini-css-extract-plugin": "^2.9.2",
     "optipng-bin": "^9.0.0",
     "postcss": "^8.5.6",

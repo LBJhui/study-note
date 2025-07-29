@@ -1,5 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const TestPlugin = require('../plugins/test-plugin')
 module.exports = {
   entry: './src/loader.js',
   output: {
@@ -33,13 +34,31 @@ module.exports = {
         options: {
           author: 'LBJhui'
         }
+      },
+      {
+        test: /\.js$/,
+        loader: './loaders/babel-loader/index.js',
+        options: {
+          presets: ['@babel/preset-env']
+        }
+      },
+      {
+        test: /\.css$/,
+        // use: ['style-loader', 'css-loader']
+        use: ['./loaders/style-loader', 'css-loader']
+      },
+      {
+        test: /\.png$/,
+        loader: './loaders/file-loader/index.js',
+        type: 'javascript/auto' // 阻止 webpack 默认处理文件，只使用 file-loader 处理
       }
     ]
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, '../public/index.html')
-    })
+    }),
+    new TestPlugin()
   ],
   mode: 'development'
 }
