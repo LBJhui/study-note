@@ -20,47 +20,43 @@
 
 例如：
 
-```js
+```javascript
 // 此时loader执行顺序：loader3 - loader2 - loader1
-module: {
-  rules: [
-    {
-      test: /\.js$/,
-      loader: "loader1",
-    },
-    {
-      test: /\.js$/,
-      loader: "loader2",
-    },
-    {
-      test: /\.js$/,
-      loader: "loader3",
-    },
-  ],
-},
+rules: [
+  {
+    test: /\.js$/,
+    loader: 'loader1'
+  },
+  {
+    test: /\.js$/,
+    loader: 'loader2'
+  },
+  {
+    test: /\.js$/,
+    loader: 'loader3'
+  }
+]
 ```
 
-```js
+```javascript
 // 此时loader执行顺序：loader1 - loader2 - loader3
-module: {
-  rules: [
-    {
-      enforce: "pre",
-      test: /\.js$/,
-      loader: "loader1",
-    },
-    {
-      // 没有enforce就是normal
-      test: /\.js$/,
-      loader: "loader2",
-    },
-    {
-      enforce: "post",
-      test: /\.js$/,
-      loader: "loader3",
-    },
-  ],
-},
+rules: [
+  {
+    enforce: 'pre',
+    test: /\.js$/,
+    loader: 'loader1'
+  },
+  {
+    // 没有enforce就是normal
+    test: /\.js$/,
+    loader: 'loader2'
+  },
+  {
+    enforce: 'post',
+    test: /\.js$/,
+    loader: 'loader3'
+  }
+]
 ```
 
 3. 使用 loader 的方式
@@ -95,12 +91,12 @@ module: {
 
 ### 1. 最简单的 loader
 
-```js
+```javascript
 // loaders/loader1.js
 module.exports = function loader1(content) {
-  console.log("hello loader");
-  return content;
-};
+  console.log('hello loader')
+  return content
+}
 ```
 
 它接受要处理的源码作为参数，输出转换后的 js 代码。
@@ -115,33 +111,33 @@ module.exports = function loader1(content) {
 
 ### 1. 同步 loader
 
-```js
+```javascript
 module.exports = function (content, map, meta) {
-  return content;
-};
+  return content
+}
 ```
 
 `this.callback` 方法则更灵活，因为它允许传递多个参数，而不仅仅是 `content`。
 
-```js
+```javascript
 module.exports = function (content, map, meta) {
   // 传递map，让source-map不中断
   // 传递meta，让下一个loader接收到其他参数
-  this.callback(null, content, map, meta);
-  return; // 当调用 callback() 函数时，总是返回 undefined
-};
+  this.callback(null, content, map, meta)
+  return // 当调用 callback() 函数时，总是返回 undefined
+}
 ```
 
 ### 2. 异步 loader
 
-```js
+```javascript
 module.exports = function (content, map, meta) {
-  const callback = this.async();
+  const callback = this.async()
   // 进行异步操作
   setTimeout(() => {
-    callback(null, result, map, meta);
-  }, 1000);
-};
+    callback(null, result, map, meta)
+  }, 1000)
+}
 ```
 
 > 由于同步计算过于耗时，在 Node.js 这样的单线程环境下进行此操作并不是好的方案，我们建议尽可能地使你的 loader 异步化。但如果计算量很小，同步 loader 也是可以的。
@@ -150,23 +146,23 @@ module.exports = function (content, map, meta) {
 
 默认情况下，资源文件会被转化为 UTF-8 字符串，然后传给 loader。通过设置 raw 为 true，loader 可以接收原始的 Buffer。
 
-```js
+```javascript
 module.exports = function (content) {
   // content是一个Buffer数据
-  return content;
-};
-module.exports.raw = true; // 开启 Raw Loader
+  return content
+}
+module.exports.raw = true // 开启 Raw Loader
 ```
 
 ### 4. Pitching Loader
 
-```js
+```javascript
 module.exports = function (content) {
-  return content;
-};
+  return content
+}
 module.exports.pitch = function (remainingRequest, precedingRequest, data) {
-  console.log("do somethings");
-};
+  console.log('do somethings')
+}
 ```
 
 webpack 会先从左到右执行 loader 链中的每个 loader 上的 pitch 方法（如果有），然后再从右到左执行 loader 链中的每个 loader 上的普通 loader 方法。
@@ -198,8 +194,8 @@ webpack 会先从左到右执行 loader 链中的每个 loader 上的 pitch 方�
 // loaders/clean-log-loader.js
 module.exports = function cleanLogLoader(content) {
   // 将console.log替换为空
-  return content.replace(/console\.log\(.*\);?/g, "");
-};
+  return content.replace(/console\.log\(.*\);?/g, '')
+}
 ```
 
 ## 手写 banner-loader
@@ -209,21 +205,21 @@ module.exports = function cleanLogLoader(content) {
 - loaders/banner-loader/index.js
 
 ```js
-const schema = require("./schema.json");
+const schema = require('./schema.json')
 
 module.exports = function (content) {
   // 获取loader的options，同时对options内容进行校验
   // schema是options的校验规则（符合 JSON schema 规则）
-  const options = this.getOptions(schema);
+  const options = this.getOptions(schema)
 
   const prefix = `
     /*
     * Author: ${options.author}
     */
-  `;
+  `
 
-  return `${prefix} \n ${content}`;
-};
+  return `${prefix} \n ${content}`
+}
 ```
 
 - loaders/banner-loader/schema.json
@@ -253,18 +249,18 @@ npm i @babel/core @babel/preset-env -D
 - loaders/babel-loader/index.js
 
 ```js
-const schema = require("./schema.json");
-const babel = require("@babel/core");
+const schema = require('./schema.json')
+const babel = require('@babel/core')
 
 module.exports = function (content) {
-  const options = this.getOptions(schema);
+  const options = this.getOptions(schema)
   // 使用异步loader
-  const callback = this.async();
+  const callback = this.async()
   // 使用babel对js代码进行编译
   babel.transform(content, options, function (err, result) {
-    callback(err, result.code);
-  });
-};
+    callback(err, result.code)
+  })
+}
 ```
 
 - loaders/banner-loader/schema.json
@@ -294,25 +290,25 @@ npm i loader-utils -D
 - loaders/file-loader.js
 
 ```js
-const loaderUtils = require("loader-utils");
+const loaderUtils = require('loader-utils')
 
 function fileLoader(content) {
   // 根据文件内容生产一个新的文件名称
-  const filename = loaderUtils.interpolateName(this, "[hash].[ext]", {
-    content,
-  });
+  const filename = loaderUtils.interpolateName(this, '[hash].[ext]', {
+    content
+  })
   // 输出文件
-  this.emitFile(filename, content);
+  this.emitFile(filename, content)
   // 暴露出去，给js引用。
   // 记得加上''
-  return `export default '${filename}'`;
+  return `export default '${filename}'`
 }
 
 // loader 解决的是二进制的内容
 // 图片是 Buffer 数据
-fileLoader.raw = true;
+fileLoader.raw = true
 
-module.exports = fileLoader;
+module.exports = fileLoader
 ```
 
 - loader 配置
@@ -332,7 +328,7 @@ module.exports = fileLoader;
 - loaders/style-loader.js
 
 ```js
-const styleLoader = () => {};
+const styleLoader = () => {}
 
 styleLoader.pitch = function (remainingRequest) {
   /*
@@ -349,13 +345,13 @@ styleLoader.pitch = function (remainingRequest) {
       3. 相对路径的路径分隔符必须是 / ，不能是 \
   */
   const relativeRequest = remainingRequest
-    .split("!")
+    .split('!')
     .map((part) => {
       // 将路径转化为相对路径
-      const relativePath = this.utils.contextify(this.context, part);
-      return relativePath;
+      const relativePath = this.utils.contextify(this.context, part)
+      return relativePath
     })
-    .join("!");
+    .join('!')
 
   /*
     !!${relativeRequest} 
@@ -379,11 +375,11 @@ styleLoader.pitch = function (remainingRequest) {
     const styleEl = document.createElement('style')
     styleEl.innerHTML = style
     document.head.appendChild(styleEl)
-  `;
+  `
 
   // style-loader是第一个loader, 由于return导致熔断，所以其他loader不执行了（不管是normal还是pitch）
-  return script;
-};
+  return script
+}
 
-module.exports = styleLoader;
+module.exports = styleLoader
 ```

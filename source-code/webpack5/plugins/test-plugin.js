@@ -10,6 +10,7 @@ class TestPlugin {
     console.log('TestPlugin constructor')
   }
   apply(compiler) {
+    debugger
     console.log('TestPlugin apply')
 
     // 由文档可知，environment 是同步钩子，所以需要使用 tap 注册

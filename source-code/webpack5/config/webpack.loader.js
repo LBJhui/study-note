@@ -1,12 +1,17 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const TestPlugin = require('../plugins/test-plugin')
+const BannerWebpackPlugin = require('../plugins/banner-webpack-plugin/index')
+const CleanWebpackPlugin = require('../plugins/clean-webpack-plugin/index')
+const AnalyzeWebpackPlugin = require('../plugins/analyze-webpack-plugin/index')
+const InlineChunkWebpackPlugin = require('../plugins/inline-chunk-webpack-plugin/index')
+
 module.exports = {
   entry: './src/loader.js',
   output: {
     path: path.resolve(__dirname, '../dist'),
-    filename: 'loader.bundle.js',
-    clean: true
+    filename: 'js/[name].js'
+    // clean: true
   },
   module: {
     rules: [
@@ -28,13 +33,13 @@ module.exports = {
         // use: ['./loaders/demo/test4.js', './loaders/demo/test5.js', './loaders/demo/test6.js']
         loader: './loaders/clean-log-loader.js'
       },
-      {
-        test: /\.js$/,
-        loader: './loaders/banner-loader.js',
-        options: {
-          author: 'LBJhui'
-        }
-      },
+      // {
+      //   test: /\.js$/,
+      //   loader: './loaders/banner-loader.js',
+      //   options: {
+      //     author: 'LBJhui'
+      //   }
+      // },
       {
         test: /\.js$/,
         loader: './loaders/babel-loader/index.js',
@@ -58,7 +63,23 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, '../public/index.html')
     }),
-    new TestPlugin()
+    // new TestPlugin()
+    new BannerWebpackPlugin({
+      author: 'LBJhui'
+    }),
+    new CleanWebpackPlugin(),
+    new AnalyzeWebpackPlugin(),
+    new InlineChunkWebpackPlugin([/runtime(.*)\.js/])
   ],
-  mode: 'development'
+  optimization: {
+    // 代码分割配置
+    splitChunks: {
+      chunks: 'all'
+    },
+    // 提取runtime文件
+    runtimeChunk: {
+      name: (entrypoint) => `runtime~${entrypoint.name}` // runtime文件命名规则
+    }
+  },
+  mode: 'production'
 }

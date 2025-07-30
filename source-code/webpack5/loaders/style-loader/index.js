@@ -18,7 +18,6 @@ module.exports = function (content) {
 
 module.exports.pitch = function (remainingRequest) {
   // remainingRequest 剩下还需要处理的 loader
-  console.log('%c 🌰 remainingRequest', 'font-size:16px;color:#ed9ec7', remainingRequest)
   // D:\Desktop\study-note\source-code\webpack5\node_modules\.pnpm\css-loader@7.1.2_webpack@5.100.2\node_modules\css-loader\dist\cjs.js!D:\Desktop\study-note\source-code\webpack5\src\css\index.css
   // 1. 将 remainingRequest 中绝对路径改为相对路径
   const relativePath = remainingRequest

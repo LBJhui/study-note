@@ -36158,3 +36158,8 @@ offsetWidth = content + padding + scroll + border
   - visibility:hidden;  文档重绘 性能消耗较小
   - opacity:0;  文档重绘 性能消耗较小
 ```
+
+```shell
+netstat -ano | findstr :8005
+taskkill /f /pid 1232
+```
