@@ -141,6 +141,7 @@ ElementUI 日期选择器时间选择范围限制
 符号绑定
 防截屏防录制：Encrypted Media Extensions API
 使用data url预览图片 https://blog.csdn.net/u012804440/article/details/136018598
+:paused 伪类可以为处于暂停状态的媒体元素设置样式
 ```
 
 ```typescript
@@ -36146,20 +36147,96 @@ offsetWidth = content + padding + scroll + border
 4. 修改元素的 box-shadow、opacity 属性
 
 # 分析比较 opacity:0 display:none 和 visibility:hidden 优劣和适用场景
+
 - 结构
   - display:none; 完全消失 不占任何空间 不能点击
-  - visibility:hidden;  不会消失 占据空间 内容不可见 不能点击
-  - opacity:0;  占据空间 内容不可见 可点击
+  - visibility:hidden; 不会消失 占据空间 内容不可见 不能点击
+  - opacity:0; 占据空间 内容不可见 可点击
 - 继承
   - display:none; opacity:0 非继承属性
-  - visibility:hidden;  继承属性
+  - visibility:hidden; 继承属性
 - 性能
-  - display:none;  文档回流
-  - visibility:hidden;  文档重绘 性能消耗较小
-  - opacity:0;  文档重绘 性能消耗较小
+  - display:none; 文档回流
+  - visibility:hidden; 文档重绘 性能消耗较小
+  - opacity:0; 文档重绘 性能消耗较小
 ```
 
 ```shell
 netstat -ano | findstr :8005
 taskkill /f /pid 1232
+```
+
+```markdown
+# 浏览器渲染原理
+
+Request 请求阶段：DNS 解析，TCP 协议的三次握手和四次挥手，HTTPS 和 HTTP 的区别（HTTP2）
+
+Response 响应阶段：HTTP 状态码、304 缓存、HTTP 报文
+
+拿到代码后：浏览器在内存条中开辟出一块栈内存，用来给代码的执行提供环境；同时分配一个主线程去一行行的解析和执行代码
+
+当浏览器遇到 link/script/img 等请求后，都会开辟全新的线程去加载资源文件
+
+第一次自上而下走完后，只生成 DOM 树
+
+CSS 处理完成生产 CSSOM， HTMLDOM 和 CSSOM 混合生成渲染树 Render Tree
+
+layout 回流 根据生成的渲染树，计算它们在设备视口（viewpoint）内的确切位置和大小，这个计算的阶段就是回流
+
+painting 重绘 根据渲染树以及回流得到的几何信息，得到节点的绝对像素
+
+display 将像素发送给 GPU，展示在页面上
+
+性能优化：
+减少 HTTP 的请求次数和大小 1. 资源合并压缩 2. 图片懒加载 3. 音视频走流文件
+避免 DOM 的回流 放弃传统操作 dom 的时代，基于 vue/react 开始数据影响视图模式，分离读写操作，样式集中改变，缓存布局信息，元素批量修改，动画效果应用到 position 属性为 absolute 或 fixed 的元素上（脱离文档流）,CSS 加速：transform/opacity/filters 这些属性会触发硬件加速，不会引起回流和重绘；牺牲平滑度获取速度；避免 table 布局和适用 css 的 javascript 表达式
+
+DOM 的重绘和回流 repaint & reflow
+
+重绘：元素样式的改变（但宽高、大小、位置等不变）
+
+回流：元素的大小或者位置发生了变化（当页面布局和几何信息发生变化的时候），触发了重新布局，导致渲染树重新计算布局和渲染
+
+注意：回流一定会触发重绘，而重绘不一定会回流
+```
+
+```css
+/* 原： */
+.parentdiv,
+.parent.title,
+.parent#article {
+  color: red;
+}
+
+/* 改： */
+.parent:where(div, .title, #article) {
+  color: red;
+}
+```
+
+```css
+/* 10、自定义光标 */
+
+body{
+cursor: url("path-to-image.png"), auto;
+}
+
+cursor 内置属性：
+
+default      默认光标（通常是一个箭头）
+auto         默认。浏览器设置的光标
+crosshair    光标呈现为十字线
+pointer      光标呈现为指示链接的指针（一只手）
+move         此光标指示某对象可被移动
+e-resize     此光标指示矩形框的边缘可被向右（东）移动
+ne-resize    此光标指示矩形框的边缘可被向上及向右移动（北/东）
+nw-resize    此光标指示矩形框的边缘可被向上及向左移动（北/西）
+n-resize     此光标指示矩形框的边缘可被向上（北）移动
+se-resize    此光标指示矩形框的边缘可被向下及向右移动（南/东）
+sw-resize    此光标指示矩形框的边缘可被向下及向左移动（南/西）
+s-resize     此光标指示矩形框的边缘可被向下移动（南）
+w-resize     此光标指示矩形框的边缘可被向左移动（西）
+text         此光标指示文本
+wait         此光标指示程序正忙（通常是一只表或沙漏）
+help         此光标指示可用的帮助（通常是一个问号或一个气球
 ```
