@@ -75,8 +75,6 @@ window.addEventListener(
 ```markdown
 [es6](https://es6.ruanyifeng.com/)
 [Pinia 中文文档](https://pinia.web3doc.top/)
-
-[vite](https://vitejs.cn/)
 [蚂蚁金服前端团队](https://www.yuque.com/ant-h5)
 [张鑫旭](https://www.zhangxinxu.com/)
 [大厂面试题每日一题](https://q.shanyue.tech/)
@@ -1802,7 +1800,7 @@ vue2和3有什么区别
   5.此外大家可以叙述具体标记策略，从而提升自己的印象
 ```
 
-```text
+````text
 vue-watch value 更新 → 触发回调函数 → DOM 更新
 {flush:'pre'}
 pre(默认)：回调函数会在 DOM 更新之前执行
@@ -1811,8 +1809,36 @@ sync:回调函数会同步执行，也就是在响应式数据发生变化时立
 
 watch 只能收集同步代码的依赖，如果存在 await 依赖收集会出现问题
 
+watch注意点：当你的组件内部使用watch较多或者你想手动消除watch的复杂度。
 
+
+```javascript
+<script setup>
+   ....
+    const currentScope = effectScope();
+
+    currentScope.run(() => {
+      watch(
+        () => props.currentRow,
+        (newVal, oldVal) => {
+          // TODO
+        },
+        { deep: true }
+      );
+      watchEffect(() => {
+        if (queryObj.visitId) {
+          // TODO
+        }
+      });
+    });
+
+    onBeforeUnmount(() => {
+      currentScope.stop();
+    });
+</script>
 ```
+
+````
 
 ```vue
 <script>
@@ -2769,7 +2795,6 @@ Array.prototype.forEach = function (callback) {
 - defer 执行时间在 contentloaded 之前
 - defineExpose defineProps defineEmits
 - 前端路由
-- instanceof 实现原理
 - pushState
 - sass @extend @minin %占位符
 - PageSpy
@@ -8897,57 +8922,26 @@ diff 算法是通过**「同层的树节点」**进行比较而非对树进行�
 - - 了解过 WebAssembly 吗？(没有啊)
   - 了解过 PWA ?(我个人觉得要凉，然后问我 PWA 原理是怎么样的呢？说了下大概 Service Worker 吧，不太熟)
 
-- 介绍一下你的项目(我说了一下技术栈，遇到的挑战和解决方案)
-
 - 你觉得 React 和 Vue 有什么共通之处？
-
-- 说一下浏览器渲染过程(说的很详细，面试官说可以，细节把握的很 professional)
-
+- 说一下浏览器渲染过程
 - 说一下对于前端技术的发展过程(从刀耕火种的年代说起，到后来的 jq，angular，react，vue 三大框架，gulp、grunt、rollup、webpack 打包工具，然后到未来的一些方向，比如 PWA, 跨端，serverless，微前端，webassemblely，加入了我自己的理解)
-
 - 你觉得前端除了完成页面交互稿之外，还能做其他的什么事情？(首先是性能优化，其次是处理数据，然后是工程化)
-
-- - 你觉得工程化的理解是怎样的？(从代码的角度，编译、压缩、规范，从人的角度，团队协作、统一产出标准)
-
-- 你觉得你选择阿里云或者淘宝，你选择的标准的什么？
-
-- 还有什么想问我的吗？(问了一些转正和部门相关的事情)
-
+- 你觉得工程化的理解是怎样的？(从代码的角度，编译、压缩、规范，从人的角度，团队协作、统一产出标准)
 - HTTPS 的握手过程讲一讲。(讲了很久很细，面试官知道我理解，喊停了)
-
-- - HTTPS 和 HTTP 的缓存有什么区别？(懵了)
-
+- HTTPS 和 HTTP 的缓存有什么区别？(懵了)
 - DOM API 掌握怎么样？(不是很熟)
-
-- - Element 和 Node 的区别(假装想了一会，不知道)
-
+- Element 和 Node 的区别(假装想了一会，不知道)
 - XSS 攻击 Cookie 相关的字段(HttpOnly, 解释了一下作用)
-
 - CSRF 攻击，解释一下 Cookie 的 SameSite 字段 (说了下，觉得可以，过)
-
-- - chrome 最新的 xxx 特性是如何防范 CSRF 攻击 (这个真没听说过)
-
-- fetch 和 xhr 有什么区别？(fetch 不熟)
-
-- - 好，解释一下 xhr 的 cors 过程(简单请求，非简单请求两种情况，说了下)
-
-- React 闭包陷阱有什么好的解决办法吗？(说实话，简历上写了，实际上理解不深，只说了一种)
-
-- - useReducer 可以解决你知道吗？(当时真的不清楚，主要忘了闭包陷阱的表单场景，尴尬)
-
-- 看了你的小册子，能不能讲讲 React.memo 和 JS 的 memorize 函数的区别(memorize 函数当时不知道，以为是什么高深的算法，后来才发现就是 cache 函数，换了个名字而已。反正当时说不会)
-
-- - 特意考了一题对 React.memo 的理解(擦，还是考 React.memo, 三个场景，中间一个场景答错了，非常减分。这道题出的还是很有水平)
-
+- chrome 最新的 xxx 特性是如何防范 CSRF 攻击 (这个真没听说过)
+- fetch 和 xhr 有什么区别？ 解释一下 xhr 的 cors 过程(简单请求，非简单请求两种情况，说了下)
 - WeakMap 和 Map 的性能有什么差别?(前者对 GC 更加友好，保持弱引用)
 
 - - 换个说法吧，如果这个立即执行函数中有递归函数，两者性能有区别吗？(没 GET 到面试官的点啊，过了吧这题)
   - 如果是在立即执行函数中，两者的性能有区别吗？(楞了一会，说强弱引用还是会有 GC 的区别，没影响)
 
 - 能不能说说 AMD 和 ESModule 有什么区别？(AMD 不熟，说 ESModule，介绍了 import、export 以及导出引用的特点)
-
 - 那么你能不能告诉我 ESModule 对于 Tree-Shaking 有什么优势呢？(会做一些编译阶段的优化吧)
-
 - async await 经过编译后和 generator 有啥联系？(问了两遍，还是不知道问的啥，直接说了 async await 原理，他说你讲了太深，问的不是这个，过吧过吧)
 - HTTP 的 GET 和 POST 请求有什么区别？(我说了 4 个区别)
 - 说一说 CSRF 和 XSS 攻击？(说了一堆，他说你讲的太细了，是不是最近看过之类的文章，我说没有)
@@ -18319,6 +18313,10 @@ setup(props, context) {
 - watchEffect 不需要手动传入依赖
 - watchEffect 会先执行一次用来自动收集依赖
 - watchEffect 无法获取到变化前的值， 只能获取变化后的值
+
+1、要使 watchEffect 可以第一时间捕捉到响应性变量；
+
+2、异步操作触发微任务会影响 watchEffect 第一时间捕捉响应性变量。
 
 #### computed 可传入 get 和 set
 
@@ -36198,6 +36196,33 @@ DOM 的重绘和回流 repaint & reflow
 回流：元素的大小或者位置发生了变化（当页面布局和几何信息发生变化的时候），触发了重新布局，导致渲染树重新计算布局和渲染
 
 注意：回流一定会触发重绘，而重绘不一定会回流
+
+从输入 URL 到页面渲染完成，完整过程是？
+
+- 解析 URL，URL 协议 https://www.baidu.com:8080 fie:// URL 检测：纠错/补全
+- DNS，domain 查询
+- 网络层 TCP 三次握手 SSL 握手
+  SYN、SYN+ACK、ACK
+- TLS 证书协商 HTTPS 和 HTTP
+- 准备请求（请求头：cookie + ...）
+- 发送请求
+- 服务器处理请求
+- 服务器响应 响应数据（TCP 慢启动、滑动窗口）
+- 处理响应头（cookie contentType 缓存 状态码 connection：keep-alive ）
+- 收响应体
+- html string、css string、js string、json（application/json） （Mime）
+- 渲染
+  - 解析（预处理线程，资源加载、资源描述符） 生成 DOM 树和 CSSOM 树
+  - 样式计算
+  - layout 布局
+  - layer 分层
+  - paint 绘制
+- 主线程结束，可以继续进行后续任务
+- 合成线程开始
+  - files 分块
+  - 栅格化
+  - draw
+- 根据情况决定是否断开连接，四次挥手
 ```
 
 ```css
@@ -36239,4 +36264,124 @@ w-resize     此光标指示矩形框的边缘可被向左移动（西）
 text         此光标指示文本
 wait         此光标指示程序正忙（通常是一只表或沙漏）
 help         此光标指示可用的帮助（通常是一个问号或一个气球
+```
+
+- 当 v-for 和 v-if 同时存在于一个节点上时，v-if 比 v-for 的优先级更高(在 Vue2 中 v-for 优先级更高)。
+
+```markdown
+# 减小代码打包体积
+
+减少源代码重复，复用功能抽取共用组件或者方法
+优化前端依赖，防止新依赖的加入导致包体积的增大，例如 lodash-es 要优于 lodash
+代码分割(ESM 动态导入，路由懒加载)
+合理的配置 vite.config.ts 中配置项。例如 rollupOptions 配置项中的 output.manualChunks,sourceMap 等
+
+# 优化资源加载速度
+
+部分静态资源或者依赖项可以考虑 cdn 方式，增加访问速度
+开启浏览器的 gzip 压缩，减少带宽请求
+某些关键性资源是否可以考虑预加载
+部分图片和视频是否可以考虑延迟加载
+
+# 业务代码层面优化
+
+较少接口请求数量，耗时接口如何优化
+大数据量的场景处理(分页、虚拟滚动)
+减少非必要的更新(父子组件之间的更新, key 禁止使用 index)
+减少大数量下的响应性开销
+减少人为的内存泄露和溢出操作
+优化 JS 中执行较长时间的任务(比如是否可以考虑异步、requestAnimationFrame、requestIdleCallback)
+
+# 合理利用缓存
+
+浏览器的协商缓存
+浏览器的强缓存
+浏览器本地的存储(localStorage、sessionStorage、indexedDB 这些是否可以使用)
+```
+
+```markdown
+# 如果你是第一次做 Word 文档预览，这里是我的建议：
+
+追求“所见即所得”？选 docx-preview。
+只想获取内容做二次处理？用 mammoth。
+```
+
+- svh (Small Viewport Height): 「最小视口高度」。对应于地址栏和工具栏完全展开时的可见高度。
+- lvh (Large Viewport Height): 「最大视口高度」。对应于地址栏和工具栏完全收起时的高度（这其实就等同于旧的 100vh）。
+- dvh (Dynamic Viewport Height): 「动态视口高度」。这是最智能、最实用的单位！它的值会随着浏览器 UI 元素（地址栏）的出现和消失而动态改变。
+
+- url 组成部分： 协议://域名：端口号/虚拟路径?参数列表#锚点
+
+```javascript
+// 手写 instanceOf 函数
+function instanceOf(target, type) {
+  type = type.prototype
+  target = target.__proto__
+  while (true) {
+    if (target === null) {
+      return false
+    }
+    if (target === type) {
+      return true
+    }
+    target = target.__proto__
+  }
+  return false
+}
+```
+
+```markdown
+# vite
+
+[vite](https://vitejs.cn/)
+
+## vite 是什么
+
+快
+
+高阶封装 rollup
+
+两部分
+
+- 开发服务器(devServer)， ESM+HRM（追求快）
+- 构建指令集（build），rollup（追求最终质量和兼容性）
+
+## 做什么
+
+- 快速开发
+- 打包
+
+模块化、浏览器兼容（esm 新语法）
+
+- webpack
+- rollup
+- parcel
+- gulp（串联流程）
+
+存在的问题
+
+- 服务启动缓慢
+- 更新慢
+
+## 为什么
+
+- 使用简单
+- 集成 devServer（webpack-dev-sevrver）
+- 速度快（极速冷启动、热更新）
+- 兼容性、扩展性（rollup 插件）
+- 生产构建优化（mode treeshaking）
+- 对主流框架的支持友好
+
+## 对比
+
+- webpack
+- parcel
+
+##适合什么项目
+
+- 大中型项目（性能优势）
+- 快速原型开发（开发效率）
+- vue3
+
+pnpm create vite
 ```
