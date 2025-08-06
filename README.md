@@ -1921,6 +1921,28 @@ Cookie 中的 SameSite：用于限制跨站请求
 None:不作任何限制，使用该值必须保证 Cookie 为 Secure，否则无效
 lax:阻止发送 Cookie，但对超链接放行，默认值
 strict:阻止发送 Cookie
+
+SameSite - 防止携带
+SameSite属性用来告诉浏览器，在跨站请求时，是否应该携带这个Cookie。它有三个值：
+
+Strict：最严格。只有当请求的发起方和目标网站完全一致时，才会携带Cookie，能完全防御CSRF。
+Lax：比较宽松（现在是大多数浏览器的默认值）。允许在“顶级导航”（如&lt;a&gt;链接、GET表单）的跨站请求中携带Cookie，但在&lt;img&gt;、&lt;iframe&gt;、POST表单等“嵌入式”请求中会拦截。这已经能防御大部分CSRF攻击了。
+None：最松。任何情况下都携带Cookie。但必须同时指定Secure属性（即Cookie只能通过HTTPS发送）。
+对于登录token，我们通常希望它尽可能安全，所以SameSite=Strict是最佳选择。
+
+
+- RefreshToken: 存放在一个 HttpOnly=true, Secure=true, SameSite=Strict 的Cookie中。
+*   **为什么？** `RefreshToken`非常关键且长期有效，所以必须用最安全的方式存储。`HttpOnly`让它免受XSS攻击，`SameSite=Strict`让它免受CSRF攻击。前端 JS 完全接触不到它，只在需要刷新`token`时，由浏览器自动带着它去请求`/refresh_token`这个特定接口。
+
+- AccessToken:  存放在 JavaScript的内存中（例如，一个全局变量、React Context或Vuex/Pinia等状态管理库里）。
+*   **为什么？** `AccessToken`需要被JS读取，并放在HTTP请求的`Authorization`头里（`Bearer xxx`）发送给后端。将它放在内存中，可以避免XSS直接从`LocalStorage`里扫荡。当用户关闭标签页或刷新页面时，内存中的`AccessToken`会丢失。
+丢失了怎么办？ 这就是RefreshToken发挥作用的时候了。当应用启动或AccessToken失效时，我们就向后端发起一个请求（比如访问/refresh_token接口），浏览器会自动带上我们安全的RefreshTokenCookie，后端验证通过后，就会返回一个新的AccessToken，我们再把它存入内存。
+
+HttpOnly - 封印JS的访问
+如果在设置Cookie时，加上HttpOnly属性，那么通过JavaScript（如 document.cookie）将无法读取到这个Cookie。
+
+Secure - 保证传输安全
+这个属性很简单，只要设置了它，Cookie就只会在HTTPS的加密连接中被发送，可以防止在传输过程中被窃听。
 ```
 
 - Typescript 中的 this 和 JavaScript 中的 this 有什么差异？
@@ -5341,7 +5363,7 @@ Array.prototype.forEach = function (callback) {
   没答上来，说了几个 js 的方案没答对点上。
   面试官答曰：transition 优化动画效果，分层渲染
   后面分析了一下，可以用 transform 进行强制分层，第二种可以用 content-visibility 将看不见的元素不渲染，设置值为 `auto` 即可。第三个是对于某些动画效果，可以用 `will-change` 作用在父元素上进行 gpu 加速，使用后删掉。
-- 响应式布局 🌟
+- 响应式布局 🌟 property: clamp(最小值, 理想值, 最大值);
   答：可能会涉及 css 函数，rem/em 区别，媒体查询...
 - 什么是 BFC？
   答：块级格式化上下文，我布局总用！
@@ -36385,3 +36407,157 @@ function instanceOf(target, type) {
 
 pnpm create vite
 ```
+
+- process.cwd() 与 \_\_dirname 的区别
+
+````markdown
+as 的问题
+
+1. 多余属性不会报错：对象里多写了字段，编译器也不会提醒你。
+2. 类型检查形同虚设：只要你断言，TS 就不再帮你兜底。
+
+satisfies：更聪明的类型门卫
+
+TypeScript 4.9 起，satisfies 操作符横空出世。它能做什么？
+
+- 校验对象结构，多一个字段都不行
+- 保留字面量类型，类型推断更精准
+- 严格检查，不放过任何细节
+
+satisfies 背后的原理
+
+- 检查对象结构是否完全匹配目标类型
+- 保留最窄的类型推断（比如字面量）
+- 检查多余属性
+
+只在必要时才宽泛类型 一句话：比 as 更智能、更安全！
+
+satisfies vs as，什么时候用？
+
+- as：你 100%确定类型，TS 实在推断不出来时用
+- satisfies：想要类型校验+推断双保险时用
+
+satisfies 的 10+实用场景
+
+哪些场景不适合 satisfies？
+
+1. 校验配置对象
+
+```typescript
+type Config = { port: number; useCache: boolean }
+const config = {
+  port: 3000,
+  useCache: true,
+  env: 'dev' // ❌
+} satisfies Config
+```
+
+2. 字面量类型推断
+
+```typescript
+const allowedRoles = ['admin', 'editor'] as const
+type Role = (typeof allowedRoles)[number]
+const user = {
+  name: 'Sara',
+  role: 'admin'
+} satisfies { name: string; role: Role }
+```
+
+3. API 响应校验
+
+```typescript
+type Product = { id: number; name: string }
+const dataFromAPI = {
+  id: 1,
+  name: 'Chair',
+  price: 50 // ❌
+} satisfies Product
+```
+
+4. 枚举类型校验
+
+```typescript
+enum Theme {
+  Light = 'light',
+  Dark = 'dark'
+}
+const settings = {
+  theme: 'light'
+} satisfies { theme: Theme }
+```
+
+5. 表单字段定义
+
+```typescript
+type InputField = { label: string; type: 'text' | 'number' }
+const field = {
+  label: 'Age',
+  type: 'number',
+  required: true // ❌
+} satisfies InputField
+```
+
+6. 静态路由定义
+
+```typescript
+type Route = { path: string; component: string }
+const routes = [
+  { path: '/', component: 'HomePage' },
+  { path: '/about', component: 'AboutPage', auth: true } // ❌
+] satisfies Route[]
+```
+
+7. 设计 Token 校验
+
+```typescript
+type ColorPalette = { primary: string; secondary: string }
+const theme = {
+  primary: '#000',
+  secondary: '#fff',
+  border: '#ccc' // ❌
+} satisfies ColorPalette
+```
+
+8. 环境变量映射
+
+```typescript
+type Env = { NODE_ENV: 'development' | 'production'; API_KEY: string }
+const env = {
+  NODE_ENV: 'production',
+  API_KEY: 'abc123',
+  DEBUG: true // ❌
+} satisfies Env
+```
+
+9. 元组类型校验
+
+```typescript
+const pair = [200, 'OK'] satisfies [number, string] // ✅
+const badPair = ['OK', 200] satisfies [number, string] // ❌
+```
+
+10. 数据表格列定义
+
+```typescript
+type Column = { header: string; key: string }
+const columns = [
+  { header: 'Name', key: 'name' },
+  { header: 'Age', key: 'age', sortable: true } // ❌
+] satisfies Column[]
+```
+
+11. Action Creator 校验
+
+```typescript
+type Action = { type: string; payload: unknown }
+const action = {
+  type: 'ADD_USER',
+  payload: { name: 'Jane' },
+  meta: { timestamp: Date.now() } // ❌
+} satisfies Action
+```
+
+- ✅ 静态对象定义，推荐用 satisfies
+- ❌ 动态数据（如 API 返回），可能有多余字段，不适合
+- ❌ 需要允许扩展属性时（如元数据），不适合
+````
