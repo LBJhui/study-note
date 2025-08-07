@@ -129,7 +129,7 @@ conic-gradient
 web-vitals
 ?? 运算符 返回第一个已定义的值
 Object.defineProperty 只能监听到对象属性的读取或者是写入，而 Proxy 除读写外还可以监听对象中属性的删除，对对象当中方法的调用
-object-fit
+object-fit https://www.zhangxinxu.com/wordpress/2015/03/css3-object-position-object-fit/
 addEventListener 'contextmenu'
 禁止触发系统菜单和长按选中：`touch-callout:none` contextmenu
 font-variant、text-transform
@@ -279,13 +279,6 @@ t.run()
 ```
 
 ```text
-打包结果分析工具
-  Webpack:webpack-bundle-analyzer
-  vite:vite-bundle-visualizer
-       rollup-bundle-visualizer
-```
-
-```text
 元素的绘制顺序
   可替换元素
     元素本身
@@ -338,7 +331,7 @@ fetch('url', {
 res.setHeader('Content-Disposition', 'attachment;filename=es6.pdf')
 
 // 数据的流式获取
-async function getRespnse(content) {
+async function getResponse(content) {
   const resp = await fetch(url, {
     method: 'POST',
     headers: {
@@ -346,8 +339,8 @@ async function getRespnse(content) {
     },
     body: JSON.stringify(content),
   })
-  // const data = awit resp.text()
-  const reder = resp.body.getReader()
+  // const data = await resp.text()
+  const render = resp.body.getReader()
   const decoder = new TextDecoder()
   while (true) {
     const { done, value } = await reader.read()
@@ -2147,6 +2140,11 @@ GET 和 POST 的区别？
 ```
 
 ```javascript
+// 打包结果分析工具
+//   Webpack:webpack-bundle-analyzer
+//   vite:vite-bundle-visualizer
+//        rollup-bundle-visualizer
+
 // 打包体积的分析和优化:webpack-bundle-analyzer
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 if (process.env.NODE_ENV === 'production') {
@@ -5122,7 +5120,6 @@ Array.prototype.forEach = function (callback) {
 - Webpack 性能如何优化，有过什么优化的方案和结果，说了下自己的方案啥的。
 - 自己做过的项目中有那些是你值得说的，说了下给开源提供代码的事。
 - 原型链，有哪几种继承。
-- 总之网上很多问到的题目都问了，粘贴复制一样。。
 - 56 题 合并区间，<https://leetcode-cn.com/problems/merge-intervals/>
 - 如果拿到一个页面会怎么考虑优化，如何判断优化哪方面。基本上看`Google`控制台还有一些插件，包括`BFC`。
 - 记不清了。。反正都挺简单的。
@@ -5148,13 +5145,10 @@ Array.prototype.forEach = function (callback) {
 - Babel 能转换一些新版本 js 没有的方法嘛。基本上靠的是 Babel 的插件来处理，也就是垫片 ployfill。
 - 现在最常用的方案，你是怎么做的。基本上 preset-env + corejs
 - Webpack 的垫片是做什么的，这道题没答出来，有点奇怪我后面也没查出来，希望老哥们能在评论区里帮帮我。
-- Vue 实现原理
 - Vue3 的 Compisition API 是怎么实现的
 - http 多路复用是什么，
 - https 和 http 的区别
 - 设计模式的基本原则，有用过哪些设计模式。
-- 作为前端你认为什么最重要
-- 开发流程一般都是怎么做的
 - 对于 angular vue react 的理解
 - BFC
 - 输入网址后发生了什么
@@ -5201,8 +5195,6 @@ Array.prototype.forEach = function (callback) {
 - commonjs 和 es module 区别
 - tree sharking 原理
 - loader 会 plugins 区别
-- 了解哪些新技术
-- 介绍一下微前端
 - 说一下 npm 包管理机制
 - A 插件依赖 D 插件版本是 1.0.1，B 插件依赖 D 插件版本是 1.0.2，C 插件依赖 D 插件 1.1.0，那么 npm i 之后，下载了几个版本的 D 插件
 - 常见的请求头响应头有哪些
@@ -5226,10 +5218,6 @@ Array.prototype.forEach = function (callback) {
 - 写一个发布订阅模式
 - 一道 setTimeout 事件循环的题目
 - 手写题实现电话号码隔位显示（3 4 4）
-- 介绍下项目亮点
-- 说一下 redux 如何使用
-- redux 源码介绍下
-- 你说你 angular, vue, react 都使用过，说一下三者的区别
 - 了解缓存么 大概讲一下
 - 解释下 https
 - 介绍几个 git 常见的操作命令
@@ -5592,7 +5580,6 @@ Array.prototype.forEach = function (callback) {
 - 单向链表输出倒数第 K 个元素
 - 看代码输出结果（考察变量、函数提升）
 - 看代码输出结果（考察异步代码先后顺序）
-- 手写 instanceof 关键字
 - 说下输入一个 url 地址的全过程。
 - http 的缓存策略。
 - 说下 https，证书是如何校验的？
@@ -12883,8 +12870,6 @@ GPU 绘制**多进程的浏览器**：主控进程，插件进程，GPU，tab �
 
 ### 1. 从“在浏览器输入域名”到“页面静态资源完全加载”的整个流程
 
-> **见于：某游戏公司、小鹅通、阿里一面、另外三家小公司**
-
 这问题的答案，我结合了`yck`《前端面试之道》和 浏览器原理专栏：
 
 整个过程可以分为几步：
@@ -13148,9 +13133,6 @@ function sington(className) {
   - 高级： canvas table
   - 专家：canvas+tile 技术
   - 高级专家：skia+webassembly (白板 webassembly+Skia Engine)
-
-- 说说项目中遇到的坑，怎么解决的
-- 项目中有考虑到哪些优化的地方？
 
 ```markdown
 正则表达式
@@ -22230,53 +22212,22 @@ async function sum(arr, concurrency) {
 
 ---
 
-### 一面（视频面）
+- 单向链表输出倒数第 K 个元素
+- 手写 Promise
+- react 中为什么不能在 for 循环、if 语句里使用 hooks，说下 react hooks 实现原理。
+- 说下 react fiber。
+- 看你之前做过 RN 开发，说下 RN 的原理。
+- 说下输入一个 url 地址的全过程。
+- http 的缓存策略。
+- 说下 https，证书是如何校验的？
+- 说下 http2，你觉得阻碍 http2 发展的问题是什么？（这题后面的问题挺有意思，可以网上搜下答案）
+- 对你的项目经历中 RN 做的 app 挺感兴趣的，你能详细说下这个项目吗？
+- RN 中原生和 js 端是如何通信的？你说后面使用 JSI 了，你能说下 JSI 的实现原理吗？
+- 如果要你对这个 app 进行性能优化，你有哪些办法（面试官问了三次还有其他办法吗？）
 
-\1. 自我介绍
-
-\2. 单向链表输出倒数第 K 个元素
-
-\3. 看代码输出结果（考察变量、函数提升）
-
-\4. 看代码输出结果（考察异步代码先后顺序）
-
-\5. 手写 instanceof 关键字
-
-\6. 手写 Promise
-
-\6. react 中为什么不能在 for 循环、if 语句里使用 hooks，说下 react hooks 实现原理。
-
-\8. 说下 react fiber。
-
-\9. 看你之前做过 RN 开发，说下 RN 的原理。
-
-\10. 说下输入一个 url 地址的全过程。
-
-\11. http 的缓存策略。
-
-\12. 说下 https，证书是如何校验的？
-
-\13. 说下 http2，你觉得阻碍 http2 发展的问题是什么？（这题后面的问题挺有意思，可以网上搜下答案）
-
-\14. 算法题。跳格子问题，假设一次只能跳一个格子和两个格子，N 个格子有多少种跳法？
-
-### 二面（leader 面）
-
-\1. 自我介绍
-
-\2. 为什么要离职？
-
-\3. 对你的项目经历中 RN 做的 app 挺感兴趣的，你能详细说下这个项目吗？
-
-\4. RN 中原生和 js 端是如何通信的？你说后面使用 JSI 了，你能说下 JSI 的实现原理吗？
-
-\5. 如果要你对这个 app 进行性能优化，你有哪些办法（面试官问了三次还有其他办法吗？）
-
-```
- 1. 代码层面，按照react的优化，减少re-render次数。图片加载用react-native-fast-image,页面初始化的逻辑使用InteractionManager.runAfterInteractions。去掉无用的View层。
- 2. 进行分包加载，启动时只加载启动页面bundle，二级及更深页面等访问到再加载。
- 3. 一些复杂的控件，写原生模块，比如日期选择、下拉选择、级联、播放器等。
-```
+1.  代码层面，按照 react 的优化，减少 re-render 次数。图片加载用 react-native-fast-image,页面初始化的逻辑使用 InteractionManager.runAfterInteractions。去掉无用的 View 层。
+2.  进行分包加载，启动时只加载启动页面 bundle，二级及更深页面等访问到再加载。
+3.  一些复杂的控件，写原生模块，比如日期选择、下拉选择、级联、播放器等。
 
 \6. 你们的 RN 热更新服务是怎么做的？热更新原理是什么？你们的热更新策略怎么做的？
 
@@ -22295,8 +22246,6 @@ async function sum(arr, concurrency) {
     1）bundle被中间人劫持篡改。使用https下载，并按照https的加密思路，对bundle用hash算法进行签名，然后app端检验签名是否被篡改。
     2）bundle下载地址被暴力攻击。检查User-Agent,只允许手机设备下载，记录设备id，在一定时间内限制下载次数。
 ```
-
-\8. 你有什么要问我的吗？
 
 ---
 
@@ -36333,24 +36282,6 @@ help         此光标指示可用的帮助（通常是一个问号或一个气�
 - dvh (Dynamic Viewport Height): 「动态视口高度」。这是最智能、最实用的单位！它的值会随着浏览器 UI 元素（地址栏）的出现和消失而动态改变。
 
 - url 组成部分： 协议://域名：端口号/虚拟路径?参数列表#锚点
-
-```javascript
-// 手写 instanceOf 函数
-function instanceOf(target, type) {
-  type = type.prototype
-  target = target.__proto__
-  while (true) {
-    if (target === null) {
-      return false
-    }
-    if (target === type) {
-      return true
-    }
-    target = target.__proto__
-  }
-  return false
-}
-```
 
 ```markdown
 # vite
