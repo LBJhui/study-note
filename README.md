@@ -36492,3 +36492,282 @@ const action = {
 - ❌ 动态数据（如 API 返回），可能有多余字段，不适合
 - ❌ 需要允许扩展属性时（如元数据），不适合
 ````
+
+````markdown
+Q: JavaScript 是解释型语言还是编译性
+解释：边编译，边执行，JavaScript
+编译性：先进行编译处理，后运行，Java
+
+JavaScript 的解释由谁来解释？？
+浏览器嵌入了个 V8 引擎
+解释以后谁来执行？ CPU
+执行完以后结果如何处理？ 渲染至页面
+
+1. JavaScript 引擎
+
+- V8（Google），用 C++ 编写，开放源代码，由 Google 丹麦开发，是 Google Chrome 的一部分，也用于 Node.js
+- JavaScriptCore（Apple），开放源代码，用于 webkit 型浏览器，如 Safari，2008 年实现了编译器和字节码解释器，升级为了 SquirrelFish。苹果内部代号为 “Nitro” 的 JavaScript 引擎也是基于 JavaScriptCore 引擎的
+- Rhino（Mozilla 基金会），由 mozilla 基金会管理，开放源代码，完全以 Java 编写，用于 HTMLUnit
+- SpiderMonkey（Mozilla），第一款 JavaScript 引擎，早期用于 Netscape navigator，现在用于 Mozilla Firefox
+
+以 V8 为例（https://v8.dev/）
+
+1. 开始执行 JavaScript 代码
+2. V8 解析源代码并将其转化为抽象语法树（AST）
+3. 基于该 AST，Ignition 解释器可以开始做它的事情，并产出字节码
+4. 同时开始运行代码并收集类型反馈
+5. 引擎可以检测到某些行为是否经常发生，以及使用的数据类型，为了使它运行得更快，字节码可以和反馈数据一起被发送到优化编译器，优化编译器在此基础上做出某些假设，然后产生高度优化的机器代码【内联缓存技术（inline cashing）】
+6. 如果在某些时候，其中一个假设被证明是不正确的，优化编译器就会取消优化，并回到解释器
+
+Compiler
+
+```mermaid
+graph LR
+  subgraph Compiler
+    Code --> Lexer
+    Lexer["Lexer<br><font color=red>词法分析</font>"] -->|tokens| Parser["Parser<br><font color=red>语法分析</font>"]
+    Parser -->|ast| SemanticAnalysis[SemanticAnalysis<br><font color=red>语义分析</font>]
+    SemanticAnalysis -->|analyzedAst| CodeGeneration[CodeGeneration<br><font color=red>代码生成</font>]
+    CodeGeneration --> A[New Code]
+  end
+```
+
+AST
+
+```typescript
+let a = 'LBJhui'
+// 我是 LBJhui
+// tokens：我、是、LBJhui
+// 通过一个对象存储，ASt 抽象语法树
+{
+  type:"Program"，
+  body:[
+    - VariableDeclaration{
+      type:"VariableDeclaration",
+      - declarations:[
+        - VariableDeclarator{
+          type:"VariableDeclarator",
+          - id:Identifier{type:"Identifier",name:"a"},
+          - init:Literal = $node{type:"Literal",value:"LBJhui",raw:"LBJhui"}
+        }
+      ]
+      kind: "let"
+    }
+  ]
+  sourceType:"module"
+}
+```
+
+执行上下文
+
+变量提升，var 和 let 的区别
+
+```javascript
+function foo() {
+  var a_var = 1
+  let b_let = 2
+  {
+    let b_let = 3
+    var c_var = 4
+    let d_let = 5
+    console.log(a_var)
+    console.log(b_let)
+  }
+  console.log(b_let)
+  console.log(c_var)
+  console.log(d_let)
+}
+
+foo()
+```
+
+堆 Heap（很多种），栈 Stack
+
+var 变量环境，let 词法环境
+
+JavaScript 是单线程还是？？JavaScript 是单线程
+Web Workder 浏览器端多线程 spawn node.js
+
+有了执行栈后，通过任务就是简单的压栈出栈。异步的任务呢？
+
+遇到了异步任务，这时候需要看一下是宏任务还是微任务，宏任务进宏任务队列，微任务进微任务队列
+
+接下来我们只需要辨别哪些是宏任务，哪些是微任务即可
+
+宏任务：可以将每次执行栈执行的代码当做是一个宏任务
+
+- I/O
+- setTimeout
+- setInterval
+- setImmediate
+- requestAnimationFrame
+
+微任务：当宏任务执行完，会在渲染前，将执行期间所产生的所有微任务都执行完
+
+- process.nextTick
+- MutationObserver
+- Product.then cathc finally
+
+因为我们在宏观上，把同步代码归为宏任务的内容，但是他其实是不用进宏任务队列的
+
+垃圾回收
+
+要深入理解垃圾回收机制，我们就必须再次回到 V8，来看看他是如何做内存管理的
+
+```mermaid
+graph TD
+    subgraph Heap memory
+        subgraph 新生代
+            A[Semi space]
+            B[Semi space]
+        end
+        subgraph 老生代
+            C[old pointer space]
+            D[old data space]
+        end
+        E[Large object space]
+        F[code space]
+        G[cell space]
+        H[property cell space]
+        I[Map space]
+    end
+    J[Stack]
+```
+
+垃圾回收有几个常见的算法
+
+- 引用计数，缺点也非常明显
+- 标记清除
+- 标记清除压缩
+- Cheney 算法，是目前用在 V8 新生代垃圾回收
+
+## 过程总结
+
+### 老生代
+
+1. 首先，假设许多 Minor GC 周期已经过去，旧空间（Old Space）几乎满了，V8 决定触发 Major GC
+2. Major GC 从 Stack 指针开始递归遍历对象的有向图，标记旧空间（Old Space）的对象哪些是活的，哪些是孤立的。这是使用多个并发辅助线程完成的，每个辅助线程负责一个 Stack 中的指针。这个过程不影响 JavaScript 的主线程
+3. 当并发标记完成后，或者达到了内存的限制，GC 会使用主线程做一个标记的最终确认。这会引入一个暂停时间
+4. Major GC 使用并发的清扫线程，将所有孤立的对象标记为空闲。并行的压缩任务也被触发，将相关内存块移动到一起，避免碎片化。指针在这个过程中被更新
+
+https://blog.csdn.net/qq_33546823/article/details/142629787
+
+## 新生代
+````
+
+````markdown
+# 了解过 AST 吗，请说说它的运用场景
+
+代码的本质——字符串
+
+字符串的一些操作，就是所谓的编译原理
+
+Compiler
+
+```mermaid
+graph LR
+  subgraph Compiler
+    Code --> Lexer
+    Lexer["Lexer<br><font color=red>词法分析</font>"] -->|tokens| Parser["Parser<br><font color=red>语法分析</font>"]
+    Parser -->|ast| SemanticAnalysis[SemanticAnalysis<br><font color=red>语义分析</font>]
+    SemanticAnalysis -->|analyzedAst| CodeGeneration[CodeGeneration<br><font color=red>代码生成</font>]
+    CodeGeneration --> A[New Code]
+  end
+```
+
+1. 词法分析（Lexical Analysis）：将源代码转换成单词流，称为“词法单元”（tokens），每个词法单元包含一个标识符和一个属性值，比如变量名、数字、操作符等等
+2. 语法分析（Parsing）：将词法单元流转换成抽象语法树（Abstract Syntax Tree，简称 AST），也就是标记所构成的数据结构哦，表示源代码的结构和规则。
+3. 语义分析（Semantic Analysis）：在 AST 上执行类型检查、作用域检查等操作，以确保代码的正确性和安全性
+4. 代码生成（Code Generation）：基于 AST 生成目标代码，包括优化代码结构、生成代码文本、进行代码压缩等等。
+
+lexer 是词法分析器，将源代码转换成词法单元流
+parser 是语法分析器，将词法单元流转换成抽象语法树
+semanticAnalysis 是语义分析器，对抽象语法树进行语义分析
+codeGeneration 是代码生成器，将分析后的 AST 生成目标代码
+
+一个编译器最核心的代码
+
+```javascript
+function compiler(sourceCode) {
+  // 词法分析
+  const tokens = lexer(sourceCode)
+  // 语法分析
+  const ast = parser(tokens)
+  // 语义分析
+  const analyzedAst = semanticAnalysis(ast)
+  // 代码生成
+  const code = codeGeneration(analyzedAst)
+
+  return code
+}
+```
+
+为什么在工作中需要用到编译原理，一个公式编辑器，一个字符串复杂处理。低代码平台更是需要详细掌握 AST 及编译原理。airtable、code、glide、fibery
+````
+
+```markdown
+# babel 的 plugin 和 loader 应用与原理
+
+babel 是一个流行的 JavaScript 编译器
+
+babel 包含以下几个核心内容：
+
+- @babel/core
+- @babel/parse
+- @babel/traverse
+- 辅助相关，type polyfill temple 等
+  babel 的预设 babel-preset-env
+
+[babel](./code/babel.png)
+
+# webpack 打包过程与原理
+
+webpack 基本的配置掌握情况如何
+
+splitChunk 怎么做
+Tree shaking
+Dll
+CSS 提取
+Terser 压缩
+mode、entry、output、module（loader）、resolve、external、plugin
+
+webpack 构建流程
+
+几个核心概念
+
+1. compiler
+2. compiliation
+3. module
+4. chunk
+5. bundle
+
+执行过程描述
+
+1. 初始化，初始化会读取配置信息，统计入口文件、解析 loader 及 plugin 等信息
+2. 编译阶段，webpack 编译代码，部分依赖 babel，ts 转为 JavaScript，less 转为 css。style-components 进行处理
+3. 输出阶段：生成输出文件，包含文件名，输出路径，资源信息
+
+初始化的主要流程
+
+1. 初始化参数
+2. 创建 compiler 对象实例
+3. 开始编译，compiliation
+4. 确定入口，根据 entry，找出所有入口文件，调用 addEntry
+
+构建阶段
+
+1. 编译模块，通过 entry 对应的 dependence 创建 module 对象，调用对应 loader 去将模块转化为 js 内容，babel 将一些内容转换为目标内容
+2. 完成模块编译，得到一个 moduleGraph
+
+生成阶段
+
+1. 输出资源组装 chunk，chunkGroup，再将 chunk 转换为一个单独文件加入到输出列表，既然到这儿已经加入到输出列表了，说明这里是修改资源内容的最后机会，也就是 afterChunk
+2. 写入文件系统（emitAssests）在确定好输出内容后，根据配置输出到文件中
+
+如果是 webpack-dev-serve
+
+plugin 本质是对象
+loader 本质是函数
+
+module --> chunk --> bundle
+```

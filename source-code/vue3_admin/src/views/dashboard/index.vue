@@ -1,12 +1,10 @@
 <template>
-  <div
-    >dashboard
-    <l-link></l-link>
+  <div>
+    dashboard
+    <l-link type="primary"></l-link>
   </div>
 </template>
 
-<script setup lang="ts">
-import LLink from '@/L-UI/L-Link/index.vue'
-</script>
+<script setup lang="ts"></script>
 
 <style scoped lang=""></style>

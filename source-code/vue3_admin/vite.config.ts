@@ -21,7 +21,10 @@ export default defineConfig(({ command }) => {
       preprocessorOptions: {
         scss: {
           api: 'modern-compiler', // or "modern", "legacy"
-          additionalData: '@use "@/styles/variable.scss" as *;',
+          additionalData: `
+          @use "@/styles/variable.scss" as *;
+          @use "@/L-UI/styles/index.scss" as LUI;
+          `,
         },
       },
     },

@@ -12,12 +12,15 @@ import '@/styles/index.scss'
 import '@/assets/iconfont/iconfont.css'
 import router from '@/router'
 import { setupGlobComp } from '@/components'
+import { setupLUIGlobComp } from '@/L-UI'
 const app = createApp(App)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
 
 setupGlobComp(app)
+
+setupLUIGlobComp(app)
 
 app.use(ElementPlus, {
   locale: zhCn,
