@@ -1,76 +1,6 @@
 https://fe.duyiedu.com/p/t_pc/goods_pc_detail/goods_detail/course_2VKbErGXkTSzvbl9aQ9HgndEtIz?type=2
 
-- 全局注册和局部注册的区别
 
-```javascript
-// 脚本加载失败如何重试
-
-// 在项目中遇到的一个难点，无论是我们用的原生js还是用的框架最后上线的时候都会是打包好之后，打包好之后的js文件中都会自己或者自动引入script，在生产环境中会出现其中有一个script无法加载成功的时候怎么处理，当js加载不出来的时候页面是显示不出来的，最起码功能是不正常的，现在都是单页面应用，js加载不成功的话对页面影响还是比较大的，所以我们需要去处理这个问题。。。
-
-// 1. 什么时间重试 捕获
-// 2. 如何重试
-// 在 head 标签中添加 script 元素
-const backupDomains = [
-  'https://www.baidu.com',
-  'https://www.google.com',
-  'https://www.bing.com',
-  'https://www.yahoo.com',
-  'https://www.youtube.com',
-  'https://www.facebook.com',
-  'https://www.twitter.com',
-  'https://www.instagram.com',
-  'https://www.tiktok.com'
-]
-const nextDomain = {}
-window.addEventListener(
-  'error',
-  (e) => {
-    // 只捕获脚本错误
-    if (e instanceof ErrorEvent && e.target.tagName !== 'SCRIPT') {
-      return
-    }
-    const url = new URL(e.target.src)
-    const pathname = url.pathname
-    if (!nextDomain[pathname]) {
-      nextDomain[pathname] = 0
-    }
-
-    const index = nextDomain[pathname]
-    if (index >= backupDomains.length) {
-      return
-    }
-    const domain = backupDomains[index]
-    url.hostname = domain
-    const newUrl = url.toString()
-    // 阻塞页面
-    document.write(`<script src="${newUrl}"></script>`)
-    // const script = document.createElement('script')
-    // script.src = newUrl
-    // e.target.parentElement.insertBefore(script, e.target)
-    nextDomain[pathname]++
-  },
-  true
-)
-```
-
-```markdown
-重绘和回流
-何时发生重排？何时发生重绘？
-**重排**：
-所有对布局树的更改，以及所有对布局树的读取，都会引发重排
-更改：异步重排
-读取：同步重排
-**重绘**
-对所有非几何信息的读写所造成的可见样式的变化
-
-- 重绘和回流有什么区别？
-  1. 重绘
-  - 元素样式的可见属性发生改变（颜色、背景色），但布局不改变的时候
-  - 重绘不影响页面布局，只会重绘受影响的元素
-  2. 回流
-  - 布局的变化导致元素的尺寸、位置或隐藏状态的变化，需要重新计算整个布局
-  - 回流会造成重绘，但重绘不一定会回流
-```
 
 ```markdown
 [es6](https://es6.ruanyifeng.com/)
@@ -141,6 +71,26 @@ ElementUI 日期选择器时间选择范围限制
 使用data url预览图片 https://blog.csdn.net/u012804440/article/details/136018598
 :paused 伪类可以为处于暂停状态的媒体元素设置样式
 ```
+
+```markdown
+重绘和回流
+何时发生重排？何时发生重绘？
+**重排**：
+所有对布局树的更改，以及所有对布局树的读取，都会引发重排
+更改：异步重排
+读取：同步重排
+**重绘**
+对所有非几何信息的读写所造成的可见样式的变化
+
+- 重绘和回流有什么区别？
+  1. 重绘
+  - 元素样式的可见属性发生改变（颜色、背景色），但布局不改变的时候
+  - 重绘不影响页面布局，只会重绘受影响的元素
+  2. 回流
+  - 布局的变化导致元素的尺寸、位置或隐藏状态的变化，需要重新计算整个布局
+  - 回流会造成重绘，但重绘不一定会回流
+```
+
 
 ```typescript
 // 用TS构建长属性列表
@@ -1914,6 +1864,8 @@ Cookie 中的 SameSite：用于限制跨站请求
 None:不作任何限制，使用该值必须保证 Cookie 为 Secure，否则无效
 lax:阻止发送 Cookie，但对超链接放行，默认值
 strict:阻止发送 Cookie
+
+- 跨站 站点域 公共后缀
 
 SameSite - 防止携带
 SameSite属性用来告诉浏览器，在跨站请求时，是否应该携带这个Cookie。它有三个值：
@@ -36770,4 +36722,13 @@ plugin 本质是对象
 loader 本质是函数
 
 module --> chunk --> bundle
+```
+
+```markdown
+# new 操作符具体做了什么
+
+1. 创建了一个空的对象
+2. 将空对象的原型，指向于构造函数的原型
+3. 将空对象作为构造函数的上下文（改变 this 指向）
+4. 对构造函数有返回值的处理判断
 ```
