@@ -13,4 +13,15 @@ const isLogin = () => {
 //   router.push('/login')
 // }
 
-export { selectWidthSmall, selectWidthLarge, selectWidth, isLogin }
+const getYearMonthDay = (date: Date) => {
+  const year = date.getFullYear()
+  const month = date.getMonth() + 1
+  const day = date.getDate()
+  return {
+    year,
+    month,
+    day,
+  }
+}
+
+export { selectWidthSmall, selectWidthLarge, selectWidth, isLogin, getYearMonthDay }

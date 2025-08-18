@@ -19,12 +19,12 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 }
 
 setupGlobComp(app)
-
 setupLUIGlobComp(app)
 
 app.use(ElementPlus, {
   locale: zhCn,
 })
+
 //注册模板路由
 app.use(router)
 app.use(pinia)

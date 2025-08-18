@@ -1,8 +1,6 @@
-https://fe.duyiedu.com/p/t_pc/goods_pc_detail/goods_detail/course_2VKbErGXkTSzvbl9aQ9HgndEtIz?type=2
-
-
-
 ```markdown
+[渡一大师课](https://fe.duyiedu.com/p/t_pc/goods_pc_detail/goods_detail/course_2VKbErGXkTSzvbl9aQ9HgndEtIz?type=2)
+[前端 EventSource（SSE）实时通信使用指南（EventSource-polyfill）](https://blog.csdn.net/sd1sd2/article/details/148627571)
 [es6](https://es6.ruanyifeng.com/)
 [Pinia 中文文档](https://pinia.web3doc.top/)
 [蚂蚁金服前端团队](https://www.yuque.com/ant-h5)
@@ -12,6 +10,9 @@ https://fe.duyiedu.com/p/t_pc/goods_pc_detail/goods_detail/course_2VKbErGXkTSzvb
 ```
 
 ```text
+https://sem.fanruan.com/
+图片裁剪上传原理
+https://www.zhangxinxu.com/wordpress/2025/04/dom-sethtmlunsafe-parsehtmlunsafe/
 深拷贝structuredClone https://www.zhangxinxu.com/wordpress/2025/01/js-api-structuredclone/
 [Vue3 之 script-setup 全面解析](https://www.jianshu.com/p/5096bfb42e5a)
 纯前端图片压缩 图转base64读出宽高，canvas画图
@@ -90,7 +91,6 @@ ElementUI 日期选择器时间选择范围限制
   - 布局的变化导致元素的尺寸、位置或隐藏状态的变化，需要重新计算整个布局
   - 回流会造成重绘，但重绘不一定会回流
 ```
-
 
 ```typescript
 // 用TS构建长属性列表
@@ -16615,26 +16615,6 @@ a()
 - 协变与逆变
 - 模特换装效果 css mask
 
-javascript 数据结构与算法
-
-promise
-
-axios
-
-vue3+ts
-
-lodash
-
-element
-
-node
-
-express
-
-koa
-
-ejs
-
 **文档类**
 
 [Vue3+TS 快速上手](https://24kcs.github.io/vue3_study/)
@@ -16666,9 +16646,7 @@ ejs
 [阮一峰的网络日志](https://www.ruanyifeng.com/blog/)
 
 手写继承
-instanceof 实现原理
 promise 限制并发数
-箭头函数跟普通函数的区别
 flex 1 全写
 vue 双向绑定原理
 https 实现原理（越详细越好）
@@ -36731,4 +36709,156 @@ module --> chunk --> bundle
 2. 将空对象的原型，指向于构造函数的原型
 3. 将空对象作为构造函数的上下文（改变 this 指向）
 4. 对构造函数有返回值的处理判断
+```
+
+vue 和 react 有什么区别，更喜欢用哪个，为什么
+
+react hook 熟悉吗，解决了什么问题，用 react hook 写一个用户鉴权的组件，所有其他组件都要经过它验证(auth 是一个 promise)
+
+为什么请求放在 useEffect 里，放在外面和放里面有什么区别？在 useEffect 里想使用 async/await 怎么用
+
+谈了谈 useLayoutEffect 和 useEffect 具体执行时机
+
+算法，一个树结构，有 id 和一个子节点数组，要求在所有子节点上增加一个属性为父节点的 parentId
+
+async/await 和 promise 性能差异， 我提到了堆栈追踪，在本人发表的其他文章里有写到
+
+react 写一个时间选择组件，先设计要传什么样的 props 接口，说明原因，外部组件如何使用(其实就是考封装组件库), 如果是手机端的，无线滚动的效果具体如何实现
+
+CommonJS 和 ES6 模块化有什么区别，设计一个方法，让 CommonJS 导出的模块也能改变其内部变量
+
+webpack treeShaking 原理，是靠什么才能实现(ES6 模块的静态导出)
+
+webpack 的构建原理，loader 和 plugin 的区别
+
+讲一下 js 的隐式转换
+
+JSONP 和 ajax 有什么区别，手写一个 JSONP(promise 版的)，window 上挂在的函数如何避免重名
+
+算法，实现一个螺旋矩阵
+
+网络安全，XSS、CSRF、SSRF 的原理，黑客是如何利用这些漏洞的
+
+XSS 如何防御，交给前端做还是交给后端做，如何做
+
+CSRF 如何防御，同源策略解决了什么问题
+
+前端性能优化是怎么做的，各方面考虑(我谈了从网络层面的，浏览器渲染层面的还有 css、js 执行，框架层面的，越详细越好)
+
+http 缓存和 CDN 原理讲一下
+
+老生常谈的问题，用户输入 url 到页面展示经历了哪些步骤(越详细越好，这个问题能讲很久)
+
+http 和 https 的区别，https 有什么好处，https 握手过程，https 是如何做到“安全”的
+
+http2 了解过吗，http2 和 http1 的区别和好处，http2 的头部压缩的原理
+
+鼠标滚动的时候，会触发很多次事件，如何解决的？(我说的防抖和节流) 具体用的防抖还是节流，我答节流
+
+能实现一个节流函数吗？(很快写完了 定时器版) 面试官改进一下要求滚动第一次就触发，于是改成时间戳版。再改进一下，最后一次的延迟也要触发，于是改成了时间戳+定时器版，完美解决
+
+一个场景，鼠标移动到超链接上，有气泡弹出，内容为去后端请求的接口内容(页面有很多个超链接，内容都不一样)
+
+AJAX 的原理，如何实现(手写), http 状态码都有哪些，代表什么意思
+
+```markdown
+webpack 的工作原理可以简单概括为以下几个步骤：
+
+1. 入口文件：webpack 会通过制定的入口文件（entry）开始分析整个应用程序的依赖关系，生成一个依赖图谱（dependency graph）
+2. 模块加载：通过模块加载器（loader），webpack 可以将所有类型的文件转换为 JavaScript 模块，以便在浏览器中运行
+3. 插件处理：JavaScript 模块和其他类型的文件被加载并编译后，webpack 会使用各种插件（plugins）对它们进行生成、优化、压缩和其他处理。
+4. Chunk 生成：webpack 会根据配置项和插件的设置，将所有模块组合成一个或多个 JavaScript 文件（也称为 chunk），这些文件包含整个应用程序的所有代码和依赖项。
+5. 资源输出：最后，webpack 会将 chunk 写入指定的输出目录（output Directory），以便可以在 web 服务器或浏览器中使用。
+
+在构建过程中，webpack 具有以下特点：
+
+1. 基于配置：webpack 可以通过配置文件的方式来定义构建过程中的各种规则和流程，用户可以自定义各种 loader、plugin，以及输出的文件名、路径等。
+2. 模块化管理：webpack 支持一种“万物皆模块”的理念，几乎可以将所有的资源都作为模块处理，包括 JavaScript、CSS、图片、字体等文件。
+3. Tree shaking：webpack 支持 Tree Shaking，它会在打包时，只将被使用的代码打包进最终的文件，减少文件的大小，提高加载速度。
+4. 按需加载：webpack 支持代码分割，可以将不同的代码分割成不同的 chunk，可以按需加载，提高应用程序性能。
+
+总的来说，webpack 将整个应用程序当做一个静态资源，通过分析这些资源之间的依赖关系来生成最终的打包文件。它可以轻松地处理代码分割、按需编译等方面的需求，同时支持多种资源类型和多种定制化的构建设置，因此在现代 web 应用程序中得到了广泛的应用。
+```
+
+```javascript
+function Foo() {}
+const f = new Foo()
+console.log(f.a)
+Foo.prototype.a = 1
+console.log(f.a)
+Foo.prototype = { a: 2 }
+console.log(f.a)
+const f2 = new Foo()
+console.log(f2.a)
+```
+
+```mermaid
+graph LR
+A[类型转换规则] --> B["原始 -> 数字"]
+B --> BA[true:1]
+B --> BB[false:0]
+B --> BC[null:0]
+B --> BD[undefined:NaN]
+B --> BE[string]
+BE --> BEA["空字符串（含空白字符）:0"]
+BE --> BEB["去掉引号，不是数字就是 NaN"]
+A --> C["所有 -> bool"]
+C --> CA["null:false"]
+C --> CB["undefined:false"]
+C --> CC["number"]
+CC --> CCA["0:false"]
+CC --> CCB["其他:true"]
+C --> CD["string"]
+CD --> CDA["空字符串:false"]
+CD --> CDB["其他:true"]
+C --> CE["对象:true"]
+A --> D["原始 -> 字符串"]
+D --> DA["null:'null'"]
+D --> DB["undefined:'undefined'"]
+D --> DC["number:'数字'"]
+D --> DD["boolean"]
+DD --> DDA["true:'true'"]
+DD --> DDB["false:'false'"]
+A --> E["对象 -> 原始"]
+E --> EA["调用 valueOf"] --> EB["得到的是对象？重新调用 toString"] --> EC["得到的还是对象报错"]
+```
+
+```markdown
+https://www.jsv9000.app/
+
+# JS 异步编程问题应答范式及进阶
+
+进程 线程 EventLoop setTimeout ajax(xhr) readFile Promise Generator async await
+
+Promise 的理解是什么？Promise 核心解决的问题是什么？
+
+Generator 自执行器？他解决异步中的什么问题？
+
+async await 的本质是什么？
+
+request client 高阶问题，你如何设计实现一个 自动识别外部 catch 的拦截器
+
+## eventloop
+
+JavaScript 单线程编程语言 实现异步
+
+同步代码执行完毕 --> event loop --> 循环判断微任务队列是否清空？ --> requestAnimationFrameQueue 是否有待执行的任务 & 浏览器是否可以执行刷新 --> 取一个宏任务的回调来执行 --> event loop
+```
+
+```markdown
+# vite7 极速进阶与原理深度剖析，前端专家带你悟透新生代打包构建方案与工作流
+
+## vite 和 webpack 有什么区别？详细说说 vite7 工程化细节，常见配置和优化手段
+
+踩捧
+webpack 缺点：
+
+1. 增量启动慢
+2. 性能表现差
+
+vite 优势
+
+1. 开发环境启动快
+2. 性能好
+3. 配置简单，开箱即用
 ```
