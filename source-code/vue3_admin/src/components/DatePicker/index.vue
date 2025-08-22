@@ -1,12 +1,12 @@
 <template>
   <div v-click-outside class="date-picker-container">
-    <input type="text" :value="formatDate" @focus="handleFocus" @blur="handleBlur" />
+    <input type="text" :value="formatDate" @focus="handleFocus" />
     <div class="panel" v-if="state.isVisible"> content </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { defineProps, computed, reactive } from 'vue'
+import { defineProps, computed, reactive, defineExpose } from 'vue'
 import { getYearMonthDay } from '@/utils/index'
 import vClickOutside from './directive/vClickOutside.ts'
 
@@ -33,6 +33,8 @@ const handleFocus = () => {
 const handleBlur = () => {
   state.isVisible = false
 }
+
+defineExpose({ handleFocus, handleBlur })
 </script>
 
 <style lang="scss" scoped>
